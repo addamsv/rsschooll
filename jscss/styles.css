@@ -35,10 +35,11 @@ body{
         font-family: 'Roboto', sans-serif;
         height: 20px;
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 400;
         padding-top: 3px;
     }
-    .link-active a{
+    .nav__wrapper li a.link-active{
+        font-weight: 500;
         border-bottom: 1px solid #fff;
     }
     .main-logo{
@@ -84,7 +85,6 @@ body{
             text-align: center;
             letter-spacing: 4.5px;
             line-height: 0.8em;
-            /* padding-left: 10px; */
         }
         .header-sub-slug{
             position: absolute;
@@ -188,7 +188,132 @@ body{
         .represet-section__iside-img{
             margin-left: 248px;
             margin-top: 120px;
+            margin-bottom: 140px;
         }
+
+
+
+
+
+.community-section{
+    height: 504px;
+    background-color: #F5F6F7;
+}
+    .community-card__wrapper{
+        display: flex;
+    }
+        .community-card{
+            display: flex;
+            Align-items: center;
+            flex-direction: column;
+            margin-top: 155px;
+            margin-left: 269px;
+            width: 298px;
+        }
+        .community-icon{
+            width: 45px;
+            height: 45px;
+        }
+        .community-header{
+            color: #373737;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2.2px;
+            width: 160px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .community-info{
+            text-align: center;
+            color: #4E4E4E;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            width: 298px;
+            margin-top: 10px;
+            /* !pixel-perfect fix (should be 140%) */
+            line-height: 143%;
+        }
+        .community-slider{
+            box-sizing: border-box;
+            height: 244px;
+            background-color: #fff;
+            margin-left: 139px;
+            margin-top: 120px;
+            width: 894px;
+            overflow: hidden;
+        }
+        .community-slider img{
+            margin-left: 30px;
+            width: 407px;
+            height: 244px;
+        }
+        img.slider-first{
+            margin-left: 0;
+        }
+
+
+
+
+
+
+
+.right-code-section{
+    height: 842px;
+    background: #fff;
+}
+    .right-code__wrapper{
+        display: flex;
+    }
+        .right-code__wrapper img{
+            width: 407px;
+            height: 582px;
+            margin-left: 269px;
+            margin-top: 120px;
+        }
+        .right-code-card{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 319px;
+            margin-left: 139px;
+        }
+            .right-code-header{
+                color: #373737;
+                font-family: 'Roboto', sans-serif;
+                font-weight: bold;
+                font-size: 24px;
+                letter-spacing: 0.043em;
+                text-transform: uppercase;
+                width: 298px;
+            }
+            .right-code-info{
+                color: #4E4E4E;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 400;
+                font-size: 14px;
+                margin-top: 20px;
+                /* !pixel-perfect fix (should be 140%) */
+                line-height: 143%;
+                width: 407px;
+            }
+            .right-code-button{
+                width: 180px;
+                height: 46px;
+                color: #fff;
+                font-family: 'Roboto', sans-serif;
+                font-weight: bold;
+                font-size: 14px;
+                text-align: center;
+                background-color: #00AFDB;
+                text-transform: uppercase;
+                line-height: 3.4em;
+                margin-top: 30px;
+            }
+
+
 
 
 .footer-section{
@@ -210,6 +335,8 @@ body{
             width: 273px;
             height: 16px;
             list-style: none;
+            padding: 0;
+            margin-left: 160px;
         }
             .footer-nav {
                 color: #4E4E4E;
@@ -232,4 +359,5 @@ body{
             font-family: 'Roboto', sans-serif;
             font-weight: 400;
             font-size: 14px;
+            margin-right: 160px;
         }
