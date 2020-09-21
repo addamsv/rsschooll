@@ -316,6 +316,129 @@ body{
 
 
 
+.sign-up-mailing-section{
+    /* pixel-perfect fix (shouldbe height: 598px;) */
+    height: 524px;
+    background: url("/img/sign-up-mailing.png");
+    background-color:#fff;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: top center;
+    background-size: cover;
+    overflow: hidden;
+    position: relative;
+    display: block;
+}
+    .sign-up-mailing-section__overlay{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, .6);
+    }
+.sign-up-mailing__container-wrapper{
+    /* pixel-perfect fix (shouldbe height: 217px;) */
+    margin-top: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* z-index: 1; */
+}
+.sign-up-mailing-header{
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    letter-spacing: 0.043em;
+    text-transform: uppercase;
+    width: 380px;
+    height: 28px;
+    z-index: 1;
+}
+.sign-up-container{
+    z-index: 1;
+    width: 406px;
+    margin-top: 30px;
+}
+.sign-up-mailing-input{
+    width: 340px;
+    height: 46px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    vertical-align: bottom;
+    text-indent: 23px;
+    color: #373737;
+    font-size: 14px;
+}
+.sign-up-mailing-btn{
+    width: 66px;
+    height: 46px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    vertical-align: bottom;
+    background: url("/img/btn-submit.svg");
+}
+
+
+
+
+
+
+
+.download-app-section{
+    height: 468px;
+    position: relative;
+}
+.download-app-header{
+    color: #373737;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    width: 270px;
+    top: 120px;
+    position: absolute;
+    left: calc(50% - 125px);
+}
+.download-app-info{
+    width: 483px;
+    position: absolute;
+    left: calc(50% - 242px);
+    top: calc(50% - 65px);
+    text-align: center;
+    color: #4e4e4e;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 1.5em;
+}
+.download-app-buttons__wrapper{
+    width: 465px;
+    position: absolute;
+    left: calc(50% - 232px);
+    top: 50%;
+}
+.apple-store-btn,
+.android-store-btn{
+    height: 50px;
+    width: 188px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: #00AFDB;
+    margin-left: 30px;
+}
+.android-store-btn{
+
+}
+
+
+
 .footer-section{
     width: 100%;
     background-color: #000;
