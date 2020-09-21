@@ -55,7 +55,7 @@ body{
     width: 100vw;
     height: 100vh;
     background-color: #000;
-    background: url('/img/bg-image-wrapper.png');
+    background: url('../img/bg-image-wrapper.png');
     background-color: rgba( 78, 78, 78, 0 );
     background-repeat: no-repeat;
     background-attachment: scroll;
@@ -319,7 +319,7 @@ body{
 .sign-up-mailing-section{
     /* pixel-perfect fix (shouldbe height: 598px;) */
     height: 524px;
-    background: url("/img/sign-up-mailing.png");
+    background: url("../img/sign-up-mailing.png");
     background-color:#fff;
     background-repeat: no-repeat;
     background-attachment: scroll;
@@ -381,7 +381,7 @@ body{
     margin: 0;
     border: none;
     vertical-align: bottom;
-    background: url("/img/btn-submit.svg");
+    background: url("../img/btn-submit.svg");
 }
 
 
