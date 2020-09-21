@@ -1,1 +1,1 @@
-https://rolling-scopes-school.github.io/addamsv-JS2020Q3/webdev/
+addamsv-JS2020Q3
