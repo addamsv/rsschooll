@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Calculator</title>
   <link href="styles.css" rel="stylesheet">
-  <script src="script.js" defer></script>
 </head>
 <body>
   <div class="calculator-grid">
@@ -14,26 +13,28 @@
       <div id='previousOperand' data-previous-operand class="previous-operand"></div>
       <div id='currentOperand' data-current-operand class="current-operand"></div>
     </div>
-    <button data-calc-btn="AC">AC</button>
-    <button data-calc-btn="DEL">DEL</button>
-    <button data-calc-btn="pow">pow</button>
+    <button data-calc-btn="AC" class="span-two">AC</button>
+    <button data-calc-btn="DEL" class="span-two">DEL</button>
+    <button data-calc-btn="pow">^</button>
     <button data-calc-btn="root">√</button>
+    <button data-calc-btn="+/-">+/-</button>
+    <button data-calc-btn="/">÷</button>
     <button data-calc-btn="7">7</button>
     <button data-calc-btn="8">8</button>
     <button data-calc-btn="9">9</button>
-    <button data-calc-btn="/">÷</button>
+    <button data-calc-btn="*">*</button>
     <button data-calc-btn="4">4</button>
     <button data-calc-btn="5">5</button>
     <button data-calc-btn="6">6</button>
-    <button data-calc-btn="*">*</button>
+    <button data-calc-btn="+">+</button>
     <button data-calc-btn="1">1</button>
     <button data-calc-btn="2">2</button>
     <button data-calc-btn="3">3</button>
-    <button data-calc-btn="+">+</button>
+    <button data-calc-btn="-">-</button>
     <button data-calc-btn=".">.</button>
     <button data-calc-btn="0">0</button>
-    <button data-calc-btn="=">=</button>
-    <button data-calc-btn="-">-</button>
+    <button data-calc-btn="=" class="span-two">=</button>
   </div>
+  <script src="script.js" defer></script>
 </body>
 </html>

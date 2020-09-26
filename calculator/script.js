@@ -1,13 +1,14 @@
 class Calculator {
 
     constructor(cssSelector="[data-calc-btn]") {
-
+        console.log( 'negative float: ' + (parseFloat('-0.15') + parseFloat('-0.15')) ); 
         this.previousOperandTextElement = document.getElementById('previousOperand');
         this.currentOperandTextElement = document.getElementById('currentOperand');
         this.currentOperand = 2;
         this.previousOperand = 4;
         this.operation;
         this.readyToReset;
+        this.isEqualsBtnWasClicked = false;
 
         this.clear();
         const buttons = document.querySelectorAll(cssSelector);
@@ -20,15 +21,13 @@ class Calculator {
      * Controller
      */
     buttonController(btn){
-        e = e || window.event;
-        e.preventDefault();
-
-        let ob = this; 
+        let ob = this;
         btn.onclick = buttonClickEvent;
-        // btn.ontouchend = buttonClickEvent;
 
         function buttonClickEvent(e) {
             e = e || window.event;
+            e.preventDefault();
+
             if(Number.isInteger(parseInt(btn.dataset.calcBtn)) || btn.dataset.calcBtn === '.'){
                 console.log(btn.dataset.calcBtn);
                 ob.appendNumber(btn.dataset.calcBtn);
@@ -37,40 +36,31 @@ class Calculator {
             switch(btn.dataset.calcBtn){
                 case '=':
                     ob.compute();
-                break;
+                    ob.isEqualsBtnWasClicked = true;
+                    break;
                 case 'root':
-                    ob.chooseOperation('root');
-                break;
+                    ob.sqrt();
+                    break;
                 case 'pow':
-                    ob.chooseOperation('pow');
-                break;
+                    ob.pow();
+                    break;
                 case '+':
-                    ob.chooseOperation('+');
-                    ob.summ();
-                break;
                 case '*':
-                    ob.chooseOperation('*');
-                break;
                 case '/':
-                    ob.chooseOperation('/');
-                break;
                 case '-':
-                    ob.chooseOperation('-');
-                break;
+                    ob.standartOperation(btn.dataset.calcBtn);
+                    break;
                 case 'AC':
                     ob.clear();
-                break;
+                    break;
                 case 'DEL':
                     ob.delete();
-                break;
+                    break;
+                case '+/-':
+                    ob.changeSign();
+                    break;
             }
-            // document.onmouseup = buttonClickEventEnd;
-            // document.ontouchend = buttonClickEventEnd;
-        }
-        // function buttonClickEventEnd() {
-        //     document.onmouseup = null;
-        //     document.ontouchend = null;
-        // }     
+        } 
     }
 
 
@@ -95,74 +85,109 @@ class Calculator {
         this.currentOperand = this.currentOperand.toString().slice(0, -1);
         this.updateDisplay();
     }
-
-    summ(){
-        console.log(this.currentOperand + this.previousOperand);
+    pow(n = 2) {
+        let current = parseFloat(this.currentOperand);
+        if(isNaN(current)){
+            return;
+        }
+        current =  Math.pow(current, n);
+        console.log('current: ' + current);
+        this.currentOperand = current;
+        //this.currentOperandTextElement.innerText = current;
+        this.previousOperand = 'pow';
+        this.updateDisplay();
     }
-
+    sqrt(n = 2) {
+        let current = parseFloat(this.currentOperand);
+        if(isNaN(current)){
+            return;
+        }
+        current =  Math.sqrt(current, n);
+        console.log('current: ' + current);
+        this.currentOperand = current;
+        this.currentOperandTextElement.innerText = current;
+    }
     appendNumber(number) {
         console.log('appendNumber');
+        if(this.isEqualsBtnWasClicked){
+            this.currentOperand = '';
+            this.isEqualsBtnWasClicked = false;
+        }
         if(number === '.' && this.currentOperand.includes('.')){
             return;
         }
         this.currentOperand = this.currentOperand.toString() + number.toString();
     }
 
-    chooseOperation(operation) {
-        if(this.currentOperand === ''){
+    standartOperation(operation) {
+        if(this.currentOperand === '' || this.currentOperand === '0'){
             return;
         }
+
         if(this.previousOperand !== ''){
+            console.log('----stage3: '+this.previousOperand +' '+this.currentOperand);
             this.compute();
         }
         console.log('choosenOperation: ' + operation);
         this.operation = operation;
         this.previousOperand = this.currentOperand;
         this.currentOperand = '';
+        this.previousOperandTextElement.innerText = (this.operation && this.previousOperand !== '') ? this.makeSeparatedDigit(this.previousOperand) + ' ' + this.operation : this.makeSeparatedDigit(this.previousOperand);
+        this.currentOperandTextElement.innerText = '0';
+    }
+    changeSign(){
+        this.currentOperand *= -1;
+        this.currentOperandTextElement.innerText = this.currentOperand;
+        console.log('this.currentOperand: '+this.currentOperand);
     }
 
     compute(){
-        console.log('compute');
         let computation;
         const prev = parseFloat(this.previousOperand);
         const current = parseFloat(this.currentOperand);
+        console.log('compute: ' + this.operation + ' ' + (isNaN(prev) || isNaN(current))) ;
         if(isNaN(prev) || isNaN(current)){
             return;
         }
         switch (this.operation) {
             case '+':
                 computation = prev + current;
-                break
+                break;
             case '-':
                 computation = prev - current;
-                break
+                break;
             case '*':
                 computation = prev * current;
-                break
+                break;
             case '/':
                 computation = prev / current;
-                break
+                break;
+            case '+/-':
+                computation = '-' + current;
+                break;
             default:
                 return;
         }
         this.currentOperand = computation;
-        this.operation = undefined;
+        //this.operation = '=';//undefined;
         this.previousOperand = '';
         this.updateDisplay();
     }
 
     updateDisplay(){
-        console.log('updateDisplay');
+        console.log('updateDisplay: '+this.operation);
         this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand);
-        this.previousOperandTextElement.innerText = this.operation ? this.makeSeparatedDigit(this.previousOperand) + ' ' + this.operation : this.makeSeparatedDigit(this.previousOperand);
+        this.previousOperandTextElement.innerText = (this.operation && this.previousOperand != '') ? this.makeSeparatedDigit(this.previousOperand) + ' ' + this.operation : this.makeSeparatedDigit(this.previousOperand);
     }
 
     makeSeparatedDigit(num){
         const stringNumber = num.toString();
+        const numSign = (stringNumber.substr(0,1) === '-') ? '-' : '';
         const integerDigits = parseFloat(stringNumber.split('.')[0]);
+        console.log('stage4: '+stringNumber);
         const decimalDigits = stringNumber.split('.')[1];
         let integerDisplay;
-        integerDisplay = (isNaN(integerDigits)) ? '' : integerDigits.toLocaleString('en', { maximumFractionDigits: 0 });
+        integerDisplay = (isNaN(integerDigits)) ? numSign+'' : numSign + integerDigits.toLocaleString('en', { maximumFractionDigits: 0 });
 
         return  (decimalDigits != null) ? integerDisplay + '.' + decimalDigits : integerDisplay;
     }
