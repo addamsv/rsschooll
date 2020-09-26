@@ -22,8 +22,8 @@ class Calculator {
     buttonController(btn){
 
         let ob = this; 
-        btn.onmousedown = buttonClickEvent;
-        btn.ontouchstart = buttonClickEvent;
+        btn.onclick = buttonClickEvent;
+        // btn.ontouchend = buttonClickEvent;
 
         function buttonClickEvent(e) {
             e = e || window.event;
@@ -62,13 +62,13 @@ class Calculator {
                     ob.delete();
                 break;
             }
-            document.onmouseup = buttonClickEventEnd;
-            document.ontouchend = buttonClickEventEnd;
+            // document.onmouseup = buttonClickEventEnd;
+            // document.ontouchend = buttonClickEventEnd;
         }
-        function buttonClickEventEnd() {
-            document.onmouseup = null;
-            document.ontouchend = null;
-        }     
+        // function buttonClickEventEnd() {
+        //     document.onmouseup = null;
+        //     document.ontouchend = null;
+        // }     
     }
 
 
