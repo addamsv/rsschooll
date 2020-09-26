@@ -23,6 +23,7 @@ class Calculator {
     buttonController(btn){
         let ob = this;
         btn.onclick = buttonClickEvent;
+        btn.ontouchend = buttonClickEvent;
 
         function buttonClickEvent(e) {
             e = e || window.event;
