@@ -35,7 +35,6 @@ class Calculator {
             switch(btn.dataset.calcBtn){
                 case '=':
                     ob.compute();
-                    ob.updateDisplay();
                 break;
                 case 'root':
                     ob.chooseOperation('root');
@@ -85,29 +84,85 @@ class Calculator {
         this.previousOperand = '';
         this.operation = undefined;
         this.readyToReset = false;
+
+        this.updateDisplay();
     }
     
     delete() {
         console.log('delete');
+        this.currentOperand = this.currentOperand.toString().slice(0, -1);
+        this.updateDisplay();
     }
 
     summ(){
+        console.log(this.currentOperand + this.previousOperand);
     }
 
     appendNumber(number) {
         console.log('appendNumber');
+        if(number === '.' && this.currentOperand.includes('.')){
+            return;
+        }
+        this.currentOperand = this.currentOperand.toString() + number.toString();
     }
 
     chooseOperation(operation) {
-        console.log('chooseOperation');
+        if(this.currentOperand === ''){
+            return;
+        }
+        if(this.previousOperand !== ''){
+            this.compute();
+        }
+        console.log('choosenOperation: ' + operation);
+        this.operation = operation;
+        this.previousOperand = this.currentOperand;
+        this.currentOperand = '';
     }
 
     compute(){
         console.log('compute');
+        let computation;
+        const prev = parseFloat(this.previousOperand);
+        const current = parseFloat(this.currentOperand);
+        if(isNaN(prev) || isNaN(current)){
+            return;
+        }
+        switch (this.operation) {
+            case '+':
+                computation = prev + current;
+                break
+            case '-':
+                computation = prev - current;
+                break
+            case '*':
+                computation = prev * current;
+                break
+            case '/':
+                computation = prev / current;
+                break
+            default:
+                return;
+        }
+        this.currentOperand = computation;
+        this.operation = undefined;
+        this.previousOperand = '';
+        this.updateDisplay();
     }
 
     updateDisplay(){
         console.log('updateDisplay');
+        this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand);
+        this.previousOperandTextElement.innerText = this.operation ? this.makeSeparatedDigit(this.previousOperand) + ' ' + this.operation : this.makeSeparatedDigit(this.previousOperand);
+    }
+
+    makeSeparatedDigit(num){
+        const stringNumber = num.toString();
+        const integerDigits = parseFloat(stringNumber.split('.')[0]);
+        const decimalDigits = stringNumber.split('.')[1];
+        let integerDisplay;
+        integerDisplay = (isNaN(integerDigits)) ? '' : integerDigits.toLocaleString('en', { maximumFractionDigits: 0 });
+
+        return  (decimalDigits != null) ? integerDisplay + '.' + decimalDigits : integerDisplay;
     }
 
 }
