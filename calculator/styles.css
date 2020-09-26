@@ -15,8 +15,8 @@
     justify-content: center;
     align-content: center;
     min-height: 100vh;
-    grid-template-columns: repeat(4, 100px);
-    grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+    grid-template-columns: repeat(4, 90px);
+    grid-template-rows: minmax(120px, auto) repeat(6, 90px);
   }
   
   .calculator-grid > button {
@@ -31,9 +31,9 @@
     background-color: rgba(255, 255, 255, .9);
   }
   
-  /* .span-two {
+  .span-two {
     grid-column: span 2;
-  } */
+  }
   
   .output {
     grid-column: 1 / -1;
