@@ -20,6 +20,8 @@ class Calculator {
      * Controller
      */
     buttonController(btn){
+        e = e || window.event;
+        e.preventDefault();
 
         let ob = this; 
         btn.onclick = buttonClickEvent;
