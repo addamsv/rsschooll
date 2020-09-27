@@ -430,21 +430,29 @@ class Calculator {
             newNode,
              newNodeInner;
 
-        newNode = document.createElement('div');
-        newNode.className = 'output';
-            newNodeInner = document.createElement('div');
-            newNodeInner.className = 'previous-operand';
-            newNodeInner.id = 'previousOperand';
-            newNode.appendChild(newNodeInner);
-            newNodeInner = document.createElement('div');
-            newNodeInner.className = 'current-operand';
-            newNodeInner.id = 'currentOperand';
-            newNode.appendChild(newNodeInner);
-        
-        ob.appendChild(newNode);   
+            newNode = document.createElement('div');
+            newNode.className = 'output';
+                newNodeInner = document.createElement('div');
+                newNodeInner.className = 'previous-operand';
+                newNodeInner.id = 'previousOperand';
+                newNode.appendChild(newNodeInner);
+                newNodeInner = document.createElement('div');
+                newNodeInner.className = 'current-operand';
+                newNodeInner.id = 'currentOperand';
+                newNode.appendChild(newNodeInner);
+            
+        ob.appendChild(newNode);
+
+            newNode = document.createElement('button');
+            newNode.className = 'span-two';
+            newNode.innerText = 'AC';
+            newNode.dataset.calcBtn = 'AC';
+
+        ob.appendChild(newNode)
+
 
         ob.innerHTML = ob.innerHTML + 
-            `<button data-calc-btn="AC" class="span-two">AC</button>
+            `
             <button data-calc-btn="DEL" class="span-two">DEL</button>
             <button data-calc-btn="pow">^</button>
             <button data-calc-btn="root">√</button>
@@ -467,26 +475,10 @@ class Calculator {
             <button data-calc-btn="=" class="span-two">=</button>`;
      }
 
-
+//<button data-calc-btn="AC" class="span-two">AC</button>
 
 
 
 }
 
 
-
-
-
-
-
-
-new Calculator();
-
-
-        // current =  Math.pow(current, n);
-        // console.log('current: ' + current);
-        // this.currentOperand = current;
-        // //this.currentOperandTextElement.innerText = current;
-        // //this.previousOperand = 'pow';
-
-        // this.updateDisplay();
