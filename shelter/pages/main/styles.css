@@ -238,6 +238,83 @@ main {
     top: 0;
     background-color: #F6F6F6;
 }
+    .our-friends-wrapper{
+        position: relative;
+        width: 1200px;
+        left: 360px;
+        top: 80px;
+        height: 697px;
+    }
+        .our-friends-title{
+            position: relative;
+            width: 400px;
+            height: 90px;
+            left: 401px;
+            top: 1px;
+            font-family: Georgia;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 35px;
+            line-height: 130%;
+            margin: 0;
+            padding: 0;
+            text-indent: 59px;
+            letter-spacing: 0.06em;
+            word-spacing: 0em;
+            color: #545454;
+        }
+        .our-friends-slider-nav-left{
+            position: relative;
+ 
+        }
+        .our-friends-slider-nav-right{
+            position: relative;
+
+        }
+        .our-friends-slider-card{
+            position: absolute;
+
+            width: 270px;
+            height: 435px;
+            background: #FAFAFA;
+            /* background: #aaa; */
+            top: 150px;
+            border-radius: 9px;
+        }
+        .our-friends-slider-card.our-friends-slider-card-first{
+            left: 105px;
+        }
+        .our-friends-slider-card.our-friends-slider-card-second{
+            left: 465px;
+        }
+        .our-friends-slider-card.our-friends-slider-card-third{
+            left: 825px;
+        }
+                .our-friends-slider-card-title{
+                    position: absolute;
+                    top: 300px;
+                    left: 98px;
+                    font-family: Georgia;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 23px;
+                    letter-spacing: 0.06em;
+                    color: #545454;
+                }
+                .our-friends-slider-card-title.nxt{
+                    left: 94px;
+                }
+                .our-friends-slider-card-title.nxt3{
+                    left: 101px;
+                }
+
+
+
+
+
+
+
 
 
 
@@ -267,4 +344,18 @@ main {
     height: 464px;
     top: 0;
     background-color: #F6F6F6;
+}
+
+
+
+
+
+
+footer{
+    position: relative;
+    display: block;
+    width: 1920px;
+    height: 355px;
+    top: 0;
+    background-color: #1A1A1C;    
 }
