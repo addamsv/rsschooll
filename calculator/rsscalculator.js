@@ -224,10 +224,10 @@ class CalculatorModel extends CalculatorView {
     appendNumber(number) {
         console.log('appendNumber');
         if(this.isEqualsBtnWasClicked){
-            this.currentOperand = '';
+            this.currentOperand = 0;//'';
             this.isEqualsBtnWasClicked = false;
         }
-        if(number === '.' && this.currentOperand.includes('.')){
+        if(number === '.' && this.currentOperand.toString().includes('.')){
             return;
         }
         if(this.isPowOperation){
@@ -256,7 +256,7 @@ class CalculatorModel extends CalculatorView {
         console.log('choosenOperation: ' + operation);
         this.operation = operation;
         this.previousOperand = this.currentOperand;
-        this.currentOperand = '';
+        this.currentOperand = 0;//'';
         this.previousOperandTextElement.innerText = (this.operation && this.previousOperand !== '') ? this.makeSeparatedDigit(this.previousOperand) + ' ' + this.operation : this.makeSeparatedDigit(this.previousOperand);
         this.currentOperandTextElement.innerText = '0';
     }
@@ -307,7 +307,7 @@ class CalculatorModel extends CalculatorView {
                 computation = prev * current;
                 break;
             case '/':
-                if(current==0){
+                if(current == 0){
                     alert('Incorrect argument!');
                     return;
                 }
@@ -458,11 +458,23 @@ class Calculator extends CalculatorModel {
     constructor(cssSelector="[data-calc-btn]") {
         super();
 
+        console.log(window.navigator.userAgent.toLowerCase());
+
+
+        
+        (this.isInternetExplorer() === true) ? alert('The Calculator wont work because of not support grid and OOP' ) : '' ;
+
         const buttons = document.querySelectorAll(cssSelector);
         for (var i = 0, l = buttons.length; i < l; i++) {
             this.buttonController(buttons[i]);
         }
     }
+
+    isInternetExplorer() {
+        return window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
+    }
+
+
 
     /**
 	* @private	Controlls all button we have
