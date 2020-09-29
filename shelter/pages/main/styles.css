@@ -237,13 +237,16 @@ main {
     height: 877px;
     top: 0;
     background-color: #F6F6F6;
+    /* background-color: #aaa; */
 }
     .our-friends-wrapper{
         position: relative;
+        display: block;
         width: 1200px;
         left: 360px;
         top: 80px;
         height: 697px;
+        /* background-color: #bbb; */
     }
         .our-friends-title{
             position: relative;
@@ -272,44 +275,102 @@ main {
 
         }
         .our-friends-slider-card{
-            position: absolute;
+            position: relative;
+            display: inline-block;
 
             width: 270px;
             height: 435px;
             background: #FAFAFA;
             /* background: #aaa; */
-            top: 150px;
+            top: 60px;
             border-radius: 9px;
+        }
+        .our-friends-slider-card:hover{
+            transition: all 0.2s;
+            background-color: #FFFFFF;
+            cursor: pointer;
+            box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
         }
         .our-friends-slider-card.our-friends-slider-card-first{
             left: 105px;
         }
         .our-friends-slider-card.our-friends-slider-card-second{
-            left: 465px;
+            left: 191px;
         }
         .our-friends-slider-card.our-friends-slider-card-third{
-            left: 825px;
+            left: 277px;
         }
-                .our-friends-slider-card-title{
-                    position: absolute;
-                    top: 300px;
-                    left: 98px;
-                    font-family: Georgia;
-                    font-style: normal;
-                    font-weight: normal;
-                    font-size: 20px;
-                    line-height: 23px;
-                    letter-spacing: 0.06em;
-                    color: #545454;
-                }
+            .our-friends-slider-card-image{
+                position: relative;
+                top: 30px;
+                left: 35px;
+                width: 200px;
+                height: 240px;
+                margin: 0;
+                padding: 0;
+            }
+            .card-image-first{
+                background: url('../../assets/images/our-friends-card-photo-catrine.png');
+            }
+            .card-image-second{
+                background: url('../../assets/images/our-friends-card-photo-jennifer.png');
+            }
+            .card-image-third{
+                background: url('../../assets/images/our-friends-card-photo-woody.png');
+            }
+            .our-friends-slider-card-title{
+                position: relative;
+                display: block;
+                top: 60px;
+                left: 98px;
+                font-family: Georgia;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 20px;
+                line-height: 23px;
+                letter-spacing: 0.06em;
+                color: #545454;
+            }
                 .our-friends-slider-card-title.nxt{
                     left: 94px;
                 }
                 .our-friends-slider-card-title.nxt3{
                     left: 101px;
                 }
+            .our-friends-slider-card-button{
+                position: relative;
+                left: 41.5px;
+                top: 90px;
+                width: 186px;
+                height: 52px;
+                /* color-primary */
+                border: 2px solid #F1CDB3;
+                box-sizing: border-box;
+                border-radius: 100px;
+                color: #292929;
+                font-family: Georgia, 'Times New Roman', Times, serif;
+                font-weight: 400;
+                font-size: 17px;
+                letter-spacing: 0.06em;
+                padding-top: 14px;
+                text-align: center;
+            }
 
-
+            .our-friends-slider-button{
+                display: block;
+                position: absolute;
+                bottom: 0px;
+                left: 470px;
+                width: 261px;
+                height: 52px;
+                border-radius: 100px;
+                background-color: #F1CDB3;
+                font-family: Georgia;
+                color: #292929;
+                text-align: center;
+                letter-spacing: 0.093em;
+                line-height: 3.4em;
+            }
 
 
 
@@ -330,8 +391,127 @@ main {
     height: 611px;
     top: 0;
 }
+    .help-wrapper{
+        position: relative;
+        display: block;
+        width: 1200px;
+        left: 360px;
+        right: 360px;
+        top: 80px;
+        height: 431px;
 
 
+
+        /* background-color: #bbb; */
+    }
+        .help-title{
+            padding: 0;
+            margin: 0;
+
+            position: relative;
+            width: 310px;
+            height: 90px;
+            left: 446px;
+            top: 0px;
+        
+            /* h3 */
+            font-family: Georgia;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 35px;
+            line-height: 133%;
+            text-align: center;
+            letter-spacing: 0.0567em;
+
+            /* color-dark-l */
+            color: #545454;    
+        }
+        .help-content{
+            position: relative;
+            width: 1026px;
+            height: 281px;
+            left: 87px;
+            top: 60px;
+            /* display: flex;
+            justify-content: center;
+            flex-wrap: wrap; */
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-row-gap: 3em;
+            
+            /* align-content: space-between; */
+            justify-content: center;
+            
+            
+            
+            /* background-color: #ccc; */
+        }
+        .help-content-card{
+            /* align-self: center; */
+            justify-self: center;
+                /* display: inline-block; */
+                /* position: relative; */
+                /* width: 82px; */
+                height: 113px;
+                /* left: 87px; */
+                top: 0;
+
+
+                /* background-color: #ddd; */
+            }
+                .help-content-card-icon{
+                    position: relative;
+                    width: 60px;
+                    height: 60px;
+                    top: 0;
+                    margin: 0 auto;
+
+
+
+                    /* background-color: #eee; */
+                }
+                .help-icon-1{
+                    background: url('../../assets/icons/icon-pet-food.png');
+                }
+                .help-icon-2{
+                    background: url('../../assets/icons/icon-pet-food.png');
+                }
+                .help-icon-3{
+                    background: url('../../assets/icons/icon-pet-food.png');
+                }
+                .help-icon-4{
+                    background: url('../../assets/icons/icon-pet-food.png');
+                }
+                .help-icon-5{
+                    background: url('../../assets/icons/icon-pet-food.png');
+                }
+                .help-icon-6{
+                    background: url('../../assets/icons/icon-pet-food.png');
+                }
+                .help-icon-7{
+                    background: url('../../assets/icons/icon-pet-food.png');
+                }
+                .help-icon-8{
+                    background: url('../../assets/icons/icon-pet-food.png');
+                }
+                .help-icon-9{
+                    background: url('../../assets/icons/icon-pet-food.png');
+                }
+                .help-content-card-title{                                        
+                    font-family: Georgia;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 4.2em;
+                    padding: 0;
+                    margin: 0;
+
+                    text-align: center;
+                    letter-spacing: 0.06em;
+
+                    /* color-dark-l */
+                    color: #545454;
+                }
 
 
 
@@ -346,9 +526,163 @@ main {
     background-color: #F6F6F6;
 }
 
+    .in-addition-wrapper{
+        position: relative;
+        display: block;
+        width: 1200px;
+        height: 284px;
+        left: 360px;
+        /* right: 360px; */
+        top: 80px;
+
+        /* background-color: #bbb; */
+    }
+
+        .in-addition-image{
+            display: inline-block;
+            position: relative;
+            width: 505px;
+            height: 261px;
+            left: 142px;
+            top: 12px;
+            
+            background: url(../../assets/images/donation-dog.png);
+            
+            /* background-color: #aaa; */
+        }
+        .in-addition-content{
+            display: inline-block;
+            position: relative;
+            width: 380px;
+            height: 282px;
+            left: 168px;
+            top: 1px;
+            vertical-align: top;
 
 
 
+            /* background-color: #aaa; */
+        }
+            .in-addition-title{
+                margin: 0;
+                padding: 0;
+
+                position: relative;
+                width: 300px;
+                height: 90px;
+                left: 0;
+                top: 0;
+                
+                /* h3 */
+                
+                font-family: Georgia;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 35px;
+                line-height: 1.3143em;
+                letter-spacing: 0.0599999em;
+                
+
+                
+                /* color-dark-l */
+                
+                color: #545454;
+            }
+
+            .in-addition-add-info{
+                display: block;
+                position: relative;
+                width: 308px;
+                height: 17px;
+                left: 0;
+                top: 20px;
+                
+                /* h5 */
+                
+                font-family: Georgia;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 15px;
+                line-height: 1.2em;                
+
+                letter-spacing: 0.059em;
+                
+                /* color-dark-l */
+                
+                color: #545454;
+            }
+
+            .in-addition-credit-card{
+                display: block;
+                position: relative;
+                width: 349px;
+                height: 43px;
+                left: 0;
+                top: 40px;
+
+                /* color-primary */
+
+                background: #F1CDB3;
+                border-radius: 9px;
+            }
+                .in-addition-credit-card-icon{
+                    background: url('../../assets/icons/credit-card.png');
+                    position: relative;
+                    display: inline-block;
+                    width: 30px;
+                    height: 23px;
+                    left: 15px;
+                    top: 10px;
+                    vertical-align: top;
+
+                    /* color-dark-3xl */
+
+                    /* background: #292929; */
+                }
+                .in-addition-credit-card-num{
+                    display: inline-block;
+                    position: relative;
+                    width: 275px;
+                    height: 23px;
+                    left: 26px;
+                    top: 10px;
+                    vertical-align: top;
+                    /* h4 */
+
+                    font-family: Georgia;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 115%;
+
+                    letter-spacing: 0.06em;
+                    margin: 0;
+                    padding: 0;
+
+                    /* color-dark-l */
+
+                    color: #545454;
+                }
+
+            .in-addition-text{
+                position: relative;
+                width: 380px;
+                height: 72px;
+                left: 0;
+                top: 60px;
+
+                /* donation-description */
+
+                font-family: Arial;
+                font-style: italic;
+                font-weight: normal;
+                font-size: 12px;
+                line-height: 18px;
+
+                /* color-dark-m */
+
+                color: #B2B2B2;
+            }
 
 
 footer{
