@@ -8,7 +8,8 @@ header {
     width: 1920px;
     height: 908px;
     top: 0;
-    background-color: #211F20;
+    /* background-color: #211F20; */
+    background: url(../../assets/icons/noise_lines_transparent.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
 }
     .header-wrapper {
         display: block;
@@ -22,7 +23,7 @@ header {
         .header-logo {
             display: flex;
             flex-direction: column;
-            width: 184px;
+            width: 187px;
             height: 60px;
             left: 0px;  
             top: 0px;
@@ -30,18 +31,18 @@ header {
             .header-logo-title {
                 font-family: Georgia;
                 font-size: 32px;
-                letter-spacing: 0.0547em;
+                letter-spacing: 0.0599em;
                 line-height: 36px;
                 color: #F1CDB3;
                 font-weight: 400;
             }
             .header-logo-subtitle{
                 position: relative;
-                width: 179px;
+                width: 182px;
                 height: 15px;
                 left: 4px;
                 top: 9px;
-                letter-spacing: 0.0976em;
+                letter-spacing: 0.1em;
                 font-family: Arial;
                 font-weight: normal;
                 font-size: 13px;
@@ -73,12 +74,12 @@ header {
                     font-weight: normal;
                     font-size: 15px;
                     letter-spacing: 0em;
-                    padding-bottom: 5px;
+                    padding-bottom: 4px;
                 }
                 .header-menu-list li a.header-menu-list-item-active{
                     color: #F6F6F6;
                     font-weight: 400;
-                    border-bottom: 2px solid #F1CDB3;
+                    border-bottom: 3px solid #F1CDB3;
                 }
     .not-only-wrapper{
         display: block;
@@ -128,7 +129,7 @@ header {
         width: 207px;
         height: 52px;
         left: 0;
-        top: 167px;
+        top: 166px;
         margin: 0;
         border: none;
         
@@ -471,31 +472,31 @@ main {
                     /* background-color: #eee; */
                 }
                 .help-icon-1{
-                    background: url('../../assets/icons/icon-pet-food.png');
+                    background: url('../../assets/icons/icon-pet-food.svg');
                 }
                 .help-icon-2{
-                    background: url('../../assets/icons/icon-pet-food.png');
+                    background: url('../../assets/icons/icon-transportation.svg');
                 }
                 .help-icon-3{
-                    background: url('../../assets/icons/icon-pet-food.png');
+                    background: url('../../assets/icons/icon-toys.svg');
                 }
                 .help-icon-4{
-                    background: url('../../assets/icons/icon-pet-food.png');
+                    background: url('../../assets/icons/icon-bowls-and-cups.svg');
                 }
                 .help-icon-5{
-                    background: url('../../assets/icons/icon-pet-food.png');
+                    background: url('../../assets/icons/icon-shampoos.svg');
                 }
                 .help-icon-6{
-                    background: url('../../assets/icons/icon-pet-food.png');
+                    background: url('../../assets/icons/icon-vitamins.svg');
                 }
                 .help-icon-7{
-                    background: url('../../assets/icons/icon-pet-food.png');
+                    background: url('../../assets/icons/icon-medicines.svg');
                 }
                 .help-icon-8{
-                    background: url('../../assets/icons/icon-pet-food.png');
+                    background: url('../../assets/icons/icon-collars-leashes.svg');
                 }
                 .help-icon-9{
-                    background: url('../../assets/icons/icon-pet-food.png');
+                    background: url('../../assets/icons/icon-sleeping-area.svg');
                 }
                 .help-content-card-title{                                        
                     font-family: Georgia;
@@ -571,7 +572,7 @@ main {
                 width: 300px;
                 height: 90px;
                 left: 0;
-                top: 0;
+                top: 1px;
                 
                 /* h3 */
                 
@@ -579,7 +580,7 @@ main {
                 font-style: normal;
                 font-weight: normal;
                 font-size: 35px;
-                line-height: 1.3143em;
+                line-height: 1.3em;
                 letter-spacing: 0.0599999em;
                 
 
@@ -685,11 +686,161 @@ main {
             }
 
 
+
 footer{
     position: relative;
     display: block;
     width: 1920px;
     height: 355px;
     top: 0;
-    background-color: #1A1A1C;    
+    background-color: #1A1A1C;
+    background: url(../../assets/icons/noise_lines_transparent.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 }
+
+
+    .footer-wrapper{
+        position: relative;
+        display: block;
+        width: 1200px;
+        height: 315px;
+        left: 360px;
+        /* right: 360px; */
+        top: 40px;
+
+        /* background-color: #bbb; */
+    }
+        .footer{
+            display: inline-block;
+            position: relative;
+            vertical-align: top;
+            width: 278px;
+            height: 234px;
+            top: 22px;
+        }
+        .footer-title{
+            /* Title */
+            position: relative;
+            width: 280px;
+            height: 90px;
+            left: 0;
+            top: 0;
+
+            /* h3 */
+
+            font-family: Georgia;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 35px;
+            line-height: 130%;
+            /* or 45px */
+
+            letter-spacing: 0.06em;
+
+            /* color-light-xl */
+
+            color: #FFFFFF;
+        }
+        .footer-info{
+            display: inline-block;
+            position: relative;
+            width: 260px;
+            height: 63px;
+            /* left: 360px; */
+            top: 36px;
+        }
+        .email-link,
+        .phone-link{
+            left: 16px;
+            vertical-align: top;
+            top: 8px;
+        }
+
+
+
+
+        .footer-2{
+            left: 157px;
+            width: 302px;
+        }
+        .location{
+            width: 302px;
+        }
+
+        .footer-2 .footer-info{
+            width: 302px;
+            top: 32px;
+        }
+        .footer .phone{
+            top: 45px;
+        }
+        .footer .location2{
+            top: 42px;
+        }
+        .location-link{
+            top: 0px;
+            left: 15px;
+            width: 260px;
+        }
+        .location2 .location-link{
+            top: 11px;
+        }
+        .footer-info .icon{
+            display: inline-block;
+            position: relative;
+            height: 32px;
+        }
+        .footer-info .email-icon{
+            width: 40px;
+            background: url('../../assets/icons/icon-email.png');
+        }
+        .footer-info .phone-icon{
+            width: 40px;
+            background: url('../../assets/icons/phone.png');
+        }
+        .footer-info .loc-icon{
+            width: 22px;
+            top: 4px;
+            left: -1px; /*fix*/
+            background: url('../../assets/icons/icon-marker.png');
+        }
+        .footer-info .fix{
+            top: 3px;
+        }
+
+        .footer-info .info{
+            display: inline-block;
+            position: relative;
+            /* width: 260px; */
+            height: 63px;
+            vertical-align: middle;
+            /* left: 420px; */
+            /* top: 3644px; */
+
+            /* h4 */
+
+            font-family: Georgia;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 115%;
+            /* identical to box height, or 23px */
+
+            letter-spacing: 0.06em;
+
+            /* color-primary */
+
+            color: #F1CDB3;
+        }
+
+
+
+    .footer-img{
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+        background: url('../../assets/images/footer-puppy.png');
+        width: 300px;
+        height: 315px;
+        left: 312px;
+        top: 0px;
+    }
