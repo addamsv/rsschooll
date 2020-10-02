@@ -308,7 +308,7 @@ class CalculatorModel extends CalculatorView {
                 break;
             case '/':
                 if(current == 0){
-                    alert('Incorrect argument!');
+                    this.currentOperandTextElement.innerText = 'Incorrect argument!';//alert('Incorrect argument!');
                     return;
                 }
                 computation = prev / current;
