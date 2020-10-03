@@ -413,16 +413,16 @@ main {
             width: 310px;
             height: 90px;
             left: 446px;
-            top: 0px;
+            top: 1px;
         
             /* h3 */
             font-family: Georgia;
             font-style: normal;
             font-weight: normal;
             font-size: 35px;
-            line-height: 133%;
+            line-height: 1.31em;
             text-align: center;
-            letter-spacing: 0.0567em;
+            letter-spacing: 0.06em;
 
             /* color-dark-l */
             color: #545454;    
@@ -430,36 +430,49 @@ main {
         .help-content{
             position: relative;
             width: 1026px;
-            height: 281px;
+            height: 168px;/* 140px; */
             left: 87px;
             top: 60px;
             /* display: flex;
             justify-content: center;
             flex-wrap: wrap; */
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
             grid-row-gap: 3em;
-            
-            /* align-content: space-between; */
-            justify-content: center;
+            /* display: flex;
+            flex-wrap: wrap; */
+            align-content: space-between;
+            justify-content: space-around;
             
             
             
             /* background-color: #ccc; */
         }
+        .help-content.col-2{
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
         .help-content-card{
             /* align-self: center; */
             justify-self: center;
-                /* display: inline-block; */
-                /* position: relative; */
-                /* width: 82px; */
-                height: 113px;
-                /* left: 87px; */
-                top: 0;
-
-
-                /* background-color: #ddd; */
-            }
+            /* display: inline-block; */
+            /* position: relative; */
+            /* width: 82px; */
+            height: 113px;
+            /* left: 87px; */
+            top: 0;
+            
+            
+            /* background-color: #ddd; */
+        }
+        .help-content-card.shift{
+            margin-left: 119px;
+        }
+        .help-content-card.shift-sec-col-first{
+            margin-left: 83px;
+        }
+        .help-content-card.shift-sec-col{
+            margin-left: 120px;
+        }
                 .help-content-card-icon{
                     position: relative;
                     width: 60px;
@@ -506,7 +519,7 @@ main {
                     line-height: 4.2em;
                     padding: 0;
                     margin: 0;
-
+                    white-space: nowrap;
                     text-align: center;
                     letter-spacing: 0.06em;
 
