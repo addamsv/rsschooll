@@ -10,41 +10,78 @@
     background: linear-gradient(to right, #00AAFF, #00FF6C);
   }
   
-  .calculator-grid {
+  /* .calculator-grid {
     display: grid;
     justify-content: center;
     align-content: center;
     min-height: 100vh;
     grid-template-columns: repeat(4, 80px);
     grid-template-rows: minmax(120px, auto) repeat(6, 80px);
+  } */
+  .calculator-grid {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    min-height: 500px;
+    width: 320px;
+    flex-wrap: wrap;
+    margin: 15% auto;
   }
-  @media (max-width: 330px){
+
+
+  /* @media (max-width: 330px){
     .calculator-grid {
       grid-template-columns: repeat(4, 50px);
       grid-template-rows: minmax(120px, auto) repeat(6, 50px);  
     }
-  }
+  } */
+
   .calculator-grid > button {
     cursor: pointer;
     font-size: 2rem;
     border: 1px solid white;
     outline: none;
     background-color: rgba(255, 255, 255, .75);
+    width: 80px;
+    height: 80px;
   }
+/*   .calculator-grid > button {
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid white;
+    outline: none;
+    background-color: rgba(255, 255, 255, .75);
+  } */
  
   
   .calculator-grid > button:hover {
     background-color: rgba(255, 255, 255, .9);
   }
   
-  .span-two {
-    grid-column: span 2;
+  /*  
+   .span-two {
+     grid-column: span 2;
+   } */
+  .calculator-grid > button.span-two {
+    width: 160px;
   }
   
-  .output {
+  /* .output {
     grid-column: 1 / -1;
     background-color: rgba(0, 0, 0, .75);
     display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+  } */
+  .output {
+    background-color: rgba(0, 0, 0, .75);
+    display: flex;
+    min-height: 120px;
+    width: 500px;
     align-items: flex-end;
     justify-content: space-around;
     flex-direction: column;
@@ -61,4 +98,20 @@
   .output .current-operand {
     color: white;
     font-size: 2.5rem;
+  }
+  @media (max-width: 330px){
+    .calculator-grid {
+      width: 100%; 
+      margin: 0;
+    }
+    .output{
+      width: 100%;
+    }
+    .calculator-grid > button.span-two {
+      width: 50%;
+    }
+    .calculator-grid > button {
+      width: 25%;
+      height: 25vw;
+    }
   }
