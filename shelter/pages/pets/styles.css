@@ -11,6 +11,7 @@ header {
     width: 1280px;
     height: 128px;
     top: 0;
+    margin: 0 auto;
     /* margin: 0 auto; */
     /* background-color: #211F20; */
     /* background: url(../../assets/icons/noise_lines_transparent.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20; */
@@ -58,7 +59,7 @@ header {
                 position: absolute;
                 width: 443px;
                 height: 27px;
-                left: 757px;
+                right: 0;
                 top: 16px;
             }
             .header-menu-list{
@@ -88,6 +89,47 @@ header {
                 }
     
 
+@media screen and (max-width: 1280px) {
+    header{
+        width: 768px;
+    }
+    .header-wrapper {
+        width: 708px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    header{
+        width: 320px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    header{
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 main {
@@ -95,9 +137,26 @@ main {
     display: block;
     width: 1280px;
     top: 0;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1280px) {
+    main{
+        width: 768px;
+    }
 }
 
 
+@media screen and (max-width: 768px) {
+    main{
+        width: 320px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    main{
+    }
+}
 
 
 
@@ -266,6 +325,7 @@ footer{
     height: 350px;
     top: 0;
     background-color: #1A1A1C;
+    margin: 0 auto;
     background: url(../../assets/icons/noise_lines_transparent.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 }
 
@@ -415,4 +475,32 @@ footer{
         height: 310px;
         left: 312px;
         top: 0px;
+    }
+    @media screen and (max-width: 1280px) {
+        footer{
+            width: 768px;
+            height: 639px;
+        }
+        .footer-img{
+            display: block;
+            position: relative;
+            vertical-align: bottom;
+            background: url('../../assets/images/footer-puppy.png');
+            width: 300px;
+            height: 310px;
+            left: 234px;
+            top: 55px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 768px) {
+        footer{
+            width: 320px;
+        }
+    }
+    
+    @media screen and (max-width: 320px) {
+        footer{
+        }
     }
