@@ -307,6 +307,12 @@ class CalculatorModel extends CalculatorView {
 	* @return {void}
 	*/
     changeSign(){
+        if(this.isSqrtOperation){
+            this.clear();
+            this.currentOperandTextElement.innerText = 'Error: Incorrect argument!';
+            /* in real calculator just skip these operations above */
+            return;
+        }
         this.currentOperand *= -1;
         this.currentOperandTextElement.innerText = this.currentOperand;
     }
@@ -351,7 +357,9 @@ class CalculatorModel extends CalculatorView {
                 break;
             case '/':
                 if(current == 0){
-                    this.currentOperandTextElement.innerText = 'Incorrect argument!';//alert('Incorrect argument!');
+                    this.clear();
+                    this.previousOperandTextElement.innerText =  prev + ' / 0 =' 
+                    this.currentOperandTextElement.innerText = 'Error: Incorrect argument!';//alert('Incorrect argument!');
                     return;
                 }
                 computation = prev / current;
