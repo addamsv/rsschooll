@@ -38,7 +38,6 @@ class CalculatorView {
 	*/
      makeContent(cssSelector='.calculator-grid'){
         const containers = document.querySelectorAll(cssSelector);
-        console.log(containers[0]);
         for (var i = 0, l = containers.length; i < l; i++) {
             this.makeDisplay(containers[i]);
         }
@@ -132,6 +131,7 @@ class CalculatorModel extends CalculatorView {
         this.currentOperand = 2;
         this.previousOperand = 4;
         this.powOperand = '';
+        this.sqrtOperand = '';
         this.operation;
         this.readyToReset;
 
@@ -140,7 +140,7 @@ class CalculatorModel extends CalculatorView {
          */
         this.isEqualsBtnWasClicked = false;
         this.isPowOperation = false;
-
+        this.isSqrtOperation = false;
         this.clear();
     }
 
@@ -155,6 +155,7 @@ class CalculatorModel extends CalculatorView {
         this.operation = undefined;
         this.readyToReset = false;
         this.isPowOperation = false;
+        this.isSqrtOperation = false;
         this.updateDisplay();
     }
 
@@ -163,7 +164,10 @@ class CalculatorModel extends CalculatorView {
 	* @return {void}
 	*/
     delete() {
-        if(this.isPowOperation){
+        if(this.isSqrtOperation){
+            this.sqrtOperand = this.sqrtOperand.toString().slice(0, -1);
+        }
+        else if(this.isPowOperation){
             this.powOperand = this.powOperand.toString().slice(0, -1);
         }
         else {
@@ -205,14 +209,17 @@ class CalculatorModel extends CalculatorView {
             this.currentOperandTextElement.innerText = current;
             return;
         }
-        if(isNaN(current)){
+        if(current !== 0){
+            this.isSqrtOperation = true;
+            this.sqrtOperand = current;
+            this.compute();
             return;
         }
-        result =  Math.sqrt(current, n);
-        console.log('current: ' + result);
-        this.currentOperandTextElement.innerText = this.makeSeparatedDigit(result);
-        this.previousOperandTextElement.innerText = '√' + current + ' = ' + result;
-        this.currentOperand = result;
+        if(!this.isSqrtOperation){
+            this.isSqrtOperation = true;
+            this.currentOperandTextElement.innerText = '√';
+            return;
+        }
         
     }
 
@@ -222,7 +229,6 @@ class CalculatorModel extends CalculatorView {
 	* @return {void}
 	*/
     appendNumber(number) {
-        console.log('appendNumber');
         if(this.isEqualsBtnWasClicked){
             this.currentOperand = 0;//'';
             this.isEqualsBtnWasClicked = false;
@@ -230,12 +236,18 @@ class CalculatorModel extends CalculatorView {
         if(number === '.' && this.currentOperand.toString().includes('.')){
             return;
         }
+        if(this.isSqrtOperation){
+            if (number === '.'){
+                return;
+            }
+            this.sqrtOperand = this.sqrtOperand.toString() + number.toString();//'√' +
+            return;
+        }
         if(this.isPowOperation){
             if (number === '.'){
                 return;
             }
             this.powOperand = this.powOperand.toString() + number.toString();
-            console.log('powOperand: ' + this.powOperand);
             return;
         }
         this.currentOperand = this.makeValidDigitString(this.currentOperand.toString() + number.toString());
@@ -253,7 +265,6 @@ class CalculatorModel extends CalculatorView {
         if(this.previousOperand !== ''){
             this.compute();
         }
-        console.log('choosenOperation: ' + operation);
         this.operation = operation;
         this.previousOperand = this.currentOperand;
         this.currentOperand = 0;//'';
@@ -268,7 +279,6 @@ class CalculatorModel extends CalculatorView {
     changeSign(){
         this.currentOperand *= -1;
         this.currentOperandTextElement.innerText = this.currentOperand;
-        console.log('this.currentOperand: '+this.currentOperand);
     }
       
     /**
@@ -282,22 +292,25 @@ class CalculatorModel extends CalculatorView {
 
         let current = (parseFloat(this.currentOperand) ? parseFloat(this.currentOperand) : 0);
 
-        console.log('isPowOperation: '+this.isPowOperation);
+
+
+        // if(!this.isSqrtOperation && (isNaN(prev) || isNaN(current))){return;}
+        if(this.isSqrtOperation){
+            this.isSqrtOperation = false;
+            current = Math.sqrt(this.sqrtOperand, 2); //current = Math.sqrt(current, this.sqrtOperand);
+        }
         if(!this.isPowOperation && (isNaN(prev) || isNaN(current))){
-            console.log('Nan')
             return;
         }
         if(this.isPowOperation){
             current = Math.pow(current, this.powOperand);
             this.isPowOperation = false;
-            console.log('computation: ' + current);
         }
         if(!this.operation){
             computation = current;
         }
         switch (this.operation) {
             case '+':
-                console.log('prev + current = ' + (prev + current));
                 computation = prev + current;
                 break;
             case '-':
@@ -318,11 +331,13 @@ class CalculatorModel extends CalculatorView {
                 break;
         }
 
-        this.previousOperandTextElement.innerText = (this.operation ? this.previousOperand + ' ' +  this.operation + ' '  : '') + this.currentOperand + (this.powOperand ? '^' + this.powOperand : '') + ' = ' + parseFloat(this.makeValidDigitString(computation));
+        this.previousOperandTextElement.innerText = (this.operation ? this.previousOperand + ' ' +  this.operation + ' '  : '') + (this.sqrtOperand ? '√' + this.sqrtOperand :  this.currentOperand ) + (this.powOperand ? '^' + this.powOperand : '') + ' = ' + parseFloat(this.makeValidDigitString(computation));
         this.currentOperand = parseFloat(this.makeValidDigitString(computation));
         this.currentOperandTextElement.innerText = this.currentOperand;
         this.powOperand = '';
+        this.sqrtOperand = '';
         this.previousOperand = 0;
+        this.operation = undefined;
     }
     
     /**
@@ -339,11 +354,15 @@ class CalculatorModel extends CalculatorView {
 	* @return {void}
 	*/ 
     displayCurrent(){
-        if(!this.isPowOperation){
-            this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand);
+        if(this.isPowOperation){
+            this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand) + '^' + this.powOperand;
             return;
         }
-        this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand) + '^' + this.powOperand;
+        if(this.isSqrtOperation){
+            this.currentOperandTextElement.innerText = '√' + this.sqrtOperand;
+            return;
+        }
+        this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand);
     }
     
     /**
@@ -372,7 +391,6 @@ class CalculatorModel extends CalculatorView {
 	* @return {String} digit
 	*/
     makeValidDigitString(num){
-        console.log('makeValidDigitString:' + num + ' return: ' +this.getNumSign(num) + this.getIntegerDigitString(num) + this.getDecimalDigitString(num));
         return this.getNumSign(num) + this.getIntegerDigitString(num) + this.getDecimalDigitString(num);  
     }
     
@@ -393,7 +411,6 @@ class CalculatorModel extends CalculatorView {
 	* @return {Number} not more than 14 simbols
 	*/
     getIntegerDigitString(num){
-        console.log('num: ' + num + 'getIntegerDigitString: ' + num.toString().split('.')[0]);
         return this.getValidIntegerDigitString(num.toString().split('.')[0]);
     }
     
@@ -417,7 +434,6 @@ class CalculatorModel extends CalculatorView {
 	*/
     getDecimalDigitString(num){
         //let outData = 
-        console.log('num:' +num+ '   Decimal ' +num.toString().split('.')[1])
         return this.getValidDecimalDigitString(num.toString().split('.')[1]);//outData === '' ? '' : '.' + outData;
     }
     
@@ -458,7 +474,7 @@ class Calculator extends CalculatorModel {
     constructor(cssSelector="[data-calc-btn]") {
         super();
 
-        console.log(window.navigator.userAgent.toLowerCase());
+        // console.log(window.navigator.userAgent.toLowerCase());
 
 
         
