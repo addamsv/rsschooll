@@ -13,6 +13,34 @@
  */
 
 
+/* 
+Базовая функциональность
+1 + 2 => 3
+23 + 69.5 => 92.5
+74 * 3 - 5 => 217
+2 + 3 => 5 продолжаем ввод 4 => 4 - после равно следующая цифра перезаписывает результат
+есть кнопка, позволяющая очистить результат
+Дополнительные математические операции
+25 √ => 5 или √ 25 => 5 - любой вариант правильный
+9 √ + 1 => 4 или √ 9 + 1 => 4 - любой вариант правильный
+2 ^ 2 => 4
+15 ^ 3 => 3375
+10.1 ^ 3 => 1030.301
+Действия с отрицательными числами
+-9 / -3 => 3
+2 + -2 => 0
+2 / -2 => -1
+-9 ^ 3 => -729
+-9 √ => уведомление об ошибке или √ - 9 => уведомление об ошибке - любой вариант правильный
+Действия с дробями
+0.1 + 0.2 => 0.3
+0.4 - 0.1 => 0.3
+0.0004 + 0.0004 => 0.0008
+-0.1 * 0.2 => -0.02
+-0.15 + -0.15 => -0.3 - а не - 0.30
+ */
+
+
 
 /**
  * 
@@ -156,6 +184,8 @@ class CalculatorModel extends CalculatorView {
         this.readyToReset = false;
         this.isPowOperation = false;
         this.isSqrtOperation = false;
+        this.powOperand = '';
+        this.sqrtOperand = '';
         this.updateDisplay();
     }
 
@@ -330,7 +360,19 @@ class CalculatorModel extends CalculatorView {
                 computation = '-' + current;
                 break;
         }
-
+        
+        if(computation===Infinity){
+            this.clear();
+            this.previousOperandTextElement.innerText = '= Infinity'
+            this.currentOperandTextElement.innerText = '0';
+            return;
+        }
+        if(computation.toString().slice('').includes('e')){
+            this.clear();
+            this.previousOperandTextElement.innerText = '=' + computation.toString();
+            this.currentOperandTextElement.innerText = '0';
+            return;
+        }
         this.previousOperandTextElement.innerText = (this.operation ? this.previousOperand + ' ' +  this.operation + ' '  : '') + (this.sqrtOperand ? '√' + this.sqrtOperand :  this.currentOperand ) + (this.powOperand ? '^' + this.powOperand : '') + ' = ' + parseFloat(this.makeValidDigitString(computation));
         this.currentOperand = parseFloat(this.makeValidDigitString(computation));
         this.currentOperandTextElement.innerText = this.currentOperand;
