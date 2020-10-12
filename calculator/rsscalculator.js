@@ -13,6 +13,34 @@
  */
 
 
+/* 
+Базовая функциональность
+1 + 2 => 3
+23 + 69.5 => 92.5
+74 * 3 - 5 => 217
+2 + 3 => 5 продолжаем ввод 4 => 4 - после равно следующая цифра перезаписывает результат
+есть кнопка, позволяющая очистить результат
+Дополнительные математические операции
+25 √ => 5 или √ 25 => 5 - любой вариант правильный
+9 √ + 1 => 4 или √ 9 + 1 => 4 - любой вариант правильный
+2 ^ 2 => 4
+15 ^ 3 => 3375
+10.1 ^ 3 => 1030.301
+Действия с отрицательными числами
+-9 / -3 => 3
+2 + -2 => 0
+2 / -2 => -1
+-9 ^ 3 => -729
+-9 √ => уведомление об ошибке или √ - 9 => уведомление об ошибке - любой вариант правильный
+Действия с дробями
+0.1 + 0.2 => 0.3
+0.4 - 0.1 => 0.3
+0.0004 + 0.0004 => 0.0008
+-0.1 * 0.2 => -0.02
+-0.15 + -0.15 => -0.3 - а не - 0.30
+ */
+
+
 
 /**
  * 
@@ -38,7 +66,6 @@ class CalculatorView {
 	*/
      makeContent(cssSelector='.calculator-grid'){
         const containers = document.querySelectorAll(cssSelector);
-        console.log(containers[0]);
         for (var i = 0, l = containers.length; i < l; i++) {
             this.makeDisplay(containers[i]);
         }
@@ -132,6 +159,7 @@ class CalculatorModel extends CalculatorView {
         this.currentOperand = 2;
         this.previousOperand = 4;
         this.powOperand = '';
+        this.sqrtOperand = '';
         this.operation;
         this.readyToReset;
 
@@ -140,7 +168,7 @@ class CalculatorModel extends CalculatorView {
          */
         this.isEqualsBtnWasClicked = false;
         this.isPowOperation = false;
-
+        this.isSqrtOperation = false;
         this.clear();
     }
 
@@ -155,6 +183,9 @@ class CalculatorModel extends CalculatorView {
         this.operation = undefined;
         this.readyToReset = false;
         this.isPowOperation = false;
+        this.isSqrtOperation = false;
+        this.powOperand = '';
+        this.sqrtOperand = '';
         this.updateDisplay();
     }
 
@@ -163,7 +194,10 @@ class CalculatorModel extends CalculatorView {
 	* @return {void}
 	*/
     delete() {
-        if(this.isPowOperation){
+        if(this.isSqrtOperation){
+            this.sqrtOperand = this.sqrtOperand.toString().slice(0, -1);
+        }
+        else if(this.isPowOperation){
             this.powOperand = this.powOperand.toString().slice(0, -1);
         }
         else {
@@ -205,14 +239,17 @@ class CalculatorModel extends CalculatorView {
             this.currentOperandTextElement.innerText = current;
             return;
         }
-        if(isNaN(current)){
+        if(current !== 0){
+            this.isSqrtOperation = true;
+            this.sqrtOperand = current;
+            this.compute();
             return;
         }
-        result =  Math.sqrt(current, n);
-        console.log('current: ' + result);
-        this.currentOperandTextElement.innerText = this.makeSeparatedDigit(result);
-        this.previousOperandTextElement.innerText = '√' + current + ' = ' + result;
-        this.currentOperand = result;
+        if(!this.isSqrtOperation){
+            this.isSqrtOperation = true;
+            this.currentOperandTextElement.innerText = '√';
+            return;
+        }
         
     }
 
@@ -222,12 +259,18 @@ class CalculatorModel extends CalculatorView {
 	* @return {void}
 	*/
     appendNumber(number) {
-        console.log('appendNumber');
         if(this.isEqualsBtnWasClicked){
-            this.currentOperand = '';
+            this.currentOperand = 0;//'';
             this.isEqualsBtnWasClicked = false;
         }
-        if(number === '.' && this.currentOperand.includes('.')){
+        if(number === '.' && this.currentOperand.toString().includes('.')){
+            return;
+        }
+        if(this.isSqrtOperation){
+            if (number === '.'){
+                return;
+            }
+            this.sqrtOperand = this.sqrtOperand.toString() + number.toString();//'√' +
             return;
         }
         if(this.isPowOperation){
@@ -235,7 +278,6 @@ class CalculatorModel extends CalculatorView {
                 return;
             }
             this.powOperand = this.powOperand.toString() + number.toString();
-            console.log('powOperand: ' + this.powOperand);
             return;
         }
         this.currentOperand = this.makeValidDigitString(this.currentOperand.toString() + number.toString());
@@ -253,10 +295,9 @@ class CalculatorModel extends CalculatorView {
         if(this.previousOperand !== ''){
             this.compute();
         }
-        console.log('choosenOperation: ' + operation);
         this.operation = operation;
         this.previousOperand = this.currentOperand;
-        this.currentOperand = '';
+        this.currentOperand = 0;//'';
         this.previousOperandTextElement.innerText = (this.operation && this.previousOperand !== '') ? this.makeSeparatedDigit(this.previousOperand) + ' ' + this.operation : this.makeSeparatedDigit(this.previousOperand);
         this.currentOperandTextElement.innerText = '0';
     }
@@ -266,9 +307,14 @@ class CalculatorModel extends CalculatorView {
 	* @return {void}
 	*/
     changeSign(){
+        if(this.isSqrtOperation){
+            this.clear();
+            this.currentOperandTextElement.innerText = 'Error: Incorrect argument!';
+            /* in real calculator just skip these operations above */
+            return;
+        }
         this.currentOperand *= -1;
         this.currentOperandTextElement.innerText = this.currentOperand;
-        console.log('this.currentOperand: '+this.currentOperand);
     }
       
     /**
@@ -282,22 +328,25 @@ class CalculatorModel extends CalculatorView {
 
         let current = (parseFloat(this.currentOperand) ? parseFloat(this.currentOperand) : 0);
 
-        console.log('isPowOperation: '+this.isPowOperation);
+
+
+        // if(!this.isSqrtOperation && (isNaN(prev) || isNaN(current))){return;}
+        if(this.isSqrtOperation){
+            this.isSqrtOperation = false;
+            current = Math.sqrt(this.sqrtOperand, 2); //current = Math.sqrt(current, this.sqrtOperand);
+        }
         if(!this.isPowOperation && (isNaN(prev) || isNaN(current))){
-            console.log('Nan')
             return;
         }
         if(this.isPowOperation){
             current = Math.pow(current, this.powOperand);
             this.isPowOperation = false;
-            console.log('computation: ' + current);
         }
         if(!this.operation){
             computation = current;
         }
         switch (this.operation) {
             case '+':
-                console.log('prev + current = ' + (prev + current));
                 computation = prev + current;
                 break;
             case '-':
@@ -307,8 +356,10 @@ class CalculatorModel extends CalculatorView {
                 computation = prev * current;
                 break;
             case '/':
-                if(current==0){
-                    alert('Incorrect argument!');
+                if(current == 0){
+                    this.clear();
+                    this.previousOperandTextElement.innerText =  prev + ' / 0 =' 
+                    this.currentOperandTextElement.innerText = 'Error: Incorrect argument!';//alert('Incorrect argument!');
                     return;
                 }
                 computation = prev / current;
@@ -317,12 +368,26 @@ class CalculatorModel extends CalculatorView {
                 computation = '-' + current;
                 break;
         }
-
-        this.previousOperandTextElement.innerText = (this.operation ? this.previousOperand + ' ' +  this.operation + ' '  : '') + this.currentOperand + (this.powOperand ? '^' + this.powOperand : '') + ' = ' + parseFloat(this.makeValidDigitString(computation));
+        
+        if(computation===Infinity){
+            this.clear();
+            this.previousOperandTextElement.innerText = '= Infinity'
+            this.currentOperandTextElement.innerText = '0';
+            return;
+        }
+        if(computation.toString().slice('').includes('e')){
+            this.clear();
+            this.previousOperandTextElement.innerText = '=' + computation.toString();
+            this.currentOperandTextElement.innerText = '0';
+            return;
+        }
+        this.previousOperandTextElement.innerText = (this.operation ? this.previousOperand + ' ' +  this.operation + ' '  : '') + (this.sqrtOperand ? '√' + this.sqrtOperand :  this.currentOperand ) + (this.powOperand ? '^' + this.powOperand : '') + ' = ' + parseFloat(this.makeValidDigitString(computation));
         this.currentOperand = parseFloat(this.makeValidDigitString(computation));
         this.currentOperandTextElement.innerText = this.currentOperand;
         this.powOperand = '';
+        this.sqrtOperand = '';
         this.previousOperand = 0;
+        this.operation = undefined;
     }
     
     /**
@@ -339,11 +404,15 @@ class CalculatorModel extends CalculatorView {
 	* @return {void}
 	*/ 
     displayCurrent(){
-        if(!this.isPowOperation){
-            this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand);
+        if(this.isPowOperation){
+            this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand) + '^' + this.powOperand;
             return;
         }
-        this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand) + '^' + this.powOperand;
+        if(this.isSqrtOperation){
+            this.currentOperandTextElement.innerText = '√' + this.sqrtOperand;
+            return;
+        }
+        this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand);
     }
     
     /**
@@ -372,7 +441,6 @@ class CalculatorModel extends CalculatorView {
 	* @return {String} digit
 	*/
     makeValidDigitString(num){
-        console.log('makeValidDigitString:' + num + ' return: ' +this.getNumSign(num) + this.getIntegerDigitString(num) + this.getDecimalDigitString(num));
         return this.getNumSign(num) + this.getIntegerDigitString(num) + this.getDecimalDigitString(num);  
     }
     
@@ -393,7 +461,6 @@ class CalculatorModel extends CalculatorView {
 	* @return {Number} not more than 14 simbols
 	*/
     getIntegerDigitString(num){
-        console.log('num: ' + num + 'getIntegerDigitString: ' + num.toString().split('.')[0]);
         return this.getValidIntegerDigitString(num.toString().split('.')[0]);
     }
     
@@ -417,7 +484,6 @@ class CalculatorModel extends CalculatorView {
 	*/
     getDecimalDigitString(num){
         //let outData = 
-        console.log('num:' +num+ '   Decimal ' +num.toString().split('.')[1])
         return this.getValidDecimalDigitString(num.toString().split('.')[1]);//outData === '' ? '' : '.' + outData;
     }
     
@@ -458,11 +524,23 @@ class Calculator extends CalculatorModel {
     constructor(cssSelector="[data-calc-btn]") {
         super();
 
+        // console.log(window.navigator.userAgent.toLowerCase());
+
+
+        
+        (this.isInternetExplorer() === true) ? alert('The Calculator wont work because of not support grid and OOP' ) : '' ;
+
         const buttons = document.querySelectorAll(cssSelector);
         for (var i = 0, l = buttons.length; i < l; i++) {
             this.buttonController(buttons[i]);
         }
     }
+
+    isInternetExplorer() {
+        return window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
+    }
+
+
 
     /**
 	* @private	Controlls all button we have
