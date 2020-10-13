@@ -44,9 +44,9 @@ Extended Tests:
 8 + - / * 2 = 16
 0 / 2 = 0
 1 + = = = = 1
+3 + 4 ^ 2 = 19 ^ 2 = 361 Multiple degree ERROR Solved
 
 ISSUE:
-    3 + 4 ^ 2 = 19 ^ 2 = Multiple degree ERROR
  */
 
 
@@ -275,7 +275,7 @@ class CalculatorModel extends CalculatorView {
 	* @return {void}
 	*/
     appendNumber(number) {
-                if(this.isPowOperation){
+        if(this.isPowOperation){
             if (number === '.'){
                 return;
             }
@@ -296,7 +296,6 @@ class CalculatorModel extends CalculatorView {
             this.sqrtOperand = this.sqrtOperand.toString() + number.toString();//'√' +
             return;
         }
-        // console.log(this.previousOperand + '  isPowOperation: ' + this.isPowOperation);
 
         this.currentOperand = this.makeValidDigitString(this.currentOperand.toString() + number.toString());
     }
