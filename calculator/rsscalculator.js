@@ -13,45 +13,6 @@
  */
 
 
-/* 
-Базовая функциональность
-1 + 2 => 3
-23 + 69.5 => 92.5
-74 * 3 - 5 => 217
-2 + 3 => 5 продолжаем ввод 4 => 4 - после равно следующая цифра перезаписывает результат
-есть кнопка, позволяющая очистить результат
-Дополнительные математические операции
-25 √ => 5 или √ 25 => 5 - любой вариант правильный
-9 √ + 1 => 4 или √ 9 + 1 => 4 - любой вариант правильный
-2 ^ 2 => 4
-15 ^ 3 => 3375
-10.1 ^ 3 => 1030.301
-Действия с отрицательными числами
--9 / -3 => 3
-2 + -2 => 0
-2 / -2 => -1
--9 ^ 3 => -729
--9 √ => уведомление об ошибке или √ - 9 => уведомление об ошибке - любой вариант правильный
-Действия с дробями
-0.1 + 0.2 => 0.3
-0.4 - 0.1 => 0.3
-0.0004 + 0.0004 => 0.0008
--0.1 * 0.2 => -0.02
--0.15 + -0.15 => -0.3 - а не - 0.30
-
-
-Extended Tests:
-8 + - / * 2 = 16
-0 / 2 = 0
-1 + = = = = 1
-3 + 4 ^ 2 = 19 ^ 2 = 361 Multiple degree ERROR Solved
-
-ISSUE:
- */
-
-
-
-
 
 
 
@@ -71,8 +32,10 @@ ISSUE:
    
 class CalculatorView {
 
-    constructor() {
-        this.makeContent();
+    constructor(isAPIorTestMode) {
+        if(!isAPIorTestMode){
+            this.makeContent();
+        }
     }
 
     /**
@@ -109,27 +72,27 @@ class CalculatorView {
             
         ob.appendChild(newNode);
 
-        this.makeButton(ob, 'AC', 'AC', 'span-two');
-        this.makeButton(ob, 'DEL', 'DEL', 'span-two');
-        this.makeButton(ob, '^', 'pow');
-        this.makeButton(ob, '√', 'root');
-        this.makeButton(ob, '+/-');
-        this.makeButton(ob, '/');
+        this.makeButton(ob, 'AC', 'AC', 'span-two fn-btn ac-dell-btn');
+        this.makeButton(ob, 'DEL', 'DEL', 'span-two fn-btn ac-dell-btn');
+        this.makeButton(ob, '^', 'pow','fn-btn');
+        this.makeButton(ob, '√', 'root','fn-btn');
+        this.makeButton(ob, '+/-','','fn-btn');
+        this.makeButton(ob, '/','','fn-btn');
         this.makeButton(ob, '7');
         this.makeButton(ob, '8');
         this.makeButton(ob, '9');
-        this.makeButton(ob, '*');
+        this.makeButton(ob, '*','','fn-btn');
         this.makeButton(ob, '4');
         this.makeButton(ob, '5');
         this.makeButton(ob, '6');
-        this.makeButton(ob, '+');
+        this.makeButton(ob, '+','','fn-btn');
         this.makeButton(ob, '1');
         this.makeButton(ob, '2');
         this.makeButton(ob, '3');
-        this.makeButton(ob, '-');
+        this.makeButton(ob, '-','','fn-btn');
         this.makeButton(ob, '.');
         this.makeButton(ob, '0');
-        this.makeButton(ob, '=', '=', 'span-two');
+        this.makeButton(ob,  "=", '=', 'span-two equal-btn');//&#61;
      }
 
     /**
@@ -165,12 +128,12 @@ class CalculatorView {
  */
 class CalculatorModel extends CalculatorView {
 
-    constructor() {
-
-        super();
-
-        this.previousOperandTextElement = document.getElementById('previousOperand');
-        this.currentOperandTextElement = document.getElementById('currentOperand');
+    constructor(_isAPIorTestMode = false) {
+        super(_isAPIorTestMode);
+        this.isAPIorTestMode = _isAPIorTestMode;
+        
+        this.previousOperandTextElement = (!this.isAPIorTestMode) ? document.getElementById('previousOperand') : '';
+        this.currentOperandTextElement = (!this.isAPIorTestMode) ?  document.getElementById('currentOperand') : '';
         this.currentOperand = 2;
         this.previousOperand = 4;
         this.powOperand = '';
@@ -184,6 +147,7 @@ class CalculatorModel extends CalculatorView {
         this.isEqualsBtnWasClicked = false;
         this.isPowOperation = false;
         this.isSqrtOperation = false;
+
         this.clear();
     }
 
@@ -202,6 +166,7 @@ class CalculatorModel extends CalculatorView {
         this.powOperand = '';
         this.sqrtOperand = '';
         this.updateDisplay();
+        return 0;
     }
 
     /**
@@ -227,14 +192,12 @@ class CalculatorModel extends CalculatorView {
 	* @return {void}
 	*/
     pow(n = 2) {
-        let current = parseFloat(this.currentOperand);
-        // if(isNaN(current)){
-            //     console.log('aaa ' + current);
-            //     return;
-            // }
+        const CURRENT = parseFloat(this.currentOperand) ? parseFloat(this.currentOperand) : 0;
         if(!this.isPowOperation){
             this.isPowOperation = true;
-            this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand) + '^';
+            if(!this.isAPIorTestMode){
+                this.currentOperandTextElement.innerText = this.makeSeparatedDigit(CURRENT) + '^';
+            }
             return;
         }
         return;
@@ -247,23 +210,16 @@ class CalculatorModel extends CalculatorView {
 	*/
     sqrt(n = 2) {
         let current = parseFloat(this.currentOperand);
-        // let result = 0;
-        if(current < 0){
-            alert ('Incorrect argument!');
-            current = current * (-1);
-            this.currentOperand = current;
-            this.currentOperandTextElement.innerText = current;
-            return;
-        }
         if(current !== 0){
             this.isSqrtOperation = true;
             this.sqrtOperand = current;
-            this.compute();
-            return;
+            return this.compute();
         }
         if(!this.isSqrtOperation){
             this.isSqrtOperation = true;
-            this.currentOperandTextElement.innerText = '√';
+            if(!this.isAPIorTestMode){
+                this.currentOperandTextElement.innerText = '√';
+            }
             return;
         }
         
@@ -307,20 +263,27 @@ class CalculatorModel extends CalculatorView {
 	*/
     standartOperation(operation) {
         /* case when 8+4+-/2=6 */
-        if( this.currentOperand === 0 ){
+        if((this.currentOperand === 0 || this.currentOperand==='') && !this.isPowOperation && !this.isSqrtOperation){
             this.operation = operation;
-            this.previousOperandTextElement.innerText = (this.operation && this.previousOperand !== '') ? this.makeSeparatedDigit(this.previousOperand) + ' ' + this.operation : this.makeSeparatedDigit(this.previousOperand);
+            if(!this.isAPIorTestMode){
+                this.previousOperandTextElement.innerText = (this.operation && this.previousOperand !== '') ? this.makeSeparatedDigit(this.previousOperand) + ' ' + this.operation : this.makeSeparatedDigit(this.previousOperand);
+            }
             return;
         }
         /* case when 8+4+5+4-16...= */
-        if(this.previousOperand !== 0 ){
+        if(this.previousOperand !== 0 || this.isPowOperation || this.isSqrtOperation){
             this.compute();
         }
         this.operation = operation;
         this.previousOperand = this.currentOperand;
+        if(this.previousOperand===''){
+            this.previousOperand = 0;
+        }
         this.currentOperand = 0;
-        this.previousOperandTextElement.innerText = (this.operation && this.previousOperand !== '') ? this.makeSeparatedDigit(this.previousOperand) + ' ' + this.operation : this.makeSeparatedDigit(this.previousOperand);
-        this.currentOperandTextElement.innerText = '0';
+        if(!this.isAPIorTestMode){
+            this.previousOperandTextElement.innerText = (this.operation && this.previousOperand !== '') ? this.makeSeparatedDigit(this.previousOperand) + ' ' + this.operation : this.makeSeparatedDigit(this.previousOperand);
+            this.currentOperandTextElement.innerText = '0';
+        }
     }
 
     /**
@@ -328,38 +291,67 @@ class CalculatorModel extends CalculatorView {
 	* @return {void}
 	*/
     changeSign(){
-        if(this.isSqrtOperation){
-            this.clear();
-            this.currentOperandTextElement.innerText = 'Error: Incorrect argument!';
-            /* in real calculator just skip these operations above and button should be depricd*/
+        if(this.isPowOperation){
+            this.powOperand *= -1;
+            if(!this.isAPIorTestMode){
+                this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand) + '^' + this.powOperand;
+            }
             return;
         }
+        if(this.isSqrtOperation){
+            this.clear();
+            if(!this.isAPIorTestMode){
+                this.currentOperandTextElement.innerText = 'Error: Incorrect argument!';
+            }
+            return 'Error: Incorrect argument!';
+        }
         this.currentOperand *= -1;
-        this.currentOperandTextElement.innerText = this.currentOperand;
+        if(!this.isAPIorTestMode){
+            this.currentOperandTextElement.innerText = this.currentOperand;
+        }
     }
       
     /**
 	* @protected Compute
-	* @return {void}
+	* @return {String}
 	*/
     compute(){
         let computation;
-
-        const prev = (parseFloat(this.previousOperand) ? parseFloat(this.previousOperand) : 0);
-
         let current = (parseFloat(this.currentOperand) ? parseFloat(this.currentOperand) : 0);
 
+        const PREV = (parseFloat(this.previousOperand) ? parseFloat(this.previousOperand) : 0);
 
 
-        // if(!this.isSqrtOperation && (isNaN(prev) || isNaN(current))){return;}
+        // if(!this.isSqrtOperation && (isNaN(PREV) || isNaN(current))){
+        //     return;
+        // }
         if(this.isSqrtOperation){
+            if(this.currentOperand < 0){
+                // alert ('Incorrect argument!');
+                // current = current * (-1);
+                // this.currentOperand = current;
+                this.clear();
+                if(!this.isAPIorTestMode){
+                    this.currentOperandTextElement.innerText = 'Error: Incorrect argument!';
+                }
+                return 'Error: Incorrect argument!';
+            }
+            if(this.sqrtOperand < 0){
+                return 'Error: Incorrect argument!';
+            }
+            if(isNaN(this.sqrtOperand)){
+                this.sqrtOperand = 0;
+            }
             this.isSqrtOperation = false;
             current = Math.sqrt(this.sqrtOperand, 2); //current = Math.sqrt(current, this.sqrtOperand);
         }
-        if(!this.isPowOperation && (isNaN(prev) || isNaN(current))){
-            return;
-        }
+        // if(!this.isPowOperation && (isNaN(PREV) || isNaN(current))){
+        //     return;
+        // }
         if(this.isPowOperation){
+            if(this.powOperand===''){
+                this.powOperand = 0;
+            }
             current = Math.pow(current, this.powOperand);
             this.isPowOperation = false;
         }
@@ -368,22 +360,24 @@ class CalculatorModel extends CalculatorView {
         }
         switch (this.operation) {
             case '+':
-                computation = prev + current;
+                computation = PREV + current;
                 break;
             case '-':
-                computation = prev - current;
+                computation = PREV - current;
                 break;
             case '*':
-                computation = prev * current;
+                computation = PREV * current;
                 break;
             case '/':
                 if(current == 0){
                     this.clear();
-                    this.previousOperandTextElement.innerText =  prev + ' / 0 =' 
-                    this.currentOperandTextElement.innerText = 'Error: Incorrect argument!';//alert('Incorrect argument!');
-                    return;
+                    if(!this.isAPIorTestMode){
+                        this.previousOperandTextElement.innerText =  PREV + ' / 0 =' 
+                        this.currentOperandTextElement.innerText = 'Error: Incorrect argument!';
+                    }
+                    return 'Error: Incorrect argument!';
                 }
-                computation = prev / current;
+                computation = PREV / current;
                 break;
             case '+/-':
                 computation = '-' + current;
@@ -392,23 +386,39 @@ class CalculatorModel extends CalculatorView {
         
         if(computation===Infinity){
             this.clear();
-            this.previousOperandTextElement.innerText = '= Infinity'
-            this.currentOperandTextElement.innerText = '0';
-            return;
+            if(!this.isAPIorTestMode){
+                this.previousOperandTextElement.innerText = '= Infinity'
+                this.currentOperandTextElement.innerText = '0';
+            }
+            return 'Infinity';
         }
         if(computation.toString().slice('').includes('e')){
             this.clear();
-            this.previousOperandTextElement.innerText = '=' + computation.toString();
-            this.currentOperandTextElement.innerText = '0';
-            return;
+            if(!this.isAPIorTestMode){
+                this.previousOperandTextElement.innerText = '=' + computation.toString();
+                this.currentOperandTextElement.innerText = '0';
+            }
+            return computation.toString();
         }
-        this.previousOperandTextElement.innerText = (this.operation ? this.previousOperand + ' ' +  this.operation + ' '  : '') + (this.sqrtOperand ? '√' + this.sqrtOperand :  this.currentOperand ) + (this.powOperand ? '^' + this.powOperand : '') + ' = ' + parseFloat(this.makeValidDigitString(computation));
+        if(this.previousOperand === ''){
+            this.previousOperand = 0;
+        }
+        if(this.currentOperand === ''){
+            this.currentOperand = 0;
+        }
+        if(!this.isAPIorTestMode){
+            this.previousOperandTextElement.innerText = (this.operation ? this.previousOperand + ' ' +  this.operation + ' '  : '') + (this.sqrtOperand!=='' ? '√' + this.sqrtOperand :  this.currentOperand ) + (this.powOperand!=='' ? '^' + this.powOperand : '') + ' = ' + parseFloat(this.makeValidDigitString(computation));
+        }
+        // this.previousOperandTextElement.innerText = (this.operation ? PREV + ' ' +  this.operation + ' '  : '') + (this.sqrtOperand!=='' ? '√' + this.sqrtOperand :  current ) + (this.powOperand!=='' ? '^' + this.powOperand : '') + ' = ' + parseFloat(this.makeValidDigitString(computation));
         this.currentOperand = parseFloat(this.makeValidDigitString(computation));
-        this.currentOperandTextElement.innerText = this.currentOperand;
+        if(!this.isAPIorTestMode){
+            this.currentOperandTextElement.innerText = this.currentOperand;
+        }
         this.powOperand = '';
         this.sqrtOperand = '';
         this.previousOperand = 0;
         this.operation = undefined;
+        return this.currentOperand;
     }
     
     /**
@@ -426,14 +436,20 @@ class CalculatorModel extends CalculatorView {
 	*/ 
     displayCurrent(){
         if(this.isPowOperation){
-            this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand) + '^' + this.powOperand;
+            if(!this.isAPIorTestMode){
+                this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand) + '^' + this.powOperand;
+            }
             return;
         }
         if(this.isSqrtOperation){
-            this.currentOperandTextElement.innerText = '√' + this.sqrtOperand;
+            if(!this.isAPIorTestMode){
+                this.currentOperandTextElement.innerText = '√' + this.sqrtOperand;
+            }
             return;
         }
-        this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand);
+        if(!this.isAPIorTestMode){
+            this.currentOperandTextElement.innerText = this.makeSeparatedDigit(this.currentOperand);
+        }
     }
     
     /**
@@ -441,7 +457,9 @@ class CalculatorModel extends CalculatorView {
 	* @return {void}
 	*/
     displayPrev(){
-        this.previousOperandTextElement.innerText = (this.operation && this.previousOperand != '') ? this.makeSeparatedDigit(this.previousOperand) + ' ' + this.operation : this.makeSeparatedDigit(this.previousOperand);
+        if(!this.isAPIorTestMode){
+            this.previousOperandTextElement.innerText = (this.operation && this.previousOperand != '') ? this.makeSeparatedDigit(this.previousOperand) + ' ' + this.operation : this.makeSeparatedDigit(this.previousOperand);
+        }
     }
     
     /**
@@ -551,9 +569,9 @@ class Calculator extends CalculatorModel {
         
         (this.isInternetExplorer() === true) ? alert('The Calculator wont work because of not support grid and OOP' ) : '' ;
 
-        const buttons = document.querySelectorAll(cssSelector);
-        for (var i = 0, l = buttons.length; i < l; i++) {
-            this.buttonController(buttons[i]);
+        const BUTTONS = document.querySelectorAll(cssSelector);
+        for (var i = 0, l = BUTTONS.length; i < l; i++) {
+            this.buttonController(BUTTONS[i]);
         }
     }
 
@@ -612,11 +630,179 @@ class Calculator extends CalculatorModel {
         } 
     }
 
-
 }
 
 
 
+class CalculatorAPI extends CalculatorModel {
+
+    constructor(apiTestMode) {
+        super(apiTestMode);
+    }
+
+    /**
+	* @public	Controlls all button we have
+	*
+	* @param  {string} btn - Object of the Button
+	* @return {void}
+	*/
+    setSequence(sequence = '1 + 1 ='){
+        let result = '';
+        sequence = sequence.split(' ');
+        for(let i=0, l=sequence.length; i<l; i++){
+            if(Number.isInteger(parseInt(sequence[i])) || sequence[i] === '.'){
+                if(sequence[i].length > 14){
+                    return 'Error: Incorrect argument!';
+                }
+                this.appendNumber(sequence[i]);
+                this.updateDisplay();
+            }
+            switch(sequence[i]){
+                case '=':
+                    result = this.compute();
+                    this.isEqualsBtnWasClicked = true;
+                    break;
+                case 'root':
+                    result = this.sqrt();
+                    break;
+                case 'pow':
+                    this.pow();
+                    break;
+                case '+':
+                case '*':
+                case '/':
+                case '-':
+                    this.standartOperation(sequence[i]);
+                    break;
+                case 'AC':
+                    result = this.clear();
+                    break;
+                case 'DEL':
+                    this.delete();
+                    break;
+                case '+/-':
+                    result = this.changeSign();
+                    if(result==='Error: Incorrect argument!'){
+                        return result;
+                    }
+                    break;
+            }
+        }
+        return result;
+
+    }
+}
 
 
+/* 
+Базовая функциональность
+1 + 2 => 3
+23 + 69.5 => 92.5
+74 * 3 - 5 => 217
+2 + 3 => 5 продолжаем ввод 4 => 4 - после равно следующая цифра перезаписывает результат
+есть кнопка, позволяющая очистить результат
+Дополнительные математические операции
+25 √ => 5 или √ 25 => 5 - любой вариант правильный
+9 √ + 1 => 4 или √ 9 + 1 => 4 - любой вариант правильный
+2 ^ 2 => 4
+15 ^ 3 => 3375
+10.1 ^ 3 => 1030.301
+Действия с отрицательными числами
+-9 / -3 => 3
+2 + -2 => 0
+2 / -2 => -1
+-9 ^ 3 => -729
+-9 √ => уведомление об ошибке или √ - 9 => уведомление об ошибке - любой вариант правильный
+Действия с дробями
+0.1 + 0.2 => 0.3
+0.4 - 0.1 => 0.3
+0.0004 + 0.0004 => 0.0008
+-0.1 * 0.2 => -0.02
+-0.15 + -0.15 => -0.3 - а не - 0.30
 
+
+Extended Tests:
+8 + - / * 2 = 16
+0 / 2 = 0
+1 + = = = = 1
+3 + 4 ^ 2 = 19 ^ 2 = 361 Multiple degree ERROR Solved
+
+2 + 5 del √ + 5 => Nan Solved
+√ => 0 Solved
+9 * / del / сбрасывает пред операнд Solved
+0 ^ 0 => 1^0=1 False Solved
+^ =>  1^0=1 False Solved
+del ^ => Solved
+5 del ^ => 1^0=1 False Solved
+2 ^ 1 +/- ISSUE changed prev Solved
+2 ^ 2 +/- Solved
+√ 9 + 1 => Solved
+2 ^ 2 + 1 =>  Solved
+ 
+ISSUE:
+2 ^ +/-  it adds 0
+ */
+
+
+const TEST = new CalculatorAPI(true);
+
+let test = '';
+let br = "\n";
+
+test+='/* Базовая функциональность */' + br;
+test+=(TEST.setSequence('1 + 2 =') === 3) + ' 1 + 2 = 3'+br;
+test+=(TEST.setSequence('23 + 69.5 =') === 92.5 ) + ' 23 + 69.5 =92.5' + br;
+test+=(TEST.setSequence('74 * 3 - 5 =') === 217) + ' 74 * 3 - 5 = 217' + br;
+test+=(TEST.setSequence('2 + 3 = 4 =') === 4) + ' 2 + 3 = 4 = 4 ' + 'после равно следующая цифра перезаписывает результат' + br;
+test+=(TEST.setSequence('5 AC') === 0) + ' AC - есть кнопка позволяющая очистить результат' + br;
+
+test+=br + '/* Дополнительные математические операции */' + br;
+test+=(TEST.setSequence('25 root') === 5) + ' 25 root = 5' + br;
+test+=(TEST.setSequence('AC root 25 =') === 5) +  ' AC root 25 = 5' + br;
+test+=(TEST.setSequence('9 root + 1 =') === 4) +  ' 9 root + 1 = 4' + br;
+test+=(TEST.setSequence('2 pow 2 =') === 4) +  ' 2 pow 2 = 4' + br;
+test+=(TEST.setSequence('15 pow 3 =') === 3375) +  ' 15 pow 3 = 3375' + br;
+test+=(TEST.setSequence('10.1 pow 3 =') === 1030.301) +  ' 10.1 pow 3 = 1030.301' + br;
+
+test+=br + '/* Действия с отрицательными числами */' + br;
+test+=(TEST.setSequence('9 +/- / 3 +/- =') === 3) +  ' 9 +/- / 3 +/- = 3' + br;
+test+=(TEST.setSequence('2 + 2 +/- =') === 0) +  ' 2 + 2 +/- = 0' + br;
+test+=(TEST.setSequence('2 / 2 +/- =') === -1) +  ' 2 / 2 +/- = -1' + br;
+test+=(TEST.setSequence('9 +/- pow 3 =') === -729) +  ' 9 +/- pow 3 = -729' + br;
+test+=(TEST.setSequence('9 +/- root') === 'Error: Incorrect argument!') + ' 9 +/- root -> Error: Incorrect argument!' + br;
+test+=(TEST.setSequence('AC root 9 +/- =') === 'Error: Incorrect argument!') + ' root 9 +/- = ->Error: Incorrect argument!' + br;
+test+=(TEST.setSequence('AC root 9 +/- + 1 =') === 'Error: Incorrect argument!') + ' root 9 +/-  + 1 = ->Error: Incorrect argument!' + br;
+
+test+=br + '/* Действия с дробями: */' + br;
+test+=(TEST.setSequence('0.1 + 0.2 =') === 0.3 )+  ' 0.1 + 0.2 = 0.3' + br;
+test+=(TEST.setSequence('0.4 - 0.1 =') === 0.3) +  ' 0.4 - 0.1 = 0.3' + br;
+test+=(TEST.setSequence('0.0004 + 0.0004 =') === 0.0008 ) +  ' 0.0004 + 0.0004 = 0.0008' + br;
+test+=(TEST.setSequence('0.1 +/- * 0.2 =') === -0.02) +  ' 0.1 +/- * 0.2 = -0.02' + br;
+test+=(TEST.setSequence('0.15 +/- + 0.15 +/- =') === -0.3) +  ' 0.15 +/- + 0.15 +/- = -0.3' + br;
+
+test+=br + '/* Big Digit Tests: */' + br;
+test+=(TEST.setSequence('9999999999999999999999999999999999999999999999999999999999 + 1 =') === 'Error: Incorrect argument!') + ' 9999999999999999999999999999999999999999999999999999999999 + 1 = -> Error: Incorrect argument! You arent alowed to text such a big digit within RSSCalculatorAPI' + br;
+test+=(TEST.setSequence('99999999999999 * 99999999 =') === 99999998999990) + '  99999999999999 * 99999999 = 99999998999990' + br;
+test+=(TEST.setSequence('10000000000000 + 1 =') === 1000000000001) + ' 10000000000000 + 1 = 10000000000001' + br;
+test+=(TEST.setSequence('10 pow 10000 =') === 'Infinity') + ' 10 pow 10000 = Infinity' + br;
+test+=(TEST.setSequence('10 pow 100 =') === '1.0000000000000002e+100') + ' 10 pow 100 = 1.0000000000000002e+100' + br;
+
+test+=br + '/* Crush Tests: */' + br;
+test+=(TEST.setSequence('9 / 0 =') === 'Error: Incorrect argument!') + ' 9 / 0 = Error: Incorrect argument!' + br;
+test+=(TEST.setSequence('0 / 2 =') === 0) + ' 0 / 2 = 0'+ br;
+test+=(TEST.setSequence('8 + - / * 2 =') === 16) + ' 8 + - / * 2 = 16' + br;
+test+=(TEST.setSequence('1 + = = = =') === 1) + ' 1 + = = = = 1 ' + br;
+test+=(TEST.setSequence('3 + 4 pow 2 = pow 2 =') === 361) + ' 3 + 4 pow 2 = pow 2 = 361' + br;
+test+=(TEST.setSequence('3 + 4 pow 2 = 19 pow 2 =') === 361 ) + ' 3 + 4 pow 2 = 19 pow 2 = 361 (Multiple degree ERROR Solved)' + br;
+test+=(TEST.setSequence('2 + 5 DEL root + 4 =') === 6) + ' ' + '2 + 5 del root + 4 = 6' + br;
+test+=(TEST.setSequence('AC root =') === 0 )+ ' ' + 'root = 0' + br;
+test+=(TEST.setSequence('2 pow 2 + 1 =') === 5) + ' ' + '2 ^ 2 + 1 = 5' + br;
+test+=(TEST.setSequence('2 pow 2 + 1 =') === 5) + ' ' + '2 ^ 2 + 1 = 5' + br;
+test+=(TEST.setSequence('9 * / del / + 1 =') === 10) + ' ' + '9 * / del / + 1 = 10' + 'сбрасывает пред операн' + br 
+test+=(TEST.setSequence('AC 9 root + 1 =') === 4) + ' ' + '√ 9 + 1 = 4' + br;
+test+=(TEST.setSequence('AC 2 pow 1 +/-  =') === 0.5) + ' ' + '2 ^ 1 +/- = 0.5' + br;
+test+=(TEST.setSequence('5 DEL pow =') === 1) + ' ' + '5 del ^ = 1' + br;
+test+=(TEST.setSequence('AC pow =') === 1) + ' ' + '^ = 1' + br;
+test+=(TEST.setSequence('0 pow 0 =') === 1) + ' ' + '0^0 = 1' + br;
+
+console.log(test);
