@@ -23,7 +23,7 @@
     left: calc(50% - 160px);
     justify-content: center;
     align-content: center;
-    min-height: 500px;
+    /* min-height: 400px; */
     width: 320px;
     flex-wrap: wrap;
     box-shadow: 0px 0px 16px 4px rgba(0,0,0,0.1);
@@ -72,6 +72,39 @@
   .output .current-operand {
     color: rgba(0, 0, 0, .6);
     font-size: 2.5rem;
+  }
+  .calculator-grid > button.ac-dell-btn{
+    height: 60px;
+    font-size: 20px;
+  }
+  .fn-btn{
+    color: tomato;
+  }
+  .equal-btn{
+    position: relative;
+    color: white;
+  }
+  .equal-btn::before{
+    content: '';
+    position: absolute;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 99, 71, 1);
+    border-radius: 50%;
+  }
+  .equal-btn::after{
+    content: '=';
+    position: absolute;
+    color: white;
+    top: calc(50% - 20px);
+    left: calc(50% - 10px);
+    width: 20px;
+    height: 20px;
+    line-height: 1.2em;
+    /* background-color: rgba(255, 255, 255, 1); */
+    border-radius: 50%;
   }
 
   @media (max-width: 500px){
