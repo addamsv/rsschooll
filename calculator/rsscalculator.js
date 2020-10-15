@@ -92,7 +92,7 @@ class CalculatorView {
         this.makeButton(ob, '-','','fn-btn');
         this.makeButton(ob, '.');
         this.makeButton(ob, '0');
-        this.makeButton(ob,  "=", '=', 'span-two equal-btn');//&#61;
+        this.makeButton(ob,  "", '=', 'span-two equal-btn');//&#61;
      }
 
     /**
@@ -241,6 +241,9 @@ class CalculatorModel extends CalculatorView {
         if(this.isEqualsBtnWasClicked){
             this.currentOperand = 0;
             this.isEqualsBtnWasClicked = false;
+        }
+        if(this.currentOperand.toString().length > 14){
+            return;
         }
         if(number === '.' && this.currentOperand.toString().includes('.')){
             return;
@@ -399,6 +402,22 @@ class CalculatorModel extends CalculatorView {
                 this.currentOperandTextElement.innerText = '0';
             }
             return computation.toString();
+        }
+        if(computation.toString().slice('').includes('.')){
+            if(computation >= 1000000000){
+                // 999999999999.3
+                computation = (Math.round(computation*100))/100;
+
+            }
+            else if(computation < 1000000000 && computation > 1000000){
+                computation = (Math.round(computation*1000))/1000;
+            }
+            else if(computation < 1000000 && computation > 100){
+                computation = (Math.round(computation*100000000))/100000000;
+            }
+            else if(computation < 100){
+                computation = (Math.round(computation*1000000000000))/1000000000000;
+            }
         }
         if(this.previousOperand === ''){
             this.previousOperand = 0;
@@ -776,6 +795,7 @@ test+=(TEST.setSequence('AC root 9 +/- + 1 =') === 'Error: Incorrect argument!')
 test+=br + '/* Действия с дробями: */' + br;
 test+=(TEST.setSequence('0.1 + 0.2 =') === 0.3 )+  ' 0.1 + 0.2 = 0.3' + br;
 test+=(TEST.setSequence('0.4 - 0.1 =') === 0.3) +  ' 0.4 - 0.1 = 0.3' + br;
+test+=(TEST.setSequence('0.3 - 0.2 =') === 0.1) +  ' 0.3 - 0.2 = 0.1' + br;
 test+=(TEST.setSequence('0.0004 + 0.0004 =') === 0.0008 ) +  ' 0.0004 + 0.0004 = 0.0008' + br;
 test+=(TEST.setSequence('0.1 +/- * 0.2 =') === -0.02) +  ' 0.1 +/- * 0.2 = -0.02' + br;
 test+=(TEST.setSequence('0.15 +/- + 0.15 +/- =') === -0.3) +  ' 0.15 +/- + 0.15 +/- = -0.3' + br;
@@ -783,6 +803,7 @@ test+=(TEST.setSequence('0.15 +/- + 0.15 +/- =') === -0.3) +  ' 0.15 +/- + 0.15 
 test+=br + '/* Big Digit Tests: */' + br;
 test+=(TEST.setSequence('9999999999999999999999999999999999999999999999999999999999 + 1 =') === 'Error: Incorrect argument!') + ' 9999999999999999999999999999999999999999999999999999999999 + 1 = -> Error: Incorrect argument! You arent alowed to text such a big digit within RSSCalculatorAPI' + br;
 test+=(TEST.setSequence('99999999999999 * 99999999 =') === 99999998999990) + '  99999999999999 * 99999999 = 99999998999990' + br;
+test+=(TEST.setSequence('999999999999.3 - 0.2 =') === 999999999999.1) + '  99999999999999.3 - 0.2 = 99999999999999.1' + br;
 test+=(TEST.setSequence('10000000000000 + 1 =') === 1000000000001) + ' 10000000000000 + 1 = 10000000000001' + br;
 test+=(TEST.setSequence('10 pow 10000 =') === 'Infinity') + ' 10 pow 10000 = Infinity' + br;
 test+=(TEST.setSequence('10 pow 100 =') === '1.0000000000000002e+100') + ' 10 pow 100 = 1.0000000000000002e+100' + br;
@@ -804,5 +825,14 @@ test+=(TEST.setSequence('AC 2 pow 1 +/-  =') === 0.5) + ' ' + '2 ^ 1 +/- = 0.5' 
 test+=(TEST.setSequence('5 DEL pow =') === 1) + ' ' + '5 del ^ = 1' + br;
 test+=(TEST.setSequence('AC pow =') === 1) + ' ' + '^ = 1' + br;
 test+=(TEST.setSequence('0 pow 0 =') === 1) + ' ' + '0^0 = 1' + br;
-
+test+=(TEST.setSequence('100 pow 2 root =') === 100) + ' ' + ' 100^2√ = 100' + br;
+// let computation = 100000000000000.300000000002 - 100000000000000.200000000002;
+let computation = 0.33 + 0.22;
+// if(computation>100000000000000){
+//     computation =( Math.round(computation*1000))/1000;
+// }
+// else{
+    computation = (Math.round(computation*100000000000000))/100000000000000;
+// }
+test+=(computation);
 console.log(test);
