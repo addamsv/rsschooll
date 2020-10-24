@@ -102,14 +102,20 @@ class Momentum {
     this.putHTMLinto(this.APP.ID.time, TIME_OUTPUT_STING);
     // Output Date
     this.putHTMLinto(this.APP.ID.dayToday, DATE_OUTPUT_STING);
-  
-    if(this.getFormatedHour(TODAY) !== this.APP.SETS.changedHour){
-    // if(MIN !== this.APP.SETS.changedHour){
-      this.APP.SETS.changedHour = this.getFormatedHour(TODAY);
-      // this.APP.SETS.changedHour = MIN;
+    /* 
+    if(MIN !== this.APP.SETS.changedHour){
+      this.APP.SETS.changedHour = MIN;
       console.log('BG change time!! '+ this.getPartOfTheDay());
       this.setMomentumBg('', this.getImgName(true));
     }
+    */
+
+    if(this.getFormatedHour(TODAY) !== this.APP.SETS.changedHour){
+      this.APP.SETS.changedHour = this.getFormatedHour(TODAY);
+      // console.log('BG change time!! '+ this.getPartOfTheDay());
+      this.setMomentumBg('', this.getImgName(true));
+    }
+    
     setTimeout(this.showDateTime.bind(this), 1000);
   }
 
@@ -153,6 +159,7 @@ class Momentum {
   
   setMomentumBg(path='', imgFullName=''){
     document.body.style.backgroundImage = "url('"+(path !== '' ? path : this.getImgPath()) + (imgFullName !== '' ? imgFullName : this.getImgName()) + "')";
+    console.log((path !== '' ? path : this.getImgPath()) + (imgFullName !== '' ? imgFullName : this.getImgName()));
   }
   
   getImgName(isNextEv=true){
@@ -176,11 +183,14 @@ class Momentum {
   }
   
   getNextPartOfTheDay(){
+    return this.getPartOfTheDay(this.APP.SETS.changedPartOfDay);
+  }
+
+  setNextPartOfTheDay(){
     if((this.APP.SETS.imageStartName % this.APP.SETS.imageTotall) == 0){
-      this.APP.SETS.changedPartOfDay = (this.APP.SETS.changedPartOfDay !== 0 && this.APP.SETS.changedPartOfDay % 24 === 0) ? 0 : this.APP.SETS.changedPartOfDay + 6;
+      this.APP.SETS.changedPartOfDay = (this.APP.SETS.changedPartOfDay !== 0 && this.APP.SETS.changedPartOfDay % 18 === 0) ? 0 : this.APP.SETS.changedPartOfDay + 6;
     }
-    console.log(this.APP.SETS.changedPartOfDay+' '+this.getPartOfTheDay(this.APP.SETS.changedPartOfDay));
-    return this.getPartOfTheDay();
+    return this.getPartOfTheDay(this.APP.SETS.changedPartOfDay);
   }
 /**
  * Retrieve one of the fourth time of the day: morning 6:00-12:00, afternoon 12:00-18:00, evening 18:00-24:00, night 24:00-6:00.
@@ -192,17 +202,27 @@ class Momentum {
       hour =  TODAY.getHours();
     }
     if(0 <= hour && hour < 6){
-        return 'night';
+      return 'night';
     }
     if(hour < 12){
-        return 'morning';
+      return 'morning';
     }
     if(hour < 18){
-        return 'afternoon';
+      return 'afternoon';
     }
     return 'evening';
   }
-  
+  getStartPartOfDay(){
+    switch (this.getPartOfTheDay()) {
+      case 'night':
+        return 0;
+      case 'morning':
+        return 6;
+      case 'afternoon':
+        return 12;
+    }
+    return 18;
+  } 
   
   objectDelay(ob){
     ob.disabled = true;
@@ -213,7 +233,7 @@ class Momentum {
   setCurrState(){
     const TODAY = this.getToDayObj();
     this.APP.SETS.changedHour = this.getFormatedHour(TODAY);//TODAY.getHours();
-    // this.APP.SETS.changedHour = TODAY.getMinutes();
+    this.APP.SETS.changedPartOfDay = this.getStartPartOfDay();
   }
   
 
@@ -264,9 +284,12 @@ class Momentum {
     function showNextImage(){
       ent.objectDelay(ent.APP.ID.imgChangeBtn);
       const IMG = document.createElement('img');
-      IMG.src = ent.getImgPath() + ent.getImgName(false);//getNextImgPath() + ent.getImgName(false)
-      IMG.onload = () => ent.setMomentumBg();//ent.setMomentumBg(getNextImgPath(), ent.getImgName(false));
-      ent.getNextPartOfTheDay();
+      ent.setNextPartOfTheDay();
+      // IMG.src = ent.getImgPath() + ent.getImgName(false);
+      // IMG.onload = () => ent.setMomentumBg();//
+      IMG.src =  ent.getNextImgPath() + ent.getImgName();//ent.getImgPath() + ent.getImgName(false);
+      // console.log(ent.getNextImgPath()+ ent.getImgName(false));
+      IMG.onload = () => ent.setMomentumBg( ent.getNextImgPath(), ent.getImgName(false));//ent.setMomentumBg();//
     }
 
   }
