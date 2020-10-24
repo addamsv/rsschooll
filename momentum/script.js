@@ -52,6 +52,10 @@ new Momentum();
       // weatherIcon.classList.add(`owf-${data.weather[0].id}`);
       // temperature.textContent = `${data.main.temp}°C`;
       // weatherDescription.textContent = data.weather[0].description;
+      // console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
+      weatherIcon.classList.add(`owf-701`);
+      temperature.textContent = `10°C`;
+      weatherDescription.textContent = 'mist';
   }
   getWeather()
 
