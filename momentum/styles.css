@@ -12,20 +12,37 @@
     justify-content: center;
     text-align: center;
     height: 100vh;
+    width: 100vw;
     color: black;
+    background-color: rgba( 78, 78, 78, 0 );
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
+    transition: background-image 1s ease-in-out;
   }
   
-  #time {
-    font-size: 8rem;
-  }
-  
+ 
+.time-frmt{
+  display:inline-block;
+  width:100px;
+  font-size: 5rem;
+  color: white;
+}
+.sec{
+  text-align: left;
+  padding-left: 12px;
+}
+
   h1 {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
+    color: white;
   }
   
   h2 {
     margin-bottom: 0.5rem;
     opacity: 0.6;
+    color: white;
   }
   
   @media (max-width: 700px) {
@@ -33,5 +50,109 @@
       font-size: 6rem;
     }
   }
+
   
-  
+
+/* 
+  body {
+    margin: 0px;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: center center;
+    background-image: url("https://raw.githubusercontent.com/irinainina/ready-projects/momentum/momentum/assets/images/night/17.jpg");  
+    transition: background-image 1s ease-in-out;
+  } */
+
+ 
+
+    #imgChangeBtn{
+        position: relative;
+        width: 150px;
+        height: 150px;
+        background: rgba( 78, 78, 78, 0.2 );
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color .5s ease-in-out;
+    }
+    #imgChangeBtn::before{
+        content: '';
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        top: 40px;
+        left: 60px;
+        border-left: 50px solid rgba(255,255,255,0.2);
+        border-top: 40px solid rgba(255,255,255,0);
+        border-bottom: 40px solid rgba(255,255,255,0);
+        transition: border-left-color .2s ease-in-out;
+    }
+    #imgChangeBtn:hover {
+        background: rgba(255,255,255,0.2);
+    }
+    #imgChangeBtn:hover:before {
+        border-left-color:rgba(255,255,255,0.7);
+    }
+
+
+
+
+.btn-q {
+    position: absolute;
+    display: block;
+    right: 10px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    border: 0;
+    background: url("https://www.pngarts.com/files/7/Update-Button-PNG-Image.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* margin: 10px; */
+}
+.btn-q:hover {
+    /* filter: grayscale(.8); */
+}
+.btn-q:active,
+.btn-q:focus {
+    outline: 0;
+}
+.btn-q:active{
+    /* transform: scale(1.02) */
+}
+
+.quote {
+    position: relative;
+    font: 1.2rem ;
+    width: 200px;
+    align-self: flex-start;
+    margin: 0;
+    margin-left: 20px;
+    background-color: rgba( 255, 255, 255, 0.3 );
+    padding: 0.5em;
+    border-radius: 1em;
+}
+.quote figcaption,
+.quote blockquote {
+    margin: 1em;
+}
+.quote figcaption {
+    text-align: right;
+}
+
+
+
+.weather{
+    position: relative;
+    font: 1.2rem ;
+    width: 200px;
+    align-self: flex-start;
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 20px;
+    background-color: rgba( 255, 255, 255, 0.3 );
+    padding: 0.5em;
+    border-radius: 1em;   
+}
+ 
