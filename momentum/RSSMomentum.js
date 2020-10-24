@@ -53,6 +53,7 @@ class Momentum {
         hourFormat24: true,
         bgPath:'assets/images/',
         imgType:'jpg',
+        imageCurrenttName: 0,
         imageStartName: 0,
         imageTotall: 6
       },
@@ -113,7 +114,7 @@ class Momentum {
     if(this.getFormatedHour(TODAY) !== this.APP.SETS.changedHour){
       this.APP.SETS.changedHour = this.getFormatedHour(TODAY);
       // console.log('BG change time!! '+ this.getPartOfTheDay());
-      this.setMomentumBg('', this.getImgName(true));
+      this.setMomentumBg('', this.setImgName());
     }
     
     setTimeout(this.showDateTime.bind(this), 1000);
@@ -144,39 +145,39 @@ class Momentum {
   
  
   
-/* 
-  Set Background and Greeting
-  Фоновые изображения меняются каждый час, Основное требование - плавная смена фоновых изображений. их содержание соответствует времени суток (утро, день, вечер, ночь).
-*/
+
   setBgGreet(){
     this.APP.ID.greeting.textContent = this.setGreetingOfDayPart(this.getPartOfTheDay());
     this.setMomentumBg();
   }
-  
+ 
   setGreetingOfDayPart(dayPart){
     return this.APP.strings.en.greeting[dayPart] + this.APP.strings.en.dayPart[dayPart] + ', ';
   }
-  
+/* 
+  Set Background
+  Фоновые изображения меняются каждый час, 
+  Основное требование - плавная смена фоновых изображений. 
+  их содержание соответствует времени суток (утро, день, вечер, ночь).
+*/   
   setMomentumBg(path='', imgFullName=''){
     document.body.style.backgroundImage = "url('"+(path !== '' ? path : this.getImgPath()) + (imgFullName !== '' ? imgFullName : this.getImgName()) + "')";
-    console.log((path !== '' ? path : this.getImgPath()) + (imgFullName !== '' ? imgFullName : this.getImgName()));
+    // console.log((path !== '' ? path : this.getImgPath()) + (imgFullName !== '' ? imgFullName : this.getImgName()));
   }
   
   getImgName(isNextEv=true){
-    const NAME = ((this.APP.SETS.imageStartName % this.APP.SETS.imageTotall)+1) + "." + this.APP.SETS.imgType;
-    if(isNextEv){
-      this.APP.SETS.imageStartName++;
-    }
-    return NAME;
+    return ((this.APP.SETS.imageCurrenttName % this.APP.SETS.imageTotall)+1) + "." + this.APP.SETS.imgType;
   }
-  
+  setImgName(){
+    this.APP.SETS.imageCurrenttName++;
+  }
   getImgPath(){
     return this.APP.SETS.bgPath + this.getPartOfTheDay() + "/";
   }
 
 /* 
- Есть кнопка, при клике по которой можно пролистать все фоновые изображения за сутки. 
- Изображения пролистываются в том же порядке, в котором они менялись бы в реальном времени. 
+ Solved Есть кнопка, при клике по которой можно пролистать все фоновые изображения за сутки. 
+ Solved Изображения пролистываются в том же порядке, в котором они менялись бы в реальном времени. 
 */
   getNextImgPath(){
     return this.APP.SETS.bgPath + this.getNextPartOfTheDay() + "/";
@@ -187,10 +188,33 @@ class Momentum {
   }
 
   setNextPartOfTheDay(){
-    if((this.APP.SETS.imageStartName % this.APP.SETS.imageTotall) == 0){
-      this.APP.SETS.changedPartOfDay = (this.APP.SETS.changedPartOfDay !== 0 && this.APP.SETS.changedPartOfDay % 18 === 0) ? 0 : this.APP.SETS.changedPartOfDay + 6;
+    const curr = this.APP.SETS.imageStartName;
+    if(this.isOnClickDayPartShouldBeDischarged()){
+      // console.log('comes true');
+      this.APP.SETS.changedPartOfDay = 0;
+      this.APP.SETS.imageCurrenttName = curr;
+      // this.loadImageSeqnc();
+      return true;
     }
-    return this.getPartOfTheDay(this.APP.SETS.changedPartOfDay);
+    if(this.isOnClickNextPartOfDayEvComesTrue()){
+      this.APP.SETS.changedPartOfDay = this.APP.SETS.changedPartOfDay + 6;
+      if(this.APP.SETS.changedPartOfDay===24){
+        this.APP.SETS.changedPartOfDay = 0;
+      }
+      this.APP.SETS.imageCurrenttName = curr;
+      this.loadImageSeqnc();
+      return true;
+    }
+    return false;// this.getPartOfTheDay(this.APP.SETS.changedPartOfDay);
+  }
+  isOnClickNextPartOfDayEvComesTrue(){
+    // console.log(('imageCurrenttName('+ (this.APP.SETS.imageCurrenttName+1) +') == imageTotall('+ this.APP.SETS.imageTotall) +') -> '+( ((this.APP.SETS.imageCurrenttName+1) % (this.APP.SETS.imageTotall)) == 0));
+    return ((this.APP.SETS.imageCurrenttName+1) % this.APP.SETS.imageTotall) === 0;
+  }
+  
+  isOnClickDayPartShouldBeDischarged(){
+    // console.log( 'part: ' +this.APP.SETS.changedPartOfDay+' - ' + (this.APP.SETS.changedPartOfDay !== 0  &&  this.APP.SETS.changedPartOfDay % 24 === 0));
+    return this.APP.SETS.changedPartOfDay !== 0  &&  this.APP.SETS.changedPartOfDay % 24 === 0;
   }
 /**
  * Retrieve one of the fourth time of the day: morning 6:00-12:00, afternoon 12:00-18:00, evening 18:00-24:00, night 24:00-6:00.
@@ -212,6 +236,7 @@ class Momentum {
     }
     return 'evening';
   }
+
   getStartPartOfDay(){
     switch (this.getPartOfTheDay()) {
       case 'night':
@@ -234,6 +259,7 @@ class Momentum {
     const TODAY = this.getToDayObj();
     this.APP.SETS.changedHour = this.getFormatedHour(TODAY);//TODAY.getHours();
     this.APP.SETS.changedPartOfDay = this.getStartPartOfDay();
+    this.loadImageSeqnc();
   }
   
 
@@ -275,7 +301,20 @@ class Momentum {
     }
   }
   
-  
+  loadImageSeqnc(start, fin){
+    let img;
+    start = (start === undefined) ?  this.APP.SETS.imageStartName+1 : start;
+    fin = (fin === undefined) ? this.APP.SETS.imageTotall : fin;
+    // console.log(this.getNextImgPath()+' strat: '+start+'; fin: '+fin);
+    /*
+    * Should be (promise-then) like functionality
+    */
+    for(let i=start;i<=fin;i++){
+      img = document.createElement('img');
+      img.src =  this.getNextImgPath() + i + "." + this.APP.SETS.imgType;
+    }
+  }
+
   setChangingImgEv(ob){
     ob.onclick = showNextImage;
     ob.ontouchstart = showNextImage;
@@ -284,12 +323,15 @@ class Momentum {
     function showNextImage(){
       ent.objectDelay(ent.APP.ID.imgChangeBtn);
       const IMG = document.createElement('img');
-      ent.setNextPartOfTheDay();
-      // IMG.src = ent.getImgPath() + ent.getImgName(false);
+      // IMG.src = ent.getImgPath() + ent.getImgName();
       // IMG.onload = () => ent.setMomentumBg();//
-      IMG.src =  ent.getNextImgPath() + ent.getImgName();//ent.getImgPath() + ent.getImgName(false);
-      // console.log(ent.getNextImgPath()+ ent.getImgName(false));
-      IMG.onload = () => ent.setMomentumBg( ent.getNextImgPath(), ent.getImgName(false));//ent.setMomentumBg();//
+      if(!ent.setNextPartOfTheDay()){
+        ent.setImgName();
+      }
+      // console.log(ent.getImgName());
+      IMG.src =  ent.getNextImgPath() + ent.getImgName();//ent.getImgPath() + ent.getImgName();
+      // console.log(ent.getNextImgPath()+ ent.getImgName());
+      IMG.onload = () => ent.setMomentumBg( ent.getNextImgPath(), ent.getImgName());//ent.setMomentumBg();//
     }
 
   }
@@ -372,7 +414,7 @@ class Momentum {
 //     hourFormat24: true,
 //     bgPath:'assets/images/',
 //     imgType:'jpg',
-//     imageStartName: 0,
+//     imageCurrenttName: 0,
 //     imageTotall: 6
 //   },
 //   ID:{
@@ -464,10 +506,10 @@ class Momentum {
 // }
 
 // function getImgName(isNextEv=true){
-//   const NAME = ((APP.SETS.imageStartName % APP.SETS.imageTotall)+1) + "." + APP.SETS.imgType;
-//   // console.log(((APP.SETS.imageStartName % APP.SETS.imageTotall)+1));
+//   const NAME = ((APP.SETS.imageCurrenttName % APP.SETS.imageTotall)+1) + "." + APP.SETS.imgType;
+//   // console.log(((APP.SETS.imageCurrenttName % APP.SETS.imageTotall)+1));
 //   if(isNextEv){
-//     APP.SETS.imageStartName++;
+//     APP.SETS.imageCurrenttName++;
 //   }
 //   return NAME;
 // }
@@ -509,7 +551,7 @@ class Momentum {
 // function showNextImage(){
 //   objectDelay(APP.ID.imgChangeBtn);
 //   const IMG = document.createElement('img');
-//   IMG.src = getImgPath() + getImgName(false);
+//   IMG.src = getImgPath() + getImgName();
 //   IMG.onload = () => setMomentumBg(); 
 // }
 
