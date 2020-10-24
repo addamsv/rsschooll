@@ -3,8 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/owfont-regular.css">
+    <link rel="stylesheet" href="styles.css">
     <title>Momentum</title>
 </head>
-<body>
+<body id="momentumContainer">
+    <!-- cite -->
+    <figure class="quote">
+        <button class="btn-q"></button>
+        <blockquote>
+            You were not born a winner, and you were not born a loser. You are what you make yourself be.
+        </blockquote>
+        <figcaption> 
+            Lou Holtz
+        </figcaption>
+    </figure>
+    <!-- weather -->
+    <figure class="weather">
+        <i class="weather-icon owf"></i>
+        <div class="temperature"></div>
+        <div class="weather-humidity"></div>
+        <div class="weather-wind"></div>
+        <div class="weather-description"></div>
+        <div class="city" contenteditable="true">Minsk</div>
+    </figure>
+    <!-- Momentum -->
+    <time id="time">12:12:12</time>
+    <h1 id="day">Пятница, 25 сентября</h1>
+    <h1>
+        <span id="greeting">Good Afternoon</span>
+        <span id="name" contenteditable="true">Brad</span>
+    </h1>
+    <h2>What Is Your Focus For Today?</h2>
+    <h2 id="focus" contenteditable="true">Make Cool App</h2>
+    <button id="imgChangeBtn"></button>
+    <script id="momentumScript" src="RSSMomentum.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
