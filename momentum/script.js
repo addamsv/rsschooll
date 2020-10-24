@@ -2,166 +2,90 @@
  * MAIN USER SCRIPT
  *  
  */
-
-const STRING = {
-    en:{
-        dayPart:{
-            afternoon:'Afternoon',
-            night:'Night',
-            morning:'Morning',
-            evening:'Evening'
-        },
-        greeting:{
-            afternoon:'Good ',
-            night:'Good ',
-            morning:'Good ',
-            evening:'Good '
-        },
-        defltName:'[Enter Name]',
-        defltFocus:'[Enter Name]',
-    },
-    bgPath:'assets/images/',
-    imgType:'jpg'
-}
-
-// DOM Elements
-const time = document.getElementById('time'),
-  greeting = document.getElementById('greeting'),
-  name = document.getElementById('name'),
-  focus = document.getElementById('focus');
-
-// Options
-const showAmPm = false;
-const hourFormat24 = true;
-
-// Show Time
-function showTime() {
-    // let today = new Date(2019, 06 ,10, 20,33,30),
-  let today = new Date(),
-    hour = today.getHours(),
-    min = today.getMinutes(),
-    sec = today.getSeconds();
-
-  // Set AM or PM
-  const amPm = hour >= 12 ? 'PM' : 'AM';
-
-  // 12/24hr Format
-  hour = (hourFormat24) ? (hour) : (hour % 12 || 12);
-
-  // Output Time
-  time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(
-    sec
-  )} ${showAmPm ? amPm : ''}`;
-
-  setTimeout(showTime, 1000);
-}
-
-// Add Zeros
-function addZero(n) {
-  return (parseInt(n, 10) < 10 ? '0' : '') + n;
-}
-
-// Set Background and Greeting
-function setBgGreet() {
-
-/* 
-    при клике в поле ввода текст, который там был, исчезает,
-     если пользователь ничего не ввёл или ввёл пустую строку,
-    текст восстанавливается 
-
-    четыре времени суток: утро 6:00-12:00, день 12:00-18:00, вечер 18:00-24:00, ночь 24:00-6:00.
- */
+new Momentum();
 
 
-
-//   let today = new Date(2019, 06 ,10, 20,33,30),
-  let today = new Date(),
-    hour = today.getHours(),
-    dayPart = getPartOfTheDay(hour);
-    setGreetingOfDayPart(dayPart);
-    setBgOfDayPart(dayPart);
-}
-
-function setGreetingOfDayPart(dayPart){
-    greeting.textContent = STRING.en.greeting[dayPart] + STRING.en.dayPart[dayPart] + ', ';
-}
-
-function setBgOfDayPart(dayPart){
-    document.body.style.backgroundImage = "url('"+getImgPath(dayPart) + getImgName() + "')";
-}
-function getImgName(n=true){
-    return n ? "1." + STRING.imgType : "1." + STRING.imgType;/* if false should random name 1-10 may be */
-}
-function getImgPath(dayPart){
-    return STRING.bgPath + dayPart + "/";
-}
-
-function getPartOfTheDay(hour){
-    if(0 < hour && hour < 6){
-        return 'night';
-    }
-    if(hour < 12){
-        return 'morning';
-    }
-    if(hour < 18){
-        return 'afternoon';
-    }
-    return 'evening';
-}
-
-
-// Get Name
-function getName() {
-  if (localStorage.getItem('name') === null) {
-    name.textContent = STRING.en.defltName;
-  } else {
-    name.textContent = localStorage.getItem('name');
+  
+  
+  // если смена цитаты у вас не работает, вероятно, исчерпался лимит API. в консоли ошибка 403
+  // скопируйте код себе и запустите со своего компьютера
+  const blockquote = document.querySelector('blockquote');
+  const figcaption = document.querySelector('figcaption');
+  const btnQuote = document.querySelector('.btn-q');
+  
+  // если в ссылке заменить lang=en на lang=ru, цитаты будут на русском языке
+  // префикс https://cors-anywhere.herokuapp.com используем для доступа к данным с других сайтов если браузер возвращает ошибку Cross-Origin Request Blocked 
+  async function getQuote() {  
+    // const url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en`;
+    // const res = await fetch(url);
+    // const outData = await res.json();
+    // blockquote.textContent = outData.quoteText;
+    // figcaption.textContent = outData.quoteAuthor;
   }
-}
-
-// Set Name
-function setName(e) {
-  if (e.type === 'keypress') {
-    // Make sure enter is pressed
-    if (e.which == 13 || e.keyCode == 13) {
-      localStorage.setItem('name', e.target.innerText);
-      name.blur();
-    }
-  } else {
-    localStorage.setItem('name', e.target.innerText);
+  document.addEventListener('DOMContentLoaded', getQuote);
+  btnQuote.addEventListener('click', getQuote);
+  /*
+  A single conversation across the table with a wise person is worth a months study of books
+                                          Chinese Proverb
+  You were not born a winner, and you were not born a loser. You are what you make yourself be.
+                                          Lou Holtz
+  Love does not consist of gazing at each other, but in looking together in the same direction.
+                                          Antoine de Saint-Exupery
+  Love and kindness are never wasted. They always make a difference. They bless the one who receives them, and they bless you, the giver.
+                                          Barbara De Angelis
+  Be glad of life because it gives you the chance to love, to work, to play, and to look up at the stars.
+                                          Henry Van Dyke
+  */
+  
+  
+  
+  
+  const weatherIcon = document.querySelector('.weather-icon');
+  const temperature = document.querySelector('.temperature');
+  const weatherDescription = document.querySelector('.weather-description');
+  
+  async function getWeather(town='Минск') {  
+      // const url = `https://api.openweathermap.org/data/2.5/weather?q=`+town+`&lang=en&appid=3b7c623e3b5cc952b10657b86fc25936&units=metric`;
+      // const res = await fetch(url);
+      // const data = await res.json(); 
+      // console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
+      // weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+      // temperature.textContent = `${data.main.temp}°C`;
+      // weatherDescription.textContent = data.weather[0].description;
   }
-}
+  getWeather()
 
-// Get Focus
-function getFocus() {
-  if (localStorage.getItem('focus') === null) {
-    focus.textContent = STRING.en.defltFocus;
-  } else {
-    focus.textContent = localStorage.getItem('focus');
-  }
-}
 
-// Set Focus
-function setFocus(e) {
-  if (e.type === 'keypress') {
-    // Make sure enter is pressed
-    if (e.which == 13 || e.keyCode == 13) {
-      localStorage.setItem('focus', e.target.innerText);
-      focus.blur();
-    }
-  } else {
-    localStorage.setItem('focus', e.target.innerText);
-  }
-}
+//   Получаем погоду для определённого города
 
-name.addEventListener('keypress', setName);
-name.addEventListener('blur', setName);
-focus.addEventListener('keypress', setFocus);
-focus.addEventListener('blur', setFocus);
+// В index.html создадим div с классом city со свойством contenteditable="true", которое позволяет пользователям редактировать его содержимое и укажем в нём название города, например, Минск
 
-// Run
-showTime();
-setBgGreet();
-getName();
-getFocus();
+// <div class="city" contenteditable="true">Минск</div>
+// В script.js найдём этот элемент
 
+// const city = document.querySelector('.city');
+// В функции getWeather() изменим ссылку
+
+// const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=ru&appid=08f2a575dda978b9c539199e54df03b0&units=metric`;
+// Теперь у нас отображается погода того города, который указан в блоке city. Напишем функцию setCity(event), для обновлении прогноза погоды при изменении содержания блока city
+
+// function setCity(event) {
+//   if (event.code === 'Enter') {
+//     getWeather();
+//     city.blur();
+//   }
+// }
+// Если в блоке city нажали клавишу Enter, запускаем функцию getWeather() и убираем фокус с блока city.
+
+// В функции getWeather() перед добавлением иконке погоды дополнительного класса укажем строку
+
+// weatherIcon.className = 'weather-icon owf';
+// Этой строкой мы удаляем все лишние классы перед добавлением нового, чтобы иконка погоды обновлялась корректно.
+
+// Строки
+
+// document.addEventListener('DOMContentLoaded', getWeather);
+// city.addEventListener('keypress', setCity);
+// запускают отображение прогноза погоды при загрузки страницы и при нажатии на Enter в блоке city при вводе нового города
+
+// Добавим немного стилей и приложение погоды готово.
