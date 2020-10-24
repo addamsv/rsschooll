@@ -4,6 +4,7 @@
  */
 class Momentum {
   constructor(){
+    /** ANDROID STYLE DEFINITION */
     this.APP = {
       strings : {
           en:{
@@ -166,6 +167,7 @@ class Momentum {
   }
   
   getImgName(isNextEv=true){
+    console.log(((this.APP.SETS.imageCurrenttName % this.APP.SETS.imageTotall)+1) + "." + this.APP.SETS.imgType);
     return ((this.APP.SETS.imageCurrenttName % this.APP.SETS.imageTotall)+1) + "." + this.APP.SETS.imgType;
   }
   setImgName(){
@@ -254,8 +256,27 @@ class Momentum {
     setTimeout(function(){ob.disabled = false}, 1000);
   }
 
+  getField(prop) {
+    return localStorage.getItem(prop);
+  }
+
+  setField(prop,val) {
+    localStorage.setItem(prop,val);
+  }
+  setImagesNamesStartFin(){
+    this.APP.SETS.imageTotall = this.getField('imageTotall') ? this.getField('imageTotall') : this.APP.SETS.imageTotall;
+    this.APP.SETS.imageStartName = this.APP.SETS.imageTotall - 6;
+    const cur = this.APP.SETS.imageStartName;
+    this.APP.SETS.imageCurrenttName = cur;
+    
+    this.setField('imageTotall', (parseInt(this.APP.SETS.imageTotall)+6 > 18) ? 6 : parseInt(this.APP.SETS.imageTotall)+6);
+    console.log(this.APP.SETS.imageStartName + ' ' + this.APP.SETS.imageTotall);
+  }
+  //this.getField('imageStartName') ? this.getField('imageStartName') : this.APP.SETS.imageStartName;
+  // this.setField('imageStartName', (parseInt(this.APP.SETS.imageTotall)+6 > 18) ? 0 : parseInt(this.APP.SETS.imageStartName)+6);
   
   setCurrState(){
+    this.setImagesNamesStartFin();
     const TODAY = this.getToDayObj();
     this.APP.SETS.changedHour = this.getFormatedHour(TODAY);//TODAY.getHours();
     this.APP.SETS.changedPartOfDay = this.getStartPartOfDay();
@@ -279,10 +300,14 @@ class Momentum {
       текст восстанавливается  
   */
   setChangeTextFieldEvent(ob){
-  
+    let 
+    tempVal = '',
+    ent = this;
     ob.textContent = getField(ob.id,this);
     ob.onkeypress = setField;
     ob.onblur = setField;
+    ob.onfocus = temporaryStore;
+
 
     function getField(prop,contxt) {
       return localStorage.getItem(prop) === null ? contxt.APP.strings.en['deflt'+prop] : localStorage.getItem(prop);
@@ -292,20 +317,38 @@ class Momentum {
       if (e.type === 'keypress') {
         if (e.which == 13 || e.keyCode == 13) {// Make sure enter is pressed
           e.preventDefault();
-          localStorage.setItem(e.target.id, e.target.innerText);
+          if(e.target.innerText!==''){
+            localStorage.setItem(e.target.id, e.target.innerText);
+          }
           e.target.blur();
         }
       } else {
-        localStorage.setItem(e.target.id, e.target.innerText);
+        if(ob.textContent===''){//} && ){
+          ob.textContent = (localStorage.getItem(e.target.id)==='') ? ent.APP.strings.en['deflt'+e.target.id] : localStorage.getItem(e.target.id)//tempVal;
+        }
+        //localStorage.setItem(e.target.id, e.target.innerText);
       }
+    }
+    function temporaryStore(e){
+      // tempVal = ob.textContent;
+      // console.log(tempVal);
+      ob.textContent = '';
+      e.target.focus();
+
+      var range = document.createRange();
+      range.selectNodeContents(e.target);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      e.target.style.outlineColor = 'blue';
     }
   }
   
   loadImageSeqnc(start, fin){
     let img;
-    start = (start === undefined) ?  this.APP.SETS.imageStartName+1 : start;
+    start = (start === undefined) ?  parseInt(this.APP.SETS.imageStartName)+1 : start;
     fin = (fin === undefined) ? this.APP.SETS.imageTotall : fin;
-    // console.log(this.getNextImgPath()+' strat: '+start+'; fin: '+fin);
+    console.log(this.getNextImgPath()+' strat: '+start+'; fin: '+fin);
     /*
     * Should be (promise-then) like functionality
     */
@@ -337,333 +380,3 @@ class Momentum {
   }
   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// /** ANDROID STYLE DEFINITION */
-// const APP = {
-//   strings : {
-//       en:{
-//           dayPart:{
-//               afternoon:'Afternoon',
-//               night:'Night',
-//               morning:'Morning',
-//               evening:'Evening'
-//           },
-//           dayName:{
-//               0:'Sunday',
-//               1:'Monday',
-//               2:'Tuesday',
-//               3:'Wednesday',
-//               4:'Thursday',
-//               5:'Friday',
-//               6:'Saturday',
-//           },
-//           monthName:{
-//               0:'January',
-//               1:'February',
-//               2:'March',
-//               3:'April',
-//               4:'May',
-//               5:'June',
-//               6:'July',
-//               7:'August',
-//               8:'September',
-//               9:'October',
-//               10:'November',
-//               11:'December'
-//           },
-//           greeting:{
-//               afternoon:'Good ',
-//               night:'Good ',
-//               morning:'Good ',
-//               evening:'Good '
-//           },
-//           defltname:'[Enter Name]',
-//           defltfocus:'[Enter Focus]',
-//       }
-//   },
-//   SETS:{
-//     showAmPm: false,
-//     changedHour: 0,
-//     changedPartOfDay: '',
-//     hourFormat24: true,
-//     bgPath:'assets/images/',
-//     imgType:'jpg',
-//     imageCurrenttName: 0,
-//     imageTotall: 6
-//   },
-//   ID:{
-//     time: document.getElementById('time'),
-//     greeting: document.getElementById('greeting'),
-//     name: document.getElementById('name'),
-//     focus: document.getElementById('focus'),
-//     dayToday: document.getElementById('day'),
-//     imgChangeBtn: document.getElementById('imgChangeBtn'),
-//     momentumContainer: document.getElementById('momentumContainer')
-//   }
-// }
-
-
-
-
-
-// function getToDay(){
-//   return new Date();//2019, 06 ,10, 20,33,30
-// }
- 
-// // Show Time
-// function showDateTime() {
-
-//   const 
-//     TODAY = getToDay(),
-//     MIN = TODAY.getMinutes(),
-//     SEC = TODAY.getSeconds(),
-//     MONTH = TODAY.getMonth(),
-//     DAY = TODAY.getDate(),
-//     DAY_OF_WEEK = TODAY.getDay(),
-//     TIME_OUTPUT_STING = `<span class="time-frmt">${getFormatedHour(TODAY)}:</span><span class="time-frmt">${addZero(MIN)}:</span><span class="time-frmt sec">${addZero(SEC)}</span>${APP.SETS.showAmPm ? getAMPM(TODAY) : ''}`,
-//     DATE_OUTPUT_STING = APP.strings.en.dayName[DAY_OF_WEEK] + ' ' + APP.strings.en.monthName[MONTH] + ', ' + DAY;
-//     console.log(DAY_OF_WEEK);
-
-//   // Output Time
-//   putHTMLinto(APP.ID.time, TIME_OUTPUT_STING);
-//   // Output Date
-//   putHTMLinto(APP.ID.dayToday, DATE_OUTPUT_STING);
-
-//   if(getFormatedHour(TODAY) !== APP.SETS.changedHour){
-//   // if(MIN !== APP.SETS.changedHour){
-//     APP.SETS.changedHour = getFormatedHour(TODAY);
-//     // APP.SETS.changedHour = MIN;
-//     console.log('BG change time!! '+ getPartOfTheDay());
-//     setMomentumBg('', getImgName(true));
-//   }
-//   setTimeout(showDateTime, 1000);
-// }
-
-// function putHTMLinto(ob, html){
-//   ob.innerHTML = html;
-// }
-
-// // 12/24hr Format
-// function getFormatedHour(today){
-//   return APP.SETS.hourFormat24 ? (today.getHours()) : (today.getHours() % 12 || 12);
-// }
-
-// // Set AM or PM
-// function getAMPM(today){
-//   return today.getHours() >= 12 ? 'PM' : 'AM';
-// }
-
-// // Add Zeros To Time Digit
-// function addZero(n) {
-//   return (parseInt(n, 10) < 10 ? '0' : '') + n;
-// }
-
-
-// /* Set Background and Greeting
-// Фоновые изображения меняются каждый час, Основное требование - плавная смена фоновых изображений. их содержание соответствует времени суток (утро, день, вечер, ночь).
- 
-// Есть кнопка, при клике по которой можно пролистать все фоновые изображения за сутки. 
-// Изображения пролистываются в том же порядке, в котором они менялись бы в реальном времени. 
-
-// */
-// function setBgGreet() {
-//   APP.ID.greeting.textContent = setGreetingOfDayPart(getPartOfTheDay());
-//   setMomentumBg();
-// }
-
-// function setGreetingOfDayPart(dayPart){
-//     return APP.strings.en.greeting[dayPart] + APP.strings.en.dayPart[dayPart] + ', ';
-// }
-
-// function setMomentumBg(path='', imgFullName=''){
-//     document.body.style.backgroundImage = "url('"+(path !== '' ? path : getImgPath()) + (imgFullName !== '' ? imgFullName : getImgName()) + "')";
-// }
-
-// function getImgName(isNextEv=true){
-//   const NAME = ((APP.SETS.imageCurrenttName % APP.SETS.imageTotall)+1) + "." + APP.SETS.imgType;
-//   // console.log(((APP.SETS.imageCurrenttName % APP.SETS.imageTotall)+1));
-//   if(isNextEv){
-//     APP.SETS.imageCurrenttName++;
-//   }
-//   return NAME;
-// }
-
-// function getImgPath(){
-//     return APP.SETS.bgPath + getPartOfTheDay() + "/";
-// }
-
-// function getNextImgPath(){
-//     APP.SETS.changedPartOfDay = getPartOfTheDay();
-//     // console.log(APP.SETS.changedPartOfDay);
-//     return APP.SETS.bgPath + getPartOfTheDay() + "/";
-// }
-
-// // четыре времени суток: утро 6:00-12:00, день 12:00-18:00, вечер 18:00-24:00, ночь 24:00-6:00.
-// function getPartOfTheDay(hour=''){
-//   if(hour===''){
-//     const TODAY = getToDay();
-//     hour =  TODAY.getHours();
-//   }
-//   if(0 <= hour && hour < 6){
-//       return 'night';
-//   }
-//   if(hour < 12){
-//       return 'morning';
-//   }
-//   if(hour < 18){
-//       return 'afternoon';
-//   }
-//   return 'evening';
-// }
-
-
-// function objectDelay(ob){
-//   ob.disabled = true;
-//   setTimeout(function(){ob.disabled = false}, 1000);
-// }
-
-// function showNextImage(){
-//   objectDelay(APP.ID.imgChangeBtn);
-//   const IMG = document.createElement('img');
-//   IMG.src = getImgPath() + getImgName();
-//   IMG.onload = () => setMomentumBg(); 
-// }
-
-// function setCurrState(){
-//   const TODAY = getToDay();
-//   APP.SETS.changedHour = getFormatedHour(TODAY);//TODAY.getHours();
-//   // APP.SETS.changedHour = TODAY.getMinutes();
-// }
-
-
-// /* EVENTS */
-
-
-
-// /** 
-//     при клике в поле ввода текст, который там был, исчезает,
-//     если пользователь ничего не ввёл или ввёл пустую строку,
-//     текст восстанавливается  
-// */
-// function setChangeTextFieldEvent(ob){
-
-//   ob.textContent = getField(ob.id);
-//   ob.onkeypress = setField;
-//   ob.onblur = setField;
-
-//   function getField(prop) {
-//     return localStorage.getItem(prop) === null ? APP.strings.en['deflt'+prop] : localStorage.getItem(prop);
-//   }
-
-//   function setField(e) {
-//     if (e.type === 'keypress') {
-//       if (e.which == 13 || e.keyCode == 13) {// Make sure enter is pressed
-//         e.preventDefault();
-//         localStorage.setItem(e.target.id, e.target.innerText);
-//         focus.blur();
-//       }
-//     } else {
-//       localStorage.setItem(e.target.id, e.target.innerText);
-//     }
-//   }
-// }
-
-
-// function setChangingImgEv(ob){
-//   ob.onclick = showNextImage;
-//   ob.ontouchstart = showNextImage;
-// }
-
-// setChangingImgEv(APP.ID.imgChangeBtn);
-// setChangeTextFieldEvent(APP.ID.name);
-// setChangeTextFieldEvent(APP.ID.focus);
-
-
-// /* Entry Point */
-// setCurrState();
-// showDateTime();
-// setBgGreet();
-
-
-
-
-
-
-
-
-// // если смена цитаты у вас не работает, вероятно, исчерпался лимит API. в консоли ошибка 403
-// // скопируйте код себе и запустите со своего компьютера
-// const blockquote = document.querySelector('blockquote');
-// const figcaption = document.querySelector('figcaption');
-// const btnQuote = document.querySelector('.btn-q');
-
-// // если в ссылке заменить lang=en на lang=ru, цитаты будут на русском языке
-// // префикс https://cors-anywhere.herokuapp.com используем для доступа к данным с других сайтов если браузер возвращает ошибку Cross-Origin Request Blocked 
-// async function getQuote() {  
-//   // const url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en`;
-//   // const res = await fetch(url);
-//   // const outData = await res.json();
-//   // blockquote.textContent = outData.quoteText;
-//   // figcaption.textContent = outData.quoteAuthor;
-// }
-// document.addEventListener('DOMContentLoaded', getQuote);
-// btnQuote.addEventListener('click', getQuote);
-// /* 
-// A single conversation across the table with a wise person is worth a months study of books
-//                                         Chinese Proverb
-// You were not born a winner, and you were not born a loser. You are what you make yourself be.
-//                                         Lou Holtz
-// Love does not consist of gazing at each other, but in looking together in the same direction.
-//                                         Antoine de Saint-Exupery
-// Love and kindness are never wasted. They always make a difference. They bless the one who receives them, and they bless you, the giver.
-//                                         Barbara De Angelis
-// Be glad of life because it gives you the chance to love, to work, to play, and to look up at the stars.
-//                                         Henry Van Dyke
-// */
-
-
-
-
-// const weatherIcon = document.querySelector('.weather-icon');
-// const temperature = document.querySelector('.temperature');
-// const weatherDescription = document.querySelector('.weather-description');
-
-// async function getWeather() {  
-//     // const url = `https://api.openweathermap.org/data/2.5/weather?q=Минск&lang=en&appid=3b7c623e3b5cc952b10657b86fc25936&units=metric`;
-//     // const res = await fetch(url);
-//     // const data = await res.json(); 
-//     // console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
-//     // weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-//     // temperature.textContent = `${data.main.temp}°C`;
-//     // weatherDescription.textContent = data.weather[0].description;
-// }
-// getWeather()
-
-
-
