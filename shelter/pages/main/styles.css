@@ -185,20 +185,28 @@ header {
         width: 768px;
         height: 1165px;
     }
-        .not-only-wrapper{
-            width: 460px;
-            height: 322px;
-            left: 154px;
-            top: 60px;
-        }
+
         .header-wrapper {
             width: 708px;
+            height: 60px;
+            top: 30px;
+            left: 30px;
         }
         .not-only-image{
             right: 30px;
             width: 569px;
             height: 593px;
             background-image: url('../../assets/images/start-screen-puppy568x593.png');
+        }
+        .not-only-wrapper{
+            width: 460px;
+            height: 322px;
+            left: 154px;
+            top: 7px;
+        }
+        .not-only-button{
+            left: 126px;
+            top: 167px;
         }
 }
 
@@ -327,19 +335,22 @@ main {
         .about-wrapper{
             width: 437px;
             height: 868px;
-            right: 0px;
+            right: initial;
+            left: 170px;
+            top: 66px;
         }
         .about-content-image{
             width: 300px;
             height: 408px;
-            left: 175px;
-            top: 460px;
+            left: 64px;
+            top: 474px;
         }
         .about-content{
             width: 430px;
             height: 380px;
-            right: 3px;
-            top: 0;
+            right: initial;
+            /* left: 110px; */
+            top: 0px;
         }
             .about-content-title{
             }
@@ -526,8 +537,20 @@ main {
         top: 80px;
         height: 697px;
     }
+    .our-friends-slider-card.our-friends-slider-card-first{
+        left: 64px;
+    }
+    .our-friends-slider-card.our-friends-slider-card-second{
+        left: 100px;
+    }
     .our-friends-slider-card.our-friends-slider-card-third{
         display: none;
+    }
+    .our-friends-title{
+        left: 155px;
+    }
+    .our-friends-slider-button{
+        left: 225px;
     }
 }
 
@@ -739,21 +762,31 @@ main {
         .help-container{
             width: 768px;
             height: 779px;
+            left: initial;
+            display: flex;
+            justify-content: center;
         }
         .help-wrapper{
             width: 630px;
-            left: 40px;
-            right: 69px;
+            left: initial;
+            right: initial;
             top: 80px;
             height: 599px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .help-title{
+            left: initial;
         }
         .help-container ul{
             width: 630px;
             height: 449px;
+            justify-content: space-between;
         }
         .help-container li{
-            margin: 0px 34px;
-            justify-content: space-between;
+            width: 170px;
+            margin: 0;
         }
     }
     
@@ -794,7 +827,7 @@ main {
     position: relative;
     display: block;
     width: 1280px;
-    height: 464px;
+    height: 462px;
     top: 0;
     background-color: #F6F6F6;
 }
@@ -804,9 +837,9 @@ main {
         display: block;
         width: 1200px;
         height: 284px;
-        left: 40px;
+        left: 41px;
         /* right: 360px; */
-        top: 80px;
+        top: 79px;
 
         /* background-color: #bbb; */
     }
@@ -968,14 +1001,14 @@ main {
         position: absolute;
         width: 505px;
         height: 261px;
-        left: 131px;
-        top: 432px;
+        left: 90px;
+        top: 343px;    
     }
     .in-addition-content{
         display: block;
         position: absolute;
-        left: 194px;
-        top: 80px;
+        left: 153px;
+        top: 1px;
     }
 }
 
@@ -1168,6 +1201,17 @@ footer{
         width: 768px;
         height: 639px;
     }
+    .footer{
+        top: 0;
+        left: 24px;
+    }
+    .footer-2{
+        top: 0;
+        left: 81px;
+    }
+    .footer-wrapper{
+        top: 31px;
+    }
     .footer-img{
         display: block;
         position: relative;
@@ -1175,8 +1219,8 @@ footer{
         background: url('../../assets/images/footer-puppy.png');
         width: 300px;
         height: 310px;
-        left: 234px;
-        top: 55px;
+        left: 194px;
+        top: 64px;
     }
 }
 
