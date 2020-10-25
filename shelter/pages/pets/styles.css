@@ -9,7 +9,7 @@ header {
     display: block;
     /* width: 1920px; */
     width: 1280px;
-    height: 128px;
+    height: 120px;
     top: 0;
     margin: 0 auto;
     /* margin: 0 auto; */
@@ -19,10 +19,10 @@ header {
     .header-wrapper {
         display: block;
         position: relative;
-        top: 60px;
+        top: 30px;
         /* margin: 0 auto; */
         width: 1200px;
-        height: 80px;
+        height: 60px;
         /* left: 360px; */
         left: 40px;
     }
@@ -39,7 +39,7 @@ header {
                 font-size: 32px;
                 letter-spacing: 0.0599em;
                 line-height: 36px;
-                color: #F1CDB3;
+                color: #545454;
                 font-weight: 400;
             }
             .header-logo-subtitle{
@@ -52,7 +52,7 @@ header {
                 font-family: Arial;
                 font-weight: normal;
                 font-size: 13px;
-                color: #FFFFFF;
+                color: #292929;
             }
             
             .header-menu{
@@ -73,7 +73,7 @@ header {
                     list-style-type: none;
                 }
                 .header-menu-list li a{
-                    color: #CDCDCD;
+                    color: #545454;
                     text-decoration: none;
                     font-family: Arial;
                     font-style: normal;
@@ -83,7 +83,7 @@ header {
                     padding-bottom: 4px;
                 }
                 .header-menu-list li a.header-menu-list-item-active{
-                    color: #F6F6F6;
+                    color: #292929;
                     font-weight: 400;
                     border-bottom: 3px solid #F1CDB3;
                 }
@@ -165,28 +165,29 @@ main {
 
 .our-friends-container{
     position: relative;
-    display: block;
     width: 1280px;
-    height: 877px;
+    height: 1342px;
     top: 0;
     background-color: #F6F6F6;
-    /* background-color: #aaa; */
+
 }
-    .our-friends-wrapper{
-        position: relative;
-        display: block;
-        width: 1200px;
-        left: 40px;
-        top: 80px;
-        height: 697px;
-        /* background-color: #bbb; */
-    }
+.our-friends-wrapper{
+    width: 1200px;
+    height: 1162px;
+    position: relative;
+    /* left: 40px; */
+    /* top: 80px; */
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    flex-direction: column;
+}
         .our-friends-title{
             position: relative;
             width: 400px;
             height: 90px;
-            left: 401px;
-            top: 1px;
+            left: 441px;
+            top: 81px;
             font-family: Georgia;
             font-style: normal;
             font-weight: normal;
@@ -199,6 +200,18 @@ main {
             word-spacing: 0em;
             color: #545454;
         }
+    .our-friends-slider-wrapper{
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-content: space-between;
+        flex-wrap: wrap;
+        width: 1200px;
+        height:           900px;
+        left: 40px;
+        top: 80px;
+        /* background-color: #bbb; */
+    }
         .our-friends-slider-nav-left{
             position: relative;
  
@@ -208,9 +221,13 @@ main {
 
         }
         .our-friends-slider-card{
-            position: relative;
-            display: inline-block;
-
+            /* position: relative; */
+            /* display: inline-block; */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-content: center;
+ 
             width: 270px;
             height: 435px;
             background: #FAFAFA;
@@ -225,20 +242,20 @@ main {
             box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
         }
         .our-friends-slider-card.our-friends-slider-card-first{
-            left: 105px;
+            /* left: 105px; */
         }
         .our-friends-slider-card.our-friends-slider-card-second{
-            left: 191px;
+            /* left: 191px; */
         }
         .our-friends-slider-card.our-friends-slider-card-third{
-            left: 277px;
+            /* left: 277px; */
         }
             .our-friends-slider-card-image{
-                position: relative;
-                top: 30px;
-                left: 35px;
-                width: 200px;
-                height: 240px;
+                /* position: relative; */
+                /* top: 30px; */
+                /* left: 35px; */
+                width: 270px;
+                height: 270px;
                 margin: 0;
                 padding: 0;
             }
@@ -251,11 +268,26 @@ main {
             .card-image-third{
                 background: url('../../assets/images/our-friends-card-photo-woody.png');
             }
+            .card-image-fourth{
+                background: url('../../assets/images/our-friends-card-photo-sophia.png');
+            }
+            .card-image-fifth{
+                background: url('../../assets/images/our-friends-card-photo-timmy.png');
+            }
+            .card-image-six{
+                background: url('../../assets/images/our-friends-card-photo-charly.png');
+            }
+            .card-image-seventh{
+                background: url('../../assets/images/our-friends-card-photo-scarlett.png');
+            }
+            .card-image-eight{
+                background: url('../../assets/images/our-friends-card-photo-freddie.png');
+            }
             .our-friends-slider-card-title{
-                position: relative;
+                /* position: relative;
                 display: block;
                 top: 60px;
-                left: 98px;
+                left: 98px; */
                 font-family: Georgia;
                 font-style: normal;
                 font-weight: normal;
@@ -263,17 +295,19 @@ main {
                 line-height: 23px;
                 letter-spacing: 0.06em;
                 color: #545454;
+                text-align: center;
+                margin-top: 29px;
             }
                 .our-friends-slider-card-title.nxt{
-                    left: 94px;
+                    /* left: 94px; */
                 }
                 .our-friends-slider-card-title.nxt3{
-                    left: 101px;
+                    /* left: 101px; */
                 }
             .our-friends-slider-card-button{
-                position: relative;
+                /* position: relative;
                 left: 41.5px;
-                top: 90px;
+                top: 90px; */
                 width: 186px;
                 height: 52px;
                 /* color-primary */
@@ -287,23 +321,121 @@ main {
                 letter-spacing: 0.06em;
                 padding-top: 14px;
                 text-align: center;
-            }
 
-            .our-friends-slider-button{
-                display: block;
-                position: absolute;
-                bottom: 0px;
-                left: 470px;
-                width: 261px;
-                height: 52px;
-                border-radius: 100px;
-                background-color: #F1CDB3;
-                font-family: Georgia;
-                color: #292929;
-                text-align: center;
-                letter-spacing: 0.093em;
-                line-height: 3.4em;
+                margin: 30px auto 30px auto;
             }
+    .pager-wrapper{
+        position: relative;
+        
+        display: flex;
+        justify-content: space-between;
+        /* background-color: #ccc; */
+        
+        
+        margin: 0 auto;
+        width: 340px;
+        height: 52px;
+
+        top: 80px;
+        left: 40px;
+        align-self: center;
+    }
+        .pager-item{
+            box-sizing: border-box;
+            width: 52px;
+            height: 52px;
+            border-radius: 100px;
+
+
+            font-family: Georgia;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 2.4em;
+            /* identical to box height, or 23px */
+
+            text-align: center;
+            letter-spacing: 0.06em;
+
+            /* color-dark-3xl */
+
+            
+        }
+        .pager-item-left-all{
+            border: 2px solid #CDCDCD;
+            color: #CDCDCD;
+        }
+        .pager-item-left-one{
+            border: 2px solid #CDCDCD;
+            color: #CDCDCD;
+        }
+        .pager-item-curr{
+            background: #F1CDB3;
+            color: #292929;
+        }
+        .pager-item-right-one{
+            border: 2px solid #F1CDB3;
+            color: #292929;
+        }
+        .pager-item-right-all{
+            border: 2px solid #F1CDB3;
+            color: #292929;
+        }
+
+
+
+
+
+@media screen and (max-width: 1280px) {
+    .our-friends-container{
+        display: flex;
+        /* flex-direction: column; */
+        justify-content: center;
+        /* align-content: center; */
+        width: 768px;
+        height: 1733px;
+    }
+    .header-wrapper{
+        left: 30px;
+    }
+    .our-friends-wrapper{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-content: center;
+        width: 708px;
+        height: 1603px;
+    }
+    .our-friends-title{
+        left: 155px;
+    }
+    .our-friends-slider-wrapper{
+        width: 580px;
+        height: 1365px;
+        left: 64px;
+        top: 63px;
+    }
+    .pager-wrapper{
+        top: 55px;
+        left: 0px;
+    }
+    .our-friends-slider-card-eight,
+    .our-friends-slider-card-seventh{
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .our-friends-container{
+        width: 320px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .our-friends-container{
+    }
+}
 
 
 
@@ -476,31 +608,48 @@ footer{
         left: 312px;
         top: 0px;
     }
-    @media screen and (max-width: 1280px) {
-        footer{
-            width: 768px;
-            height: 639px;
-        }
-        .footer-img{
-            display: block;
-            position: relative;
-            vertical-align: bottom;
-            background: url('../../assets/images/footer-puppy.png');
-            width: 300px;
-            height: 310px;
-            left: 234px;
-            top: 55px;
-        }
+
+
+
+@media screen and (max-width: 1280px) {
+    footer{
+        width: 768px;
+        height: 639px;
     }
-    
-    
-    @media screen and (max-width: 768px) {
-        footer{
-            width: 320px;
-        }
+    .footer{
+        left: 34px;
+        top: 1px;
     }
-    
-    @media screen and (max-width: 320px) {
-        footer{
-        }
+    .footer-2{
+        left: 91px;
+        top: 1px;
     }
+    .footer-wrapper{
+        width: 708px;
+        height: 234px;
+        left: 30px;
+        top: 30px;
+    }
+    .footer-img{
+        display: block;
+        position: relative;
+        vertical-align: bottom;
+        background: url('../../assets/images/footer-puppy.png');
+        width: 300px;
+        height: 310px;
+        left: 204px;
+        top: 65px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    footer{
+        width: 320px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    footer{
+    }
+}
