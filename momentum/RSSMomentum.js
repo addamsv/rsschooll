@@ -50,6 +50,7 @@ class Momentum {
       SETS:{
         showAmPm: false,
         changedHour: 0,
+        changedMin: 0,
         changedPartOfDay: 0,
         hourFormat24: true,
         bgPath:'assets/images/',
@@ -102,15 +103,17 @@ class Momentum {
   
     // Output Time
     this.putHTMLinto(this.APP.ID.time, TIME_OUTPUT_STING);
-    // Output Date
-    this.putHTMLinto(this.APP.ID.dayToday, DATE_OUTPUT_STING);
-    /* 
-    if(MIN !== this.APP.SETS.changedHour){
-      this.APP.SETS.changedHour = MIN;
-      console.log('BG change time!! '+ this.getPartOfTheDay());
-      this.setMomentumBg('', this.getImgName(true));
+ 
+    
+    if(MIN !== this.APP.SETS.changedMin){
+      this.APP.SETS.changedMin = MIN;
+      console.log('Greeting change time!! '+ this.getPartOfTheDay());
+      // Output Date
+      this.putHTMLinto(this.APP.ID.dayToday, DATE_OUTPUT_STING);
+      // this.setMomentumBg('', this.getImgName(true));
+      this.putHTMLinto(this.APP.ID.greeting, this.APP.strings.en.greeting[this.getPartOfTheDay()] + this.APP.strings.en.dayPart[this.getPartOfTheDay()] + ',');
     }
-    */
+   
 
     if(this.getFormatedHour(TODAY) !== this.APP.SETS.changedHour){
       this.APP.SETS.changedHour = this.getFormatedHour(TODAY);
@@ -301,7 +304,7 @@ class Momentum {
   */
   setChangeTextFieldEvent(ob){
     let 
-    tempVal = '',
+    // tempVal = '',
     ent = this;
     ob.textContent = getField(ob.id,this);
     ob.onkeypress = setField;
