@@ -517,6 +517,8 @@ main {
 @media screen and (max-width: 768px) {
     main{
         width: 320px;
+        max-width: 320px;
+        overflow: hidden;
     }
 }
 
@@ -626,6 +628,10 @@ main {
             width: 320px;
             height: 974px;
         }
+        .about-content{
+            width: 300px;
+        }
+
         .about-wrapper{
             width: 300px;
             height: 980px;
