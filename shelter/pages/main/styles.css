@@ -214,6 +214,49 @@ header {
 @media screen and (max-width: 768px) {
     header{
         width: 320px;
+        height: 823px;
+    }
+    .header-wrapper{
+        width: 257px;
+        height: 60px;
+        left: 10px;
+    }
+    .header-menu{
+        display: none;
+    }
+    .not-only-wrapper {
+        width: 300px;
+        height: 296px;
+        left: calc(50% - 300px/2);
+        top: 7px;
+    }
+    .not-only-content-title {
+        width: 300px;
+        height: 64px;
+        left: calc(50% - 300px/2);
+        padding: 0 32px 0 33px;
+        box-sizing: border-box;
+        font-size: 25px;
+        text-align: center;
+        letter-spacing: 0.06em;
+    }
+    .not-only-content{
+        width: 300px;
+        height: 96px;
+        left: calc(50% - 300px/2);
+        text-align: center;
+    }
+
+    .not-only-button{
+        left: calc(50% - 207px/2 - 0.5px);
+    }
+    .not-only-image{
+        right: initial;
+        left: 50px;
+        bottom: 1px;
+        width: 260px;
+        height: 271px;
+        background-image: url('../../assets/images/start-screen-puppy-320.png');
     }
 }
 
@@ -352,15 +395,53 @@ main {
             /* left: 110px; */
             top: 0px;
         }
-            .about-content-title{
-            }
-            .about-content-text{
-            }
     }
     
     
     @media screen and (max-width: 768px) {
         .about-container{
+            width: 320px;
+            height: 974px;
+        }
+        .about-wrapper{
+            width: 300px;
+            height: 980px;
+            left: calc(50% - 300px/2);
+            top: 42px;
+        }
+        .about-content-title{
+            position: initial;
+            width: 300px;
+            height: 64px;
+            left: calc(50% - 300px/2);
+            font-size: 25px;
+            line-height: 130%;
+            text-align: center;
+            letter-spacing: 0.06em;
+            box-sizing: border-box;
+            padding: 0px 22px 0 23px;
+        }
+        .about-content-text{
+            width: 270px;
+            top: 25px;
+            left: 15px;
+            font-family: Arial;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15px;
+            line-height: 160%;
+            text-align: justify;
+            box-sizing: border-box;
+            margin-bottom: 22px;
+        }
+        .about-content-image{
+            position: absolute;
+            width: 260px;
+            height: 353px;
+            top: initial;
+            left: 20px;
+            bottom: 91px;
+            background: url('../../assets/images/about-pets-320.png');
         }
     }
     
@@ -509,7 +590,26 @@ main {
                 padding-top: 14px;
                 text-align: center;
             }
-
+            .our-friends-slider-nav{
+                width: 52px;
+                height: 52px;
+                position: absolute;
+                border: 2px solid #F1CDB3;
+                box-sizing: border-box;
+                border-radius: 100px;
+                bottom: 94px;
+                background: url('../../assets/images/Arrow.png');
+                background-repeat: no-repeat;
+                background-position: center;
+                cursor: pointer;
+            }
+            .our-friends-slider-nav-left{              
+                left: 58px;
+                transform: rotate(180deg);
+            }
+            .our-friends-slider-nav-right{
+                right: 58px;
+            }
             .our-friends-slider-button{
                 display: block;
                 position: absolute;
@@ -557,7 +657,50 @@ main {
 
 @media screen and (max-width: 768px) {
     .our-friends-container{
+        width: 320px;
+        height: 791px;
     }
+        .our-friends-wrapper{
+            width: 300px;
+            height: 707px;
+            top: 42px;
+            left: calc(50% - 300px/2);
+        }
+            .our-friends-title{
+
+                position: initial;
+                width: 300px;
+                height: 64px;
+                left: calc(50% - 300px/2);
+
+                box-sizing: border-box;
+                /* padding: 0px 22px 0 23px; */
+                
+                font-family: Georgia;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 25px;
+                line-height: 130%;
+
+                text-align: center;
+                letter-spacing: 0.06em;
+                text-indent: initial;
+            }
+            .our-friends-slider-card.our-friends-slider-card-first{
+                left: calc(50% - 270px/2);
+                /* height: 507px; */
+                top: 42px;
+            }
+            .our-friends-slider-card.our-friends-slider-card-second{
+                display: none;
+            }
+            .our-friends-slider-card.our-friends-slider-card-third{
+                display: none;
+            }
+            .our-friends-slider-button{
+                left: calc(50% - 260px/2);
+            }
+
 }
 
 @media screen and (max-width: 320px) {
@@ -686,8 +829,6 @@ main {
                     top: 0;
                     margin: 0 auto;
 
-
-
                     /* background-color: #eee; */
                 }
                 /* [class~='help-content-card-icon']{
@@ -695,30 +836,57 @@ main {
                 } */
                 .help-icon-1{
                     background: url('../../assets/icons/icon-pet-food.svg');
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
                 }
                 .help-icon-2{
                     background: url('../../assets/icons/icon-transportation.svg');
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
                 }
                 .help-icon-3{
                     background: url('../../assets/icons/icon-toys.svg');
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
                 }
                 .help-icon-4{
                     background: url('../../assets/icons/icon-bowls-and-cups.svg');
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
                 }
                 .help-icon-5{
                     background: url('../../assets/icons/icon-shampoos.svg');
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
                 }
                 .help-icon-6{
                     background: url('../../assets/icons/icon-vitamins.svg');
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
                 }
                 .help-icon-7{
                     background: url('../../assets/icons/icon-medicines.svg');
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
                 }
                 .help-icon-8{
                     background: url('../../assets/icons/icon-collars-leashes.svg');
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
                 }
                 .help-icon-9{
                     background: url('../../assets/icons/icon-sleeping-area.svg');
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
                 }
                 .help-content-card-title{                                        
                     font-family: Georgia;
@@ -793,7 +961,51 @@ main {
     
     @media screen and (max-width: 768px) {
         .help-container{
+            width: 320px;
+            height: 745px;
         }
+            .help-wrapper{
+                top: 42px;
+                width: 320px;
+                height: 745px;
+            }
+                .help-title{
+                    position: initial;
+                    width: 220px;
+                    height: 64px;
+                    left: calc(50% - 220px/2);
+                    top: 42px;
+                    box-sizing: border-box;
+                    
+                    font-family: Georgia;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 25px;
+                    line-height: 130%;
+
+                    text-align: center;
+                    letter-spacing: 0.05em;
+                }
+                .help-container ul{
+                    width: 290px;
+                    height: 555px;
+                    justify-content: space-between;
+                    align-content: space-between;
+                    margin-top: 42px;
+                }
+                .help-container li{
+                    width: 130px;
+                    height: 87px;
+                }
+                    .help-content-card-icon{
+                        width: 50px;
+                        height: 50px;
+                    }
+                    .help-content-card-title{
+                        font-size: 15px;
+                        letter-spacing: 0.05em;
+                        line-height: 4em; 
+                    }
     }
     
     @media screen and (max-width: 320px) {
@@ -1015,8 +1227,66 @@ main {
 
 @media screen and (max-width: 768px) {
     .in-addition-container{
-
+        width: 320px;
+        height: 542px;
     }
+    .in-addition-wrapper{
+        width: 320px;
+        height: 542px;
+        top: 0;
+        left: 0;
+    }
+    .in-addition-image{
+        width: 260px;
+        height: 135px;
+        top: initial;
+        left: 30px;
+        bottom: 42px;  
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;  
+    }
+    .in-addition-content{
+        left: calc(50% - 300px/2);
+        top: 42px;
+        width: 300px;
+    }
+        .in-addition-title{
+            width: 300px;
+            height: 64px;
+            top: 0px;
+            font-size: 25px;
+            box-sizing: border-box;
+            padding: 0 40px;
+            text-align: center;
+        }
+        .in-addition-add-info{
+            position: absolute;
+            width: 273px;
+            height: 24px;
+            left: 13px;
+            top: 84px;
+            line-height: 160%;
+            letter-spacing: 0em;
+        }
+        .in-addition-credit-card{
+            width: 281px;
+            top: 64px;
+            left: calc(50% - 282px/2);
+        }
+            .in-addition-credit-card-num{
+                font-size: 15px;
+                display: block;
+                position: absolute;
+                left: 60px;
+                top: 13px;
+            }
+        .in-addition-text{
+            width: 280px;
+            top: 84px;
+            left: calc(50% - 280px/2);
+            text-align: justify;
+        }
 }
 
 @media screen and (max-width: 320px) {
@@ -1228,7 +1498,74 @@ footer{
 @media screen and (max-width: 768px) {
     footer{
         width: 320px;
+        height: 809px;
     }
+        .footer-wrapper{
+            width: 300px;
+            top: 30px;
+            height: 779px;
+            left: calc(50% - 300px/2);
+        }
+            .footer{
+                left: calc(50% - 278px/2);;
+                width: 278px;
+            }
+                .footer-title{
+                    
+                    width: 278px;
+                    height: 64px;
+                    left: 0;
+                    top: 0px;
+                    
+                    box-sizing: border-box;
+                    
+                    font-family: Georgia;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 25px;
+                    line-height: 130%;
+                    /* or 32px */
+                    
+                    text-align: center;
+                    letter-spacing: 0.06em;
+                    
+                    /* color-light-xl */
+                    
+                    color: #FFFFFF;  
+                }
+                .footer-info.email{
+                    left: 13px;
+                }
+                .footer-info.phone{
+                    left: 19px;
+                }
+            .footer.footer-2{
+                top: 15px;
+                left: calc(50% - 300px/2);
+            }
+                .footer-2 .footer-title{
+                    left: 11px;
+                }
+                .footer-info.location1{
+                    top: 39px;
+                }
+                .footer-info.location2{
+                    top: 56px;
+                }
+
+            .footer-img{
+                top: initial;
+                bottom: 0;
+                left: 20px;
+                width: 260px;
+                height: 269px;
+                position: absolute;
+
+   
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;  
+            }
 }
 
 @media screen and (max-width: 320px) {
