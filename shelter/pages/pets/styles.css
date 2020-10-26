@@ -12,6 +12,10 @@ header {
     height: 120px;
     top: 0;
     margin: 0 auto;
+    position: fixed;
+    z-index: 1;
+    background-color: #FFF;
+    left: calc(50% - 1280px/2);
     /* margin: 0 auto; */
     /* background-color: #211F20; */
     /* background: url(../../assets/icons/noise_lines_transparent.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20; */
@@ -122,9 +126,11 @@ header {
 @media screen and (max-width: 1280px) {
     header{
         width: 768px;
+        left: calc(50% - 768px/2);
     }
     .header-wrapper {
         width: 708px;
+        left: 30px;
     }
 }
 
@@ -133,9 +139,6 @@ header {
     header{
         width: 320px;
         left: calc(50% - 319px/2);
-        position: fixed;
-        z-index: 1;
-        background-color: #FFF;
     }
     .header-wrapper{
         width: 257px;
@@ -270,7 +273,7 @@ main {
     position: relative;
     display: block;
     width: 1280px;
-    top: 0;
+    top: 120px;
     margin: 0 auto;
 }
 
@@ -653,7 +656,7 @@ footer{
     display: block;
     width: 1280px;
     height: 350px;
-    top: 0;
+    top: 120px;
     background-color: #1A1A1C;
     margin: 0 auto;
     background: url(../../assets/icons/noise_lines_transparent.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
