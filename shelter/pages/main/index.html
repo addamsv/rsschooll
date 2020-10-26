@@ -6,20 +6,39 @@
     <link rel="stylesheet" href="styles.css">
     <title>Shelter</title>
 </head>
-<body>
+<body id='body'>
+    <div id='menuOverlay' data-gamb="close" class="overlay-header-menu-resp"></div>
     <header>
+        <nav id='headerMenuResp' class="header-menu-resp">
+            <div class="header-wrapper-resp">
+                <div class="header-logo">
+                    <h1 class="header-logo-title">Cozy House</h1>
+                    <div class="header-logo-subtitle">Shelter for pets in Boston</div>
+                </div>
+                <div data-gamb="close" class="gamburger" id='gamburgerRes'></div>
+            </div>
+            <div class="asside-menu">
+                <ul class="header-menu-list">
+                    <li><a data-gamb="close" href="#" class="header-menu-list-item-active">About the shelter</a></li>
+                    <li><a class="header-menu-list-item" href="../pets/index.html">Our pets</a></li>
+                    <li><a>Help the shelter</a></li>
+                    <li><a>Contacts</a></li>
+                </ul>
+            </div>
+        </nav>
+
         <div class="header-wrapper">
             <div class="header-logo">
                 <h1 class="header-logo-title">Cozy House</h1>
                 <div class="header-logo-subtitle">Shelter for pets in Boston</div>
             </div>
-            <div class="gamburger"></div>
+            <div data-gamb="open" class="gamburger"></div>
             <nav class="header-menu">
                 <ul class="header-menu-list">
-                    <li class="header-menu-list-item"><a href="../main/index.html" class="header-menu-list-item-active">About the shelter</a></li>
-                    <li class="header-menu-list-item"><a href="../pets/index.html">Our pets</a></li>
-                    <li class="header-menu-list-item"><a href="#">Help the shelter</a></li>
-                    <li class="header-menu-list-item"><a href="#">Contacts</a></li>
+                    <li><a href="../main/index.html" class="header-menu-list-item-active">About the shelter</a></li>
+                    <li><a  class="header-menu-list-item" href="../pets/index.html">Our pets</a></li>
+                    <li><a>Help the shelter</a></li>
+                    <li><a>Contacts</a></li>
                 </ul>
             </nav>
         </div>
@@ -30,7 +49,9 @@
             <p class="not-only-content">
                 We offer to give a chance to a little and nice puppy with an extremely wide and open heart. He or she will love you more than anybody else in the world, you will see!
             </p>
-            <button class="not-only-button">Make a friend</button>
+            <a href="../pets/index.html">
+                <button class="not-only-button">Make a friend</button>
+            </a>
         </div>
         <div class="not-only-image"></div>
     </header>
@@ -77,7 +98,7 @@
                 </div>
                 <div class="our-friends-slider-nav our-friends-slider-nav-left"></div>
                 <div class="our-friends-slider-nav our-friends-slider-nav-right"></div>
-                <div class="our-friends-slider-button">Get to know the rest</div>
+                <a href="../pets/index.html" class="our-friends-slider-button">Get to know the rest</a>
             </div>
         </div>
 
@@ -203,18 +224,18 @@
                 <div class="footer-title">
                     For questions and suggestions
                 </div>
-                <div class="footer-info email">
+                <a class="footer-info email" href="mailto:email@shelter.com">
                     <div class="icon email-icon email-icon"></div>
                     <div class="info email-link">
                         email@shelter.com
                     </div>
-                </div>
-                <div class="footer-info phone">
+                </a>
+                <a class="footer-info phone" href="tel:+136745677554">
                     <div class="icon phone-icon phone-icon"></div>
                     <div class="info phone-link">
                         +13 674 567 75 54
                     </div>
-                </div>
+                </a>
             </div>
             <div class="footer footer-2 location">
                 <div class="footer-title">
@@ -237,5 +258,6 @@
             <div class="footer-img"></div>
         </div>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html>
