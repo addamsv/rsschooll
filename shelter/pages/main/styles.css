@@ -68,7 +68,9 @@ header {
                 font-size: 13px;
                 color: #FFFFFF;
             }
-            
+            .gamburger{
+                display: none;
+            }
             .header-menu{
                 position: absolute;
                 width: 443px;
@@ -96,9 +98,13 @@ header {
                     font-size: 15px;
                     letter-spacing: 0em;
                     padding-bottom: 4px;
+                    transition: 0.2s color;
+                }
+                .header-menu-list li a:hover{
+                    color: #FAFAFA;
                 }
                 .header-menu-list li a.header-menu-list-item-active{
-                    color: #F6F6F6;
+                    color: #FAFAFA;
                     font-weight: 400;
                     border-bottom: 3px solid #F1CDB3;
                 }
@@ -168,6 +174,11 @@ header {
         /* identical to box height, or 22px */
 
         letter-spacing: 0.06em;
+        cursor: pointer;
+        transition: 0.2s background-color;
+    }
+    .not-only-button:hover{
+        background:#FDDCC4;
     }
     .not-only-image{
         background-image: url('../../assets/images/start-screen-puppy.png');
@@ -223,6 +234,18 @@ header {
     }
     .header-menu{
         display: none;
+    }
+    .gamburger{
+        display: block;
+        position: absolute;
+        background: url('../../assets/images/Burger.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+        width: 30px;
+        height: 22px;
+        right: 0;
+        top: 19px;
     }
     .not-only-wrapper {
         width: 300px;
@@ -501,14 +524,7 @@ main {
             word-spacing: 0em;
             color: #545454;
         }
-        .our-friends-slider-nav-left{
-            position: relative;
- 
-        }
-        .our-friends-slider-nav-right{
-            position: relative;
 
-        }
         .our-friends-slider-card{
             position: relative;
             display: inline-block;
@@ -589,6 +605,11 @@ main {
                 letter-spacing: 0.06em;
                 padding-top: 14px;
                 text-align: center;
+                transition: 0.2s background-color;
+            }
+            .our-friends-slider-card-button:hover{
+                background: #FDDCC4;
+                border: 2px solid #FFF;
             }
             .our-friends-slider-nav{
                 width: 52px;
@@ -597,18 +618,34 @@ main {
                 border: 2px solid #F1CDB3;
                 box-sizing: border-box;
                 border-radius: 100px;
-                bottom: 94px;
+                bottom: 303px;
                 background: url('../../assets/images/Arrow.png');
                 background-repeat: no-repeat;
                 background-position: center;
                 cursor: pointer;
+                transition: 0.2s background-color;
             }
+
+        /* .our-friends-slider-nav-left{
+            position: relative;
+        }
+        .our-friends-slider-nav-right{
+            position: relative;
+        } */
             .our-friends-slider-nav-left{              
-                left: 58px;
+                left: 0;
                 transform: rotate(180deg);
             }
+            .our-friends-slider-nav-left:hover{
+                background-color: #FDDCC4;
+                border: none;
+            }
             .our-friends-slider-nav-right{
-                right: 58px;
+                right: 0;
+            }
+            .our-friends-slider-nav-right:hover{
+                background-color: #FDDCC4;
+                border: none;
             }
             .our-friends-slider-button{
                 display: block;
@@ -624,6 +661,11 @@ main {
                 text-align: center;
                 letter-spacing: 0.093em;
                 line-height: 3.4em;
+                transition: 0.2s background-color;
+                cursor: pointer;
+            }
+            .our-friends-slider-button:hover {
+                background: #FDDCC4;
             }
 
 @media screen and (max-width: 1280px) {
@@ -651,6 +693,14 @@ main {
     }
     .our-friends-slider-button{
         left: 225px;
+    }
+    .our-friends-slider-nav{
+        /* bottom: 94px; */
+    }
+    .our-friends-slider-nav-left{              
+        /* transform: rotate(180deg); */
+    }
+    .our-friends-slider-nav-right{
     }
 }
 
@@ -699,6 +749,16 @@ main {
             }
             .our-friends-slider-button{
                 left: calc(50% - 260px/2);
+            }
+            .our-friends-slider-nav{
+                bottom: 94px;
+            }
+            .our-friends-slider-nav-left{  
+                left: 58px;            
+                /* transform: rotate(180deg); */
+            }
+            .our-friends-slider-nav-right{
+                right: 58px;
             }
 
 }
@@ -1180,6 +1240,11 @@ main {
                     /* color-dark-l */
 
                     color: #545454;
+                    transition: 0.2s color;
+                    cursor: pointer;
+                }
+                .in-addition-credit-card-num:hover{
+                    color: #292929;
                 }
 
             .in-addition-text{

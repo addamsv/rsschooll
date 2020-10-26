@@ -42,6 +42,10 @@ header {
                 color: #545454;
                 font-weight: 400;
             }
+            .header-logo .header-logo-title > a {
+                text-decoration: none;
+                color: inherit;
+            }
             .header-logo-subtitle{
                 position: relative;
                 width: 182px;
@@ -81,6 +85,10 @@ header {
                     font-size: 15px;
                     letter-spacing: 0em;
                     padding-bottom: 4px;
+                    transition: 0.2s color;
+                }
+                .header-menu-list li a:hover{
+                    color: #292929;
                 }
                 .header-menu-list li a.header-menu-list-item-active{
                     color: #292929;
@@ -102,6 +110,10 @@ header {
 @media screen and (max-width: 768px) {
     header{
         width: 320px;
+        left: calc(50% - 319px/2);
+        position: fixed;
+        z-index: 1;
+        background-color: #FFF;
     }
     .header-wrapper{
         width: 257px;
@@ -110,6 +122,18 @@ header {
     }
     .header-menu{
         display: none;
+    }
+    .gamburger{
+        display: block;
+        position: absolute;
+        background: url('../../assets/images/Burger-gray.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+        width: 30px;
+        height: 22px;
+        right: 0;
+        top: 19px;
     }
 }
 
@@ -151,6 +175,7 @@ main {
 @media screen and (max-width: 1280px) {
     main{
         width: 768px;
+        top: 120px;
     }
 }
 
@@ -331,6 +356,11 @@ main {
                 text-align: center;
 
                 margin: 30px auto 30px auto;
+                transition: 0.2s background-color;
+            }
+            .our-friends-slider-card-button:hover{
+                background: #FDDCC4;
+                border: 2px solid #FFF;
             }
     .pager-wrapper{
         position: relative;
@@ -384,10 +414,22 @@ main {
         .pager-item-right-one{
             border: 2px solid #F1CDB3;
             color: #292929;
+            cursor: pointer;
+            transition: 0.2s background-color;
+        }
+        .pager-item-right-one:hover{
+            border: 2px solid #FFF;
+            background-color: #F1CDB3;
         }
         .pager-item-right-all{
             border: 2px solid #F1CDB3;
             color: #292929;
+            transition: 0.2s background-color;
+            cursor: pointer;
+        }
+        .pager-item-right-all:hover{
+            border: 2px solid #FFF;
+            background-color: #F1CDB3;
         }
 
 
@@ -701,6 +743,7 @@ footer{
     footer{
         width: 320px;
         height: 809px;
+        top: 120px;
     }
         .footer-wrapper{
             width: 300px;
