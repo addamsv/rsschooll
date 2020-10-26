@@ -93,8 +93,30 @@ function scrSize(){
 
 
 var openedFlag=false;
-const containers = document.querySelectorAll('[data-gamb]');
+var containers = document.querySelectorAll('[data-gamb]');
 for(let i=0,l=containers.length;i<l; i++){
     containers[i].onclick = menu;
 }
 window.onresize = scrSize;
+
+
+
+function popupProc(e){
+    let ob = document.getElementById('popupWrapper');
+    ob.style.display = 'none';
+}
+
+function popup(e){
+    let ob = document.getElementById('popupWrapper');
+    ob.style.display = 'block';
+}
+
+var openedPopUpFlag=false;
+containers = document.querySelectorAll('[data-popup]');
+for(let i=0,l=containers.length;i<l; i++){
+    containers[i].onclick = popup;
+}
+
+const popupCloseBtn = document.getElementById('closePopUp');
+popupCloseBtn.onclick = popupProc;
+
