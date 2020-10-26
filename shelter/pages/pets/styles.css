@@ -103,6 +103,14 @@ header {
     header{
         width: 320px;
     }
+    .header-wrapper{
+        width: 257px;
+        height: 60px;
+        left: 10px;
+    }
+    .header-menu{
+        display: none;
+    }
 }
 
 @media screen and (max-width: 320px) {
@@ -395,9 +403,9 @@ main {
         width: 768px;
         height: 1733px;
     }
-    .header-wrapper{
+    /* .header-wrapper{
         left: 30px;
-    }
+    } */
     .our-friends-wrapper{
         display: flex;
         flex-direction: column;
@@ -429,7 +437,53 @@ main {
 @media screen and (max-width: 768px) {
     .our-friends-container{
         width: 320px;
+        height: 1649px;
     }
+        .our-friends-wrapper{
+            width: 300px;
+            height: 1565px;
+            top: 42px;
+        }
+            .our-friends-title{
+                
+                position: absolute;
+                
+                width: 300px;
+                height: 64px;
+                left: calc(50% - 300px/2);
+                top: 0px;
+                
+                
+                font-family: Georgia;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 25px;
+                line-height: 130%;
+                /* or 32px */
+
+                text-align: center;
+                letter-spacing: 0.06em;
+                box-sizing: border-box;
+                text-indent: initial;
+            }
+        .our-friends-slider-wrapper{
+            width: 300px;
+            left: calc(50% - 300px/2);
+            justify-content: center;
+            align-content: space-between;
+            top: 106px;
+        }
+            .our-friends-slider-card-fourth,
+            .our-friends-slider-card-fifth,
+            .our-friends-slider-card-sixth,
+            .our-friends-slider-card-seventh,
+            .our-friends-slider-card-eight{
+                display: none;
+            }
+        .pager-wrapper{
+            top: initial;
+            width: 300px;
+        }
 }
 
 @media screen and (max-width: 320px) {
@@ -646,7 +700,74 @@ footer{
 @media screen and (max-width: 768px) {
     footer{
         width: 320px;
+        height: 809px;
     }
+        .footer-wrapper{
+            width: 300px;
+            top: 30px;
+            height: 779px;
+            left: calc(50% - 300px/2);
+        }
+            .footer{
+                left: calc(50% - 278px/2);;
+                width: 278px;
+            }
+                .footer-title{
+                    
+                    width: 278px;
+                    height: 64px;
+                    left: 0;
+                    top: 0px;
+                    
+                    box-sizing: border-box;
+                    
+                    font-family: Georgia;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 25px;
+                    line-height: 130%;
+                    /* or 32px */
+                    
+                    text-align: center;
+                    letter-spacing: 0.06em;
+                    
+                    /* color-light-xl */
+                    
+                    color: #FFFFFF;  
+                }
+                .footer-info.email{
+                    left: 13px;
+                }
+                .footer-info.phone{
+                    left: 19px;
+                }
+            .footer.footer-2{
+                top: 15px;
+                left: calc(50% - 300px/2);
+            }
+                .footer-2 .footer-title{
+                    left: 11px;
+                }
+                .footer-info.location1{
+                    top: 39px;
+                }
+                .footer-info.location2{
+                    top: 56px;
+                }
+
+            .footer-img{
+                top: initial;
+                bottom: 0;
+                left: 20px;
+                width: 260px;
+                height: 269px;
+                position: absolute;
+
+   
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;  
+            }
 }
 
 @media screen and (max-width: 320px) {
