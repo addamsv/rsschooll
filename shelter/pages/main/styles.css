@@ -1208,6 +1208,9 @@ main {
         width: 768px;
         height: 783px;
     }
+    .in-addition-wrapper{
+        width: 310px;
+    }
     .in-addition-image{
         display: block;
         position: absolute;
@@ -1481,6 +1484,7 @@ footer{
     }
     .footer-wrapper{
         top: 31px;
+        width: 708px;
     }
     .footer-img{
         display: block;
