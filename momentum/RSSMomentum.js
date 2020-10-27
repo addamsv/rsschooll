@@ -313,7 +313,7 @@ class Momentum {
 
 
     function getField(prop,contxt) {
-      return localStorage.getItem(prop) === null ? contxt.APP.strings.en['deflt'+prop] : localStorage.getItem(prop);
+      return (localStorage.getItem(prop) === null || localStorage.getItem(prop) ==='') ? contxt.APP.strings.en['deflt'+prop] : localStorage.getItem(prop);
     }
   
     function setField(e) {
@@ -327,7 +327,7 @@ class Momentum {
         }
       } else {
         if(ob.textContent===''){//} && ){
-          ob.textContent = (localStorage.getItem(e.target.id)==='') ? ent.APP.strings.en['deflt'+e.target.id] : localStorage.getItem(e.target.id)//tempVal;
+          ob.textContent = (localStorage.getItem(e.target.id) === null || localStorage.getItem(e.target.id)==='') ? ent.APP.strings.en['deflt'+e.target.id] : localStorage.getItem(e.target.id)//tempVal;
         }
         //localStorage.setItem(e.target.id, e.target.innerText);
       }

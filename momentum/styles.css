@@ -64,6 +64,7 @@
   cursor: pointer;
 }
 .city{
+  min-width: 30px;
 }
 .city:hover{
   outline-style: solid;
