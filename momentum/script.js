@@ -191,7 +191,7 @@ btnQuote.onclick = getQuote;
       }
     } else {
       if(e.target.textContent===''){//} && ){
-        e.target.textContent = (localStorage.getItem('city')==='') ? 'Minsk' : localStorage.getItem('city')//tempVal;
+        e.target.textContent = (localStorage.getItem('city')==='' || localStorage.getItem('city')===null) ? 'Minsk' : localStorage.getItem('city')//tempVal;
       }
     }
     // if (e.code === 'Enter') {
