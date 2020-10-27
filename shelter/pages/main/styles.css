@@ -17,6 +17,12 @@ body{
 
 .overlay-popup{
     display: none;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0,0,0,0.9);
+    z-index: 1;
+    cursor: pointer;
 }
 .popup-wrapper{
     display: none;
@@ -63,15 +69,104 @@ body{
             top: 0%;
             width: 500px;
             height: 500px;
-            /* background: url(image.png); */
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
             border-radius: 9px 0px 0px 9px;
         }
+        .info-cntnr{
+            position: absolute;
+            display: block;
+            width: 351px;
+            height: 362px;
+            right: 20px;
+            top: 50px;
+        }
+            .title{
+                position: relative;
+                height: 45px;
+                left: 1px;
+                top: 0px;
+
+                /* h3 */
+
+                font-family: Georgia;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 35px;
+                line-height: 130%;
+                /* or 45px */
+
+                letter-spacing: 0.06em;
+
+                color: #000000;
+            }
+            .breed-popup{
+                position: relative;
+                height: 23px;
+                left: 1px;
+                top: 10px;
+                
+                /* h4 */
+                
+                font-family: Georgia;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 20px;
+                line-height: 115%;
+                /* identical to box height, or 23px */
+                
+                letter-spacing: 0.06em;
+                
+                color: #000000;        
+            }
+            .describe-popup{
+                position: relative;
+                width: 350px;
+                height: 102px;
+                left: 1px;
+                top: 40px;
+                
+                /* h5 */
+                
+                font-family: Georgia;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 15px;
+                line-height: 110%;
+                /* or 17px */
+                
+                letter-spacing: 0.06em;
+                
+                color: #000000;
+                   
+            }
+            .ext-info{
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 304px;
+                height: 102px;
+                left: 1px;
+                top: 80px;
+            }
+                .age-popup,
+                .inoculations-popup,
+                .diseases-popup,
+                .parasites-popup{
+                    position: relative;
+                    font-family: Georgia;
+                    font-style: normal;
+                    /* font-weight: bold; */
+                    font-size: 15px;
+                    line-height: 110%;
+                    letter-spacing: 0.06em;
+                    color: #000000;
+                }
 
 
-@media screen and (max-width: 1280px) {
+@media (max-width: 1280px) {
     .popup-wrapper{
         width: 682px;
         height: 402px;
@@ -79,13 +174,35 @@ body{
         left: calc(50% - 682px/2);
     }
     .container-popup{
+        top: 47px;
+        left: 11px;
         width: 630px;
         height: 350px;
-    }
+    }       
+        .img-popup{
+            width: 350px;
+            height: 350px;
+        }
+        .describe-popup{
+            width: 270px;
+            top: 26px;
+        }
+
+        .info-cntnr{
+            width: 260px;
+            height: 303px;
+            top: 10px;
+            right: 10px;
+        }
+        .ext-info{
+            height: 87px;
+            top: 65px;
+        }
+        
 }
 
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     .popup-wrapper{
         width: 270px;
         height: 393px;
@@ -93,9 +210,57 @@ body{
         left: calc(50% - 270px/2);
     }
     .container-popup{
+        top: 53px;
         width: 240px;
         height: 341px;
-    }   
+    }
+    .img-popup{
+        display: none;
+    }
+
+    .info-cntnr{
+        width: 230px;
+        height: 341px;
+        top: 10px;
+        right: 0px;
+    }
+    .title{
+        font-family: Georgia;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 35px;
+        line-height: 130%;
+        letter-spacing: 0.06em;     
+        text-align: center;
+    }
+    .breed-popup{
+        text-align: center;
+        font-family: Georgia;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 115%;
+        letter-spacing: 0.06em;
+        color: #000000;
+    }
+    .describe-popup{
+        width: 220px;
+        top: 26px;
+        font-family: Georgia;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 110%;
+        /* or 14px */
+
+        text-align: justify;
+        letter-spacing: 0.06em;
+
+        color: #000000;
+    }
+    .btn-close-popup{
+        right: -12px;
+    }
 }
 
 
@@ -305,7 +470,7 @@ header {
     }
 
 
-@media screen and (max-width: 1280px) {
+@media (max-width: 1280px) {
     header{
         width: 768px;
         height: 1165px;
@@ -336,7 +501,7 @@ header {
 }
 
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     header{
         width: 320px;
         height: 823px;
@@ -483,7 +648,7 @@ header {
     }
 }
 
-@media screen and (max-width: 320px) {
+@media (max-width: 320px) {
     header{
     }
 }
@@ -507,14 +672,14 @@ main {
 
 
 
-@media screen and (max-width: 1280px) {
+@media (max-width: 1280px) {
     main{
         width: 768px;
     }
 }
 
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     main{
         width: 320px;
         max-width: 320px;
@@ -522,7 +687,7 @@ main {
     }
 }
 
-@media screen and (max-width: 320px) {
+@media (max-width: 320px) {
     main{
     }
 }
@@ -595,7 +760,7 @@ main {
 
 
 
-    @media screen and (max-width: 1280px) {
+    @media (max-width: 1280px) {
         .about-container{
             width: 768px;
             height: 1048px;
@@ -623,7 +788,7 @@ main {
     }
     
     
-    @media screen and (max-width: 768px) {
+    @media (max-width: 768px) {
         .about-container{
             width: 320px;
             height: 974px;
@@ -674,7 +839,7 @@ main {
         }
     }
     
-    @media screen and (max-width: 320px) {
+    @media (max-width: 320px) {
         .about-container{
         }
     }
@@ -875,7 +1040,7 @@ main {
                 background: #FDDCC4;
             }
 
-@media screen and (max-width: 1280px) {
+@media (max-width: 1280px) {
     .our-friends-container{
         width: 768px;
         height: 877px;
@@ -912,7 +1077,7 @@ main {
 }
 
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     .our-friends-container{
         width: 320px;
         height: 791px;
@@ -970,7 +1135,7 @@ main {
 
 }
 
-@media screen and (max-width: 320px) {
+@media (max-width: 320px) {
     .our-friends-container{
     }
 }
@@ -1193,7 +1358,7 @@ main {
         margin: 0 60px;
     }
 
-    @media screen and (max-width: 1280px) {
+    @media (max-width: 1280px) {
         .help-container{
             width: 768px;
             height: 779px;
@@ -1226,7 +1391,7 @@ main {
     }
     
     
-    @media screen and (max-width: 768px) {
+    @media (max-width: 768px) {
         .help-container{
             width: 320px;
             height: 745px;
@@ -1275,7 +1440,7 @@ main {
                     }
     }
     
-    @media screen and (max-width: 320px) {
+    @media (max-width: 320px) {
         .help-container{
         }
     }
@@ -1475,7 +1640,7 @@ main {
             }
 
 
-@media screen and (max-width: 1280px) {
+@media (max-width: 1280px) {
     .in-addition-container{
         width: 768px;
         height: 783px;
@@ -1500,7 +1665,7 @@ main {
 }
 
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     .in-addition-container{
         width: 320px;
         height: 542px;
@@ -1564,7 +1729,7 @@ main {
         }
 }
 
-@media screen and (max-width: 320px) {
+@media (max-width: 320px) {
     .in-addition-container{
     }
 }
@@ -1742,7 +1907,7 @@ footer{
         top: 0px;
     }
 
-@media screen and (max-width: 1280px) {
+@media (max-width: 1280px) {
     footer{
         width: 768px;
         height: 639px;
@@ -1772,7 +1937,7 @@ footer{
 }
 
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     footer{
         width: 320px;
         height: 809px;
@@ -1845,7 +2010,7 @@ footer{
             }
 }
 
-@media screen and (max-width: 320px) {
+@media (max-width: 320px) {
     footer{
     }
 }
