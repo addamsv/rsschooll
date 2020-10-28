@@ -168,11 +168,11 @@ btnQuote.onclick = getQuote;
     // console.log(data.weather[0].id, data.weather[0].description, data.main.temp, data.main.humidity);
     // console.log(data);
     if(err){
-      weatherDescription.textContent = `description: Err: Failed to Load the Weather`;
+      weatherDescription.innerHTML = `<span class='error'>Err: Failed to Load Data</span>`;
     }
     else {
       weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-      weatherDescription.textContent = `description: `+data.weather[0].description;
+      weatherDescription.innerHTML = data.weather[0].description;
     }
     temperature.textContent = `temp: ${data.main.temp} °C`;
     weatherHumidity.textContent = `humidity: ${data.main.humidity} %`;
