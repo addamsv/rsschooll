@@ -286,26 +286,32 @@ class RSSKeyBoard {
    this.APP.prop.speech = this.APP.prop.speech ? false : true;
    this._toggleCalss(this.APP.ID.speechRecognBtn,!this.APP.prop.speech,'speechRecognBtn--active');
    console.log('speech: '+this.APP.prop.speech);
-   
-
+   const cntx = this;
+ 
    let transcript = '';
    if(!this.APP.prop.speech){
     console.log('closed');
     //  this.APP.ID.speechObj.onresult = null;
     //  this.APP.ID.speechObj.onend = null;
     //  this.APP.ID.speechObj.interimResults = false;
-     this.APP.ID.speechObj.stop();
-    //  this.APP.ID.speechObj.abort();
+    // this.APP.ID.speechObj.abort();
+    this.APP.ID.speechObj.stop();
+    this.APP.ID.speechObj.onend = null;
     //  this.APP.ID.speechObj = null;
-    // console.log();
    }
    if(this.APP.prop.speech){
      console.log('opened');
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     //  let recognition 
-     this.APP.ID.speechObj = new SpeechRecognition();
-     this.APP.ID.speechObj.interimResults = true;
-     this.APP.ID.speechObj.lang = this.APP.prop.lang;
+    if(this.APP.ID.speechObj){
+      return;
+    }
+    this.APP.ID.speechObj = new webkitSpeechRecognition() || new SpeechRecognition();;
+    this.APP.ID.speechObj.interimResults = true;
+    this.APP.ID.speechObj.lang = this.APP.prop.lang;
+     this.APP.ID.speechObj.onend = function() { 
+      console.log('Speech recognition service disconnected'); 
+     }
      console.log(this.APP.ID.speechObj.lang);
      this.APP.ID.speechObj.addEventListener('result', e => {
       transcript = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
@@ -406,6 +412,9 @@ class RSSKeyBoard {
 
   _setLang(){
     this._play('musica2');
+    if(this.APP.ID.speechObj){
+      this.APP.ID.speechObj.lang = this.APP.prop.lang;
+    }
     this._setFocusOnTextField();
 
     this._setAndToggleLangName();
