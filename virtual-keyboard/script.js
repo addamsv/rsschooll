@@ -44,10 +44,11 @@ class RSSKeyBoard {
                 capsLock:false,
                 shift:false,
                 lang:"en",
+                speechRecLeng:'en',
                 keySound:true,
                 speech:false,
                 fnKeys:{'en':'langChange','ru':'langChange','left':37,'right':'ArrowRight','space':32,'enter':13,'shift': 16,'caps': 20,'backspace': 8},
-                notAlowedKeyCode:['Control','Alt','Meta','AltRight','AltLeft','MetaLeft','MetaRight','ControlLeft','ControlRight','IntlBackslash'],
+                notAlowedKeyCode:['Control','Alt','Meta','AltRight','AltLeft','MetaLeft','MetaRight','ControlLeft','ControlRight','IntlBackslash','ArrowDown','ArrowUp','Backslash'],
                 fixCodeEnter:{'Comma':44,'Period':46,'Slash':47,'Minus':45,'Equal':61,'Quote':39,'Semicolon':59,'BracketRight':93,'BracketLeft':91}
             },
             ID:{
@@ -58,7 +59,10 @@ class RSSKeyBoard {
               mainRows:null,
               lastRow:null,
               musica:null,
+              musica2:null,
+              musica3:null,
               speechRecognBtn:null,
+              speechRecognBtnLeng:null,
               clickSoundSwitchOffBtn: null,
               keys: []
             }
@@ -90,31 +94,20 @@ class RSSKeyBoard {
 
 
     function _remTransition(e){
-      // console.log(e);
-      // console.log(e);
-      // console.log(e.target);
       if(e.propertyName==='background-color'){
         e.target.classList.remove('keyboard__quick-animated');
       }
-      
-      // if(e.propertyName !== 'transform'){
-      //   return;
-      // }
-      // e.target.removeTransition();
     }
 
 
     function _mainControllerClick(e){
-      console.log(e);
+      // console.log(e);
 
 
       /* input STANDART kb */
 
       if(e.keyCode){
-        // if(CONTEXT.APP.prop.lang==='ru'){
-        //   console.log((e.keyCode+970) +' '+ String.fromCharCode((e.keyCode+970)));
-        //   // console.log('id_'+e.key.charCodeAt(0));
-        // }
+
         if(!document.getElementById('id_'+e.keyCode) && e.code.substring(0,3)==='Key'){
           if(!document.getElementById('id_'+e.key.charCodeAt(0))){
             return;
@@ -122,11 +115,10 @@ class RSSKeyBoard {
 
           CONTEXT._setTextFieldValue(CONTEXT.APP.ID.textField.selectionStart, CONTEXT.APP.ID.textField.selectionEnd,document.getElementById('id_'+e.key.charCodeAt(0)).dataset['val']);
           CONTEXT._keyAnimated(document.getElementById('id_'+e.key.charCodeAt(0)));
-          // e.target.value = e.target.value + document.getElementById('id_'+e.key.charCodeAt(0)).dataset['val'];
           return;
         }
          
-        
+        // console.log(e.code);
         switch(e.code){
 
          case 'ArrowRight':
@@ -153,28 +145,33 @@ class RSSKeyBoard {
           CONTEXT._setTextFieldValue(CONTEXT.APP.ID.textField.selectionStart, CONTEXT.APP.ID.textField.selectionEnd,' ');
           CONTEXT._keyAnimated(document.getElementById('id_32'));
           return;
+         
+         case 'ShiftLeft':
+         case 'ShiftRightt':
+          CONTEXT._setShift();
+          return;
 
          case 'CapsLock':
           CONTEXT._setCaps();
-          CONTEXT._keyAnimated(document.getElementById('id_20'));
           return;
          
 
          default:
           if(CONTEXT.APP.prop.notAlowedKeyCode.indexOf(e.code)==-1 ){
-            // console.log(e.code);
-            // console.log(e.keyCode);
             if(e.code in CONTEXT.APP.prop.fixCodeEnter){
               CONTEXT._setTextFieldValue(CONTEXT.APP.ID.textField.selectionStart, CONTEXT.APP.ID.textField.selectionEnd,document.getElementById('id_'+CONTEXT.APP.prop.fixCodeEnter[e.code]).dataset['val']);
               CONTEXT._keyAnimated(document.getElementById('id_'+CONTEXT.APP.prop.fixCodeEnter[e.code]));
               return;
             }
-           CONTEXT._setTextFieldValue(CONTEXT.APP.ID.textField.selectionStart, CONTEXT.APP.ID.textField.selectionEnd,document.getElementById('id_'+e.keyCode).dataset['val']);
-           CONTEXT._keyAnimated(document.getElementById('id_'+e.keyCode));
+            try{
+              CONTEXT._setTextFieldValue(CONTEXT.APP.ID.textField.selectionStart, CONTEXT.APP.ID.textField.selectionEnd,document.getElementById('id_'+e.keyCode).dataset['val']);
+              CONTEXT._keyAnimated(document.getElementById('id_'+e.keyCode));
+            }
+            catch(e){
+            }
            return;
           }
          if( e.code.substring(0,3)==='Key' || e.code.substring(0,5)==='Digit' || e.code.substring(0,5)==='Minus' ){
-          //  console.log(e.keyCode);
            CONTEXT._setTextFieldValue(CONTEXT.APP.ID.textField.selectionStart, CONTEXT.APP.ID.textField.selectionEnd,document.getElementById('id_'+e.keyCode).dataset['val']);
            CONTEXT._keyAnimated(document.getElementById('id_'+e.keyCode));
            return;
@@ -200,7 +197,9 @@ class RSSKeyBoard {
           case 'soundSwitchOffBtn':
             CONTEXT._soundSwitchOnOff();
           return;
-
+          case 'speechLang':
+            CONTEXT._changeSpeechLang(e.target.dataset['val']);
+          return;
       }
       if(!e.target.dataset['val']){
         return;
@@ -274,6 +273,12 @@ class RSSKeyBoard {
     }
     ob.classList.add(cssClass);
   }
+  _changeSpeechLang(val='en'){
+    this.APP.prop.speechRecLeng = 'en'===val ? 'ru' : 'en';
+    this.APP.ID.speechRecognBtnLeng.dataset['val'] = this.APP.prop.speechRecLeng;
+    this.APP.ID.speechRecognBtnLeng.innerText = this.APP.prop.speechRecLeng;
+    // console.log(this.APP.prop.speechRecLeng);
+  }
 
  _speechRecognOnOf(){
   this._setFocusOnTextField();
@@ -284,25 +289,21 @@ class RSSKeyBoard {
    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
    let recognition = new SpeechRecognition();
    recognition.interimResults = true;
-   recognition.lang = 'ru';
+   recognition.lang = this.APP.prop.lang;
    let transcript = '';
    if(!this.APP.prop.speech){
-    console.log('here');
     recognition.abort();
     recognition.stop();
     if(recognition.onend){
       recognition.onend = false;
     }
-    // recognition = null;
    }
    if(this.APP.prop.speech){
      recognition.addEventListener('result', e => {
-      console.log(e.results);
       transcript = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
       if(e.results[0].isFinal){
       this.APP.ID.textField.value = this.APP.ID.textField.value + '\n' + transcript;
       }
-      //  if(transcript.includes('woohoo')){      //    console.log('yeaaaa!');      //  }
      });
      recognition.addEventListener('end',recognition.start);
      recognition.start();
@@ -319,7 +320,7 @@ class RSSKeyBoard {
   this._toggleCalss(this.APP.ID.clickSoundSwitchOffBtn,!this.APP.prop.keySound,'keySoundSwitch--active');
   return;
 }
-// console.log('keySound: '+this.APP.prop.keySound);
+
 
 
   _play(ob='musica'){
@@ -364,7 +365,7 @@ class RSSKeyBoard {
       // this._keyAnimated(document.getElementById('id_20'));
     }
     this._rebuildFnButtonsSyles(document.getElementById('id_16'),'shift');
-    this._play();
+    this._play('musica2');
   }
 
   _setAndToggleCaps(){
@@ -372,14 +373,14 @@ class RSSKeyBoard {
   }
 
   _setDone(){
-    this._play();
+    this._play('musica2');
     this._closeKeyBoard();
   }
 
 
 
   _setShift(){
-    this._play();
+    this._play('musica2');
     this._setAndToggleShift();
     this._arraseFrgmnt(this.APP.ID.firstRow);
     this._createFirstRow();
@@ -396,11 +397,16 @@ class RSSKeyBoard {
   }
 
   _setLang(){
-    this._play();
+    this._play('musica2');
     this._setFocusOnTextField();
-    this._arraseFrgmnt(this.APP.ID.mainRows);
+
     this._setAndToggleLangName();
+
+    this._arraseFrgmnt(this.APP.ID.firstRow);
+    this._createFirstRow();
+    this._arraseFrgmnt(this.APP.ID.mainRows);
     this._createMainRows();
+
     document.getElementById('id_langChange').innerText = this.APP.prop.lang;
     this._rebuildFnButtonsSyles(document.getElementById('id_16'),'shift');
     this._rebuildFnButtonsSyles(document.getElementById('id_20'),'capsLock');
@@ -430,22 +436,18 @@ class RSSKeyBoard {
   }
 
   _backspace(startPos,finishPos,n=1,sep = this._separateValue()){
-    this._play();
+    this._play('musica3');
     this._setFocusOnTextField();
-    // console.log('here');
     if(startPos===0 && finishPos===0){
-      // console.log(startPos+' - '+finishPos);
       return;
     }
     if(startPos===0 && finishPos!==0){
-      // console.log(startPos+' - '+finishPos);
       this.APP.prop.textAreaCurrValue = sep.finish;
       this.APP.ID.textField.value = this.APP.prop.textAreaCurrValue;
       this._setCursorOnPosition(0,0,0);
       return;
     }
     if(startPos !== finishPos){
-      // console.log(startPos+' - '+finishPos);
       this.APP.prop.textAreaCurrValue = this._separateValue(n=0).start + sep.finish;
       this.APP.ID.textField.value = this.APP.prop.textAreaCurrValue;
       this._setCursorOnPosition(0,startPos-n,startPos-n);
@@ -472,16 +474,16 @@ class RSSKeyBoard {
 
 
   _setTextFieldValue(startPos, finishPos, val){
-    this._play();
+    this._play((val==='\n')?'musica2':'musica');
+
     if(val.length > 1){
-      console.log('aaaaaaaaaa');
       return;
     }
     this._setFocusOnTextField();
     if(this._isActualStateUpperCase()){
       val = val.toUpperCase();
     }
-    // val = this.APP.prop.capsLock ? val.toUpperCase() : val;
+
 
     let start = this.APP.ID.textField.value.slice(0,startPos);
     let finish = this.APP.ID.textField.value.slice(finishPos,this.APP.ID.textField.value.length);
@@ -520,8 +522,16 @@ class RSSKeyBoard {
       this.APP.ID.musica = document.createElement('audio');
       this.APP.ID.musica.id = 'musica';
       this.APP.ID.musica.src = 'click.wav';
-
       this.APP.ID.main.appendChild(this.APP.ID.musica);
+      this.APP.ID.musica2 = document.createElement('audio');
+      this.APP.ID.musica2.id = 'musica2';
+      this.APP.ID.musica2.src = 'vuiti.wav';
+      this.APP.ID.main.appendChild(this.APP.ID.musica2);
+      this.APP.ID.musica3 = document.createElement('audio');
+      this.APP.ID.musica3.id = 'musica3';
+      this.APP.ID.musica3.src = 'vshick.wav';
+      this.APP.ID.main.appendChild(this.APP.ID.musica3);
+
       this.APP.ID.keysContainer = this._makeElement('div',"keyboard__keys");
 
       /* Additional BTNS */
@@ -529,6 +539,7 @@ class RSSKeyBoard {
       this.APP.ID.clickSoundSwitchOffBtn = this._makeElement('div',"keyboard__key addnl keySoundSwitch keySoundSwitch--active",'sound','','soundSwitchOffBtn');
       this.APP.ID.keysContainer.appendChild(this.APP.ID.speechRecognBtn); 
       this.APP.ID.keysContainer.appendChild(this.APP.ID.clickSoundSwitchOffBtn);
+
 
       this.APP.ID.firstRow = this._makeElement('div',"keyboard__firstRow",'','','firstRow');
       this.APP.ID.mainRows = this._makeElement('div',"keyboard__mainRows",'','','mainRow');
@@ -555,41 +566,33 @@ class RSSKeyBoard {
         el.textContent =  this._getProperTextVal(textVal);
         /* RU firstRow Shifted */
         if(this.APP.prop.lang ==='ru' && this.APP.prop.shift && this.APP.keys.firstRow.ruShifted.indexOf(textVal)!==-1){
-          console.log('RU firstRow Shifted');
           el.id = 'id_'+ this._getProperIDVal(this.APP.keys.firstRow.common[this.APP.keys.firstRow.ruShifted.indexOf(textVal)]);
         }
         /* RU middlRows Shifted */
         else if(this.APP.prop.lang === 'ru' && this.APP.prop.shift){
-          console.log('RU middlRows Shifted');
           el.id = 'id_'+ this._getProperIDVal(this.APP.keys.en[this.APP.keys.ruShifted.indexOf(textVal)]);
         }
         /* EN firstRow Shifted */
         else if(this.APP.prop.lang ==='en' && this.APP.prop.shift && this.APP.keys.firstRow.enShifted.indexOf(textVal)!==-1){
-          console.log('EN firstRow Shifted');
           el.id = 'id_'+ this._getProperIDVal(this.APP.keys.firstRow.common[this.APP.keys.firstRow.enShifted.indexOf(textVal)]);
         }
         /* EN middlRows Shifted */
         else if(this.APP.prop.lang === 'en' && this.APP.prop.shift){
-          console.log('EN middlRows Shifted');
           el.id = 'id_'+ this._getProperIDVal(this.APP.keys.en[this.APP.keys.enShifted.indexOf(textVal)]);
         }
          /* RU firstRow */
         else if(this.APP.prop.lang ==='ru' && !this.APP.prop.shift && this.APP.keys.firstRow.common.indexOf(textVal)!==-1){
-          console.log('RU firstRow');
           el.id = 'id_'+ this._getProperIDVal(this.APP.keys.firstRow.common[this.APP.keys.firstRow.common.indexOf(textVal)]);
         } 
         /* RU middlRows */
         else if(this.APP.prop.lang === 'ru' && !this.APP.prop.shift){
-          console.log(' RU middlRows');
-          console.log(this.APP.keys.ru.indexOf(textVal));
           el.id = 'id_'+ this._getProperIDVal(this.APP.keys.en[this.APP.keys.ru.indexOf(textVal)]);
         }
       
         else{
-          // console.log(textVal );
           el.id = 'id_'+ this._getProperIDVal(textVal);
         }
-        el.dataset.val = textVal;//this.APP.prop.capsLock ? textVal.toUpperCase() : 
+        el.dataset.val = textVal;
       }
       if(_id){
         el.id = _id;
@@ -643,11 +646,8 @@ class RSSKeyBoard {
         this.APP.ID.firstRow.appendChild(this._makeElement('button',"keyboard__key"+this._getAdditionalCssClass(key),key,'button'));
       });
     }
-              // this.APP.keys.firstRow.common.forEach(key => {
-    // this.APP.ID.keysContainer.appendChild(this._makeElement('button',"keyboard__key"+this._getAdditionalCssClass(key),key,'button'));
-    // this._appendNewLine('enter');
 
-
+    
 
 
     _createMainRows(){
@@ -656,24 +656,17 @@ class RSSKeyBoard {
         this._appendNewLine(key,this.APP.ID.mainRows);
       });
     }
-        // this.APP.ID.keysContainer.appendChild(this._makeElement('button',"keyboard__key"+this._getAdditionalCssClass(key),key,'button'));
 
-
+    
 
     _createLastRow(len='en'){
       this.APP.keys.lastRow.forEach(key => {
         this.APP.ID.lastRow.appendChild(this._makeElement('button',"keyboard__key"+this._getAdditionalCssClass(key),(key=='en/ru'?len:key),'button'));
       });  
     }
-    // this.APP.ID.keysContainer.appendChild(this._makeElement('button',"keyboard__key"+this._getAdditionalCssClass(key),(key=='en/ru'?len:key),'button'));
+ 
 
 
-    // _changeMainRows(){
-    //   this.APP.keys[this.APP.prop.lang].forEach(key => {
-    //     this.APP.ID.mainRows.appendChild(this._makeElement('button',"keyboard__key"+this._getAdditionalCssClass(key),key,'button'));
-    //     this._appendNewLine(key,this.APP.ID.mainRows);
-    //   });}
-      // this.APP.ID.keysContainer.appendChild(this._makeElement('button',"keyboard__key"+this._getAdditionalCssClass(key),key,'button'));
 
     _getAdditionalCssClass(key){
       return (key.length > 1 ? " " + key : "")   +   (key === 'caps' || key === 'shift' ? " keyboard__key--activatable" : "");
