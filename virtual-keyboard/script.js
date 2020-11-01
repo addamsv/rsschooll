@@ -280,27 +280,37 @@ class RSSKeyBoard {
    this.APP.prop.speech = this.APP.prop.speech ? false : true;
    this._toggleCalss(this.APP.ID.speechRecognBtn,!this.APP.prop.speech,'speechRecognBtn--active');
    console.log('speech: '+this.APP.prop.speech);
+   
+   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+   let recognition = new SpeechRecognition();
+   recognition.interimResults = true;
+   recognition.lang = 'ru';
+   let transcript = '';
+   if(!this.APP.prop.speech){
+    console.log('here');
+    recognition.abort();
+    recognition.stop();
+    if(recognition.onend){
+      recognition.onend = false;
+    }
+    // recognition = null;
+   }
    if(this.APP.prop.speech){
-     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-     const recognition = new SpeechRecognition();
-     recognition.interimResults = true;
-     recognition.lang = 'ru';
-     console.log(recognition);
-     this.APP.ID.textField.value = this.APP.ID.textField.value + '\n';
      recognition.addEventListener('result', e => {
-       console.log(e.results);
-       const transcript = Array.from(e.result)
-       .map(result => result[0])
-       .map(result => result.transcript).join('');
-       if(e.results[0].isFinal){
-        this.APP.ID.textField.value = this.APP.ID.textField.value + '\n' + transcript;
-       }
-       if(transcript.includes('woohoo')){
-         console.log('yeaaaa!');
-       }
+      console.log(e.results);
+      transcript = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
+      if(e.results[0].isFinal){
+      this.APP.ID.textField.value = this.APP.ID.textField.value + '\n' + transcript;
+      }
+      //  if(transcript.includes('woohoo')){      //    console.log('yeaaaa!');      //  }
      });
+     recognition.addEventListener('end',recognition.start);
      recognition.start();
    }
+   else{
+
+   }
+   
   return;
  }
 
