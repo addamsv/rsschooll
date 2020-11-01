@@ -64,6 +64,7 @@ class RSSKeyBoard {
               speechRecognBtn:null,
               speechRecognBtnLeng:null,
               clickSoundSwitchOffBtn: null,
+              speechObj:null,
               keys: []
             }
 
@@ -286,27 +287,34 @@ class RSSKeyBoard {
    this._toggleCalss(this.APP.ID.speechRecognBtn,!this.APP.prop.speech,'speechRecognBtn--active');
    console.log('speech: '+this.APP.prop.speech);
    
-   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-   let recognition = new SpeechRecognition();
-   recognition.interimResults = true;
-   recognition.lang = this.APP.prop.lang;
+
    let transcript = '';
    if(!this.APP.prop.speech){
-    recognition.abort();
-    recognition.stop();
-    if(recognition.onend){
-      recognition.onend = false;
-    }
+    console.log('closed');
+    //  this.APP.ID.speechObj.onresult = null;
+    //  this.APP.ID.speechObj.onend = null;
+    //  this.APP.ID.speechObj.interimResults = false;
+     this.APP.ID.speechObj.stop();
+    //  this.APP.ID.speechObj.abort();
+    //  this.APP.ID.speechObj = null;
+    // console.log();
    }
    if(this.APP.prop.speech){
-     recognition.addEventListener('result', e => {
+     console.log('opened');
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    //  let recognition 
+     this.APP.ID.speechObj = new SpeechRecognition();
+     this.APP.ID.speechObj.interimResults = true;
+     this.APP.ID.speechObj.lang = this.APP.prop.lang;
+     console.log(this.APP.ID.speechObj.lang);
+     this.APP.ID.speechObj.addEventListener('result', e => {
       transcript = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
       if(e.results[0].isFinal){
       this.APP.ID.textField.value = this.APP.ID.textField.value + '\n' + transcript;
       }
      });
-     recognition.addEventListener('end',recognition.start);
-     recognition.start();
+     this.APP.ID.speechObj.addEventListener('end',this.APP.ID.speechObj.start);
+     this.APP.ID.speechObj.start();
    }
    else{
 
