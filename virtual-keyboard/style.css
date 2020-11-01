@@ -162,3 +162,42 @@
   border: 5px solid rgba(255,255,255,0);
   border-left: 11px solid rgba(0,0,0,.2);
 }
+#speechLang{
+  position: absolute;
+  right: 147px;
+  color: #999;
+  border-color: #999;
+  border-radius: 5px;
+}
+
+@media all and (max-width: 890px) {
+
+  .keyboard__keys{
+    width: 495px;
+  }  
+  .keyboard__key{
+    width: 5.5%;
+  }
+  .shift {
+    width: 30%;
+    max-width: 70px;
+  }
+  .caps,
+  .done,
+  .addnl{
+    width: 40px;
+  }
+  .addnl{
+    width: 50px;
+  }
+  .enter{
+    width: 45px;
+  }
+  .space{
+    width: 170px;
+  }
+  .backspace{
+    width: 89px;
+  }
+
+}
