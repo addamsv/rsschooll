@@ -47,7 +47,7 @@ class RSSKeyBoard {
                 keySound:true,
                 speech:false,
                 fnKeys:{'en':'langChange','ru':'langChange','left':37,'right':'ArrowRight','space':32,'enter':13,'shift': 16,'caps': 20,'backspace': 8},
-                notAlowedKeyCode:['Control','Alt','Meta','AltRight','AltLeft','MetaLeft','MetaRight','ControlLeft','ControlRight'],
+                notAlowedKeyCode:['Control','Alt','Meta','AltRight','AltLeft','MetaLeft','MetaRight','ControlLeft','ControlRight','IntlBackslash'],
                 fixCodeEnter:{'Comma':44,'Period':46,'Slash':47,'Minus':45,'Equal':61,'Quote':39,'Semicolon':59,'BracketRight':93,'BracketLeft':91}
             },
             ID:{
@@ -289,6 +289,15 @@ class RSSKeyBoard {
      this.APP.ID.textField.value = this.APP.ID.textField.value + '\n';
      recognition.addEventListener('result', e => {
        console.log(e.results);
+       const transcript = Array.from(e.result)
+       .map(result => result[0])
+       .map(result => result.transcript).join('');
+       if(e.results[0].isFinal){
+        this.APP.ID.textField.value = this.APP.ID.textField.value + '\n' + transcript;
+       }
+       if(transcript.includes('woohoo')){
+         console.log('yeaaaa!');
+       }
      });
      recognition.start();
    }
@@ -328,6 +337,13 @@ class RSSKeyBoard {
   }
 
 
+  _rebuildFnButtonsSyles(ob,name){
+    if(this.APP.prop[name]){
+      ob.classList.add('keyboard__key--active');
+      return;
+    }
+    ob.classList.remove('keyboard__key--active');
+  }
 
   _setCaps(){
     this._setAndToggleCaps();
@@ -337,6 +353,7 @@ class RSSKeyBoard {
       document.getElementById('id_20').classList.add("keyboard__key--active");//, "keyboard__quick-animated"
       // this._keyAnimated(document.getElementById('id_20'));
     }
+    this._rebuildFnButtonsSyles(document.getElementById('id_16'),'shift');
     this._play();
   }
 
@@ -361,6 +378,7 @@ class RSSKeyBoard {
     if(this.APP.prop.shift){
       document.getElementById('id_16').classList.add("keyboard__key--active");//, "keyboard__quick-animated"
     }
+    this._rebuildFnButtonsSyles(document.getElementById('id_20'),'capsLock');
   }
 
   _setAndToggleShift(){
@@ -374,6 +392,8 @@ class RSSKeyBoard {
     this._setAndToggleLangName();
     this._createMainRows();
     document.getElementById('id_langChange').innerText = this.APP.prop.lang;
+    this._rebuildFnButtonsSyles(document.getElementById('id_16'),'shift');
+    this._rebuildFnButtonsSyles(document.getElementById('id_20'),'capsLock');
   }
 
 
@@ -430,12 +450,29 @@ class RSSKeyBoard {
     this.APP.ID.textField.setSelectionRange(start===undefined?this.APP.ID.textField.selectionStart+n:start ,fin===undefined?this.APP.ID.textField.selectionEnd+n:fin);
   }
 
+  _isActualStateUpperCase(val=false){
+    if(this.APP.prop.capsLock || this.APP.prop.shift){
+      val = true;
+    }
+    if(this.APP.prop.capsLock && this.APP.prop.shift){
+      val = false;
+    }
+    return val;
+  }
+
 
   _setTextFieldValue(startPos, finishPos, val){
     this._play();
-    
+    if(val.length > 1){
+      console.log('aaaaaaaaaa');
+      return;
+    }
     this._setFocusOnTextField();
-    val = this.APP.prop.capsLock ? val.toUpperCase() : val;
+    if(this._isActualStateUpperCase()){
+      val = val.toUpperCase();
+    }
+    // val = this.APP.prop.capsLock ? val.toUpperCase() : val;
+
     let start = this.APP.ID.textField.value.slice(0,startPos);
     let finish = this.APP.ID.textField.value.slice(finishPos,this.APP.ID.textField.value.length);
     
@@ -516,10 +553,15 @@ class RSSKeyBoard {
           console.log('RU middlRows Shifted');
           el.id = 'id_'+ this._getProperIDVal(this.APP.keys.en[this.APP.keys.ruShifted.indexOf(textVal)]);
         }
-        /* EN middlRows Shifted */
+        /* EN firstRow Shifted */
         else if(this.APP.prop.lang ==='en' && this.APP.prop.shift && this.APP.keys.firstRow.enShifted.indexOf(textVal)!==-1){
-          console.log('EN middlRows Shifted');
+          console.log('EN firstRow Shifted');
           el.id = 'id_'+ this._getProperIDVal(this.APP.keys.firstRow.common[this.APP.keys.firstRow.enShifted.indexOf(textVal)]);
+        }
+        /* EN middlRows Shifted */
+        else if(this.APP.prop.lang === 'en' && this.APP.prop.shift){
+          console.log('EN middlRows Shifted');
+          el.id = 'id_'+ this._getProperIDVal(this.APP.keys.en[this.APP.keys.enShifted.indexOf(textVal)]);
         }
          /* RU firstRow */
         else if(this.APP.prop.lang ==='ru' && !this.APP.prop.shift && this.APP.keys.firstRow.common.indexOf(textVal)!==-1){
@@ -566,7 +608,7 @@ class RSSKeyBoard {
         case 'space':
           return '';
         default:
-          return (val in this.APP.prop.fnKeys)    ?    val    :    this.APP.prop.capsLock ? val.toUpperCase() : val;
+          return (val in this.APP.prop.fnKeys)    ?    val    :    this._isActualStateUpperCase() ? val.toUpperCase() : val;
       }
     }
 
