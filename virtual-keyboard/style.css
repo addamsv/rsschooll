@@ -14,8 +14,9 @@
   bottom: 0;
   width: 100%;
   padding: 5px 0;
-  background: #fff;/* #004134; */
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  /* background: #fff;
+  
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5); */
   user-select: none;
   transition: bottom 0.4s;
 }
@@ -25,7 +26,14 @@
 }
 
 .keyboard__keys {
+  position: relative;
   text-align: center;
+  width: 860px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 9px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  padding-top: 40px;
 }
 
 .keyboard__key {
@@ -47,6 +55,12 @@
   padding: 0;
   -webkit-tap-highlight-color: transparent;
   position: relative;
+  transition: background-color 0.08s;
+}
+
+.keyboard__quick-animated{
+  background-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.12);
 }
 
 .keyboard__key:active {
@@ -55,8 +69,7 @@
 
 .keyboard__key--wide,
 .backspace,
-.enter,
-.done {
+.enter {
   width: 12%;
   max-width: 90px;
 }
@@ -85,11 +98,67 @@
 .keyboard__key--active::after {
   background: #f00;
 }
-
+.addnl{
+  position: absolute;
+  width: 50px;
+  height: 25px;
+  top: 3px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 14px;
+}
+.keySoundSwitch{
+  right: 33px;
+}
+.speechRecognBtn{
+  right: 90px;
+}
+.keySoundSwitch::after{
+  content: '';
+  top: 4px;
+  left: 4px;
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%; 
+}
+.speechRecognBtn::after{
+  content: '';
+  top: 4px;
+  left: 4px;
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+}
+.speechRecognBtn--active::after {
+  background: #f00;
+}
+.keySoundSwitch--active::after {
+  background: #f00;
+}
 /* .keyboard__key--dark {
   background: rgba(0, 0, 0, 0.25);
 } */
 .keyboard__key--red {
   color: tomato;
   /* background:tomato; */
+}
+
+.left::after{
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 5px solid rgba(255,255,255,0);
+  border-right: 11px solid rgba(0,0,0,.2);
+}
+.right::after{
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 5px solid rgba(255,255,255,0);
+  border-left: 11px solid rgba(0,0,0,.2);
 }
