@@ -193,7 +193,7 @@ class RSSKeyBoard {
       /* Additional Buttons */
       switch(e.target.id){
         case 'speechRecognBtn':
-            CONTEXT._speechRecognOnOf();
+            CONTEXT._startSpeechRec();
           return;
           case 'soundSwitchOffBtn':
             CONTEXT._soundSwitchOnOff();
@@ -281,52 +281,46 @@ class RSSKeyBoard {
     // console.log(this.APP.prop.speechRecLeng);
   }
 
- _speechRecognOnOf(){
+ _startSpeechRec(){
   this._setFocusOnTextField();
    this.APP.prop.speech = this.APP.prop.speech ? false : true;
    this._toggleCalss(this.APP.ID.speechRecognBtn,!this.APP.prop.speech,'speechRecognBtn--active');
-   console.log('speech: '+this.APP.prop.speech);
+
    const cntx = this;
- 
    let transcript = '';
-   if(!this.APP.prop.speech){
-    console.log('closed');
-    //  this.APP.ID.speechObj.onresult = null;
-    //  this.APP.ID.speechObj.onend = null;
-    //  this.APP.ID.speechObj.interimResults = false;
-    // this.APP.ID.speechObj.abort();
-    this.APP.ID.speechObj.stop();
-    this.APP.ID.speechObj.onend = null;
-    //  this.APP.ID.speechObj = null;
-   }
-   if(this.APP.prop.speech){
-     console.log('opened');
-    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    //  let recognition 
-    if(this.APP.ID.speechObj){
-      return;
+
+    if(!this.APP.ID.speechObj){
+      window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      this.APP.ID.speechObj = new webkitSpeechRecognition() || new SpeechRecognition();;
+      this.APP.ID.speechObj.interimResults = true;
     }
-    this.APP.ID.speechObj = new webkitSpeechRecognition() || new SpeechRecognition();;
-    this.APP.ID.speechObj.interimResults = true;
+
+   if(this.APP.prop.speech){
+
     this.APP.ID.speechObj.lang = this.APP.prop.lang;
-     this.APP.ID.speechObj.onend = function() { 
-      console.log('Speech recognition service disconnected'); 
-     }
-     console.log(this.APP.ID.speechObj.lang);
-     this.APP.ID.speechObj.addEventListener('result', e => {
+
+     this.APP.ID.speechObj.onresult = function(e) {
       transcript = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
       if(e.results[0].isFinal){
-      this.APP.ID.textField.value = this.APP.ID.textField.value + '\n' + transcript;
+        cntx.APP.ID.textField.value = cntx.APP.ID.textField.value + '\n' + transcript;
       }
-     });
-     this.APP.ID.speechObj.addEventListener('end',this.APP.ID.speechObj.start);
+     }
+     this.APP.ID.speechObj.onend = this.APP.ID.speechObj.start;
      this.APP.ID.speechObj.start();
    }
-   else{
-
+   if(!this.APP.prop.speech){
+    transcript = '';
+    this._stopSpeechRec();
    }
-   
-  return;
+
+ }
+
+
+ _stopSpeechRec(){
+  this.APP.ID.speechObj.abort();
+  this.APP.ID.speechObj.onresult = null;
+  this.APP.ID.speechObj.onend = null;
+  this.APP.ID.speechObj.stop();
  }
 
  _soundSwitchOnOff(){
@@ -412,8 +406,11 @@ class RSSKeyBoard {
 
   _setLang(){
     this._play('musica2');
-    if(this.APP.ID.speechObj){
+    if(this.APP.ID.speechObj && !this.APP.prop.speech){
+      //this._startSpeechRec();
       this.APP.ID.speechObj.lang = this.APP.prop.lang;
+      //this.APP.ID.speechObj.stop();
+      // this._startSpeechRec();
     }
     this._setFocusOnTextField();
 
