@@ -333,7 +333,7 @@ class RSSKeyBoard {
 
   _play(ob='musica'){
     if(this.APP.prop.keySound){
-      ob = document.getElementById(ob);
+      ob = document.getElementById(this.APP.prop.lang==='ru' && ob==='musica' ? ob + 'Ru' : ob);
       ob.currentTime = 0;
       ob.play();
     }
@@ -373,7 +373,7 @@ class RSSKeyBoard {
       // this._keyAnimated(document.getElementById('id_20'));
     }
     this._rebuildFnButtonsSyles(document.getElementById('id_16'),'shift');
-    this._play('musica2');
+    this._play('caps');
   }
 
   _setAndToggleCaps(){
@@ -407,10 +407,7 @@ class RSSKeyBoard {
   _setLang(){
     this._play('musica2');
     if(this.APP.ID.speechObj && !this.APP.prop.speech){
-      //this._startSpeechRec();
       this.APP.ID.speechObj.lang = this.APP.prop.lang;
-      //this.APP.ID.speechObj.stop();
-      // this._startSpeechRec();
     }
     this._setFocusOnTextField();
 
@@ -488,7 +485,7 @@ class RSSKeyBoard {
 
 
   _setTextFieldValue(startPos, finishPos, val){
-    this._play((val==='\n')?'musica2':'musica');
+    this._play((val==='\n')?'enter':'musica');
 
     if(val.length > 1){
       return;
@@ -536,15 +533,32 @@ class RSSKeyBoard {
       this.APP.ID.musica = document.createElement('audio');
       this.APP.ID.musica.id = 'musica';
       this.APP.ID.musica.src = 'click.wav';
+
       this.APP.ID.main.appendChild(this.APP.ID.musica);
-      this.APP.ID.musica2 = document.createElement('audio');
-      this.APP.ID.musica2.id = 'musica2';
-      this.APP.ID.musica2.src = 'vuiti.wav';
-      this.APP.ID.main.appendChild(this.APP.ID.musica2);
-      this.APP.ID.musica3 = document.createElement('audio');
-      this.APP.ID.musica3.id = 'musica3';
-      this.APP.ID.musica3.src = 'vshick.wav';
-      this.APP.ID.main.appendChild(this.APP.ID.musica3);
+      this.APP.ID.musica = document.createElement('audio');
+      this.APP.ID.musica.id = 'musica2';
+      this.APP.ID.musica.src = 'vuiti.wav';
+
+      this.APP.ID.main.appendChild(this.APP.ID.musica);
+      this.APP.ID.musica = document.createElement('audio');
+      this.APP.ID.musica.id = 'musica3';
+      this.APP.ID.musica.src = 'vshick.wav';
+      this.APP.ID.main.appendChild(this.APP.ID.musica);
+
+      this.APP.ID.musica = document.createElement('audio');
+      this.APP.ID.musica.id = 'caps';
+      this.APP.ID.musica.src = 'caps.wav';
+      this.APP.ID.main.appendChild(this.APP.ID.musica);
+
+      this.APP.ID.musica = document.createElement('audio');
+      this.APP.ID.musica.id = 'enter';
+      this.APP.ID.musica.src = 'enter.wav';
+      this.APP.ID.main.appendChild(this.APP.ID.musica);
+
+      this.APP.ID.musica = document.createElement('audio');
+      this.APP.ID.musica.id = 'musicaRu';
+      this.APP.ID.musica.src = 'clickRu.wav';
+      this.APP.ID.main.appendChild(this.APP.ID.musica);
 
       this.APP.ID.keysContainer = this._makeElement('div',"keyboard__keys");
 
