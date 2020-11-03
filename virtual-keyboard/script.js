@@ -45,6 +45,7 @@ class RSSKeyBoard {
                 shift:false,
                 lang:"en",
                 speechRecLeng:'en',
+                speechRecTranscript:'',
                 keySound:true,
                 speech:false,
                 fnKeys:{'en':'langChange','ru':'langChange','left':37,'right':'ArrowRight','space':32,'enter':13,'shift': 16,'caps': 20,'backspace': 8},
@@ -59,13 +60,19 @@ class RSSKeyBoard {
               mainRows:null,
               lastRow:null,
               musica:null,
-              musica2:null,
-              musica3:null,
               speechRecognBtn:null,
               speechRecognBtnLeng:null,
               clickSoundSwitchOffBtn: null,
               speechObj:null,
               keys: []
+            },
+            string:{
+              ru:{
+                changeSpeechRecLangAlert:"Для того чтобы изменить язык распознования голоса, необходимо девктивировать кнопку микрофон, затем надо изменить 'ru'->'en' клавишу и снова активировать кнопку микрофон"
+              },
+              en:{
+                changeSpeechRecLangAlert:"Для того чтобы изменить язык распознования голоса, необходимо девктивировать кнопку микрофон, затем надо изменить 'en'->'ru' клавишу и снова активировать кнопку микрофон"
+              }
             }
 
         }
@@ -274,62 +281,64 @@ class RSSKeyBoard {
     }
     ob.classList.add(cssClass);
   }
-  _changeSpeechLang(val='en'){
-    this.APP.prop.speechRecLeng = 'en'===val ? 'ru' : 'en';
-    this.APP.ID.speechRecognBtnLeng.dataset['val'] = this.APP.prop.speechRecLeng;
-    this.APP.ID.speechRecognBtnLeng.innerText = this.APP.prop.speechRecLeng;
-    // console.log(this.APP.prop.speechRecLeng);
-  }
 
- _startSpeechRec(){
-  this._setFocusOnTextField();
-   this.APP.prop.speech = this.APP.prop.speech ? false : true;
-   this._toggleCalss(this.APP.ID.speechRecognBtn,!this.APP.prop.speech,'speechRecognBtn--active');
 
-   const cntx = this;
-   let transcript = '';
+  _startSpeechRec(){
+    this._setFocusOnTextField();
+    this.APP.prop.speech = this.APP.prop.speech ? false : true;
+    this._toggleCalss(this.APP.ID.speechRecognBtn,!this.APP.prop.speech,'speechRecognBtn--active');
 
+    
+    /* kindaf singlton */
     if(!this.APP.ID.speechObj){
       window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       this.APP.ID.speechObj = new webkitSpeechRecognition() || new SpeechRecognition();;
       this.APP.ID.speechObj.interimResults = true;
     }
+      
+    let transcript = '';
+    const cntx = this;
+    if(this.APP.prop.speech){
+      /* set lang */
+      this.APP.ID.speechObj.lang = this.APP.prop.lang;
+      /* listener */
+      this.APP.ID.speechObj.onresult = function(e) {
+          transcript = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
+          if(e.results[0].isFinal){
+            cntx.APP.ID.textField.value = cntx.APP.ID.textField.value + '\n' + transcript;
+          }
+        }
+      this.APP.ID.speechObj.onend = this.APP.ID.speechObj.start;
+      this.APP.ID.speechObj.start();
+    }
+    
+    if(!this.APP.prop.speech){
+      transcript = '';
+      this._stopSpeechRec();
+    }
 
-   if(this.APP.prop.speech){
-
-    this.APP.ID.speechObj.lang = this.APP.prop.lang;
-
-     this.APP.ID.speechObj.onresult = function(e) {
-      transcript = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
-      if(e.results[0].isFinal){
-        cntx.APP.ID.textField.value = cntx.APP.ID.textField.value + '\n' + transcript;
-      }
-     }
-     this.APP.ID.speechObj.onend = this.APP.ID.speechObj.start;
-     this.APP.ID.speechObj.start();
-   }
-   if(!this.APP.prop.speech){
-    transcript = '';
-    this._stopSpeechRec();
-   }
-
- }
-
-
- _stopSpeechRec(){
-  this.APP.ID.speechObj.abort();
-  this.APP.ID.speechObj.onresult = null;
-  this.APP.ID.speechObj.onend = null;
-  this.APP.ID.speechObj.stop();
- }
-
- _soundSwitchOnOff(){
-  this.APP.prop.keySound = this.APP.prop.keySound ? false : true;
-  this._toggleCalss(this.APP.ID.clickSoundSwitchOffBtn,!this.APP.prop.keySound,'keySoundSwitch--active');
-  return;
-}
+  }
 
 
+  _stopSpeechRec(){
+    this.APP.ID.speechObj.abort();
+    this.APP.ID.speechObj.onresult = null;
+    this.APP.ID.speechObj.onend = null;
+    this.APP.ID.speechObj.stop();
+  }
+
+  _soundSwitchOnOff(){
+    this.APP.prop.keySound = this.APP.prop.keySound ? false : true;
+    this._toggleCalss(this.APP.ID.clickSoundSwitchOffBtn,!this.APP.prop.keySound,'keySoundSwitch--active');
+    return;
+  }
+
+  /* depricated */
+  _changeSpeechLang(val='en'){
+    this.APP.prop.speechRecLeng = 'en'===val ? 'ru' : 'en';
+    this.APP.ID.speechRecognBtnLeng.dataset['val'] = this.APP.prop.speechRecLeng;
+    this.APP.ID.speechRecognBtnLeng.innerText = this.APP.prop.speechRecLeng;
+  }
 
   _play(ob='musica'){
     if(this.APP.prop.keySound){
@@ -388,7 +397,7 @@ class RSSKeyBoard {
 
 
   _setShift(){
-    this._play('musica2');
+    this._play('shift');
     this._setAndToggleShift();
     this._arraseFrgmnt(this.APP.ID.firstRow);
     this._createFirstRow();
@@ -405,10 +414,21 @@ class RSSKeyBoard {
   }
 
   _setLang(){
-    this._play('musica2');
+    if(this.APP.prop.speech){
+      switch(this.APP.prop.lang){
+        case 'ru':
+          alert(this.APP.string.ru.changeSpeechRecLangAlert);
+          break;
+        case 'en':
+          alert(this.APP.string.en.changeSpeechRecLangAlert);
+        break;
+      }
+      return;
+    }
     if(this.APP.ID.speechObj && !this.APP.prop.speech){
       this.APP.ID.speechObj.lang = this.APP.prop.lang;
     }
+    this._play('musica2');
     this._setFocusOnTextField();
 
     this._setAndToggleLangName();
@@ -514,7 +534,12 @@ class RSSKeyBoard {
 
 
 
-
+  _makeAuduoObj(_id,_bound){
+    this.APP.ID.musica = document.createElement('audio');
+    this.APP.ID.musica.id = _id;
+    this.APP.ID.musica.src = _bound;
+    this.APP.ID.main.appendChild(this.APP.ID.musica);
+  }
 
 
 
@@ -530,42 +555,21 @@ class RSSKeyBoard {
       this.APP.ID.main = document.getElementById(id);
 
       /* Additional el */
-      this.APP.ID.musica = document.createElement('audio');
-      this.APP.ID.musica.id = 'musica';
-      this.APP.ID.musica.src = 'click.wav';
+      this._makeAuduoObj('musica','click.wav');
+      this._makeAuduoObj('musica2','vuiti.wav');
+      this._makeAuduoObj('shift','clickRu.wav');
+      this._makeAuduoObj('musica3','vshick.wav');
+      this._makeAuduoObj('caps','caps.wav');
+      this._makeAuduoObj('enter','enter.wav');
+      this._makeAuduoObj('musicaRu','clickRu2.wav');
 
-      this.APP.ID.main.appendChild(this.APP.ID.musica);
-      this.APP.ID.musica = document.createElement('audio');
-      this.APP.ID.musica.id = 'musica2';
-      this.APP.ID.musica.src = 'vuiti.wav';
-
-      this.APP.ID.main.appendChild(this.APP.ID.musica);
-      this.APP.ID.musica = document.createElement('audio');
-      this.APP.ID.musica.id = 'musica3';
-      this.APP.ID.musica.src = 'vshick.wav';
-      this.APP.ID.main.appendChild(this.APP.ID.musica);
-
-      this.APP.ID.musica = document.createElement('audio');
-      this.APP.ID.musica.id = 'caps';
-      this.APP.ID.musica.src = 'caps.wav';
-      this.APP.ID.main.appendChild(this.APP.ID.musica);
-
-      this.APP.ID.musica = document.createElement('audio');
-      this.APP.ID.musica.id = 'enter';
-      this.APP.ID.musica.src = 'enter.wav';
-      this.APP.ID.main.appendChild(this.APP.ID.musica);
-
-      this.APP.ID.musica = document.createElement('audio');
-      this.APP.ID.musica.id = 'musicaRu';
-      this.APP.ID.musica.src = 'clickRu.wav';
-      this.APP.ID.main.appendChild(this.APP.ID.musica);
 
       this.APP.ID.keysContainer = this._makeElement('div',"keyboard__keys");
 
       /* Additional BTNS */
-      this.APP.ID.speechRecognBtn = this._makeElement('div',"keyboard__key addnl speechRecognBtn",'speech','','speechRecognBtn');
-      this.APP.ID.clickSoundSwitchOffBtn = this._makeElement('div',"keyboard__key addnl keySoundSwitch keySoundSwitch--active",'sound','','soundSwitchOffBtn');
-      this.APP.ID.keysContainer.appendChild(this.APP.ID.speechRecognBtn); 
+      this.APP.ID.speechRecognBtn = this._makeElement('div',"keyboard__key addnl speechRecognBtn",'','','speechRecognBtn');
+      this.APP.ID.clickSoundSwitchOffBtn = this._makeElement('div',"keyboard__key addnl keySoundSwitch keySoundSwitch--active",'','','soundSwitchOffBtn');
+      this.APP.ID.keysContainer.appendChild(this.APP.ID.speechRecognBtn);
       this.APP.ID.keysContainer.appendChild(this.APP.ID.clickSoundSwitchOffBtn);
 
 
