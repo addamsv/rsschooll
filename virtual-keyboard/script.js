@@ -36,7 +36,7 @@ class RSSKeyBoard {
                     enShifted:["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "backspace"],
                     ruShifted:["!", '"', "№", "%", ":", ",", ".", ";", "(", ")", "_", "+", "backspace"]
                 },
-                lastRow:["done","en/ru","space","left","right"],
+                lastRow:["hide","en/ru","space","left","right"],
                 newLineAfter:["ъ", "enter", "backspace", "]", "?","}"],
             },
             prop:{
@@ -155,7 +155,7 @@ class RSSKeyBoard {
           return;
          
          case 'ShiftLeft':
-         case 'ShiftRightt':
+         case 'ShiftRight':
           CONTEXT._setShift();
           return;
 
@@ -232,7 +232,7 @@ class RSSKeyBoard {
         case 'caps':
           CONTEXT._setCaps();
         return
-        case 'done':
+        case 'hide':
           CONTEXT._setDone();
         return
         case 'shift':
@@ -305,6 +305,7 @@ class RSSKeyBoard {
       this.APP.ID.speechObj.onresult = function(e) {
           transcript = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
           if(e.results[0].isFinal){
+            // cntx._setTextFieldValue(cntx.APP.ID.textField.selectionStart, cntx.APP.ID.textField.selectionEnd, transcript, true);
             cntx.APP.ID.textField.value = cntx.APP.ID.textField.value + '\n' + transcript;
           }
         }
@@ -504,12 +505,14 @@ class RSSKeyBoard {
   }
 
 
-  _setTextFieldValue(startPos, finishPos, val){
-    this._play((val==='\n')?'enter':'musica');
-
-    if(val.length > 1){
+  _setTextFieldValue(startPos, finishPos, val, past=false){
+    
+    if(val.length > 1 && !past){
       return;
     }
+
+    this._play((val==='\n')?'enter':'musica');
+
     this._setFocusOnTextField();
     if(this._isActualStateUpperCase()){
       val = val.toUpperCase();
