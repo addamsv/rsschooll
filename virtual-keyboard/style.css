@@ -100,7 +100,7 @@
 }
 .addnl{
   position: absolute;
-  width: 50px;
+  width: 40px;
   height: 25px;
   top: 3px;
   font-family: 'Times New Roman', Times, serif;
@@ -108,9 +108,19 @@
 }
 .keySoundSwitch{
   right: 33px;
+  background-image: url('sound.jpg');
+	background-repeat:no-repeat;
+	background-attachment:scroll;
+	background-position:center center;
+	background-size: contain;
 }
 .speechRecognBtn{
   right: 90px;
+  background-image: url('mike.png');
+	background-repeat:no-repeat;
+	background-attachment:scroll;
+	background-position:center center;
+	background-size: contain;
 }
 .keySoundSwitch::after{
   content: '';
