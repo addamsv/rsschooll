@@ -36,7 +36,7 @@ class RSSKeyBoard {
                     enShifted:["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "backspace"],
                     ruShifted:["!", '"', "№", "%", ":", ",", ".", ";", "(", ")", "_", "+", "backspace"]
                 },
-                lastRow:["done","en/ru","space","left","right"],
+                lastRow:["hide","en/ru","space","left","right"],
                 newLineAfter:["ъ", "enter", "backspace", "]", "?","}"],
             },
             prop:{
@@ -77,6 +77,8 @@ class RSSKeyBoard {
 
         }
 
+        this._makeSpeechRecObj();
+
         this._makeKeyBoardContainer(id);
   
         this. _createKeys();
@@ -84,14 +86,20 @@ class RSSKeyBoard {
         this._setEvents();
     }
 
-
+    _makeSpeechRecObj(){
+      if(!this.APP.ID.speechObj){
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        this.APP.ID.speechObj = new webkitSpeechRecognition() || new SpeechRecognition();;
+        this.APP.ID.speechObj.interimResults = true;
+      }
+    }
 
   _setEvents(){
     // window.onresize = this._scrSize;
     // document.addEventListener('contextmenu', event => event.preventDefault());
     // document.onmousedown = this._mainController;
     // document.oninput = _preventInput;
-    document.ontransitionend = _remTransition;
+    // document.ontransitionend = _remTransition;
     document.onchange = _mainControllerClick;
     document.onkeypress = _preventInput;
     document.onkeyup = _mainControllerClick;
@@ -100,7 +108,7 @@ class RSSKeyBoard {
     const CONTEXT = this;
 
 
-
+    /* depricated */
     function _remTransition(e){
       if(e.propertyName==='background-color'){
         e.target.classList.remove('keyboard__quick-animated');
@@ -155,7 +163,7 @@ class RSSKeyBoard {
           return;
          
          case 'ShiftLeft':
-         case 'ShiftRightt':
+         case 'ShiftRight':
           CONTEXT._setShift();
           return;
 
@@ -205,6 +213,7 @@ class RSSKeyBoard {
           case 'soundSwitchOffBtn':
             CONTEXT._soundSwitchOnOff();
           return;
+          /* depricated */
           case 'speechLang':
             CONTEXT._changeSpeechLang(e.target.dataset['val']);
           return;
@@ -232,7 +241,7 @@ class RSSKeyBoard {
         case 'caps':
           CONTEXT._setCaps();
         return
-        case 'done':
+        case 'hide':
           CONTEXT._setDone();
         return
         case 'shift':
@@ -282,20 +291,17 @@ class RSSKeyBoard {
     ob.classList.add(cssClass);
   }
 
+  _propSpeechChange(){
+    this.APP.prop.speech = this.APP.prop.speech ? false : true;
+  }
 
   _startSpeechRec(){
+
     this._setFocusOnTextField();
-    this.APP.prop.speech = this.APP.prop.speech ? false : true;
+
+    this._propSpeechChange();
     this._toggleCalss(this.APP.ID.speechRecognBtn,!this.APP.prop.speech,'speechRecognBtn--active');
 
-    
-    /* kindaf singlton */
-    if(!this.APP.ID.speechObj){
-      window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      this.APP.ID.speechObj = new webkitSpeechRecognition() || new SpeechRecognition();;
-      this.APP.ID.speechObj.interimResults = true;
-    }
-      
     let transcript = '';
     const cntx = this;
     if(this.APP.prop.speech){
@@ -305,6 +311,7 @@ class RSSKeyBoard {
       this.APP.ID.speechObj.onresult = function(e) {
           transcript = Array.from(e.results).map(result => result[0]).map(result => result.transcript).join('');
           if(e.results[0].isFinal){
+            // cntx._setTextFieldValue(cntx.APP.ID.textField.selectionStart, cntx.APP.ID.textField.selectionEnd, transcript, true);
             cntx.APP.ID.textField.value = cntx.APP.ID.textField.value + '\n' + transcript;
           }
         }
@@ -351,6 +358,7 @@ class RSSKeyBoard {
 
   _keyAnimated(ob){
     ob.classList.add('keyboard__quick-animated');
+    setTimeout(function(){ob.classList.remove('keyboard__quick-animated');}, 80);
   }
 
 
@@ -414,19 +422,24 @@ class RSSKeyBoard {
   }
 
   _setLang(){
-    if(this.APP.prop.speech){
-      switch(this.APP.prop.lang){
-        case 'ru':
-          alert(this.APP.string.ru.changeSpeechRecLangAlert);
-          break;
-        case 'en':
-          alert(this.APP.string.en.changeSpeechRecLangAlert);
-        break;
-      }
-      return;
-    }
-    if(this.APP.ID.speechObj && !this.APP.prop.speech){
-      this.APP.ID.speechObj.lang = this.APP.prop.lang;
+    // if(this.APP.prop.speech){
+    //   switch(this.APP.prop.lang){
+    //     case 'ru':
+    //       alert(this.APP.string.ru.changeSpeechRecLangAlert);
+    //       break;
+    //     case 'en':
+    //       alert(this.APP.string.en.changeSpeechRecLangAlert);
+    //     break;
+    //   }
+    //   return;
+    // }
+    // if(this.APP.ID.speechObj && !this.APP.prop.speech){
+    if(this.APP.ID.speechObj){
+      this._propSpeechChange();
+      this._stopSpeechRec();
+      const CONTEXT = this;
+      setTimeout(function(){CONTEXT._startSpeechRec()}, 1200);
+
     }
     this._play('musica2');
     this._setFocusOnTextField();
@@ -504,12 +517,14 @@ class RSSKeyBoard {
   }
 
 
-  _setTextFieldValue(startPos, finishPos, val){
-    this._play((val==='\n')?'enter':'musica');
-
-    if(val.length > 1){
+  _setTextFieldValue(startPos, finishPos, val, past=false){
+    
+    if(val.length > 1 && !past){
       return;
     }
+
+    this._play((val==='\n')?'enter':'musica');
+
     this._setFocusOnTextField();
     if(this._isActualStateUpperCase()){
       val = val.toUpperCase();
