@@ -301,13 +301,7 @@ class RSSKeyBoard {
 
     this._propSpeechChange();
     this._toggleCalss(this.APP.ID.speechRecognBtn,!this.APP.prop.speech,'speechRecognBtn--active');
-    /* kindaf singlton */
-    // if(!this.APP.ID.speechObj){
-    //   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    //   this.APP.ID.speechObj = new webkitSpeechRecognition() || new SpeechRecognition();;
-    //   this.APP.ID.speechObj.interimResults = true;
-    // }
-      
+
     let transcript = '';
     const cntx = this;
     if(this.APP.prop.speech){
@@ -443,11 +437,9 @@ class RSSKeyBoard {
     if(this.APP.ID.speechObj){
       this._propSpeechChange();
       this._stopSpeechRec();
-      // this.APP.ID.speechObj.lang = this.APP.prop.lang;
-      const c = this;
-      setTimeout(function(){c._startSpeechRec()}, 1000);
-      // setTimeout(this._startSpeechRec().bind(this), 5000);
-      // this._startSpeechRec();
+      const CONTEXT = this;
+      setTimeout(function(){CONTEXT._startSpeechRec()}, 1200);
+
     }
     this._play('musica2');
     this._setFocusOnTextField();
