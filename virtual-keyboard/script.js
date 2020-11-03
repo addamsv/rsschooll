@@ -77,6 +77,8 @@ class RSSKeyBoard {
 
         }
 
+        this._makeSpeechRecObj();
+
         this._makeKeyBoardContainer(id);
   
         this. _createKeys();
@@ -84,14 +86,20 @@ class RSSKeyBoard {
         this._setEvents();
     }
 
-
+    _makeSpeechRecObj(){
+      if(!this.APP.ID.speechObj){
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        this.APP.ID.speechObj = new webkitSpeechRecognition() || new SpeechRecognition();;
+        this.APP.ID.speechObj.interimResults = true;
+      }
+    }
 
   _setEvents(){
     // window.onresize = this._scrSize;
     // document.addEventListener('contextmenu', event => event.preventDefault());
     // document.onmousedown = this._mainController;
     // document.oninput = _preventInput;
-    document.ontransitionend = _remTransition;
+    // document.ontransitionend = _remTransition;
     document.onchange = _mainControllerClick;
     document.onkeypress = _preventInput;
     document.onkeyup = _mainControllerClick;
@@ -100,7 +108,7 @@ class RSSKeyBoard {
     const CONTEXT = this;
 
 
-
+    /* depricated */
     function _remTransition(e){
       if(e.propertyName==='background-color'){
         e.target.classList.remove('keyboard__quick-animated');
@@ -205,6 +213,7 @@ class RSSKeyBoard {
           case 'soundSwitchOffBtn':
             CONTEXT._soundSwitchOnOff();
           return;
+          /* depricated */
           case 'speechLang':
             CONTEXT._changeSpeechLang(e.target.dataset['val']);
           return;
@@ -282,19 +291,22 @@ class RSSKeyBoard {
     ob.classList.add(cssClass);
   }
 
+  _propSpeechChange(){
+    this.APP.prop.speech = this.APP.prop.speech ? false : true;
+  }
 
   _startSpeechRec(){
-    this._setFocusOnTextField();
-    this.APP.prop.speech = this.APP.prop.speech ? false : true;
-    this._toggleCalss(this.APP.ID.speechRecognBtn,!this.APP.prop.speech,'speechRecognBtn--active');
 
-    
+    this._setFocusOnTextField();
+
+    this._propSpeechChange();
+    this._toggleCalss(this.APP.ID.speechRecognBtn,!this.APP.prop.speech,'speechRecognBtn--active');
     /* kindaf singlton */
-    if(!this.APP.ID.speechObj){
-      window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      this.APP.ID.speechObj = new webkitSpeechRecognition() || new SpeechRecognition();;
-      this.APP.ID.speechObj.interimResults = true;
-    }
+    // if(!this.APP.ID.speechObj){
+    //   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    //   this.APP.ID.speechObj = new webkitSpeechRecognition() || new SpeechRecognition();;
+    //   this.APP.ID.speechObj.interimResults = true;
+    // }
       
     let transcript = '';
     const cntx = this;
@@ -352,6 +364,7 @@ class RSSKeyBoard {
 
   _keyAnimated(ob){
     ob.classList.add('keyboard__quick-animated');
+    setTimeout(function(){ob.classList.remove('keyboard__quick-animated');}, 80);
   }
 
 
@@ -415,19 +428,26 @@ class RSSKeyBoard {
   }
 
   _setLang(){
-    if(this.APP.prop.speech){
-      switch(this.APP.prop.lang){
-        case 'ru':
-          alert(this.APP.string.ru.changeSpeechRecLangAlert);
-          break;
-        case 'en':
-          alert(this.APP.string.en.changeSpeechRecLangAlert);
-        break;
-      }
-      return;
-    }
-    if(this.APP.ID.speechObj && !this.APP.prop.speech){
-      this.APP.ID.speechObj.lang = this.APP.prop.lang;
+    // if(this.APP.prop.speech){
+    //   switch(this.APP.prop.lang){
+    //     case 'ru':
+    //       alert(this.APP.string.ru.changeSpeechRecLangAlert);
+    //       break;
+    //     case 'en':
+    //       alert(this.APP.string.en.changeSpeechRecLangAlert);
+    //     break;
+    //   }
+    //   return;
+    // }
+    // if(this.APP.ID.speechObj && !this.APP.prop.speech){
+    if(this.APP.ID.speechObj){
+      this._propSpeechChange();
+      this._stopSpeechRec();
+      // this.APP.ID.speechObj.lang = this.APP.prop.lang;
+      const c = this;
+      setTimeout(function(){c._startSpeechRec()}, 1000);
+      // setTimeout(this._startSpeechRec().bind(this), 5000);
+      // this._startSpeechRec();
     }
     this._play('musica2');
     this._setFocusOnTextField();
