@@ -15,6 +15,5 @@
         "no-alert": "off",
         "prefer-destructuring": "off",
         "quotes": "off"
-        // "indent": [2,"tab"]
     }
 }
