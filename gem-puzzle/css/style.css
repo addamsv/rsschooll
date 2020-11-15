@@ -1,4 +1,97 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
+  font-family: Tahoma;
+}
+
+h1{
+  text-align: center;
+  color: #555;
+}
+.btn{
+  cursor: pointer;
+}
+.centered{
+  text-align: center;
+}
+.selects{
+  display: block;
+  position: relative;
+  margin: 0;
+  color: #555;
+  border: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.main-container{
+  display: block;
+  position: absolute;
+  /* top: calc(50% - 438px/2);
+  left: calc(50% - 438px/2); */
+  /* width: 450px;
+  height: 450px; */
+  background-color: #aaa;
+}
+.main-container div{
+  position: absolute;
+
+  display: block;
+  /* width: 146px;
+  height: 146px; */
+  -webkit-user-select: none;
+
+  
+  background-color: #bbb;
+  background-image: url('../images/1.jpg');
+  /* background-size: 438px 438px; */
+
+  text-align: center;
+  /* line-height: 146px; */
+
+  transition: all 0.5s;
+  
+  cursor: pointer;
+}
+.dash{
+  display: flex;
+  position: absolute;
+  justify-content: space-evenly;
+  width: 320px;
+  /* left: calc(50% - 320px/2);
+  top: calc(50% - 200px); */
+}
+.wbrdr{
+  border: 1px solid #fff;
+}
+.wthout-borders{
+  border: none;
+}
+.box-text-color{
+  color: #fff;
+}
+.box-text-color-trnsprnt{
+  color: transparent;
+}
+.animated {
+  animation-name: last-box-win__feyframe;
+  animation-duration: 0.7s;
+  animation-delay: 0.4s;
+}
+@keyframes last-box-win__feyframe {
+  0%{opacity:0.8;}10%{opacity:0.1;}20%{opacity:0.9;}30%{opacity:0.1;}40%{opacity:0.9;}50%{opacity:0.1;}100%{opacity:1;}
+}
+.sattings-board-container{
+  left: calc(50% - 320px/2);
+}
+.game-top-mod{
+  top:65px;
+}
+.solving-hint,
+.win-hint {
+  position: absolute;
+  left: calc(50% - 320px/2);
+  width: 320px;
+  top: 120px;
+  color: red;
 }
