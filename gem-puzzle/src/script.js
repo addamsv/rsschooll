@@ -79,11 +79,13 @@ class View {
     this.animatedWindow = null;
     this.loadWindowInteraction = null;
     this.bestResultsWindow = null;
+    this.isBestResultsWindowActive = false;
+    this.bestResMax = 10;
 
     this.matrixDimensionX = null;
     this.matrixDimensionY = null;
     this.mainElNum = null;
-    this.defaultDimension = 4;
+    this.defaultDimension = 2;
     this.dem = {
       mobile: {
         2: 160, 3: 106, 4: 80, 5: 64, 6: 53, 7: 45, 8: 40,
@@ -128,6 +130,10 @@ class View {
       images: {
       },
     };
+
+    /* STOREGE BUNDLE */
+    this.storeDataKey = 'storedatafdfa';
+    this.bestResDataKey = 'storeresfdfa';
   }
 
   checkShuffledMatrix() {
@@ -1334,6 +1340,7 @@ class View {
       for (let j = 0, rulesLngth = ss[i].cssRules.length; j < rulesLngth; j++) {
         if (ss[i].cssRules[j].selectorText === '.main-container') {
           this.styleSheet = ss[i];
+          return;
         }
       }
     }
@@ -1719,10 +1726,114 @@ class View {
         el.classList.add("box-text-color-trnsprnt");
         el.classList.remove('wbrdr');
       });
+      this.setBestResLS(`{"dim":"${this.matrixDimensionX}", "image":"${this.currentImage - 1}", "steps":"${this.step}", "time":"${document.getElementById('timer').innerText}"}`);
       this.isPaused = true;
       clearInterval(this.timerID);
     }
     // this.winHint.innerText = 'You win! for '+this.step+' and '+document.getElementById('timer').innerText
+  }
+
+  setBestResLS(stringData) {
+    let data = localStorage.getItem(this.bestResDataKey);
+    /* not at all */
+    if (!data) {
+      console.log(`/* not at all */`);
+      localStorage.setItem(this.bestResDataKey, `{"0":${stringData}}`);
+      console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
+      return;
+    }
+    data = JSON.parse(data);
+    let dataArr = Object.keys(data);
+    const savingData = JSON.parse(stringData);
+    /* less than 10 */
+    if (dataArr.length <= this.bestResMax + 1) {
+      console.log(`/* less than 10 */ ${dataArr.length}`);
+      let notRepeatedFlag = true;
+      dataArr.forEach((el, i) => {
+        if (data[i] && (data[i].dim === savingData.dim) && (data[i].steps === savingData.steps) && (data[i].time === savingData.time)) {
+          notRepeatedFlag = false;
+        }
+      });
+      console.log(`notRepeatedFlag: ${notRepeatedFlag}`);
+      if (notRepeatedFlag) {
+        data[dataArr.length] = savingData;
+        localStorage.setItem(this.bestResDataKey, JSON.stringify(data));
+        console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
+      }
+      return;
+    }
+    /* compare data */
+    console.log(`/* compare data */`);
+    let savedFlag = false;
+    let lastT;
+    dataArr.forEach((el, i) => {
+      if (data[i] && this.matrixDimensionX === parseInt(data[i].dim, 10)) {
+        if (lastT === undefined) {
+          lastT = data[i].time;
+        }
+        lastT = this.compareTime(data[i].time, lastT) ? data[i].time : lastT;
+        console.log(`lastT ${lastT}`);
+        if (this.compareTime(data[i].time, savingData.time) && !savedFlag) {
+          data[dataArr.length] = JSON.parse(stringData);
+          savedFlag = true;
+        }
+      }
+    });
+    console.log(`FIN lastT ${lastT}`);
+    /* remove lastone */
+    if (lastT !== undefined && savedFlag) {
+      dataArr = Object.keys(data);
+      dataArr.forEach((el, i) => {
+        if (data[i] && this.matrixDimensionX === parseInt(data[i].dim, 10) && data[i].time === lastT) {
+          delete data[i];
+        }
+      });
+    }
+    if (savedFlag) {
+      localStorage.setItem(this.bestResDataKey, JSON.stringify(data));
+      console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
+    }
+  }
+
+  compareTime(time, timeC) {
+    const t1 = time.split(':');
+    const t2 = timeC.split(':');
+    const c1 = new Date(2011, 0, 1, parseInt(t1[0], 10), parseInt(t1[1], 10), parseInt(t1[2], 10));
+    const c2 = new Date(2011, 0, 1, parseInt(t2[0], 10), parseInt(t2[1], 10), parseInt(t2[2], 10));
+    return c1.getTime() > c2.getTime();
+  }
+
+  getBestResLS() {
+    this.isBestResultsWindowActive = true;
+    const ob = JSON.parse(localStorage.getItem(this.bestResDataKey));
+    console.log(ob);
+    this.bestResultsWindow.classList.add('displ-blck');
+    let brInnerHTML = `<h3 class="best-res-header centered">THE BEST OF THE BEST (${this.matrixDimensionX}x${this.matrixDimensionX})</h3>`;
+    // const obKey = Object.keys(ob);
+    Object.keys(ob).forEach((el, i) => {
+      if (ob[i] && (this.matrixDimensionX.toString() === ob[i].dim)) {
+        console.log(`this.matrixDimensionX ${this.matrixDimensionX.toString()} ${ob[i].dim} ${this.matrixDimensionX.toString() === ob[i].dim}`);
+        brInnerHTML += `<div class="best-res-item centered">time: ${ob[i].time} steps: ${ob[i].steps}</div>`;
+      }
+    });
+    // let brInnerHTML = ''
+    this.bestResultsWindow.innerHTML = brInnerHTML;
+  }
+
+  setCurrentGameLS() {
+    this.setCurrentMatrixN();
+    // eslint-disable-next-line max-len
+    const shpock = `{"0":{"dim":"${this.matrixDimensionX}", "image":"${this.currentImage - 1}", "steps":"${this.step}", "time":"${document.getElementById('timer').innerText}", "matrix":"${this.shuffledMatrix}"}}`;
+    localStorage.setItem(this.storeDataKey, shpock);
+    console.log(JSON.parse(localStorage.getItem(this.storeDataKey)));
+  }
+
+  getCurrentGameLS() {
+    this.setCurrentMatrixN();
+    // eslint-disable-next-line max-len
+    const shpock = `{"0":{"dim":"${this.matrixDimensionX}", "image":"${this.currentImage - 1}", "steps":"${this.step}", "time":"${document.getElementById('timer').innerText}", "matrix":"${this.shuffledMatrix}"}}`;
+    localStorage.setItem(this.storeDataKey, shpock);
+    console.log(JSON.parse(localStorage.getItem(this.storeDataKey)));
   }
 
   isElOnPropPosX(elNum) {
@@ -1828,6 +1939,10 @@ class View {
   mainUsrController() {
     const CNTX = this;
     function controlIt(e) {
+      if (CNTX.isBestResultsWindowActive) {
+        CNTX.isBestResultsWindowActive = false;
+        CNTX.bestResultsWindow.classList.remove('displ-blck');
+      }
       if (e.target.id === 'resetBtn') {
         CNTX.resetShuffledMatrix();
         CNTX.setAllPartsInItsPos();
@@ -1851,19 +1966,22 @@ class View {
         return;
       }
       if (e.target.id === 'saveBtn') {
-        console.log('save');
+        console.log('saveBTN');
+        CNTX.setCurrentMatrixN();
+        // eslint-disable-next-line max-len
+        const shpock = `{"0":{"dim":"${CNTX.matrixDimensionX}", "image":"${CNTX.currentImage - 1}", "steps":"${CNTX.step}", "time":"${document.getElementById('timer').innerText}", "matrix":"${CNTX.shuffledMatrix}"}}`;
+        localStorage.setItem(CNTX.storeDataKey, shpock);
+        console.log(JSON.parse(localStorage.getItem(CNTX.storeDataKey)));
         return;
       }
       if (e.target.id === 'loadBtn') {
-        console.log('load');
-        return;
-      }
-      if (e.target.id === 'loadBtn') {
-        console.log('load');
+        console.log('loaded');
+        console.log(localStorage.getItem(CNTX.storeDataKey));
         return;
       }
       if (e.target.id === 'bestResBtn') {
-        console.log('best Result Btn');
+        console.log('show Best Results Btn');
+        CNTX.getBestResLS();
         return;
       }
       if (e.target.id === 'stopStartBtn') {
