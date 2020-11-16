@@ -78,13 +78,13 @@ class View {
     this.defaultDimension = 4;
     this.dem = {
       mobile: {
-        2: 160, 3: 106, 4: 80, 5: 64, 6: 53, 7: 45, 8: 40,
+        3: 106, 4: 80, 5: 64, 6: 53, 7: 45, 8: 40,
       },
       tablet: {
-        2: 218, 3: 146, 4: 109, 5: 87, 6: 73, 7: 63, 8: 55,
+        3: 146, 4: 109, 5: 87, 6: 73, 7: 63, 8: 55,
       },
       desktop: {
-        2: 218, 3: 146, 4: 109, 5: 87, 6: 73, 7: 63, 8: 55,
+        3: 146, 4: 109, 5: 87, 6: 73, 7: 63, 8: 55,
       },
     };
     this.isMobile = false;
@@ -191,7 +191,7 @@ class View {
       if (i === 0) {
         if (elArr[elNum]) {
           // eslint-disable-next-line max-len
-          // console.log(`----------=============== ЭЛЕМЕНТ ${elArr[elNum][1]}  ${CNTX.tempGetDirection((CNTX.getPropDir(leftRightTopBottom, elArr[elNum][0])))} ==================----------------`);
+          console.log(`--== ЭЛЕМЕНТ ${elArr[elNum][1]}  ${CNTX.tempGetDirection((CNTX.getPropDir(leftRightTopBottom, elArr[elNum][0])))} ==--`);
           propPosCondition = CNTX.stepsCompute(elArr[elNum][1], leftRightTopBottom, elArr[elNum][0]);
           l = CNTX.stepMatrix.length;
         } else {
@@ -207,7 +207,7 @@ class View {
       if (!CNTX.isAutoMode) {
         clearInterval(CNTX.autoFnID);
         CNTX.stepMatrix = [];
-        // console.log('end');
+        console.log('end');
       }
       if (i === l) {
         leftRightTopBottom += 1;
@@ -220,7 +220,7 @@ class View {
           } else {
             clearInterval(CNTX.autoFnID);
             CNTX.isAutoMode = false;
-            // console.log('end');
+            console.log('end');
           }
         }
       } else {
@@ -314,27 +314,25 @@ class View {
   }
 
   setShffldOnElNumAndGooo(elNum, dir = 'left') {
-    // console.log(`elNum: ${elNum} ${destElNum}`);
     const destElNum = parseInt(this.getDestElNumByDirection(dir), 10);
     if (elNum !== this.mainElNum && !this.isDrgbl(elNum, dir)) {
-      // console.log(`EXCEPTION EL NOT DRGBLE ${dir}`);
+      console.log(`EXCEPTION EL NOT DRGBLE ${dir}`);
       return;
     }
     if (elNum === this.mainElNum && !this.isMelDrgbl(dir)) {
-      // console.log(`EXCEPTION MEL CANT MOVE TO TE ${dir}`);
+      console.log(`EXCEPTION MEL CANT MOVE TO TE ${dir}`);
       return;
     }
     let exception = false;
     let counter = 0;
     this.shuffledMatrix.forEach((el, i) => {
-      // console.log(`${el} === ${elNum} ${el === elNum}`);
       if (el === elNum && counter === 0) {
-        if (this.shuffledMatrix[i + destElNum]) {
+        if (this.shuffledMatrix[parseInt(i + destElNum, 10)]) {
           this.shuffledMatrix[i] = this.shuffledMatrix[i + destElNum];
           this.shuffledMatrix[i + destElNum] = el;
           counter++;
         } else {
-          // console.log(`EXCEPTION shuffledMatrix[${i + destElNum}] NOT FOUND: I: ${i} DEST NUM: ${destElNum}`);
+          console.log(`EXCEPTION shuffledMatrix[${i + destElNum}] NOT FOUND: I: ${i} DEST NUM: ${destElNum}`);
           exception = true;
         }
       } else {
@@ -763,19 +761,19 @@ class View {
   }
 
   setMElAfter(elNum) {
-    // console.log(`-= SET MEl AFTER ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
+    console.log(`-= SET MEl AFTER ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
     if (this.isElOnPropPosX(elNum)) {
       return false; /* !!!ОШИБКА надо все-равно ставить эл над!!! */
     }
     if (!this.isElBeforeItsPropRow(elNum)) { /* isItPsblToSetMElAfter(elNum) this.matrix[elNum - 1].x > this.getXPXPosition(elNum) */
-      // console.log(`isElNOTBeforeItsPropRow ${!this.isElBeforeItsPropRow(elNum)} - EXIT FROM setMElAfter`);
+      console.log(`isElNOTBeforeItsPropRow ${!this.isElBeforeItsPropRow(elNum)} - EXIT FROM setMElAfter`);
       return false;
     }
     let returnFlag = false;
     /* 1-я и 2-я четверти */
     if (this.isMElBefore(elNum)) { /* гэл перед эл в матрице */
       if (this.isCaseRangedRowAbove(elNum)) {
-        // console.log('case when ranged row is above');
+        console.log('case when ranged row is above');
         if (this.stepsToRight(elNum) >= 0) {
           this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
           this.goMountOfSteps('bottom', 1);
@@ -792,7 +790,7 @@ class View {
       }
       /* над эл много пространства и там мэл */
       if (this.isMElOnTheSameRow(elNum) && (this.stepsToRight(elNum) >= 0)) { /* мэл в одной строке */
-        // console.log('МЭЛ на одной строке и перед эл');
+        console.log('МЭЛ на одной строке и перед эл');
         this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
         this.goMountOfSteps('top', 1);
         this.goMountOfSteps('right', 2);
@@ -813,7 +811,7 @@ class View {
         this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') + 1);
         // this.goMountOfSteps('top', 1);
         // this.goMountOfSteps('right', 2);
-        // console.log('testing ------------');
+        console.log('testing ------------');
         this.goMountOfSteps('bottom', 1);
         returnFlag = true;
       }
@@ -1973,13 +1971,17 @@ class View {
     Controller
   */
   dragElementInit(_ob) {
+    // if (this.isPaused) {
+    //   return;
+    // }
     const ob = _ob;
     let tx = 0;
     let ty = 0;
 
     function elementDrag(e) {
-      ob.style.top = `${e.pageY - ty / 2 + 100}px`;
-      ob.style.left = `${e.pageX - tx / 2 + 100}px`;
+      ob.style.zIndex = '9999';
+      ob.style.top = `${e.pageY - ty / 2 + 160}px`;
+      ob.style.left = `${e.pageX - tx / 2 + 160}px`;
     }
 
     function closeDragElement() {
@@ -2195,6 +2197,13 @@ class View {
         CNTX.showMatrix();
 
         CNTX.shuffle();
+
+        CNTX.resetShuffledMatrix();
+        CNTX.setAllPartsInItsPos();
+        CNTX.shuffle();
+        clearInterval(CNTX.timerID);
+        CNTX.resetTimer();
+        CNTX.clearSteps();
       }
       if (e.target.id === 'imgSelect') {
         CNTX.currentImage = e.target.options[e.target.selectedIndex].dataset.dim;
