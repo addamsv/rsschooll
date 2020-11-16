@@ -34,6 +34,9 @@ class View {
         step: 'step: ',
         winSlug1: 'You win! steps:',
         winSlug2: 'time:',
+        close: "close",
+        load: "load game",
+        bestres: "the best results",
       },
       ru: {
         resetBtn: 'заново',
@@ -49,6 +52,9 @@ class View {
         step: 'шаг: ',
         winSlug1: 'Победа! шагов:',
         winSlug2: 'время:',
+        close: "закрыть",
+        load: "загрузить игру",
+        bestres: "лучшие результаты",
       },
     };
     this.lang = 'ru';
@@ -81,11 +87,12 @@ class View {
     this.bestResultsWindow = null;
     this.isBestResultsWindowActive = false;
     this.bestResMax = 10;
+    this.isSavedGamesWindowActive = false;
 
     this.matrixDimensionX = null;
     this.matrixDimensionY = null;
     this.mainElNum = null;
-    this.defaultDimension = 2;
+    this.defaultDimension = 3;
     this.dem = {
       mobile: {
         2: 160, 3: 106, 4: 80, 5: 64, 6: 53, 7: 45, 8: 40,
@@ -335,8 +342,9 @@ class View {
 
   setShffldOnElNumAndGooo(elNum, dir = 'left') {
     // console.log(`elNum: ${elNum} ${destElNum}`);
-    const destElNum = this.getDestElNumByDirection(dir);
+    const destElNum = parseInt(this.getDestElNumByDirection(dir), 10);
     if (elNum !== this.mainElNum && !this.isDrgbl(elNum, dir)) {
+      console.log(`EXCEPTION EL NOT DRGBLE ${dir}`);
       return;
     }
     if (elNum === this.mainElNum && !this.isMelDrgbl(dir)) {
@@ -346,6 +354,7 @@ class View {
     let exception = false;
     let counter = 0;
     this.shuffledMatrix.forEach((el, i) => {
+      console.log(`${el} === ${elNum} ${el === elNum}`);
       if (el === elNum && counter === 0) {
         if (this.shuffledMatrix[i + destElNum]) {
           this.shuffledMatrix[i] = this.shuffledMatrix[i + destElNum];
@@ -492,11 +501,13 @@ class View {
       countOfStepsToPropYPos--;
     }
     /* установка предпоследнего элемента на последнее место */
-    if (this.isItPreLastElInRow(elNum)) {
-      console.log(`posiiiiition isItPreLastElInRow`);
-      this.goMountOfSteps('right', 1);
-      this.goMountOfSteps('top', 1);
-      this.addStep(elNum, 2);
+    if (!this.isElOnPropPos(elNum + 1)) {
+      if (this.isItPreLastElInRow(elNum)) {
+        console.log(`posiiiiition isItPreLastElInRow`);
+        this.goMountOfSteps('right', 1);
+        this.goMountOfSteps('top', 1);
+        this.addStep(elNum, 2);
+      }
     }
   }
 
@@ -1746,28 +1757,35 @@ class View {
     let dataArr = Object.keys(data);
     const savingData = JSON.parse(stringData);
     /* less than 10 */
-    if (dataArr.length <= this.bestResMax + 1) {
-      console.log(`/* less than 10 */ ${dataArr.length}`);
-      let notRepeatedFlag = true;
-      dataArr.forEach((el, i) => {
-        if (data[i] && (data[i].dim === savingData.dim) && (data[i].steps === savingData.steps) && (data[i].time === savingData.time)) {
-          notRepeatedFlag = false;
-        }
-      });
-      console.log(`notRepeatedFlag: ${notRepeatedFlag}`);
-      if (notRepeatedFlag) {
-        data[dataArr.length] = savingData;
-        localStorage.setItem(this.bestResDataKey, JSON.stringify(data));
-        console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
+    let countOfNodes = 0;
+    // if (dataArr.length <= this.bestResMax + 1) {}
+    let notRepeatedFlag = true;
+    dataArr.forEach((el, i) => {
+      if (data[i] && (data[i].dim === savingData.dim) && (data[i].steps === savingData.steps) && (data[i].time === savingData.time)) {
+        countOfNodes++;
+        notRepeatedFlag = false;
       }
+    });
+    if (countOfNodes <= this.bestResMax) {
+      console.log(`/* less than 10 */ ${countOfNodes}`);
+      data[dataArr.length] = savingData;
+      localStorage.setItem(this.bestResDataKey, JSON.stringify(data));
+      console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
+    }
+    console.log(`notRepeatedFlag: ${notRepeatedFlag}`);
+    if (notRepeatedFlag) {
+      data[dataArr.length] = savingData;
+      localStorage.setItem(this.bestResDataKey, JSON.stringify(data));
+      console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
       return;
     }
+
     /* compare data */
     console.log(`/* compare data */`);
     let savedFlag = false;
     let lastT;
     dataArr.forEach((el, i) => {
-      if (data[i] && this.matrixDimensionX === parseInt(data[i].dim, 10)) {
+      if (data[i] && this.matrixDimensionX.toString() === data[i].dim) {
         if (lastT === undefined) {
           lastT = data[i].time;
         }
@@ -1784,7 +1802,7 @@ class View {
     if (lastT !== undefined && savedFlag) {
       dataArr = Object.keys(data);
       dataArr.forEach((el, i) => {
-        if (data[i] && this.matrixDimensionX === parseInt(data[i].dim, 10) && data[i].time === lastT) {
+        if (data[i] && this.matrixDimensionX.toString() === data[i].dim && data[i].time === lastT) {
           delete data[i];
         }
       });
@@ -1810,30 +1828,139 @@ class View {
     this.bestResultsWindow.classList.add('displ-blck');
     let brInnerHTML = `<h3 class="best-res-header centered">THE BEST OF THE BEST (${this.matrixDimensionX}x${this.matrixDimensionX})</h3>`;
     // const obKey = Object.keys(ob);
-    Object.keys(ob).forEach((el, i) => {
-      if (ob[i] && (this.matrixDimensionX.toString() === ob[i].dim)) {
-        console.log(`this.matrixDimensionX ${this.matrixDimensionX.toString()} ${ob[i].dim} ${this.matrixDimensionX.toString() === ob[i].dim}`);
-        brInnerHTML += `<div class="best-res-item centered">time: ${ob[i].time} steps: ${ob[i].steps}</div>`;
-      }
-    });
+    if (ob) {
+      Object.keys(ob).forEach((el, i) => {
+        // if (ob[i]) {
+        //   console.log(`${JSON.stringify(ob[i])}`);
+        // }
+        if (ob[i] && (this.matrixDimensionX.toString() === ob[i].dim)) {
+          console.log(`this.matrixDimensionX ${this.matrixDimensionX.toString()} ${ob[i].dim} ${this.matrixDimensionX.toString() === ob[i].dim}`);
+          brInnerHTML += `<div class="best-res-item centered">time: ${ob[i].time} steps: ${ob[i].steps}</div>`;
+        }
+      });
+    }
     // let brInnerHTML = ''
     this.bestResultsWindow.innerHTML = brInnerHTML;
   }
 
+  loadGame(sets) {
+    console.log(sets);
+    /* changing curr dimention */
+    if (typeof (sets) === 'object') {
+      clearInterval(this.timerID);
+      // this.resetTimer();
+      this.clearSteps();
+      // this.setDimentionXY(sets.dim);
+      // this.setMainElNum();
+      // this.setOffset();
+      // this.mainContainer.innerHTML = "";
+      // this.araseMatrix();
+      // this.resetShuffledMatrix();
+      // this.setAllPartsInItsPos();
+      // this.showMatrix();
+      this.shuffledMatrix = [];
+      this.shuffledMatrix = sets.matrix.split(',').map((el) => parseInt(el, 10));
+      this.shuffle();
+      this.step = parseInt(sets.steps, 10);
+      this.timerVal = sets.time;
+      this.timer.innerText = sets.time;
+      this.currentImage = parseInt(sets.image, 10) + 1;
+      this.setCSSProperty('.main-container div', `backgroundImage`, `url("../images/${this.currentImage}.jpg")`);
+      this.imagesDescribe.innerText = '';
+    }
+    /* changing curr matrix */
+    /* changing curr image */
+    /* changing curr time */
+    /* changing curr step */
+  }
+
+  getSavedGamesLS() {
+    this.isSavedGamesWindowActive = true;
+    const ob = JSON.parse(localStorage.getItem(this.storeDataKey));
+    console.log(ob);
+    this.loadWindowInteraction.classList.add('displ-blck');
+    let brInnerHTML = `<h3 class="best-res-header centered">${this.string[this.lang].load} (${this.matrixDimensionX}x${this.matrixDimensionX})</h3>`;
+    if (ob) {
+      Object.keys(ob).forEach((el, i) => {
+        if (ob[i] && (this.matrixDimensionX.toString() === ob[i].dim)) {
+          brInnerHTML += `<div class="best-res-item centered" data-set-game='${JSON.stringify(ob[i])}'>${ob[i].date}  image ${parseInt(ob[i].image, 10) + 1}</div>`;
+        }
+      });
+    }
+    this.loadWindowInteraction.innerHTML = `${brInnerHTML}<div id="closeLoadWindowInteractionBTN" class="close-LoadWindowInteraction-BTN">${this.string[this.lang].close}</div>`;
+  }
+
+  getStringForSaveGame(item = 0) {
+    const d = new Date();
+    const mth = d.getMonth().toString().length < 2 ? `0${d.getMonth()}` : d.getMonth();
+    const day = d.getDate().toString().length < 2 ? `0${d.getDate()}` : d.getDate();
+    const hr = d.getHours().toString().length < 2 ? `0${d.getHours()}` : d.getHours();
+    const mn = d.getMinutes().toString().length < 2 ? `0${d.getMinutes()}` : d.getMinutes();
+    const pre = item ? "" : `{"${item}":`;
+    const after = item ? "" : '}';
+    // eslint-disable-next-line max-len
+    return `${pre}{"date":"${mth}-${day} ${hr}:${mn}", "dim":"${this.matrixDimensionX}", "image":"${this.currentImage - 1}", "steps":"${this.step}", "time":"${document.getElementById('timer').innerText}", "matrix":"${this.shuffledMatrix}"}${after}`;
+  }
+
   setCurrentGameLS() {
     this.setCurrentMatrixN();
-    // eslint-disable-next-line max-len
-    const shpock = `{"0":{"dim":"${this.matrixDimensionX}", "image":"${this.currentImage - 1}", "steps":"${this.step}", "time":"${document.getElementById('timer').innerText}", "matrix":"${this.shuffledMatrix}"}}`;
-    localStorage.setItem(this.storeDataKey, shpock);
+    let data = localStorage.getItem(this.storeDataKey);
+    if (data === undefined || data === null) {
+      localStorage.setItem(this.storeDataKey, this.getStringForSaveGame());
+      console.log(`UNDEFINED ${JSON.parse(localStorage.getItem(this.storeDataKey))}`);
+    }
+
+    if (data) {
+      data = JSON.parse(data);
+      const dataArr = Object.keys(data);
+      let lastDate = '';
+      let savedFlag = false;
+      let countOfNodes = 0;
+      dataArr.forEach((el, i) => {
+        if (data[i] && (data[i].dim === this.matrixDimensionX.toString())) {
+          console.log('woohoo');
+          countOfNodes++;
+        }
+      });
+      if (countOfNodes >= 10) {
+        console.log(`/* more then 10 */`);
+        /* find last day min ... */
+        dataArr.forEach((el, i) => {
+          if (lastDate === '') {
+            lastDate = data[i].date;
+          }
+          lastDate = this.compareDateAndTime(data[i].date, lastDate) ? data[i].date : lastDate;
+        });
+        /* removing old data */
+        if (lastDate !== '') {
+          dataArr.forEach((el, i) => {
+            if (data[i].date === lastDate && !savedFlag) {
+              data[i] = JSON.parse(this.getStringForSaveGame('get'));
+              savedFlag = true;
+            }
+          });
+        }
+      }
+      if (!savedFlag) {
+        data[dataArr.length] = JSON.parse(this.getStringForSaveGame('get'));
+      }
+      localStorage.setItem(this.storeDataKey, JSON.stringify(data));
+      console.log(`JAST saved ${JSON.stringify(data)}`);
+    }
     console.log(JSON.parse(localStorage.getItem(this.storeDataKey)));
   }
 
-  getCurrentGameLS() {
-    this.setCurrentMatrixN();
-    // eslint-disable-next-line max-len
-    const shpock = `{"0":{"dim":"${this.matrixDimensionX}", "image":"${this.currentImage - 1}", "steps":"${this.step}", "time":"${document.getElementById('timer').innerText}", "matrix":"${this.shuffledMatrix}"}}`;
-    localStorage.setItem(this.storeDataKey, shpock);
-    console.log(JSON.parse(localStorage.getItem(this.storeDataKey)));
+  compareDateAndTime(datef, datesC) {
+    const date = datef.split(' ');
+    const dateC = datesC.split(' ');
+    const md1 = date[0].split('-');
+    const md2 = dateC[1].split('-');
+
+    const hm1 = dateC[1].split(':');
+    const hm2 = dateC[1].split(':');
+    const c1 = new Date(2011, parseInt(md1[0], 10), parseInt(md1[1], 10), parseInt(hm1[0], 10), parseInt(hm1[1], 10));
+    const c2 = new Date(2011, parseInt(md2[0], 20), parseInt(md2[1], 10), parseInt(hm2[0], 10), parseInt(hm2[1], 10));
+    return c1.getTime() > c2.getTime();
   }
 
   isElOnPropPosX(elNum) {
@@ -1877,38 +2004,27 @@ class View {
     const ob = _ob;
     let tx = 0;
     let ty = 0;
-    let ofsetX = 0;
-    let ofsetY = 0;
-    // const ob = document.getElementById(itElID);
 
     function elementDrag(e) {
-      // e = e || window.event;
-      // e.preventDefault();
-      tx = ofsetX - e.clientX;
-      ty = ofsetY - e.clientY;
-      ofsetX = e.clientX;
-      ofsetY = e.clientY;
-      ob.style.top = `${ob.offsetTop - ty}px`;
-      ob.style.left = `${ob.offsetLeft - tx}px`;
+      ob.style.top = `${e.pageY - ty / 2 + 100}px`;
+      ob.style.left = `${e.pageX - tx / 2 + 100}px`;
+      console.log(ob.style.top);
     }
 
     function closeDragElement() {
+      ob.removeAttribute('style');
       document.onmouseup = null;
       document.onmousemove = null;
       document.ontouchend = null;
       document.ontouchmove = null;
     }
 
-    function dragMouseDown(e) {
-      // e = e || window.event;
-      // e.preventDefault();
-      ofsetX = e.clientX;
-      ofsetY = e.clientY;
+    function dragMouseDown() {
+      tx = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+      ty = window.innerHeight || document.documentElement.clientHinnerHeight || document.body.clientHinnerHeight;
       document.onmouseup = closeDragElement;
       document.onmousemove = elementDrag;
     }
-
-    // const ob = ob.parentElement;// document.getElementById('last_setings_el_for_toggle_after');
 
     if (ob) {
       ob.onmousedown = dragMouseDown;
@@ -1967,17 +2083,21 @@ class View {
       }
       if (e.target.id === 'saveBtn') {
         console.log('saveBTN');
-        CNTX.setCurrentMatrixN();
-        // eslint-disable-next-line max-len
-        const shpock = `{"0":{"dim":"${CNTX.matrixDimensionX}", "image":"${CNTX.currentImage - 1}", "steps":"${CNTX.step}", "time":"${document.getElementById('timer').innerText}", "matrix":"${CNTX.shuffledMatrix}"}}`;
-        localStorage.setItem(CNTX.storeDataKey, shpock);
-        console.log(JSON.parse(localStorage.getItem(CNTX.storeDataKey)));
+        CNTX.setCurrentGameLS();
         return;
       }
       if (e.target.id === 'loadBtn') {
         console.log('loaded');
+        CNTX.getSavedGamesLS();
         console.log(localStorage.getItem(CNTX.storeDataKey));
         return;
+      }
+      if (e.target.id === 'closeLoadWindowInteractionBTN' && CNTX.isSavedGamesWindowActive) {
+        CNTX.isSavedGamesWindowActive = false;
+        CNTX.loadWindowInteraction.classList.remove('displ-blck');
+      }
+      if (e.target.dataset.setGame) {
+        CNTX.loadGame(JSON.parse(e.target.dataset.setGame));
       }
       if (e.target.id === 'bestResBtn') {
         console.log('show Best Results Btn');

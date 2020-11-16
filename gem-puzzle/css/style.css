@@ -12,6 +12,7 @@ h1{
   bottom: 30px;
   width: 320px;
   left: calc(50% - 320px/2);
+  font-size: 1.3em;
 }
 .btn{
   cursor: pointer;
@@ -90,6 +91,7 @@ h1{
 }
 .sattings-board-container{
   left: calc(50% - 320px/2);
+  top: 34px;
 }
 .game-top-mod{
   top:65px;
@@ -139,8 +141,22 @@ h1{
 }
 .best-res-item {
   color: #333;
-  line-height: 40px;
+  line-height: 36px;
 }
 .best-res-header{
   line-height: 90px;
+}
+.close-LoadWindowInteraction-BTN{
+  position: absolute;
+  bottom: 10px;
+  width: 80px;
+  left: calc(50% - 80px/2);
+  text-align: center;
+  background-color: rgba(200,200,200,0.5);
+  border-radius: 3px;
+  line-height: 30px;
+  cursor: pointer;
+}
+[data-set-game] {
+  cursor: pointer;
 }
