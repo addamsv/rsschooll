@@ -1,21 +1,4 @@
-// import Controller from './modules/controller';
-// import Model from './modules/model';
-// import View from './modules/render.view.model';
-
-// const { default: images } = require("./modules/images");
-
-// import './modules/components';
-// import images from './modules/images';
-
-// eslint-disable-next-line max-len
-const images = [{ author: 'Иван Айвазовский', name: 'Девятый вал', year: '1850' }, { author: 'Илья Репин', name: 'Бурлаки на Волге', year: '1873' }, { author: 'Илья Репин', name: 'Не ждали', year: '1888' }, { author: 'Илья Репин', name: 'Вечорници', year: '1881' }, { author: 'Илья Репин', name: 'Проводы новобранца', year: '1879' }, { author: 'Илья Репин', name: 'Крестный ход', year: '1883' }, { author: 'Илья Репин', name: 'Иван Грозный и сын его Иван', year: '1885' }, { author: 'Илья Репин', name: 'Садко', year: '1876' }, { author: 'Илья Репин', name: 'Приготовление к экзамену', year: '1864' }, { author: 'Илья Репин', name: 'Летний пейзаж', year: '1879' }, { author: 'Илья Репин', name: 'Запорожцы', year: '1891' }, { author: 'Иван Крамской', name: 'Неизвестная', year: '1883' }, { author: 'Сандро Боттичелли', name: 'Рождение Венеры', year: '1486' }, { author: 'Иван Шишкин', name: 'Утро в сосновом лесу', year: '1889' }, { author: 'Рембрандт', name: 'Ночной дозор', year: '1642' }, { author: 'Леонардо да Винчи', name: 'Тайная вечеря', year: '1498' }, { author: 'Сальвадор Дали', name: 'Постоянство памяти', year: '1931' }, { author: 'Поль Гоген', name: 'Откуда мы пришли? Кто мы? Куда мы идём?', year: '1898' }, { author: 'Эжен Делакруа', name: 'Свобода, ведущая народ', year: '1830' }, { author: 'Михаил Врубель', name: 'Демон сидящий', year: '1890' }, { author: 'Эдуар Мане', name: 'Бар в «Фоли-Бержер»', year: '1882' }, { author: 'Тициан', name: 'Любовь земная и Любовь небесная', year: '1516' }, { author: 'Михаил Нестеров', name: 'Видение отроку Варфоломею', year: '1890' }, { author: 'Питер Брейгель', name: 'Притча о слепых', year: '1568' }, { author: 'Виктор Васнецов', name: 'Аленушка', year: '1881' }, { author: 'Карл Брюллов', name: 'Последний день Помпеи', year: '1833' }, { author: 'Пабло Пикассо', name: 'Девочка на шаре', year: '1905' }, { author: 'Эдгар Дега', name: 'Голубые танцовщицы', year: '1897' }, { author: 'Леонардо да Винчи', name: 'Мона Лиза', year: '1505' }, { author: 'Микеланджело', name: 'Сотворение Адама', year: '1511' }, { author: 'Ян Вермеер', name: 'Девушка с жемчужной серёжкой', year: '1665' }, { author: 'Василий Суриков', name: 'Боярыня Морозова', year: '1887' }, { author: 'Виктор Васнецов', name: 'Богатыри', year: '1898' }, { author: 'Андрей Рублев', name: 'Троица', year: '1411' }, { author: 'Пабло Пикассо', name: 'Герника', year: '1937' }, { author: 'Иероним Босх', name: 'Сад земных наслаждений', year: '1510' }, { author: 'Эдвард Мунк', name: 'Крик', year: '1893' }, { author: 'Марк Шагал', name: 'Прогулка', year: '1918' }, { author: 'Иванов Александр', name: 'Явление Христа народу', year: '1857' }, { author: 'Федотов Павел', name: 'Сватовство майора', year: '1852' }, { author: 'Василий Верещагин', name: 'Апофеоз войны', year: '1817' }, { author: 'Джорджоне', name: 'Спящая Венера', year: '1510' }, { author: 'Питер Брейгель', name: 'Охотники на снегу', year: '1565' }, { author: 'Караваджо', name: 'Лютнист', year: '1596' }, { author: 'Рембрандт', name: 'Даная', year: '1647' }, { author: 'Джованни Беллини', name: 'Пир богов', year: '1514' }, { author: 'Ян ван Эйк', name: 'Портрет четы Арнольфини', year: '1434' }, { author: 'Сандро Боттичелли', name: 'Весна', year: '1482' }, { author: 'Леонардо да Винчи', name: 'Благовещение', year: '1475' }, { author: 'Леонардо да Винчи', name: 'Дама с горностаем', year: '1490' }, { author: 'Леонардо да Винчи', name: 'Мадонна Литта', year: '1491' }, { author: 'Рафаэль', name: 'Дама с единорогом', year: '1506' }, { author: 'Рафаэль', name: 'Мадонна Бельведерская', year: '1506' }, { author: 'Рафаэль', name: 'Сикстинская Мадонна', year: '1520' }, { author: 'Тициан', name: 'Динарий Кесаря', year: '1516' }, { author: 'Тициан', name: 'Кающаяся Марина Магдалина', year: '1565' }, { author: 'Тициан', name: 'Вакханалия', year: '1526' }, { author: 'Тициан', name: 'Венера Урбинская', year: '1534' }, { author: 'Тициан', name: 'Конный портрет Карла V', year: '1548' }, { author: 'Альбрехт Дюрер', name: 'Адам и Ева', year: '1507' }, { author: 'Альбрехт Дюрер', name: 'Праздник четок', year: '1506' }, { author: 'Веронезе', name: 'Марс и Венера', year: '1560' }, { author: 'Веронезе', name: 'Пир в доме Левия', year: '1563' }, { author: 'Эль Греко', name: 'Апостолы Петр и Павел', year: '1592' }, { author: 'Рембрандт', name: 'Автопортрет с Саскией', year: '1635' }, { author: 'Рембрандт', name: 'Христос и грешница', year: '1644' }, { author: 'Веласкес', name: 'Бахус', year: '1628' }, { author: 'Веласкес', name: 'Инфанта Маргарита', year: '1654' }, { author: 'Веласкес', name: 'Поклонение волхвов', year: '1619' }, { author: 'Веласкес', name: 'Вилла Медичи в Риме. Полдень', year: '1630' }, { author: 'Веласкес', name: 'Венера с зеркалом', year: '1651' }, { author: 'Веласкес', name: 'Кузница вулкана', year: '1630' }, { author: 'Веласкес', name: 'Менины', year: '1656' }, { author: 'Веласкес', name: 'Сдача Бреды', year: '1635' }, { author: 'Бартоломео Мурильо', name: 'Мадонна с четками', year: '1655' }, { author: 'Бартоломео Мурильо', name: 'Явление и дар Богородицы', year: '1655' }, { author: 'Бартоломео Мурильо', name: 'Мальчик с собакой', year: '1650' }, { author: 'Бартоломео Мурильо', name: 'Непорочное зачатие', year: '1678' }, { author: 'Никола Пуссен', name: 'Пейзаж с Полифемом', year: '1649' }, { author: 'Ян Вермеер "Служанка с кувшином молока', name: 'Молочница', year: '1660' }, { author: 'Жан Этьен Лиотар', name: 'Шоколадница', year: '1745' }, { author: 'Жан Фрагонар', name: 'Качели', year: '1767' }, { author: 'Жан Фрагонар', name: 'Поцелуй украдкой', year: '1788' }, { author: 'Гейнсборо', name: 'Дама в голубом', year: '1780' }, { author: 'Жан Батист Грёз', name: 'Избалованное дитя', year: '1765' }, { author: 'Жан Батист Грёз', name: 'Деревенская помолвка', year: '1761' }, { author: 'Владимир Боровиковский', name: 'Портрет Лопухиной', year: '1797' }, { author: 'Джон Констебл', name: 'Вид на собор в Солсбери из епископского сада', year: '1823' }, { author: 'Василий Тропинин', name: 'Кружевница', year: '1823' }, { author: 'Алексей Венецианов', name: 'На жатве. Лето', year: '1827' }, { author: 'Алексей Венециановн', name: 'Спящий пастушок', year: '1826' }, { author: 'Алексей Венецианов', name: 'На пашне. Весна', year: '1820' }, { author: 'Карл Брюллов', name: 'Итальянский полдень', year: '1827' }, { author: 'Карл Брюллов', name: 'Всадница', year: '1832' }, { author: 'Василий Перов', name: 'Приезд гувернантки в купеческий дом', year: '1866' }, { author: 'Василий Перов', name: 'Тройка', year: '1866' }, { author: 'Василий Перов', name: 'Сельский крестный ход на Пасхе', year: '1861' }, { author: 'Василий Перов', name: 'Птицелов', year: '1870' }, { author: 'Василий Перов', name: 'Охотники на привале', year: '1871' }, { author: 'Алексей Саврасов', name: 'Грачи прилетели', year: '1871' }, { author: 'Фёдор Васильев', name: 'Мокрый луг', year: '1872' }, { author: 'Константин Маковский', name: 'Дети, бегущие от грозы', year: '1872' }, { author: 'Константин Маковский', name: 'Боярский свадебный пир', year: '1883' }, { author: 'Константин Маковский', name: 'Гадание', year: '1890' }, { author: 'Константин Маковский', name: 'Портрет графини Софьи', year: '1890' }, { author: 'Константин Маковский', name: 'Перемещение ковра Мухаммеда из Мекки в Каир', year: '1875' }, { author: 'Василий Поленов', name: 'Деревня Окулова гора', year: '1860' }, { author: 'Василий Поленов', name: 'Переправа через реку', year: '1872' }, { author: 'Василий Поленов', name: 'В парке', year: '1874' }, { author: 'Василий Поленов', name: 'Московский дворик', year: '1877' }, { author: 'Василий Поленов', name: 'Бабушкин сад', year: '1878' }, { author: 'Огюст Ренуар', name: 'Мост в Шату', year: '1875' }, { author: 'Огюст Ренуар', name: 'Прогулка в Булонском лесу', year: '1873' }, { author: 'Огюст Ренуар', name: 'Портрет Жанны Самари', year: '1877' }, { author: 'Огюст Ренуар', name: 'Завтрак гребцов', year: '1881' }, { author: 'Огюст Ренуар', name: 'Зонтики', year: '1886' }, { author: 'Архип Куинджи', name: 'На острове Валааме', year: '1873' }, { author: 'Архип Куинджи', name: 'Украинская ночь', year: '1876' }, { author: 'Архип Куинджи', name: 'Берёзовая роща', year: '1879' }, { author: 'Архип Куинджи', name: 'Лунная ночь на Днепре', year: '1880' }, { author: 'Василий Суриков', name: 'Утро стрелецкой казни', year: '1881' }, { author: 'Василий Суриков', name: 'Взятие снежного городка', year: '1891' }, { author: 'Василий Суриков', name: 'Покорение Сибири Ермаком Тимофеевичем', year: '1895' }, { author: 'Василий Суриков', name: 'Переход Суворова через Альпы', year: '1899' }, { author: 'Валентин Серов', name: 'Девочка с персиками', year: '1887' }, { author: 'Исаак Левитан', name: 'Над вечным покоем', year: '1894' }, { author: 'Исаак Левитан', name: 'Март', year: '1895' }, { author: 'Исаак Левитан', name: 'Золотая осень', year: '1895' }, { author: 'Иван Шишкин', name: 'Ручей в берёзовом лесу', year: '1883' }, { author: 'Иван Шишкин', name: 'Рожь', year: '1878' }, { author: 'Иван Шишкин', name: 'Корабельная роща', year: '1898' }, { author: 'Александра Маковский', name: 'Надоела', year: '1897' }, { author: 'Франсуа Буше', name: 'Четыре сезона - Весна', year: '1755' }, { author: 'Виктор Васнецов', name: 'Витязь на распутье', year: '1878' }, { author: 'Виктор Васнецов', name: 'Ковер-самолёт', year: '1880' }, { author: 'Виктор Васнецов', name: 'Три царевны подземного царства', year: '1884' }, { author: 'Виктор Васнецов', name: 'Иван-царевич на Сером Волке', year: '1888' }, { author: 'Виктор Васнецов', name: 'Царь Иван Васильевич Грозный', year: '1896' }, { author: 'Николай Богданов-Бельский', name: 'Устный счёт', year: '1895' }, { author: 'Николай Богданов-Бельский', name: 'У дверей школы', year: '1897' }, { author: 'Эдуард Мане', name: 'Женщина с кувшином', year: '1858' }, { author: 'Клод Лоррен', name: 'Отплытие святой Урсулы', year: '1614' }, { author: 'Карл Лемох', name: 'Варька', year: '1893' }, { author: 'Василий тропинин', name: 'Девушка с горшком роз', year: '1850' }, { author: 'Гюстав Курбе', name: 'Мастерская художника', year: '1855' }, { author: 'Иван Богданов', name: 'За расчётом', year: '1890' }, { author: 'Иван Богданов', name: 'Новичок', year: '1893' }, { author: 'Рене Магритт', name: 'Сын человеческий', year: '1964' }, { author: 'Сальвадор Дали', name: 'Сон, вызванный полётом пчелы вокруг граната, за секунду до пробуждения', year: '1944' }, { author: 'Казимир Малевич', name: 'Черный квадрат', year: '1915' }];
-
-// const controller = new Controller();
-// controller.log();
-
-// const model = new Model();
-// model.log();
-// console.log(images[0].author);
+import images from './modules/images';
 
 class View {
   constructor() {
@@ -92,7 +75,7 @@ class View {
     this.matrixDimensionX = null;
     this.matrixDimensionY = null;
     this.mainElNum = null;
-    this.defaultDimension = 3;
+    this.defaultDimension = 4;
     this.dem = {
       mobile: {
         2: 160, 3: 106, 4: 80, 5: 64, 6: 53, 7: 45, 8: 40,
@@ -114,7 +97,6 @@ class View {
     this.shuffledMatrix = [];
     this.stepMatrix = [];
     this.shuffledMatrixEvenSumm = 0;
-    // this.repeated = [];
     this.stepBtn = null;
     this.bestResBtnObj = null;
 
@@ -161,7 +143,6 @@ class View {
     const arrLngth = Object.keys(this.matrix).length;
     for (let i = 0; i < arrLngth; i++) {
       if (((i + 1) % this.matrixDimensionX) === 0) {
-        // this.elArr.push(i + 1);
         this.elArrN.push([1, i + 1]);
         l -= 1;
         a += 1;
@@ -170,7 +151,6 @@ class View {
         i += 1 + shift;
         shift += 1;
       } else {
-        // this.elArr.push(i + 1);
         this.elArrN.push([1, i + 1]);
       }
     }
@@ -180,7 +160,6 @@ class View {
     let mult = a;
     let dec = l;
     while (dec) {
-      // this.elArr.push((el * mult) + a);
       this.elArrN.push([2, (el * mult) + a]);
       mult++;
       dec--;
@@ -188,12 +167,6 @@ class View {
   }
 
   makeAISteps() {
-    // this.setCurrentMatrixN();
-    // console.log(`chek matrix: ${this.checkShuffledMatrix()}`);
-    // console.log(this.getMatrixDimension());
-    // console.log(this.stepMatrix);
-    // [[1, 1][1, 2][1, 3][1, 4][1, 5][1, 6][1, 7][1, 8][2, 9][2, 17][2, 25][2, 33][2, 41][2, 49][2, 57]]
-    // console.log(this.elArr);
     let i = 0;
     let leftRightTopBottom = 1;
     let l;
@@ -201,7 +174,7 @@ class View {
     let elNum = 0;
     this.makeOrderArr();
     const elArr = this.elArrN; // [[2, 9], [2, 17], [2, 25], [2, 33], [2, 41], [2, 49], [2, 57]]; // [[2, 9],[2, 17],[2, 25],[2, 33],[2, 41],[2, 49],[2, 57]]
-    console.log(this.elArrN);
+    // console.log(this.elArrN);
     // {
     //   2: [1, 2, 3],
     //   3: [1, 2, 3, 4, 7, 5, 6, 7, 8],
@@ -218,7 +191,7 @@ class View {
       if (i === 0) {
         if (elArr[elNum]) {
           // eslint-disable-next-line max-len
-          console.log(`----------=============== ЭЛЕМЕНТ ${elArr[elNum][1]}  ${CNTX.tempGetDirection((CNTX.getPropDir(leftRightTopBottom, elArr[elNum][0])))} ==================----------------`);
+          // console.log(`----------=============== ЭЛЕМЕНТ ${elArr[elNum][1]}  ${CNTX.tempGetDirection((CNTX.getPropDir(leftRightTopBottom, elArr[elNum][0])))} ==================----------------`);
           propPosCondition = CNTX.stepsCompute(elArr[elNum][1], leftRightTopBottom, elArr[elNum][0]);
           l = CNTX.stepMatrix.length;
         } else {
@@ -234,7 +207,7 @@ class View {
       if (!CNTX.isAutoMode) {
         clearInterval(CNTX.autoFnID);
         CNTX.stepMatrix = [];
-        console.log('end');
+        // console.log('end');
       }
       if (i === l) {
         leftRightTopBottom += 1;
@@ -247,13 +220,13 @@ class View {
           } else {
             clearInterval(CNTX.autoFnID);
             CNTX.isAutoMode = false;
-            console.log('end');
+            // console.log('end');
           }
         }
       } else {
         i += 1;
         if (CNTX.stepMatrix.length !== 0) {
-          console.log(`${CNTX.stepMatrix[i - 1][0]} ${this.tempGetDirection(CNTX.stepMatrix[i - 1][1])}`);
+          // console.log(`${CNTX.stepMatrix[i - 1][0]} ${this.tempGetDirection(CNTX.stepMatrix[i - 1][1])}`);
           CNTX.makeStep(CNTX.stepMatrix[i - 1][1], CNTX.stepMatrix[i - 1][0]);
         }
       }
@@ -344,24 +317,24 @@ class View {
     // console.log(`elNum: ${elNum} ${destElNum}`);
     const destElNum = parseInt(this.getDestElNumByDirection(dir), 10);
     if (elNum !== this.mainElNum && !this.isDrgbl(elNum, dir)) {
-      console.log(`EXCEPTION EL NOT DRGBLE ${dir}`);
+      // console.log(`EXCEPTION EL NOT DRGBLE ${dir}`);
       return;
     }
     if (elNum === this.mainElNum && !this.isMelDrgbl(dir)) {
-      console.log(`EXCEPTION MEL CANT MOVE TO TE ${dir}`);
+      // console.log(`EXCEPTION MEL CANT MOVE TO TE ${dir}`);
       return;
     }
     let exception = false;
     let counter = 0;
     this.shuffledMatrix.forEach((el, i) => {
-      console.log(`${el} === ${elNum} ${el === elNum}`);
+      // console.log(`${el} === ${elNum} ${el === elNum}`);
       if (el === elNum && counter === 0) {
         if (this.shuffledMatrix[i + destElNum]) {
           this.shuffledMatrix[i] = this.shuffledMatrix[i + destElNum];
           this.shuffledMatrix[i + destElNum] = el;
           counter++;
         } else {
-          console.log(`EXCEPTION shuffledMatrix[${i + destElNum}] NOT FOUND: I: ${i} DEST NUM: ${destElNum}`);
+          // console.log(`EXCEPTION shuffledMatrix[${i + destElNum}] NOT FOUND: I: ${i} DEST NUM: ${destElNum}`);
           exception = true;
         }
       } else {
@@ -375,7 +348,7 @@ class View {
   }
 
   getCountOfStepsToPropYPos(elNum) {
-    console.log(`Y OFFSET  ${(this.matrix[elNum - 1].y / this.getOffset()) - this.getYInitElementPosInsidMatrix(elNum)}`);
+    // console.log(`Y OFFSET  ${(this.matrix[elNum - 1].y / this.getOffset()) - this.getYInitElementPosInsidMatrix(elNum)}`);
     return (this.matrix[elNum - 1].y / this.getOffset()) - this.getYInitElementPosInsidMatrix(elNum);
   }
 
@@ -386,11 +359,11 @@ class View {
       return;
     }
     let countOfStepsToPropYPos = ((this.getCountOfStepsToPropYPos(elNum)) * (-1)) - 1;
-    console.log(`STEPS to PROP Pos Y: ${countOfStepsToPropYPos}`);
+    // console.log(`STEPS to PROP Pos Y: ${countOfStepsToPropYPos}`);
     this.addStep(elNum, 3);
     while (countOfStepsToPropYPos > 0) {
       if (this.isElLastOnRow(elNum)) {
-        console.log('woohooo!');
+        // console.log('woohooo!');
         this.goMountOfSteps('left', 1);
         this.goMountOfSteps('bottom', 2);
         this.goMountOfSteps('right', 1);
@@ -405,30 +378,30 @@ class View {
   }
 
   setMElUnder(elNum) {
-    console.log(`-= SET MEl UNDER ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
+    // console.log(`-= SET MEl UNDER ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
     if (this.isElOnPropPosY(elNum)) {
-      console.log('EL ON PROP POS Y');
+      // console.log('EL ON PROP POS Y');
       return;
     }
     /* 1-я и 2-я четверти */
     if (this.isMElBefore(elNum)) {
       if (this.isMElOnTheSameRow(elNum) && (this.stepsToRight(elNum) >= 0)) {
-        console.log(`/* гэл в одной строке справа*/`);
+        // console.log(`/* гэл в одной строке справа*/`);
         this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
         this.goMountOfSteps('bottom', 1);
         this.goMountOfSteps('right', 1);
         return;
       }
       if (this.isMElOnTheSameRow(elNum) && (this.stepsToLeftt(elNum) >= 0)) {
-        console.log(`/* гэл в одной строке справа*/`);
+        // console.log(`/* гэл в одной строке справа*/`);
         this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'right') - 1);
         this.goMountOfSteps('bottom', 1);
         this.goMountOfSteps('left', 1);
         return;
       }
-      console.log('1st 2nd part COMMON (set MEl Under)');
+      // console.log('1st 2nd part COMMON (set MEl Under)');
       if (this.isElLastOnRow(elNum) && this.isMElOnTheSameCol(elNum)) {
-        console.log('last one in the row and the same coll position');
+        // console.log('last one in the row and the same coll position');
         this.goMountOfSteps('bottom', this.getMountOfSteps(elNum, 'bottom') - 1);
         this.goMountOfSteps('left', 1);
         this.goMountOfSteps('bottom', 1);
@@ -436,7 +409,7 @@ class View {
         return;
       }
       if (this.isMElOnTheSameCol(elNum)) {
-        console.log('in the same coll position');
+        // console.log('in the same coll position');
         this.goMountOfSteps('bottom', this.getMountOfSteps(elNum, 'bottom') - 1);
         this.goMountOfSteps('right', 1);
         this.goMountOfSteps('bottom', 1);
@@ -444,26 +417,26 @@ class View {
         return;
       }
       if ((this.stepsToBottom(elNum) > 0) && (this.stepsToRight(elNum) >= 0)) {
-        console.log(`/* вниз и вправо есть шаги */`);
+        // console.log(`/* вниз и вправо есть шаги */`);
         this.goMountOfSteps('bottom', this.getMountOfSteps(elNum, 'bottom'));
         this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right'));
       }
       if ((this.stepsToBottom(elNum) > 0) && (this.stepsToLeft(elNum) >= 0)) {
-        console.log(`/* вниз и влево есть шаги */`);
+        // console.log(`/* вниз и влево есть шаги */`);
         this.goMountOfSteps('bottom', this.getMountOfSteps(elNum, 'bottom'));
         this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'left'));
       }
     } else {
       /* 3-я и 4-я четверти */
       if ((this.isMElOnTheSameRow(elNum)) && (this.stepsToLeft(elNum) >= 0)) {
-        console.log(`/* влево есть шаги *//* мэл в одной строке */`);
+        // console.log(`/* влево есть шаги *//* мэл в одной строке */`);
         this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'left') - 1);
         this.goMountOfSteps('bottom', 1);
         this.goMountOfSteps('left', 1);
         return;
       }
       if (this.isMElOnTheSameCol(elNum)) { /* гэл в одной колонке */
-        console.log(`/* гэл в одной колонке */`);
+        // console.log(`/* гэл в одной колонке */`);
         this.goMountOfSteps('top', this.getMountOfSteps(elNum, 'top') - 1);
         return;
       }
@@ -488,7 +461,7 @@ class View {
     this.addStep(elNum, 1);
     while (countOfStepsToPropYPos > 0) {
       if (this.isElLastOnRow(elNum)) {
-        console.log('laaaaast el!');
+        // console.log('laaaaast el!');
         this.goMountOfSteps('left', 1);
         this.goMountOfSteps('top', 2);
         this.goMountOfSteps('right', 1);
@@ -501,14 +474,13 @@ class View {
       countOfStepsToPropYPos--;
     }
     /* установка предпоследнего элемента на последнее место */
-    if (!this.isElOnPropPos(elNum + 1)) {
-      if (this.isItPreLastElInRow(elNum)) {
-        console.log(`posiiiiition isItPreLastElInRow`);
-        this.goMountOfSteps('right', 1);
-        this.goMountOfSteps('top', 1);
-        this.addStep(elNum, 2);
-      }
+    if (this.isItPreLastElInRow(elNum)) {
+      // console.log(`posiiiiition isItPreLastElInRow`);
+      this.goMountOfSteps('right', 1);
+      this.goMountOfSteps('top', 1);
+      this.addStep(elNum, 2);
     }
+    // if (!this.isElOnPropPos(elNum + 1)) {}
   }
 
   isElAfterItsPropCol(elNum) {
@@ -516,13 +488,13 @@ class View {
   }
 
   setMElAbove(elNum, mode) {
-    console.log(`-= SET MEl ABOVE ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
+    // console.log(`-= SET MEl ABOVE ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
     if (this.isElOnPropPosY(elNum)) {
-      console.log('EL ON PROP POS Y');
+      // console.log('EL ON PROP POS Y');
       return;
     }
     if (this.isElAfterItsPropCol(elNum)) { // ;this.isElBeforeItsPropRow(elNum)
-      console.log(`${elNum} El Before Its Prop Row`);
+      // console.log(`${elNum} El Before Its Prop Row`);
       return;
     }
     /* 1-я и 2-я четверти */
@@ -534,7 +506,7 @@ class View {
         /* если элемент стоит под уже установленной строкой, то обходить только снизу, чтобы не испортить позицию предыдущих элов */
         /* в данном случает это может быть только таже строка */
         if (this.stepsToRight(elNum) >= 0) { /* (вправо) */
-          console.log('special case (set MEl ABOVE)');
+          // console.log('special case (set MEl ABOVE)');
           if (this.isElLastOnRow(elNum)) {
             /* элементы выстраиваем в строку и не действует спец обход снизу */
             this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
@@ -551,13 +523,13 @@ class View {
         return;
       }
       if ((this.isMElOnTheSameRow(elNum)) && (this.stepsToRight(elNum) >= 0)) {
-        console.log('/* гэл в одной строке *//* вправо есть шаги */');
+        // console.log('/* гэл в одной строке *//* вправо есть шаги */');
         this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
         this.goMountOfSteps('top', 1);
         this.goMountOfSteps('right', 1);
         return;
       }
-      console.log('1st 2nd part (set MEl ABOVE)');
+      // console.log('1st 2nd part (set MEl ABOVE)');
       if (this.stepsToBottom(elNum) > 0) { /* вниз есть шаги */
         this.goMountOfSteps('bottom', this.getMountOfSteps(elNum, 'bottom') - 1);
       }
@@ -624,7 +596,7 @@ class View {
   }
 
   toLeft(elNum, mode) {
-    console.log('set MEl Before');
+    // console.log('set MEl Before');
     this.setMElBefore(elNum);
 
     if (this.stepMatrix.length === 0) {
@@ -632,11 +604,11 @@ class View {
     }
 
     let countOfStepsToPropXPos = this.getCountOfStepsToPropXPos(elNum) - 1;
-    console.log(`(${this.matrix[elNum - 1].x} / ${this.getOffset()}) - ${this.getXInitElementPosInsideMatrix(elNum)} = ${countOfStepsToPropXPos}`);
+    // console.log(`(${this.matrix[elNum - 1].x} / ${this.getOffset()}) - ${this.getXInitElementPosInsideMatrix(elNum)} = ${countOfStepsToPropXPos}`);
     this.addStep(elNum, 4);
     while (countOfStepsToPropXPos > 0) {
-      console.log(`countOfStepsToPropXPos: ----> ${countOfStepsToPropXPos}`);
-      console.log(`countOfStepsToPropXPos: 999 ${(countOfStepsToPropXPos > 0)}`);
+      // console.log(`countOfStepsToPropXPos: ----> ${countOfStepsToPropXPos}`);
+      // console.log(`countOfStepsToPropXPos: 999 ${(countOfStepsToPropXPos > 0)}`);
       if (this.isThereAbilityToGoByBottom(elNum)) {
         this.goMountOfSteps('bottom', 1);
         this.goMountOfSteps('left', 2);
@@ -651,7 +623,7 @@ class View {
     }
     /* установка предпоследнего элемента на последнее место */
     if ((mode === 2) && (this.isItPreLastElInCol(elNum))) {
-      console.log(`----- INSTALL TO VERY BOTTOM POS -------`);
+      // console.log(`----- INSTALL TO VERY BOTTOM POS -------`);
       this.goMountOfSteps('bottom', 1);
       this.goMountOfSteps('left', 1);
       this.addStep(elNum, 3);
@@ -667,13 +639,13 @@ class View {
   }
 
   setMElBefore(elNum) {
-    console.log(`-= SET MEl BEFORE ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
+    // console.log(`-= SET MEl BEFORE ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
     if (this.isElOnPropPosX(elNum)) {
-      console.log(`isElOnPropPosX ${this.isElOnPropPosX(elNum)}`);
+      // console.log(`isElOnPropPosX ${this.isElOnPropPosX(elNum)}`);
       return false;
     }
     if (this.isElBeforeItsPropRow(elNum)) {
-      console.log(`${elNum} El Before Its Prop Row`);
+      // console.log(`${elNum} El Before Its Prop Row`);
       return false;
     }
     let returnFlag = false;
@@ -761,7 +733,7 @@ class View {
   }
 
   toRight(elNum) {
-    console.log('set MEl After');
+    // console.log('set MEl After');
     if (!this.setMElAfter(elNum)) {
       return;
     }
@@ -770,12 +742,12 @@ class View {
     this.addStep(elNum, 2);
     while (countOfStepsToPropXPos > 0) {
       if (this.isThereAbilityToGoByBottom(elNum)) {
-        console.log(`isThereAbilityToGoByBottom: ${this.isThereAbilityToGoByBottom(elNum)}`);
+        // console.log(`isThereAbilityToGoByBottom: ${this.isThereAbilityToGoByBottom(elNum)}`);
         this.goMountOfSteps('bottom', 1);
         this.goMountOfSteps('right', 2);
         this.goMountOfSteps('top', 1);
       } else {
-        console.log(`isThereAbilityToGoByBottom: ${this.isThereAbilityToGoByBottom(elNum)}`);
+        // console.log(`isThereAbilityToGoByBottom: ${this.isThereAbilityToGoByBottom(elNum)}`);
         this.goMountOfSteps('top', 1);
         this.goMountOfSteps('right', 2);
         this.goMountOfSteps('bottom', 1);
@@ -791,19 +763,19 @@ class View {
   }
 
   setMElAfter(elNum) {
-    console.log(`-= SET MEl AFTER ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
+    // console.log(`-= SET MEl AFTER ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
     if (this.isElOnPropPosX(elNum)) {
       return false; /* !!!ОШИБКА надо все-равно ставить эл над!!! */
     }
     if (!this.isElBeforeItsPropRow(elNum)) { /* isItPsblToSetMElAfter(elNum) this.matrix[elNum - 1].x > this.getXPXPosition(elNum) */
-      console.log(`isElNOTBeforeItsPropRow ${!this.isElBeforeItsPropRow(elNum)} - EXIT FROM setMElAfter`);
+      // console.log(`isElNOTBeforeItsPropRow ${!this.isElBeforeItsPropRow(elNum)} - EXIT FROM setMElAfter`);
       return false;
     }
     let returnFlag = false;
     /* 1-я и 2-я четверти */
     if (this.isMElBefore(elNum)) { /* гэл перед эл в матрице */
       if (this.isCaseRangedRowAbove(elNum)) {
-        console.log('case when ranged row is above');
+        // console.log('case when ranged row is above');
         if (this.stepsToRight(elNum) >= 0) {
           this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
           this.goMountOfSteps('bottom', 1);
@@ -820,7 +792,7 @@ class View {
       }
       /* над эл много пространства и там мэл */
       if (this.isMElOnTheSameRow(elNum) && (this.stepsToRight(elNum) >= 0)) { /* мэл в одной строке */
-        console.log('МЭЛ на одной строке и перед эл');
+        // console.log('МЭЛ на одной строке и перед эл');
         this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
         this.goMountOfSteps('top', 1);
         this.goMountOfSteps('right', 2);
@@ -841,7 +813,7 @@ class View {
         this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') + 1);
         // this.goMountOfSteps('top', 1);
         // this.goMountOfSteps('right', 2);
-        console.log('testing ------------');
+        // console.log('testing ------------');
         this.goMountOfSteps('bottom', 1);
         returnFlag = true;
       }
@@ -1111,7 +1083,7 @@ class View {
     // }
     this.setCurrentMatrixN();
     if (this.isElOnPropPos(elNum)) {
-      console.log('ON PROP POS');
+      // console.log('ON PROP POS');
       return true;
     }
     switch (this.getPropDir(leftRightTopBottom, mode)) {
@@ -1330,7 +1302,7 @@ class View {
       this.isPaused = true;
       this.setTimerVal();
       clearInterval(this.timerID);
-      console.log('paused');
+      // console.log('paused');
       return;
     }
     this.isPaused = false;
@@ -1589,7 +1561,7 @@ class View {
 
     this.makeGameDashBoard();
     this.makeTimer();
-    this.startTimer();
+    // this.startTimer();
     this.makeStopStartTimerBtn();
     this.makeStepNumber();
     this.makeAIStepBtn();
@@ -1668,7 +1640,7 @@ class View {
       if (!this.isShuffledMatrixSolving()) {
         this.resetShuffledMatrix();
         // this.setAllPartsInItsPos();
-        console.log('notsolving');
+        // console.log('notsolving');
         this.shuffle();
         // this.solvingHint.innerText = this.isShuffledMatrixSolving() ? '' : 'warning! the pazzle can\'t be solved';
       }
@@ -1748,9 +1720,9 @@ class View {
     let data = localStorage.getItem(this.bestResDataKey);
     /* not at all */
     if (!data) {
-      console.log(`/* not at all */`);
+      // console.log(`/* not at all */`);
       localStorage.setItem(this.bestResDataKey, `{"0":${stringData}}`);
-      console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
+      // console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
       return;
     }
     data = JSON.parse(data);
@@ -1767,21 +1739,21 @@ class View {
       }
     });
     if (countOfNodes <= this.bestResMax) {
-      console.log(`/* less than 10 */ ${countOfNodes}`);
+      // console.log(`/* less than 10 */ ${countOfNodes}`);
       data[dataArr.length] = savingData;
       localStorage.setItem(this.bestResDataKey, JSON.stringify(data));
-      console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
+      // console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
     }
-    console.log(`notRepeatedFlag: ${notRepeatedFlag}`);
+    // console.log(`notRepeatedFlag: ${notRepeatedFlag}`);
     if (notRepeatedFlag) {
       data[dataArr.length] = savingData;
       localStorage.setItem(this.bestResDataKey, JSON.stringify(data));
-      console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
+      // console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
       return;
     }
 
     /* compare data */
-    console.log(`/* compare data */`);
+    // console.log(`/* compare data */`);
     let savedFlag = false;
     let lastT;
     dataArr.forEach((el, i) => {
@@ -1790,14 +1762,14 @@ class View {
           lastT = data[i].time;
         }
         lastT = this.compareTime(data[i].time, lastT) ? data[i].time : lastT;
-        console.log(`lastT ${lastT}`);
+        // console.log(`lastT ${lastT}`);
         if (this.compareTime(data[i].time, savingData.time) && !savedFlag) {
           data[dataArr.length] = JSON.parse(stringData);
           savedFlag = true;
         }
       }
     });
-    console.log(`FIN lastT ${lastT}`);
+    // console.log(`FIN lastT ${lastT}`);
     /* remove lastone */
     if (lastT !== undefined && savedFlag) {
       dataArr = Object.keys(data);
@@ -1809,7 +1781,7 @@ class View {
     }
     if (savedFlag) {
       localStorage.setItem(this.bestResDataKey, JSON.stringify(data));
-      console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
+      // console.log(JSON.parse(localStorage.getItem(this.bestResDataKey)));
     }
   }
 
@@ -1824,7 +1796,7 @@ class View {
   getBestResLS() {
     this.isBestResultsWindowActive = true;
     const ob = JSON.parse(localStorage.getItem(this.bestResDataKey));
-    console.log(ob);
+    // console.log(ob);
     this.bestResultsWindow.classList.add('displ-blck');
     let brInnerHTML = `<h3 class="best-res-header centered">THE BEST OF THE BEST (${this.matrixDimensionX}x${this.matrixDimensionX})</h3>`;
     // const obKey = Object.keys(ob);
@@ -1834,7 +1806,7 @@ class View {
         //   console.log(`${JSON.stringify(ob[i])}`);
         // }
         if (ob[i] && (this.matrixDimensionX.toString() === ob[i].dim)) {
-          console.log(`this.matrixDimensionX ${this.matrixDimensionX.toString()} ${ob[i].dim} ${this.matrixDimensionX.toString() === ob[i].dim}`);
+          // console.log(`this.matrixDimensionX ${this.matrixDimensionX.toString()} ${ob[i].dim} ${this.matrixDimensionX.toString() === ob[i].dim}`);
           brInnerHTML += `<div class="best-res-item centered">time: ${ob[i].time} steps: ${ob[i].steps}</div>`;
         }
       });
@@ -1844,7 +1816,7 @@ class View {
   }
 
   loadGame(sets) {
-    console.log(sets);
+    // console.log(sets);
     /* changing curr dimention */
     if (typeof (sets) === 'object') {
       clearInterval(this.timerID);
@@ -1877,7 +1849,7 @@ class View {
   getSavedGamesLS() {
     this.isSavedGamesWindowActive = true;
     const ob = JSON.parse(localStorage.getItem(this.storeDataKey));
-    console.log(ob);
+    // console.log(ob);
     this.loadWindowInteraction.classList.add('displ-blck');
     let brInnerHTML = `<h3 class="best-res-header centered">${this.string[this.lang].load} (${this.matrixDimensionX}x${this.matrixDimensionX})</h3>`;
     if (ob) {
@@ -1907,7 +1879,7 @@ class View {
     let data = localStorage.getItem(this.storeDataKey);
     if (data === undefined || data === null) {
       localStorage.setItem(this.storeDataKey, this.getStringForSaveGame());
-      console.log(`UNDEFINED ${JSON.parse(localStorage.getItem(this.storeDataKey))}`);
+      // console.log(`UNDEFINED ${JSON.parse(localStorage.getItem(this.storeDataKey))}`);
     }
 
     if (data) {
@@ -1918,12 +1890,12 @@ class View {
       let countOfNodes = 0;
       dataArr.forEach((el, i) => {
         if (data[i] && (data[i].dim === this.matrixDimensionX.toString())) {
-          console.log('woohoo');
+          // console.log('woohoo');
           countOfNodes++;
         }
       });
       if (countOfNodes >= 10) {
-        console.log(`/* more then 10 */`);
+        // console.log(`/* more then 10 */`);
         /* find last day min ... */
         dataArr.forEach((el, i) => {
           if (lastDate === '') {
@@ -1945,9 +1917,9 @@ class View {
         data[dataArr.length] = JSON.parse(this.getStringForSaveGame('get'));
       }
       localStorage.setItem(this.storeDataKey, JSON.stringify(data));
-      console.log(`JAST saved ${JSON.stringify(data)}`);
+      // console.log(`JAST saved ${JSON.stringify(data)}`);
     }
-    console.log(JSON.parse(localStorage.getItem(this.storeDataKey)));
+    // console.log(JSON.parse(localStorage.getItem(this.storeDataKey)));
   }
 
   compareDateAndTime(datef, datesC) {
@@ -2008,7 +1980,6 @@ class View {
     function elementDrag(e) {
       ob.style.top = `${e.pageY - ty / 2 + 100}px`;
       ob.style.left = `${e.pageX - tx / 2 + 100}px`;
-      console.log(ob.style.top);
     }
 
     function closeDragElement() {
@@ -2071,7 +2042,7 @@ class View {
       if (e.target.id === 'soundBtn') {
         CNTX.soundBtn.innerText = CNTX.isSound ? CNTX.string[CNTX.lang].soundBtnOFF : CNTX.string[CNTX.lang].soundBtn;
         CNTX.isSound = !CNTX.isSound; /* kind of CNTX.isSound = CNTX.isSound ? false : true; */
-        console.log('sound');
+        // console.log('sound');
         return;
       }
       if (e.target.id === 'stepBtn') {
@@ -2082,14 +2053,14 @@ class View {
         return;
       }
       if (e.target.id === 'saveBtn') {
-        console.log('saveBTN');
+        // console.log('saveBTN');
         CNTX.setCurrentGameLS();
         return;
       }
       if (e.target.id === 'loadBtn') {
-        console.log('loaded');
+        // console.log('loaded');
         CNTX.getSavedGamesLS();
-        console.log(localStorage.getItem(CNTX.storeDataKey));
+        // console.log(localStorage.getItem(CNTX.storeDataKey));
         return;
       }
       if (e.target.id === 'closeLoadWindowInteractionBTN' && CNTX.isSavedGamesWindowActive) {
@@ -2100,7 +2071,7 @@ class View {
         CNTX.loadGame(JSON.parse(e.target.dataset.setGame));
       }
       if (e.target.id === 'bestResBtn') {
-        console.log('show Best Results Btn');
+        // console.log('show Best Results Btn');
         CNTX.getBestResLS();
         return;
       }
@@ -2122,7 +2093,7 @@ class View {
       // if (e.target.dataset.elNum === CNTX.getMatrixDimension().toString()) {
       //   console.log("Main\n");
       //   CNTX.matrix.forEach((element) => {
-      //     console.log(element);
+      // console.log(element);
       //   });
       //   return;
       // }
@@ -2199,7 +2170,7 @@ class View {
       const w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
       // const h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
       if (w < 480) {
-        console.log(w);
+        // console.log(w);
         CNTX.isMobile = true;
         CNTX.setOffset();
       } else if (CNTX.isMobile) {
@@ -2376,14 +2347,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* если эл может драг влево
     if (!isElOnItsLeftCol {
-      console.log('el on its not Left Col');
+      // console.log('el on its not Left Col');
       if (this.isDrggblToLeft(elNum)) {
         this.setShffldOnElNumAndGooo(elNum);
       }
     } */
 /* если эл может драг вверх
     if (!this.isElOnItsTopRow(elNum)) {
-      console.log('el not on its top row');
+      // console.log('el not on its top row');
       if (isDrggblToTop {
         this.setShffldOnElNumAndGooo(elNum, this.matrixDimensionX * (-1));
       }
