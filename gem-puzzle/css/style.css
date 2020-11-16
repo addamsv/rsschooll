@@ -8,6 +8,10 @@
 h1{
   text-align: center;
   color: #555;
+  position: absolute;
+  bottom: 30px;
+  width: 320px;
+  left: calc(50% - 320px/2);
 }
 .btn{
   cursor: pointer;
@@ -94,4 +98,36 @@ h1{
   width: 320px;
   top: 120px;
   color: red;
+}
+.images-describe{
+  position: absolute;
+  left: calc(50% - 320px/2);
+  width: 320px;
+  top: 140px;
+  color: #aaa;
+}
+
+.animated-window {
+  width: 100%;
+  display: none;
+  position: absolute;
+  height: 100%;
+  background-image: url(../images/1.jpg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.interact-window {
+  position: absolute;
+  display: none;
+  width: 320px;
+  height: 560px;
+  background: #aaa;
+  top: calc(50% - 560px/2);
+  left: calc(50% - 320px/2);
+  z-index: 2;
+  border-radius: 10px;
+  box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.5);
+  opacity: 0.8;
 }
