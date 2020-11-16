@@ -2,13 +2,20 @@
 // import Model from './modules/model';
 // import View from './modules/render.view.model';
 
+// const { default: images } = require("./modules/images");
+
 // import './modules/components';
+// import images from './modules/images';
+
+// eslint-disable-next-line max-len
+const images = [{ author: 'Иван Айвазовский', name: 'Девятый вал', year: '1850' }, { author: 'Илья Репин', name: 'Бурлаки на Волге', year: '1873' }, { author: 'Илья Репин', name: 'Не ждали', year: '1888' }, { author: 'Илья Репин', name: 'Вечорници', year: '1881' }, { author: 'Илья Репин', name: 'Проводы новобранца', year: '1879' }, { author: 'Илья Репин', name: 'Крестный ход', year: '1883' }, { author: 'Илья Репин', name: 'Иван Грозный и сын его Иван', year: '1885' }, { author: 'Илья Репин', name: 'Садко', year: '1876' }, { author: 'Илья Репин', name: 'Приготовление к экзамену', year: '1864' }, { author: 'Илья Репин', name: 'Летний пейзаж', year: '1879' }, { author: 'Илья Репин', name: 'Запорожцы', year: '1891' }, { author: 'Иван Крамской', name: 'Неизвестная', year: '1883' }, { author: 'Сандро Боттичелли', name: 'Рождение Венеры', year: '1486' }, { author: 'Иван Шишкин', name: 'Утро в сосновом лесу', year: '1889' }, { author: 'Рембрандт', name: 'Ночной дозор', year: '1642' }, { author: 'Леонардо да Винчи', name: 'Тайная вечеря', year: '1498' }, { author: 'Сальвадор Дали', name: 'Постоянство памяти', year: '1931' }, { author: 'Поль Гоген', name: 'Откуда мы пришли? Кто мы? Куда мы идём?', year: '1898' }, { author: 'Эжен Делакруа', name: 'Свобода, ведущая народ', year: '1830' }, { author: 'Михаил Врубель', name: 'Демон сидящий', year: '1890' }, { author: 'Эдуар Мане', name: 'Бар в «Фоли-Бержер»', year: '1882' }, { author: 'Тициан', name: 'Любовь земная и Любовь небесная', year: '1516' }, { author: 'Михаил Нестеров', name: 'Видение отроку Варфоломею', year: '1890' }, { author: 'Питер Брейгель', name: 'Притча о слепых', year: '1568' }, { author: 'Виктор Васнецов', name: 'Аленушка', year: '1881' }, { author: 'Карл Брюллов', name: 'Последний день Помпеи', year: '1833' }, { author: 'Пабло Пикассо', name: 'Девочка на шаре', year: '1905' }, { author: 'Эдгар Дега', name: 'Голубые танцовщицы', year: '1897' }, { author: 'Леонардо да Винчи', name: 'Мона Лиза', year: '1505' }, { author: 'Микеланджело', name: 'Сотворение Адама', year: '1511' }, { author: 'Ян Вермеер', name: 'Девушка с жемчужной серёжкой', year: '1665' }, { author: 'Василий Суриков', name: 'Боярыня Морозова', year: '1887' }, { author: 'Виктор Васнецов', name: 'Богатыри', year: '1898' }, { author: 'Андрей Рублев', name: 'Троица', year: '1411' }, { author: 'Пабло Пикассо', name: 'Герника', year: '1937' }, { author: 'Иероним Босх', name: 'Сад земных наслаждений', year: '1510' }, { author: 'Эдвард Мунк', name: 'Крик', year: '1893' }, { author: 'Марк Шагал', name: 'Прогулка', year: '1918' }, { author: 'Иванов Александр', name: 'Явление Христа народу', year: '1857' }, { author: 'Федотов Павел', name: 'Сватовство майора', year: '1852' }, { author: 'Василий Верещагин', name: 'Апофеоз войны', year: '1817' }, { author: 'Джорджоне', name: 'Спящая Венера', year: '1510' }, { author: 'Питер Брейгель', name: 'Охотники на снегу', year: '1565' }, { author: 'Караваджо', name: 'Лютнист', year: '1596' }, { author: 'Рембрандт', name: 'Даная', year: '1647' }, { author: 'Джованни Беллини', name: 'Пир богов', year: '1514' }, { author: 'Ян ван Эйк', name: 'Портрет четы Арнольфини', year: '1434' }, { author: 'Сандро Боттичелли', name: 'Весна', year: '1482' }, { author: 'Леонардо да Винчи', name: 'Благовещение', year: '1475' }, { author: 'Леонардо да Винчи', name: 'Дама с горностаем', year: '1490' }, { author: 'Леонардо да Винчи', name: 'Мадонна Литта', year: '1491' }, { author: 'Рафаэль', name: 'Дама с единорогом', year: '1506' }, { author: 'Рафаэль', name: 'Мадонна Бельведерская', year: '1506' }, { author: 'Рафаэль', name: 'Сикстинская Мадонна', year: '1520' }, { author: 'Тициан', name: 'Динарий Кесаря', year: '1516' }, { author: 'Тициан', name: 'Кающаяся Марина Магдалина', year: '1565' }, { author: 'Тициан', name: 'Вакханалия', year: '1526' }, { author: 'Тициан', name: 'Венера Урбинская', year: '1534' }, { author: 'Тициан', name: 'Конный портрет Карла V', year: '1548' }, { author: 'Альбрехт Дюрер', name: 'Адам и Ева', year: '1507' }, { author: 'Альбрехт Дюрер', name: 'Праздник четок', year: '1506' }, { author: 'Веронезе', name: 'Марс и Венера', year: '1560' }, { author: 'Веронезе', name: 'Пир в доме Левия', year: '1563' }, { author: 'Эль Греко', name: 'Апостолы Петр и Павел', year: '1592' }, { author: 'Рембрандт', name: 'Автопортрет с Саскией', year: '1635' }, { author: 'Рембрандт', name: 'Христос и грешница', year: '1644' }, { author: 'Веласкес', name: 'Бахус', year: '1628' }, { author: 'Веласкес', name: 'Инфанта Маргарита', year: '1654' }, { author: 'Веласкес', name: 'Поклонение волхвов', year: '1619' }, { author: 'Веласкес', name: 'Вилла Медичи в Риме. Полдень', year: '1630' }, { author: 'Веласкес', name: 'Венера с зеркалом', year: '1651' }, { author: 'Веласкес', name: 'Кузница вулкана', year: '1630' }, { author: 'Веласкес', name: 'Менины', year: '1656' }, { author: 'Веласкес', name: 'Сдача Бреды', year: '1635' }, { author: 'Бартоломео Мурильо', name: 'Мадонна с четками', year: '1655' }, { author: 'Бартоломео Мурильо', name: 'Явление и дар Богородицы', year: '1655' }, { author: 'Бартоломео Мурильо', name: 'Мальчик с собакой', year: '1650' }, { author: 'Бартоломео Мурильо', name: 'Непорочное зачатие', year: '1678' }, { author: 'Никола Пуссен', name: 'Пейзаж с Полифемом', year: '1649' }, { author: 'Ян Вермеер "Служанка с кувшином молока', name: 'Молочница', year: '1660' }, { author: 'Жан Этьен Лиотар', name: 'Шоколадница', year: '1745' }, { author: 'Жан Фрагонар', name: 'Качели', year: '1767' }, { author: 'Жан Фрагонар', name: 'Поцелуй украдкой', year: '1788' }, { author: 'Гейнсборо', name: 'Дама в голубом', year: '1780' }, { author: 'Жан Батист Грёз', name: 'Избалованное дитя', year: '1765' }, { author: 'Жан Батист Грёз', name: 'Деревенская помолвка', year: '1761' }, { author: 'Владимир Боровиковский', name: 'Портрет Лопухиной', year: '1797' }, { author: 'Джон Констебл', name: 'Вид на собор в Солсбери из епископского сада', year: '1823' }, { author: 'Василий Тропинин', name: 'Кружевница', year: '1823' }, { author: 'Алексей Венецианов', name: 'На жатве. Лето', year: '1827' }, { author: 'Алексей Венециановн', name: 'Спящий пастушок', year: '1826' }, { author: 'Алексей Венецианов', name: 'На пашне. Весна', year: '1820' }, { author: 'Карл Брюллов', name: 'Итальянский полдень', year: '1827' }, { author: 'Карл Брюллов', name: 'Всадница', year: '1832' }, { author: 'Василий Перов', name: 'Приезд гувернантки в купеческий дом', year: '1866' }, { author: 'Василий Перов', name: 'Тройка', year: '1866' }, { author: 'Василий Перов', name: 'Сельский крестный ход на Пасхе', year: '1861' }, { author: 'Василий Перов', name: 'Птицелов', year: '1870' }, { author: 'Василий Перов', name: 'Охотники на привале', year: '1871' }, { author: 'Алексей Саврасов', name: 'Грачи прилетели', year: '1871' }, { author: 'Фёдор Васильев', name: 'Мокрый луг', year: '1872' }, { author: 'Константин Маковский', name: 'Дети, бегущие от грозы', year: '1872' }, { author: 'Константин Маковский', name: 'Боярский свадебный пир', year: '1883' }, { author: 'Константин Маковский', name: 'Гадание', year: '1890' }, { author: 'Константин Маковский', name: 'Портрет графини Софьи', year: '1890' }, { author: 'Константин Маковский', name: 'Перемещение ковра Мухаммеда из Мекки в Каир', year: '1875' }, { author: 'Василий Поленов', name: 'Деревня Окулова гора', year: '1860' }, { author: 'Василий Поленов', name: 'Переправа через реку', year: '1872' }, { author: 'Василий Поленов', name: 'В парке', year: '1874' }, { author: 'Василий Поленов', name: 'Московский дворик', year: '1877' }, { author: 'Василий Поленов', name: 'Бабушкин сад', year: '1878' }, { author: 'Огюст Ренуар', name: 'Мост в Шату', year: '1875' }, { author: 'Огюст Ренуар', name: 'Прогулка в Булонском лесу', year: '1873' }, { author: 'Огюст Ренуар', name: 'Портрет Жанны Самари', year: '1877' }, { author: 'Огюст Ренуар', name: 'Завтрак гребцов', year: '1881' }, { author: 'Огюст Ренуар', name: 'Зонтики', year: '1886' }, { author: 'Архип Куинджи', name: 'На острове Валааме', year: '1873' }, { author: 'Архип Куинджи', name: 'Украинская ночь', year: '1876' }, { author: 'Архип Куинджи', name: 'Берёзовая роща', year: '1879' }, { author: 'Архип Куинджи', name: 'Лунная ночь на Днепре', year: '1880' }, { author: 'Василий Суриков', name: 'Утро стрелецкой казни', year: '1881' }, { author: 'Василий Суриков', name: 'Взятие снежного городка', year: '1891' }, { author: 'Василий Суриков', name: 'Покорение Сибири Ермаком Тимофеевичем', year: '1895' }, { author: 'Василий Суриков', name: 'Переход Суворова через Альпы', year: '1899' }, { author: 'Валентин Серов', name: 'Девочка с персиками', year: '1887' }, { author: 'Исаак Левитан', name: 'Над вечным покоем', year: '1894' }, { author: 'Исаак Левитан', name: 'Март', year: '1895' }, { author: 'Исаак Левитан', name: 'Золотая осень', year: '1895' }, { author: 'Иван Шишкин', name: 'Ручей в берёзовом лесу', year: '1883' }, { author: 'Иван Шишкин', name: 'Рожь', year: '1878' }, { author: 'Иван Шишкин', name: 'Корабельная роща', year: '1898' }, { author: 'Александра Маковский', name: 'Надоела', year: '1897' }, { author: 'Франсуа Буше', name: 'Четыре сезона - Весна', year: '1755' }, { author: 'Виктор Васнецов', name: 'Витязь на распутье', year: '1878' }, { author: 'Виктор Васнецов', name: 'Ковер-самолёт', year: '1880' }, { author: 'Виктор Васнецов', name: 'Три царевны подземного царства', year: '1884' }, { author: 'Виктор Васнецов', name: 'Иван-царевич на Сером Волке', year: '1888' }, { author: 'Виктор Васнецов', name: 'Царь Иван Васильевич Грозный', year: '1896' }, { author: 'Николай Богданов-Бельский', name: 'Устный счёт', year: '1895' }, { author: 'Николай Богданов-Бельский', name: 'У дверей школы', year: '1897' }, { author: 'Эдуард Мане', name: 'Женщина с кувшином', year: '1858' }, { author: 'Клод Лоррен', name: 'Отплытие святой Урсулы', year: '1614' }, { author: 'Карл Лемох', name: 'Варька', year: '1893' }, { author: 'Василий тропинин', name: 'Девушка с горшком роз', year: '1850' }, { author: 'Гюстав Курбе', name: 'Мастерская художника', year: '1855' }, { author: 'Иван Богданов', name: 'За расчётом', year: '1890' }, { author: 'Иван Богданов', name: 'Новичок', year: '1893' }, { author: 'Рене Магритт', name: 'Сын человеческий', year: '1964' }, { author: 'Сальвадор Дали', name: 'Сон, вызванный полётом пчелы вокруг граната, за секунду до пробуждения', year: '1944' }, { author: 'Казимир Малевич', name: 'Черный квадрат', year: '1915' }];
 
 // const controller = new Controller();
 // controller.log();
 
 // const model = new Model();
 // model.log();
+// console.log(images[0].author);
 
 class View {
   constructor() {
@@ -25,6 +32,8 @@ class View {
         soundBtnOFF: 'sound OFF',
         stepBtn: 'auto',
         step: 'step: ',
+        winSlug1: 'You win! steps:',
+        winSlug2: 'time:',
       },
       ru: {
         resetBtn: 'заново',
@@ -38,6 +47,8 @@ class View {
         soundBtnOFF: 'звук ВЫВКЛ',
         stepBtn: 'авто',
         step: 'шаг: ',
+        winSlug1: 'Победа! шагов:',
+        winSlug2: 'время:',
       },
     };
     this.lang = 'ru';
@@ -46,7 +57,7 @@ class View {
     this.mainContainer = null;
     this.innerEl = null;
     this.el = null;
-    // this.some = '';
+
     this.tempLog = '';
     this.tempLogBR = "\n";
 
@@ -63,11 +74,16 @@ class View {
     this.stepCounterObj = null;
     this.solvingHint = null;
     this.winHint = null;
+    this.imagesDescribe = null;
+    this.currentImage = 1;
+    this.animatedWindow = null;
+    this.loadWindowInteraction = null;
+    this.bestResultsWindow = null;
 
     this.matrixDimensionX = null;
     this.matrixDimensionY = null;
     this.mainElNum = null;
-    this.defaultDimension = 8;
+    this.defaultDimension = 4;
     this.dem = {
       mobile: {
         2: 160, 3: 106, 4: 80, 5: 64, 6: 53, 7: 45, 8: 40,
@@ -83,7 +99,7 @@ class View {
     this.initIsMobile();
     this.setDimentionXY();
     this.setMainElNum();
-    this.offset = null; // this.dem[this.matrixDimensionX]; /* 3x3-146; 4x4=109  438px 438px;*/
+    this.offset = null;
     this.setOffset();
     this.matrix = [];
     this.shuffledMatrix = [];
@@ -97,9 +113,11 @@ class View {
     this.soundObj = null;
     this.isSound = true;
 
-    this.autoStepSpeed = 800;
+    this.autoStepSpeed = 500;
     this.isAutoMode = false;
     this.autoFnID = null;
+    this.elArr = [];
+    this.elArrN = [];
 
     this.styleSheet = null;
     this.setStyleSheet();
@@ -122,26 +140,82 @@ class View {
     return check;
   }
 
+  makeOrderArr() {
+    let a = 0;
+    let l = this.matrixDimensionX;
+    let shift = 0;
+    this.elArr = [];
+    const arrLngth = Object.keys(this.matrix).length;
+    for (let i = 0; i < arrLngth; i++) {
+      if (((i + 1) % this.matrixDimensionX) === 0) {
+        // this.elArr.push(i + 1);
+        this.elArrN.push([1, i + 1]);
+        l -= 1;
+        a += 1;
+        this.makeVerticalRow(this.matrixDimensionX, a, l);
+
+        i += 1 + shift;
+        shift += 1;
+      } else {
+        // this.elArr.push(i + 1);
+        this.elArrN.push([1, i + 1]);
+      }
+    }
+  }
+
+  makeVerticalRow(el, a, l) {
+    let mult = a;
+    let dec = l;
+    while (dec) {
+      // this.elArr.push((el * mult) + a);
+      this.elArrN.push([2, (el * mult) + a]);
+      mult++;
+      dec--;
+    }
+  }
+
   makeAISteps() {
-    let i = 0;
-    let leftRightTop = 1;
-    let l;
-
-    let elNum = 16;
-    const elNumMax = 16;
-
-    const CNTX = this;
-    this.setCurrentMatrixN();
+    // this.setCurrentMatrixN();
     // console.log(`chek matrix: ${this.checkShuffledMatrix()}`);
     // console.log(this.getMatrixDimension());
     // console.log(this.stepMatrix);
+    // [[1, 1][1, 2][1, 3][1, 4][1, 5][1, 6][1, 7][1, 8][2, 9][2, 17][2, 25][2, 33][2, 41][2, 49][2, 57]]
+    // console.log(this.elArr);
+    let i = 0;
+    let leftRightTopBottom = 1;
+    let l;
+
+    let elNum = 0;
+    this.makeOrderArr();
+    const elArr = this.elArrN; // [[2, 9], [2, 17], [2, 25], [2, 33], [2, 41], [2, 49], [2, 57]]; // [[2, 9],[2, 17],[2, 25],[2, 33],[2, 41],[2, 49],[2, 57]]
+    console.log(this.elArrN);
+    // {
+    //   2: [1, 2, 3],
+    //   3: [1, 2, 3, 4, 7, 5, 6, 7, 8],
+    //   4: [1, 2, 3, 4, 5, 9, 13, 6, 7, 8, 10, 14, 11, 12, 15],
+    //   5: [1, 2, 3, 4, 5, 6, 11, 16, 21, 7, 8, 9, 10, 12, 17, 22, 13, 14, 15, 18, 23, 19, 20, 24],
+    //   6: [1, 2, 3, 4, 5, 6, 7, 13, 19, 25, 31, 8, 9, 10, 12, 14, 20, 26, 32, 15, 16, 17, 18, 21, 27, 33, 22, 23, 24, 28, 34, 29, 30, 35],
+    //   7: [1, 2, 3, 4, 5, 6, 7, 13, 19, 25, 31, 8, 9, 10, 12, 14, 20, 26, 32, 15, 16, 17, 18, 21, 27, 33, 22, 23, 24, 28, 34, 29, 30, 35],
+    //   8: [1, 2, 3, 4, 5, 6, 7, 13, 19, 25, 31, 8, 9, 10, 12, 14, 20, 26, 32, 15, 16, 17, 18, 21, 27, 33, 22, 23, 24, 28, 34, 29, 30, 35],
+    // };
+    // const elNumLast = 15;
+    const CNTX = this;
+    let propPosCondition;
     this.autoFnID = setInterval(() => {
       if (i === 0) {
-        console.log(`element: ${elNum}`);
-        CNTX.stepsCompute(elNum, leftRightTop);
-        l = CNTX.stepMatrix.length;
+        if (elArr[elNum]) {
+          // eslint-disable-next-line max-len
+          console.log(`----------=============== ЭЛЕМЕНТ ${elArr[elNum][1]}  ${CNTX.tempGetDirection((CNTX.getPropDir(leftRightTopBottom, elArr[elNum][0])))} ==================----------------`);
+          propPosCondition = CNTX.stepsCompute(elArr[elNum][1], leftRightTopBottom, elArr[elNum][0]);
+          l = CNTX.stepMatrix.length;
+        } else {
+          i = 0;
+        }
       }
       if (CNTX.stepMatrix.length === 0) {
+        i = l;
+      }
+      if (propPosCondition) {
         i = l;
       }
       if (!CNTX.isAutoMode) {
@@ -150,13 +224,13 @@ class View {
         console.log('end');
       }
       if (i === l) {
-        leftRightTop += 1;
+        leftRightTopBottom += 1;
         this.stepMatrix = [];
         i = 0;
-        if (leftRightTop > 3) {
-          if (elNumMax !== elNum) {
+        if (leftRightTopBottom > 4) {
+          if (elArr[elNum]) {
             elNum += 1;
-            leftRightTop = 1;
+            leftRightTopBottom = 1;
           } else {
             clearInterval(CNTX.autoFnID);
             CNTX.isAutoMode = false;
@@ -234,8 +308,36 @@ class View {
     });
   }
 
-  setShffldOnElNumAndGooo(elNum, destElNum = -1) {
+  getDestElNumByDirection(dir) {
+    switch (dir) {
+      case 'top':
+      case 1:
+        return this.matrixDimensionX * (-1);
+      case 'right':
+      case 2:
+        return 1;
+      case 'bottom':
+      case 3:
+        return this.matrixDimensionX;
+      case 'left':
+      case 4:
+        return -1;
+      default:
+        return -1;
+    }
+  }
+
+  setShffldOnElNumAndGooo(elNum, dir = 'left') {
     // console.log(`elNum: ${elNum} ${destElNum}`);
+    const destElNum = this.getDestElNumByDirection(dir);
+    if (elNum !== this.mainElNum && !this.isDrgbl(elNum, dir)) {
+      return;
+    }
+    if (elNum === this.mainElNum && !this.isMelDrgbl(dir)) {
+      console.log(`EXCEPTION MEL CANT MOVE TO TE ${dir}`);
+      return;
+    }
+    let exception = false;
     let counter = 0;
     this.shuffledMatrix.forEach((el, i) => {
       if (el === elNum && counter === 0) {
@@ -243,20 +345,127 @@ class View {
           this.shuffledMatrix[i] = this.shuffledMatrix[i + destElNum];
           this.shuffledMatrix[i + destElNum] = el;
           counter++;
+        } else {
+          console.log(`EXCEPTION shuffledMatrix[${i + destElNum}] NOT FOUND: I: ${i} DEST NUM: ${destElNum}`);
+          exception = true;
         }
       } else {
         this.shuffledMatrix[i] = el;
       }
     });
+    if (exception) {
+      return;
+    }
     this.shuffle('notShuffle');
   }
 
   getCountOfStepsToPropYPos(elNum) {
+    console.log(`Y OFFSET  ${(this.matrix[elNum - 1].y / this.getOffset()) - this.getYInitElementPosInsidMatrix(elNum)}`);
     return (this.matrix[elNum - 1].y / this.getOffset()) - this.getYInitElementPosInsidMatrix(elNum);
   }
 
-  toTop(elNum) {
-    this.setMElAbove(elNum);
+  toBottom(elNum) {
+    // [1, 9, 17, 25, 33, 41, 49, 57]
+    this.setMElUnder(elNum);
+    if (this.stepMatrix.length === 0) {
+      return;
+    }
+    let countOfStepsToPropYPos = ((this.getCountOfStepsToPropYPos(elNum)) * (-1)) - 1;
+    console.log(`STEPS to PROP Pos Y: ${countOfStepsToPropYPos}`);
+    this.addStep(elNum, 3);
+    while (countOfStepsToPropYPos > 0) {
+      if (this.isElLastOnRow(elNum)) {
+        console.log('woohooo!');
+        this.goMountOfSteps('left', 1);
+        this.goMountOfSteps('bottom', 2);
+        this.goMountOfSteps('right', 1);
+      } else {
+        this.goMountOfSteps('right', 1);
+        this.goMountOfSteps('bottom', 2);
+        this.goMountOfSteps('left', 1);
+      }
+      this.addStep(elNum, 3);
+      countOfStepsToPropYPos--;
+    }
+  }
+
+  setMElUnder(elNum) {
+    console.log(`-= SET MEl UNDER ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
+    if (this.isElOnPropPosY(elNum)) {
+      console.log('EL ON PROP POS Y');
+      return;
+    }
+    /* 1-я и 2-я четверти */
+    if (this.isMElBefore(elNum)) {
+      if (this.isMElOnTheSameRow(elNum) && (this.stepsToRight(elNum) >= 0)) {
+        console.log(`/* гэл в одной строке справа*/`);
+        this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
+        this.goMountOfSteps('bottom', 1);
+        this.goMountOfSteps('right', 1);
+        return;
+      }
+      if (this.isMElOnTheSameRow(elNum) && (this.stepsToLeftt(elNum) >= 0)) {
+        console.log(`/* гэл в одной строке справа*/`);
+        this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'right') - 1);
+        this.goMountOfSteps('bottom', 1);
+        this.goMountOfSteps('left', 1);
+        return;
+      }
+      console.log('1st 2nd part COMMON (set MEl Under)');
+      if (this.isElLastOnRow(elNum) && this.isMElOnTheSameCol(elNum)) {
+        console.log('last one in the row and the same coll position');
+        this.goMountOfSteps('bottom', this.getMountOfSteps(elNum, 'bottom') - 1);
+        this.goMountOfSteps('left', 1);
+        this.goMountOfSteps('bottom', 1);
+        this.goMountOfSteps('right', 1);
+        return;
+      }
+      if (this.isMElOnTheSameCol(elNum)) {
+        console.log('in the same coll position');
+        this.goMountOfSteps('bottom', this.getMountOfSteps(elNum, 'bottom') - 1);
+        this.goMountOfSteps('right', 1);
+        this.goMountOfSteps('bottom', 1);
+        this.goMountOfSteps('left', 1);
+        return;
+      }
+      if ((this.stepsToBottom(elNum) > 0) && (this.stepsToRight(elNum) >= 0)) {
+        console.log(`/* вниз и вправо есть шаги */`);
+        this.goMountOfSteps('bottom', this.getMountOfSteps(elNum, 'bottom'));
+        this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right'));
+      }
+      if ((this.stepsToBottom(elNum) > 0) && (this.stepsToLeft(elNum) >= 0)) {
+        console.log(`/* вниз и влево есть шаги */`);
+        this.goMountOfSteps('bottom', this.getMountOfSteps(elNum, 'bottom'));
+        this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'left'));
+      }
+    } else {
+      /* 3-я и 4-я четверти */
+      if ((this.isMElOnTheSameRow(elNum)) && (this.stepsToLeft(elNum) >= 0)) {
+        console.log(`/* влево есть шаги *//* мэл в одной строке */`);
+        this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'left') - 1);
+        this.goMountOfSteps('bottom', 1);
+        this.goMountOfSteps('left', 1);
+        return;
+      }
+      if (this.isMElOnTheSameCol(elNum)) { /* гэл в одной колонке */
+        console.log(`/* гэл в одной колонке */`);
+        this.goMountOfSteps('top', this.getMountOfSteps(elNum, 'top') - 1);
+        return;
+      }
+      /* COMMON ||| - |V */
+      if ((this.stepsTotop(elNum) >= 0) && (this.stepsToRight(elNum) >= 0)) { /* (вверх) */
+        this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right'));
+        this.goMountOfSteps('top', this.getMountOfSteps(elNum, 'top') - 1);
+      }
+      if ((this.stepsTotop(elNum) >= 0) && (this.stepsToLeft(elNum) >= 0)) {
+        this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'left'));
+        this.goMountOfSteps('top', this.getMountOfSteps(elNum, 'top') - 1);
+      }
+    }
+  }
+
+  toTop(elNum, mode) {
+    this.setMElAbove(elNum, mode);
     if (this.stepMatrix.length === 0) {
       return;
     }
@@ -285,15 +494,37 @@ class View {
     }
   }
 
-  setMElAbove(elNum) {
-    console.log('set MEl Under');
+  isElAfterItsPropCol(elNum) {
+    return this.matrix[elNum - 1].y < this.getYPXPosition(elNum);
+  }
+
+  setMElAbove(elNum, mode) {
+    console.log(`-= SET MEl ABOVE ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
+    if (this.isElOnPropPosY(elNum)) {
+      console.log('EL ON PROP POS Y');
+      return;
+    }
+    if (this.isElAfterItsPropCol(elNum)) { // ;this.isElBeforeItsPropRow(elNum)
+      console.log(`${elNum} El Before Its Prop Row`);
+      return;
+    }
     /* 1-я и 2-я четверти */
     if (this.isMElBefore(elNum)) {
-      if ((this.matrix[elNum - 1].x <= this.getXPXPosition(elNum)) && (this.matrix[elNum - 1].y - this.getOffset() === this.getYPXPosition(elNum))) {
+      if (this.isCaseRangedRowAbove(elNum) && mode === 2) {
+        return;
+      }
+      if (this.isCaseRangedRowAbove(elNum)) {
         /* если элемент стоит под уже установленной строкой, то обходить только снизу, чтобы не испортить позицию предыдущих элов */
         /* в данном случает это может быть только таже строка */
         if (this.stepsToRight(elNum) >= 0) { /* (вправо) */
-          console.log('special case (set MEl Under)');
+          console.log('special case (set MEl ABOVE)');
+          if (this.isElLastOnRow(elNum)) {
+            /* элементы выстраиваем в строку и не действует спец обход снизу */
+            this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
+            this.goMountOfSteps('top', 1);
+            this.goMountOfSteps('right', 1);
+            return;
+          }
           this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
           this.goMountOfSteps('bottom', 1);
           this.goMountOfSteps('right', 2);
@@ -302,17 +533,14 @@ class View {
         }
         return;
       }
-
-      if (this.isMElOnTheSameRow(elNum)) { /* гэл в одной строке */
-        if (this.stepsToRight(elNum) >= 0) { /* вправо есть шаги */
-          console.log('on the same row (set MEl Under)');
-          this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
-          this.goMountOfSteps('top', 1);
-          this.goMountOfSteps('right', 1);
-        }
+      if ((this.isMElOnTheSameRow(elNum)) && (this.stepsToRight(elNum) >= 0)) {
+        console.log('/* гэл в одной строке *//* вправо есть шаги */');
+        this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
+        this.goMountOfSteps('top', 1);
+        this.goMountOfSteps('right', 1);
         return;
       }
-      console.log('1st 2nd part (set MEl Under)');
+      console.log('1st 2nd part (set MEl ABOVE)');
       if (this.stepsToBottom(elNum) > 0) { /* вниз есть шаги */
         this.goMountOfSteps('bottom', this.getMountOfSteps(elNum, 'bottom') - 1);
       }
@@ -324,7 +552,7 @@ class View {
       }
     } else {
       /* 3-я и 4-я четверти */
-      if (this.isMElOnTheSameRow(elNum)) { /* гэл в одной строке */
+      if (this.isMElOnTheSameRow(elNum)) { /* мэл в одной строке */
         if (this.stepsToLeft(elNum) >= 0) { /* (обход вправо) */
           this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'left') - 1);
           this.goMountOfSteps('top', 1);
@@ -344,7 +572,7 @@ class View {
         }
         return;
       }
-      if ((this.matrix[elNum - 1].x <= this.getXPXPosition(elNum)) && (this.matrix[elNum - 1].y - this.getOffset() === this.getYPXPosition(elNum))) {
+      if (this.isCaseRangedRowAbove(elNum)) {
         if (this.stepsTotop(elNum) >= 0) { /* (вверх) */
           this.goMountOfSteps('top', this.getMountOfSteps(elNum, 'top') - 1);
         }
@@ -378,7 +606,7 @@ class View {
     return (this.matrix[elNum - 1].x / this.getOffset()) - this.getXInitElementPosInsideMatrix(elNum);
   }
 
-  toLeft(elNum) {
+  toLeft(elNum, mode) {
     console.log('set MEl Before');
     this.setMElBefore(elNum);
 
@@ -404,6 +632,17 @@ class View {
       this.addStep(elNum, 4);
       countOfStepsToPropXPos--;
     }
+    /* установка предпоследнего элемента на последнее место */
+    if ((mode === 2) && (this.isItPreLastElInCol(elNum))) {
+      console.log(`----- INSTALL TO VERY BOTTOM POS -------`);
+      this.goMountOfSteps('bottom', 1);
+      this.goMountOfSteps('left', 1);
+      this.addStep(elNum, 3);
+    }
+  }
+
+  isItPreLastElInCol(elNum) {
+    return this.getYInitElementPosInsidMatrix(elNum) + 1 === this.matrixDimensionY - 1;
   }
 
   isElBeforeItsPropRow(elNum) {
@@ -411,6 +650,7 @@ class View {
   }
 
   setMElBefore(elNum) {
+    console.log(`-= SET MEl BEFORE ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
     if (this.isElOnPropPosX(elNum)) {
       console.log(`isElOnPropPosX ${this.isElOnPropPosX(elNum)}`);
       return false;
@@ -447,13 +687,16 @@ class View {
       } else {
         if (this.stepsToRight(elNum) >= 0) { /* вправо есть шаги */
           this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
+          returnFlag = true;
         }
         if (this.stepsToLeft(elNum) >= 0) { /* (влево) */
           this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'left') + 1);
+          returnFlag = true;
         }
         /* !важно опускать в конце! */
         if (this.stepsToBottom(elNum) >= 0) { /* (вниз) */
           this.goMountOfSteps('bottom', this.getMountOfSteps(elNum, 'bottom'));
+          returnFlag = true;
         }
       }
     } else {
@@ -463,27 +706,30 @@ class View {
           this.goMountOfSteps('bottom', 1);
           this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'left') + 1);
           this.goMountOfSteps('top', 1);
-        } else {
-          this.goMountOfSteps('top', 1);
-          this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'left') + 1);
-          this.goMountOfSteps('bottom', 1);
+          return true;
         }
-        return;
+        this.goMountOfSteps('top', 1);
+        this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'left') + 1);
+        this.goMountOfSteps('bottom', 1);
+        return true;
       }
       if (this.isMElOnTheSameCol(elNum)) { /* гэл в одной колонке */
         this.goMountOfSteps('left', 1);
         this.goMountOfSteps('top', this.getMountOfSteps(elNum, 'top'));
-        return;
+        return true;
       }
       /* !важна последовательность */
       if (this.stepsToRight(elNum) >= 0) { /* (вправо) */
         this.goMountOfSteps('right', this.getMountOfSteps(elNum, 'right') - 1);
+        returnFlag = true;
       }
       if (this.stepsToLeft(elNum) >= 0) { /* (влево) */
         this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'left') + 1);
+        returnFlag = true;
       }
       if (this.stepsTotop(elNum) >= 0) { /* (вверх) */
         this.goMountOfSteps('top', this.getMountOfSteps(elNum, 'top'));
+        returnFlag = true;
       }
     }
     return returnFlag;
@@ -528,6 +774,7 @@ class View {
   }
 
   setMElAfter(elNum) {
+    console.log(`-= SET MEl AFTER ${elNum} WICH ONE ON POS ${this.getCurrentElNum(elNum)}=-`);
     if (this.isElOnPropPosX(elNum)) {
       return false; /* !!!ОШИБКА надо все-равно ставить эл над!!! */
     }
@@ -545,13 +792,14 @@ class View {
           this.goMountOfSteps('bottom', 1);
           this.goMountOfSteps('right', 2);
           this.goMountOfSteps('top', 2);
+          return true;
         }
         /* редко - случай, когда мэл находится рядом с уже собранным рядом */
         if (this.stepsToLeft(elNum) >= 0) {
           this.goMountOfSteps('bottom', 1);
           this.goMountOfSteps('left', this.getMountOfSteps(elNum, 'left') - 1);
+          return true;
         }
-        return true;
       }
       /* над эл много пространства и там мэл */
       if (this.isMElOnTheSameRow(elNum) && (this.stepsToRight(elNum) >= 0)) { /* мэл в одной строке */
@@ -650,19 +898,19 @@ class View {
       case 'top':
         /* шагнуть главным элементом вверх */
         // console.log(`позиция el над главным ${this.getTopCurrentElNum(this.mainElNum)}`);
-        this.setShffldOnElNumAndGooo(elNum, this.matrixDimensionX * (-1));
+        this.setShffldOnElNumAndGooo(elNum, 'top');
         break;
       case 2:
       case 'right':
         /* шагнуть главным элементом вправо */
         // console.log(`позиция el справа от главного ${this.getRightCurrentElNum(this.mainElNum)}`);
-        this.setShffldOnElNumAndGooo(elNum, 1);
+        this.setShffldOnElNumAndGooo(elNum, 'right');
         break;
       case 3:
       case 'bottom':
         /* шагнуть главным элементом вниз */
         // console.log(`позиция el под главным ${this.getBottomCurrentElNum(this.mainElNum)}`);
-        this.setShffldOnElNumAndGooo(elNum, this.matrixDimensionX);
+        this.setShffldOnElNumAndGooo(elNum, 'bottom');
         break;
       case 4:
       case 'left':
@@ -699,28 +947,16 @@ class View {
     for (let i = 0; i < mount; i++) {
       switch (dir) {
         case 'top':
-          /* шагнуть главным элементом вверх */
-          // console.log(`позиция el над главным ${this.getTopCurrentElNum(this.mainElNum)}`);
           this.addStep(this.mainElNum, 1);
-          // this.setShffldOnElNumAndGooo(this.mainElNum, this.matrixDimensionX * (-1));
           break;
         case 'right':
-          /* шагнуть главным элементом вправо */
-          // console.log(`позиция el справа от главного ${this.getRightCurrentElNum(this.mainElNum)}`);
           this.addStep(this.mainElNum, 2);
-          // this.setShffldOnElNumAndGooo(this.mainElNum, 1);
           break;
         case 'bottom':
-          /* шагнуть главным элементом вниз */
-          // console.log(`позиция el под главным ${this.getBottomCurrentElNum(this.mainElNum)}`);
           this.addStep(this.mainElNum, 3);
-          // this.setShffldOnElNumAndGooo(this.mainElNum, this.matrixDimensionX);
           break;
         case 'left':
-          /* шагнуть главным элементом влево */
-          // console.log(`позиция el слева от главного ${this.getLeftCurrentElNum(this.mainElNum)}`);
           this.addStep(this.mainElNum, 4);
-          // this.setShffldOnElNumAndGooo(this.mainElNum);
           break;
         default:
       }
@@ -735,7 +971,6 @@ class View {
     return ((this.matrix[elNum - 1].x) / this.getOffset()) + 1;
   }
 
-  // const isMElBefore = this.getCurrentElNumN(this.mainElNum) < this.getCurrentElNumN(elNum);
   isMElBefore(elNum) {
     return this.getCurrentElNumN(this.mainElNum) < this.getCurrentElNumN(elNum);
   }
@@ -776,9 +1011,43 @@ class View {
     return this.matrix[elNum - 1].y < ((this.matrixDimensionY - 1) * this.getOffset());
   }
 
-  // isThereAbilityToGoByRight(elNum) {
-  //   return this.isElLastOnRow(elNum); // (this.matrix[elNum - 1].x / ((this.matrixDimensionX - 1) * this.getOffset())) === 1;
-  // }
+  isDrgbl(elNum, dir) {
+    switch (dir) {
+      case 1:
+      case 'top':
+        return this.isDrggblToTop(elNum);
+      case 2:
+      case 'right':
+        return this.isDrggblToRight(elNum);
+      case 3:
+      case 'bottom':
+        return this.stepsToBottom(elNum);
+      case 4:
+      case 'left':
+        return this.isDrggblToLeft(elNum);
+      default:
+    }
+    return false;
+  }
+
+  isMelDrgbl(dir) {
+    switch (dir) {
+      case 1:
+      case 'top':
+        return this.isMElCanMoveToTheTop();
+      case 2:
+      case 'right':
+        return this.isMElCanMoveToTheRight();
+      case 3:
+      case 'bottom':
+        return this.isMElCanMoveToTheBottom();
+      case 4:
+      case 'left':
+        return this.isMElCanMoveToTheLeft();
+      default:
+    }
+    return false;
+  }
 
   isDrggblToTop(elNum) {
     return this.isElMain(this.getTopElNum(elNum));
@@ -815,156 +1084,72 @@ class View {
   /**
    * @private compute and set stepMatrix function
    * @param {number} elNum element number
-   * @param {number} leftRightT is it left param needed 1-left, 2-right, 3-top
+   * @param {number} leftRightTopBottom 1-left, 2-right, 3-top, 4-bottom
+   * @param {number} mode  1-horisontal, 2-vertical (order: top-bottom-left)
    */
-  stepsCompute(elNum, leftRightT) {
-    if (this.mainElNum === elNum) {
-      return;
-    }
+  stepsCompute(elNum, leftRightTopBottom, mode) {
+    // if (this.mainElNum === elNum) {
+    //   console.log(`${this.mainElNum} === ${elNum}`);
+    //   return false;
+    // }
     this.setCurrentMatrixN();
-    // console.log(this.shuffledMatrix);
     if (this.isElOnPropPos(elNum)) {
-      return;
+      console.log('ON PROP POS');
+      return true;
     }
-
-    switch (leftRightT) {
+    switch (this.getPropDir(leftRightTopBottom, mode)) {
       case 1:
-        console.log('case 1 LEFT');
-        this.toLeft(elNum);
+        // console.log('                 ----====== TOP ======------');
+        this.toTop(elNum, mode);
         break;
       case 2:
-        console.log('case 2 RIGHT');
-        this.toRight(elNum);
+        // console.log('                 ----====== RIGHT ======------');
+        this.toRight(elNum, mode);
         break;
       case 3:
-        console.log('case 3 TOP');
-        this.toTop(elNum);
+        // console.log('                 ----====== BOTTOM ======------');
+        this.toBottom(elNum, mode);
+        break;
+      case 4:
+        // console.log('                 ----====== LEFT ======------');
+        this.toLeft(elNum, mode);
         break;
       default:
     }
-
-    // if (this.matrix[elNum - 1].x <= this.getXPXPosition(elNum)) { /* toright !isOnPropRow && !isOnPropCol */
-    //   this.toRight(elNum);
-    //   if (this.isElOnPropPos(elNum)) {
-    //     this.tempLog += `эл на своей позиции${this.tempLogBR}`;
-    //     return;
-    //   }
-    //   this.toTop(elNum);
-    //   return;
-    // }
-    // console.log('toleft');
-    // this.toLeft(elNum);
-    // if (this.isElOnPropPos(elNum)) {
-    //   this.tempLog += `эл на своей позиции${this.tempLogBR}`;
-    //   return;
-    // }
-    // console.log('toTop');
-    // this.toTop(elNum);
+    return false;
   }
-  // const isOnPropRow = this.isElOnPropPosY(elNum);
-  // const isOnPropCol = this.isElOnPropPosX(elNum);
-  // const isMElOnTheSameRow = this.matrix[this.mainElNum - 1].y === this.matrix[elNum - 1].y;
-  // const isMElOnTheSameCol = this.matrix[this.mainElNum - 1].x === this.matrix[elNum - 1].x;
-  // const isMElBefore = this.getCurrentElNumN(this.mainElNum) < this.getCurrentElNumN(elNum);
-  // const isMElCanMoveToTheRight = (this.getCurrentElNumN(this.mainElNum) % this.matrixDimensionX) !== 0;
-  // const isMElCanMoveToTheLeft = ((this.getCurrentElNumN(this.mainElNum) - 1) % this.matrixDimensionX) !== 0;
-  // const isMElCanMoveToTheTop = this.matrix[this.mainElNum - 1].y !== 0;
-  // const isMElCanMoveToTheBottom = this.matrix[this.mainElNum - 1].y < ((this.matrixDimensionY - 1) * this.getOffset());
-  // const isDrggblToTop = this.isDrggblToTop(elNum);
-  // const isDrggblToRight = this.isDrggblToRight(elNum);
-  // const isDrggblToBottom = this.isDrggblToBottom(elNum);
-  // const isDrggblToLeft = this.isDrggblToLeft(elNum);
-  // const stepsToBottom = (this.getMountOfSteps(elNum, 'bottom') - 1);
-  // const stepsTotop = (this.getMountOfSteps(elNum, 'top') - 1);
-  // const stepsToRight = (this.getMountOfSteps(elNum, 'right') - 1);
-  // const stepsToLeft = (this.getMountOfSteps(elNum, 'left') - 1);
-  // if (isDrggblToLeft) {
-  //   this.tempLog += `эл DrggblToLeft${this.tempLogBR}`;
-  // }
-  // if (isDrggblToTop) {
-  //   this.tempLog += `эл DrggblToTop${this.tempLogBR}`;
-  // }
-  // if (isDrggblToRight) {
-  //   this.tempLog += `эл DrggblToRight${this.tempLogBR}`;
-  // }
-  // if (isDrggblToBottom) {
-  //   this.tempLog += `эл DrggblToBottom${this.tempLogBR}`;
-  // }
 
-  // /* гэл */
-  // if (isMElBefore) {
-  //   this.tempLog += `гэл раньше${this.tempLogBR}`;
-  // } else {
-  //   this.tempLog += `гэл позже${this.tempLogBR}`;
-  // }
-
-  // if (isMElOnTheSameRow) {
-  //   this.tempLog += `гэл в одной строке с эл${this.tempLogBR}`;
-  // }
-  // if (isMElOnTheSameCol) {
-  //   this.tempLog += `гэл в одной колонке с эл${this.tempLogBR}`;
-  // }
-
-  // if (isMElCanMoveToTheRight) {
-  //   this.tempLog += `гэл ходит вправо${this.tempLogBR}`;
-  // } else {
-  //   this.tempLog += `гэл НЕ ходит вправо${this.tempLogBR}`;
-  // }
-  // if (isMElCanMoveToTheLeft) {
-  //   this.tempLog += `гэл ходит влево${this.tempLogBR}`;
-  // } else {
-  //   this.tempLog += `гэл НЕ ходит влево${this.tempLogBR}`;
-  // }
-  // if (isMElCanMoveToTheTop) {
-  //   this.tempLog += `гэл ходит вверх${this.tempLogBR}`;
-  // } else {
-  //   this.tempLog += `гэл НЕ ходит вверх${this.tempLogBR}`;
-  // }
-  // if (isMElCanMoveToTheBottom) {
-  //   this.tempLog += `гэл ходит вниз${this.tempLogBR}`;
-  // } else {
-  //   this.tempLog += `гэл НЕ ходит вниз${this.tempLogBR}`;
-  // }
-
-  /* compute */
-  // if (stepsToBottom >= 0) {
-  //   this.tempLog += `(вниз) ${(this.getMountOfSteps(elNum, 'bottom') - 1)}${this.tempLogBR}`;
-  // }
-  // if (stepsTotop >= 0) {
-  //   this.tempLog += `(вверх) ${(this.getMountOfSteps(elNum, 'top') - 1)}${this.tempLogBR}`;
-  // }
-  // if (stepsToRight >= 0) {
-  //   this.tempLog += `(вправо) ${(this.getMountOfSteps(elNum, 'right') - 1)}${this.tempLogBR}`;
-  // }
-  // if (stepsToLeft >= 0) {
-  //   this.tempLog += `(влево) ${(this.getMountOfSteps(elNum, 'left') - 1)}${this.tempLogBR}`;
-  // }
-
-  // this.tempLog += `гэл НЕ ходит вниз${this.tempLogBR}`;
-
-  /* установить гэл перед эл влево и ход */
-
-  /* если эл может драг влево
-    if (!isElOnItsLeftCol {
-      console.log('el on its not Left Col');
-      if (this.isDrggblToLeft(elNum)) {
-        this.setShffldOnElNumAndGooo(elNum);
+  getPropDir(leftRightTopBottom, mode) {
+    if (mode === 2) {
+      switch (leftRightTopBottom) {
+        case 1:
+          return 1;
+        case 2:
+          return 3;
+        case 3:
+          return 4;
+        default:
       }
-    } */
-  /* если эл может драг вверх
-    if (!this.isElOnItsTopRow(elNum)) {
-      console.log('el not on its top row');
-      if (isDrggblToTop {
-        this.setShffldOnElNumAndGooo(elNum, this.matrixDimensionX * (-1));
-      }
-    } */
+    }
+    switch (leftRightTopBottom) {
+      case 1:
+        return 4;
+      case 2:
+        return 2;
+      case 3:
+        return 1;
+      default:
+    }
+    return false;
+  }
+
   araseMatrix() {
     this.matrix = [];
   }
 
   setDimentionXY(x) {
-    this.matrixDimensionX = !x ? this.defaultDimension : x;
-    this.matrixDimensionY = !x ? this.defaultDimension : x;
+    this.matrixDimensionX = x || this.defaultDimension;
+    this.matrixDimensionY = this.matrixDimensionX;
     this.setMainElNum();
   }
 
@@ -976,10 +1161,6 @@ class View {
       isMain: elNum === this.getMatrixDimension(),
     };
   }
-
-  // setOffset() {
-  //   this.offset = this.dem[this.matrixDimensionX];
-  // }
 
   getXInitElementPosInsideMatrix(elNum) {
     return (elNum - 1) % this.matrixDimensionX;
@@ -1024,10 +1205,6 @@ class View {
   addElObjToMatrix(elNum) {
     this.matrix.push(this.getElObj(elNum));
   }
-
-  // getRandInt() {
-  //   return Math.floor(1 + Math.random() * this.getMatrixDimension());
-  // }
 
   makeShuffledMatrix() {
     for (let i = 1, l = this.getMatrixDimension(); i <= l; i++) {
@@ -1160,11 +1337,32 @@ class View {
         }
       }
     }
-    // console.log(this.styleSheet);
+  }
+
+  /* important to feat */
+  getClassRule(selector) {
+    for (let j = 0, l = this.styleSheet.cssRules.length; j < l; j++) {
+      if (this.styleSheet.cssRules[j].selectorText === selector) {
+        return this.styleSheet.cssRules[j];
+      }
+    }
+    return false;
   }
 
   setClassRule(selector, styles) {
-    this.styleSheet.insertRule(`${selector}{${styles}}`, this.styleSheet.cssRules.length);
+    if (!this.getClassRule(selector)) {
+      this.styleSheet.insertRule(`${selector}{}`, this.styleSheet.cssRules.length); // ${styles}
+    }
+    this.getClassRule(selector).style.cssText = styles;
+    // console.log(this.getClassRule(selector).style.cssText);
+  }
+
+  setCSSProperty(selector, prop, val) {
+    if (!this.getClassRule(selector)) {
+      this.styleSheet.insertRule(`${selector}{}`, this.styleSheet.cssRules.length); // ${styles}
+    }
+    this.getClassRule(selector).style[prop] = val;
+    // console.log(this.getClassRule(selector).style[prop]);
   }
 
   changeCSSClass(el, pre, old, on) {
@@ -1176,7 +1374,9 @@ class View {
   makeAllParts() {
     if (!this.mainContainer) {
       this.el = this.createElNode('div', 'mainContainer', 'main-container pos');
-      this.setClassRule('.pos', `top: calc(50% - ${this.getBackGroundSize()}px/2); left: calc(50% - ${this.getBackGroundSize()}px/2);`);
+      this.setCSSProperty('.pos', `top`, `calc(50% - ${this.getBackGroundSize()}px/2)`);
+      this.setCSSProperty('.pos', `left`, `calc(50% - ${this.getBackGroundSize()}px/2)`);
+      // this.setClassRule('.pos', `top: calc(50% - ${this.getBackGroundSize()}px/2); left: calc(50% - ${this.getBackGroundSize()}px/2);`);
       this.appendToMain(this.el);
       this.mainContainer = document.getElementById('mainContainer');
     }
@@ -1306,6 +1506,11 @@ class View {
     this.winHint = document.getElementById('winHint');
   }
 
+  makeImagesDescribe() {
+    this.appendToMain(this.createElNode('div', 'imagesDescribe', 'win-hint images-describe centered'));
+    this.imagesDescribe = document.getElementById('imagesDescribe');
+  }
+
   makeSoundBtn() {
     this.sattingsBoardContainer.appendChild(this.createElNode('div', 'soundBtn', 'btn centered', this.string[this.lang].soundBtn));
     this.soundBtn = document.getElementById('soundBtn');
@@ -1324,14 +1529,19 @@ class View {
     this.stepBtn = document.getElementById('stepBtn');
   }
 
-  /* important to feat */
-  getClassRule(selector) {
-    for (let j = 0, l = this.styleSheet.cssRules.length; j < l; j++) {
-      if (this.styleSheet.cssRules[j].selectorText === selector) {
-        return this.styleSheet.cssRules[j];
-      }
-    }
-    return false;
+  makeAnimatedWindow() {
+    this.appendToMain(this.createElNode('div', 'animatedWindow', 'animated-window'));
+    this.animatedWindow = document.getElementById('animatedWindow');
+  }
+
+  makeLoadWindowInteraction() {
+    this.appendToMain(this.createElNode('div', 'loadWindowInteraction', 'interact-window'));
+    this.loadWindowInteraction = document.getElementById('loadWindowInteraction');
+  }
+
+  makeBestResultsWindow() {
+    this.appendToMain(this.createElNode('div', 'bestResultsWindow', 'interact-window'));
+    this.bestResultsWindow = document.getElementById('bestResultsWindow');
   }
 
   getElCSS(elNum) {
@@ -1340,6 +1550,8 @@ class View {
   }
 
   makeNoMatrixElmnts() {
+    this.makeAnimatedWindow();
+
     this.makeHeader();
 
     this.makeSettingsDash();
@@ -1366,12 +1578,20 @@ class View {
 
     this.makeIsSolvingHint();
     this.makeIsWinHint();
+    this.makeImagesDescribe();
+
+    this.makeLoadWindowInteraction();
+    this.makeBestResultsWindow();
   }
 
   showMatrix() {
     this.makeAllParts();
     this.shuffle();
-    this.dragElementInit();
+
+    document.querySelectorAll('[data-el-num]').forEach((el) => {
+      // console.log(el);
+      this.dragElementInit(el);
+    });
   }
 
   setAllPartsInItsPos() {
@@ -1394,7 +1614,6 @@ class View {
 
   isPairEven(start, el) {
     for (let i = start, l = this.shuffledMatrix.length; i < l; i++) {
-      // console.log(el +' '+(el !== this.getMatrixDimension())+' '+this.getMatrixDimension().toString());
       if (el > this.shuffledMatrix[i] && el !== this.getMatrixDimension()) {
         this.shuffledMatrixEvenSumm += 1;
         this.tempLog = `${this.tempLog}${el} > ${this.shuffledMatrix[i]}\n`;
@@ -1403,15 +1622,11 @@ class View {
   }
 
   isShuffledMatrixSolving() {
-    // this.setCurrentMatrix();
     this.shuffledMatrixEvenSumm = 0;
-    // console.log(this.shuffledMatrix);
     this.shuffledMatrix.forEach((el, i) => {
       this.isPairEven(i, el);
-      // console.log(`${el}\n${this.tempLog}сумма: ${this.shuffledMatrixEvenSumm}\n`);
       this.tempLog = '';
     });
-    // console.log(`lbv ${this.getMatrixDimension() % 2 === 0} plus row: ${this.shuffledMatrixEvenSumm}`);
     if (this.getMatrixDimension() % 2 === 0) {
       this.shuffledMatrixEvenSumm = this.shuffledMatrixEvenSumm + (this.matrix[this.getMatrixDimension() - 1].y / this.getOffset()) + 1;
       // console.log((this.shuffledMatrixEvenSumm % 2 === 0) ? 'solving' : 'not solving');
@@ -1429,7 +1644,8 @@ class View {
       // console.log(`elID_${el} c-pos${i + 1}`);
       this.shuffleFnMakeStep(el, i + 1);
     });
-    this.setClassRule(`.cube-bg${this.getMatrixDimension()}`, "opacity: 0;");
+    this.setCSSProperty(`.cube-bg${this.getMatrixDimension()}`, 'opacity', 0); // /(`.cube-bg${this.getMatrixDimension()}`, "opacity: 0;");
+    // this.setClassRule(`.cube-bg${this.getMatrixDimension()}`, "opacity: 0;");
     if (!m) {
       if (!this.isShuffledMatrixSolving()) {
         this.resetShuffledMatrix();
@@ -1439,6 +1655,7 @@ class View {
         // this.solvingHint.innerText = this.isShuffledMatrixSolving() ? '' : 'warning! the pazzle can\'t be solved';
       }
       this.winHint.innerText = '';
+      this.imagesDescribe.innerText = '';
     }
   }
 
@@ -1456,6 +1673,7 @@ class View {
     this.shuffledMatrix = [];
     this.makeShuffledMatrix();
     this.winHint.innerText = '';
+    this.imagesDescribe.innerText = '';
   }
 
   getCurrentElNum(elNum) {
@@ -1492,8 +1710,9 @@ class View {
     this.setPosY(elNum, mainElY);
     if (this.isUserWin() === 'win') {
       // console.log('You win!');
-      this.winHint.innerText = `You win! for ${this.step} steps and ${document.getElementById('timer').innerText}`;
-      this.setClassRule(`.cube-bg${this.getMatrixDimension()}`, "opacity: 1;");
+      this.winHint.innerText = `${this.string[this.lang].winSlug1} ${this.step} ${this.string[this.lang].winSlug2} ${document.getElementById('timer').innerText}`;
+      this.imagesDescribe.innerText = `${images[this.currentImage - 1].author}, ${images[this.currentImage - 1].name} ${images[this.currentImage - 1].year}`;
+      this.setCSSProperty(`.cube-bg${this.getMatrixDimension()}`, 'opacity', 1); // this.setClassRule(`.cube-bg${this.getMatrixDimension()}`, "opacity: 1;");
       document.getElementById(this.getMainElID()).classList.add('animated');
       document.querySelectorAll('[data-el-num]').forEach((el) => {
         el.classList.remove("box-text-color");
@@ -1543,36 +1762,56 @@ class View {
   /*
     Controller
   */
+  dragElementInit(_ob) {
+    const ob = _ob;
+    let tx = 0;
+    let ty = 0;
+    let ofsetX = 0;
+    let ofsetY = 0;
+    // const ob = document.getElementById(itElID);
 
-  dragElementInit() {
-    // itElID = 'resetBtn'
-    // let tx = 0;
-    // let ty = 0;
-    // let ofsetX = 0;
-    // let ofsetY = 0;
-    // const header = document.getElementById(itElID);
-    // const ob = header.parentElement;// document.getElementById('last_setings_el_for_toggle_after');
-    // if (header) {
-    //   header.onmousedown = dragMouseDown;
-    //   header.ontouchstart = dragTstart;
-    // }
+    function elementDrag(e) {
+      // e = e || window.event;
+      // e.preventDefault();
+      tx = ofsetX - e.clientX;
+      ty = ofsetY - e.clientY;
+      ofsetX = e.clientX;
+      ofsetY = e.clientY;
+      ob.style.top = `${ob.offsetTop - ty}px`;
+      ob.style.left = `${ob.offsetLeft - tx}px`;
+    }
+
+    function closeDragElement() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+      document.ontouchend = null;
+      document.ontouchmove = null;
+    }
+
+    function dragMouseDown(e) {
+      // e = e || window.event;
+      // e.preventDefault();
+      ofsetX = e.clientX;
+      ofsetY = e.clientY;
+      document.onmouseup = closeDragElement;
+      document.onmousemove = elementDrag;
+    }
+
+    // const ob = ob.parentElement;// document.getElementById('last_setings_el_for_toggle_after');
+
+    if (ob) {
+      ob.onmousedown = dragMouseDown;
+      // ob.ontouchstart = dragTstart;
+    }
 
     // function dragTstart(e) {
-    //   // cl('Draaag!!!');
+    // // cl('Draaag!!!');
     //   e = e || window.event;
     //   // e.preventDefault();
-    //   ofsetX = e.targetTouches[0].pageX - header.offsetLeft;
-    //   ofsetY = e.targetTouches[0].pageY - header.offsetTop;
+    //   ofsetX = e.targetTouches[0].pageX - ob.offsetLeft;
+    //   ofsetY = e.targetTouches[0].pageY - ob.offsetTop;
     //   document.ontouchend = closeDragElement;
-    //   document.ontouchmove = elementTDrag;
-    // }
-    // function dragMouseDown(e) {
-    //   e = e || window.event;
-    //   // e.preventDefault();
-    //   ofsetX = e.clientX;
-    //   ofsetY = e.clientY;
-    //   document.onmouseup = closeDragElement;
-    //   document.onmousemove = elementDrag;
+    //   // document.ontouchmove = elementTDrag;
     // }
 
     // function elementTDrag(e) {
@@ -1580,27 +1819,9 @@ class View {
     //   // e.preventDefault();
     //   tx = e.targetTouches[0].pageX - ofsetX;
     //   ty = e.targetTouches[0].pageY - ofsetY;
-    //   header.style.left = `${tx}px`;
-    //   header.style.top = `${ty}px`;
+    //   ob.style.left = `${tx}px`;
+    //   ob.style.top = `${ty}px`;
     //   console.log(`cstmzr7296 touch xy(${tx},${ty})`);
-    // }
-
-    // function elementDrag(e) {
-    //   e = e || window.event;
-    //   // e.preventDefault();
-    //   tx = ofsetX - e.clientX;
-    //   ty = ofsetY - e.clientY;
-    //   ofsetX = e.clientX;
-    //   ofsetY = e.clientY;
-    //   header.style.top = `${header.offsetTop - ty}px`;
-    //   header.style.left = `${header.offsetLeft - tx}px`;
-    // }
-
-    // function closeDragElement() {
-    //   document.onmouseup = null;
-    //   document.onmousemove = null;
-    //   document.ontouchend = null;
-    //   document.ontouchmove = null;
     // }
   }
 
@@ -1767,7 +1988,10 @@ class View {
         CNTX.shuffle();
       }
       if (e.target.id === 'imgSelect') {
-        CNTX.setClassRule('.main-container div', `background-image: url('../images/${e.target.options[e.target.selectedIndex].dataset.dim}.jpg');`);
+        CNTX.currentImage = e.target.options[e.target.selectedIndex].dataset.dim;
+        CNTX.setCSSProperty('.main-container div', `backgroundImage`, `url("../images/${CNTX.currentImage}.jpg")`);
+        // CNTX.setClassRule('.main-container div', `background-image: url('../images/${CNTX.currentImage}.jpg');`);
+        CNTX.imagesDescribe.innerText = '';
       }
     }
 
@@ -1811,3 +2035,118 @@ document.addEventListener("DOMContentLoaded", () => {
 // getRepeated(val) {
 //   return this.repeated.find((el) => el === val);
 // }
+
+// if (this.matrix[elNum - 1].x <= this.getXPXPosition(elNum)) { /* toright !isOnPropRow && !isOnPropCol */
+//   this.toRight(elNum);
+//   if (this.isElOnPropPos(elNum)) {
+//     this.tempLog += `эл на своей позиции${this.tempLogBR}`;
+//     return;
+//   }
+//   this.toTop(elNum);
+//   return;
+// }
+// console.log('toleft');
+// this.toLeft(elNum);
+// if (this.isElOnPropPos(elNum)) {
+//   this.tempLog += `эл на своей позиции${this.tempLogBR}`;
+//   return;
+// }
+// console.log('toTop');
+// this.toTop(elNum);
+// const isOnPropRow = this.isElOnPropPosY(elNum);
+// const isOnPropCol = this.isElOnPropPosX(elNum);
+// const isMElOnTheSameRow = this.matrix[this.mainElNum - 1].y === this.matrix[elNum - 1].y;
+// const isMElOnTheSameCol = this.matrix[this.mainElNum - 1].x === this.matrix[elNum - 1].x;
+// const isMElBefore = this.getCurrentElNumN(this.mainElNum) < this.getCurrentElNumN(elNum);
+// const isMElCanMoveToTheRight = (this.getCurrentElNumN(this.mainElNum) % this.matrixDimensionX) !== 0;
+// const isMElCanMoveToTheLeft = ((this.getCurrentElNumN(this.mainElNum) - 1) % this.matrixDimensionX) !== 0;
+// const isMElCanMoveToTheTop = this.matrix[this.mainElNum - 1].y !== 0;
+// const isMElCanMoveToTheBottom = this.matrix[this.mainElNum - 1].y < ((this.matrixDimensionY - 1) * this.getOffset());
+// const isDrggblToTop = this.isDrggblToTop(elNum);
+// const isDrggblToRight = this.isDrggblToRight(elNum);
+// const isDrggblToBottom = this.isDrggblToBottom(elNum);
+// const isDrggblToLeft = this.isDrggblToLeft(elNum);
+// const stepsToBottom = (this.getMountOfSteps(elNum, 'bottom') - 1);
+// const stepsTotop = (this.getMountOfSteps(elNum, 'top') - 1);
+// const stepsToRight = (this.getMountOfSteps(elNum, 'right') - 1);
+// const stepsToLeft = (this.getMountOfSteps(elNum, 'left') - 1);
+// if (isDrggblToLeft) {
+//   this.tempLog += `эл DrggblToLeft${this.tempLogBR}`;
+// }
+// if (isDrggblToTop) {
+//   this.tempLog += `эл DrggblToTop${this.tempLogBR}`;
+// }
+// if (isDrggblToRight) {
+//   this.tempLog += `эл DrggblToRight${this.tempLogBR}`;
+// }
+// if (isDrggblToBottom) {
+//   this.tempLog += `эл DrggblToBottom${this.tempLogBR}`;
+// }
+
+// /* гэл */
+// if (isMElBefore) {
+//   this.tempLog += `гэл раньше${this.tempLogBR}`;
+// } else {
+//   this.tempLog += `гэл позже${this.tempLogBR}`;
+// }
+
+// if (isMElOnTheSameRow) {
+//   this.tempLog += `гэл в одной строке с эл${this.tempLogBR}`;
+// }
+// if (isMElOnTheSameCol) {
+//   this.tempLog += `гэл в одной колонке с эл${this.tempLogBR}`;
+// }
+
+// if (isMElCanMoveToTheRight) {
+//   this.tempLog += `гэл ходит вправо${this.tempLogBR}`;
+// } else {
+//   this.tempLog += `гэл НЕ ходит вправо${this.tempLogBR}`;
+// }
+// if (isMElCanMoveToTheLeft) {
+//   this.tempLog += `гэл ходит влево${this.tempLogBR}`;
+// } else {
+//   this.tempLog += `гэл НЕ ходит влево${this.tempLogBR}`;
+// }
+// if (isMElCanMoveToTheTop) {
+//   this.tempLog += `гэл ходит вверх${this.tempLogBR}`;
+// } else {
+//   this.tempLog += `гэл НЕ ходит вверх${this.tempLogBR}`;
+// }
+// if (isMElCanMoveToTheBottom) {
+//   this.tempLog += `гэл ходит вниз${this.tempLogBR}`;
+// } else {
+//   this.tempLog += `гэл НЕ ходит вниз${this.tempLogBR}`;
+// }
+
+/* compute */
+// if (stepsToBottom >= 0) {
+//   this.tempLog += `(вниз) ${(this.getMountOfSteps(elNum, 'bottom') - 1)}${this.tempLogBR}`;
+// }
+// if (stepsTotop >= 0) {
+//   this.tempLog += `(вверх) ${(this.getMountOfSteps(elNum, 'top') - 1)}${this.tempLogBR}`;
+// }
+// if (stepsToRight >= 0) {
+//   this.tempLog += `(вправо) ${(this.getMountOfSteps(elNum, 'right') - 1)}${this.tempLogBR}`;
+// }
+// if (stepsToLeft >= 0) {
+//   this.tempLog += `(влево) ${(this.getMountOfSteps(elNum, 'left') - 1)}${this.tempLogBR}`;
+// }
+
+// this.tempLog += `гэл НЕ ходит вниз${this.tempLogBR}`;
+
+/* установить гэл перед эл влево и ход */
+
+/* если эл может драг влево
+    if (!isElOnItsLeftCol {
+      console.log('el on its not Left Col');
+      if (this.isDrggblToLeft(elNum)) {
+        this.setShffldOnElNumAndGooo(elNum);
+      }
+    } */
+/* если эл может драг вверх
+    if (!this.isElOnItsTopRow(elNum)) {
+      console.log('el not on its top row');
+      if (isDrggblToTop {
+        this.setShffldOnElNumAndGooo(elNum, this.matrixDimensionX * (-1));
+      }
+    } */
