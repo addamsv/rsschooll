@@ -1,0 +1,55 @@
+
+/* 
+  Header
+*/
+
+.header-container {
+  display: block;
+  height: 3vh;
+  background-color: #aaa;
+  z-index: 1;
+}
+.header-wrapper {
+  position: relative;
+  width: 600px;
+  height: 100%;
+  margin: 0 auto;
+}
+.menu-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+.aside-container {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  height: 100vh;
+  background-color: #111;
+  z-index: 1;
+  transition: .3s all;
+}
+  .aside-menu-open {
+    right: 0;
+  }
+  .aside-menu-close {
+    right: -320px;
+  }
+  .menu-slug {
+    color: #bbb;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .header-wrapper {
+      max-width: 500px;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .header-wrapper {
+      width: 100%;
+    }
+  }
