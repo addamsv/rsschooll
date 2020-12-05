@@ -1,0 +1,395 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  overflow: hidden;
+}
+
+/* 
+  Header
+*/
+
+.header-container {
+  display: block;
+  height: 3vh;
+  background-color: #aaa;
+  z-index: 1;
+}
+.header-wrapper {
+  position: relative;
+  width: 600px;
+  height: 100%;
+  margin: 0 auto;
+}
+.menu-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+.aside-container {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  height: 100vh;
+  background-color: #111;
+  z-index: 1;
+  transition: .3s all;
+}
+  .aside-menu-open {
+    right: 0;
+  }
+  .aside-menu-close {
+    right: -320px;
+  }
+  .menu-slug {
+    color: #bbb;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .header-wrapper {
+      max-width: 500px;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .header-wrapper {
+      width: 100%;
+    }
+  }
+/* 
+  Main
+*/
+
+.main-container {
+  display: block;
+  position: relative;
+  height: 92vh;
+  background-color: #ccc;
+}
+.levels-menu {
+  position: relative;
+  top: 28px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.level-item {
+  display: block;
+  color: #aaa;
+  height: 20px;
+  margin: 0 1px 0 1px;
+  cursor: pointer;
+}
+.current-level {
+  background-color: #333;
+}
+.dell-results-btn {
+  display: block;
+  position: absolute;
+  bottom: 30px;
+  background: #333;
+  width: 100px;
+  height: 22px;
+  left: calc(50% - 100px/2);
+  cursor: pointer;
+}
+.block-example {
+  position: relative;
+  top: 0px;
+  width: 100%;
+  height: 550px;
+  background-color: #bbb;
+  text-align: center;
+}
+
+@media only screen and (max-height: 1100px) {
+  .block-example {
+    height: 450px;
+  }
+}
+
+@media only screen and (max-height: 990px) {
+  .block-example {
+    height: 350px;
+  }
+}
+
+@media only screen and (max-height: 880px) {
+  .block-example {
+    height: 250px;
+  }
+}
+
+/* 
+  Schema Container
+*/
+
+  .schema-container {
+    display: block;
+    position: absolute;
+    left: calc(50% - 300px/2);
+    top: calc(50% - 200px/2);
+    width: 300px;
+    height: 200px;
+    background-color: #444;
+  }
+
+    .hide-hinter {
+      display: none;
+    }
+    .show-hinter {
+      display: block;
+    }
+    .hint {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      height: 20px;
+      width: fit-content;
+      top: calc();
+      z-index: 1;
+      overflow: visible;
+    }      
+    .hint::after {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 20px;
+      height: 0px;
+      width: 0px;
+      transform: rotate(15deg);
+      border-top: 18px solid #fff;
+      border-left:  5px solid rgba(0,0,0,0);
+      border-right:  5px solid rgba(0,0,0,0);
+    }
+    .parcel-box {
+      display: block;
+      position: relative;
+      left: calc(50% - 200px/2);
+      width: 200px;
+      height: 200px;
+      background-color: #555;
+    }
+      .parcel {
+        display: block;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background-color: #aaa;
+        transition: .2s all;
+        cursor: pointer;
+      }
+      .hovered {
+        box-shadow: 0 0 0 6px rgba(255,255,255,.8);
+      }
+      .parcel-0 {
+        top: 5px;
+        left: 5px;  
+      }
+      .parcel-1 {
+        top: 5px;
+        left: 50px;  
+      }
+
+
+
+
+.editor-field-wrapper{
+  display: block;
+  position: absolute;
+  width: 500px;
+  height: 300px;
+  bottom: 90px;
+  left: calc(50% - 500px/2);
+}
+.first-code-item {
+  cursor: pointer;
+}
+.code-item {
+  width: fit-content;
+}
+.block-css-editor {
+  display: block;
+  position: relative;
+  width: 500px;
+  height: 60px;
+  left: calc(50% - 500px/2);
+  background-color: #eee;
+  margin-top: 10px;
+}
+  .send-selector-field{
+    display: inline-block;
+    background: none;
+    border: none;
+    height: 30px;
+    width: 100%;
+    position: relative;
+    font-size: 16px;
+    padding-left: 5px;
+  }
+  .selector-send-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 60px;
+    height: 100%;
+    background-color: #aaa;
+    text-align: center;
+    line-height: 3.5em;
+    cursor: pointer;
+  }
+
+.block-html-code {
+  display: block;
+  position: relative;
+  width: 500px;
+  height: 200px;
+  left: calc(50% - 500px/2);
+  margin-top: 10px;
+  background-color: #eee;
+}
+.back-light {
+  color: #444;
+  cursor: pointer;
+  transition: .3s all;
+}
+.back-light-hovered{
+  color: #777;
+}
+.help-btn {
+  display: block;
+  position: absolute;
+  bottom: 3%;
+  left: calc(50% - 100px/2);
+  width: 100px;
+  height: 30px;
+  line-height: 1.9em;
+  background-color: #999;
+  cursor: pointer;
+  text-align: center;
+}
+.block-info-level {
+  display: none;
+  position: absolute;
+  top: 30px;
+  right: 300px;
+  width: 100px;
+  height: 400px;
+  background-color: #fff;
+}
+
+@media only screen and (max-width: 500px) {
+  .editor-field-wrapper{
+    width: 100%;
+    left: 0; 
+  }
+  .block-css-editor {
+    width: 100%;
+    left: 0;
+  }
+  .block-html-code {
+    width: 100%;
+    left: 0;
+  }
+  .levels-menu {
+    width: 100%;
+  }
+}
+
+
+@media only screen and (max-height: 745px) {
+  .editor-field-wrapper {
+    height: 190px;
+  }
+  .block-html-code {
+    height: 120px;
+  }
+}
+
+/* 
+  Footer
+*/
+
+.footer-container {
+  display: block;
+  position: relative;
+  height: 5vh;
+  bottom: 0;
+  width: 100%;
+  background-color: #222;
+}
+  .footer-wrapper{
+    position: relative;
+    width: 600px;
+    height: 100%;
+    margin: 0 auto;
+  }
+  .footer-info {
+    position: absolute;
+    height: 20px;
+    top: calc(50% - 20px/2);
+    left: 40px;
+    color: #777;
+    font-family: "Tahoma";
+    font-size: 14px;
+    text-decoration: none;
+  }
+  .github-img {
+    position: absolute;
+    right: 57px;
+    width: 30px;
+    height: 30px;
+    top: calc(50% - 30px/2);
+  }
+  .footer-link {
+    display: block;
+    position: absolute;
+    height: 20px;
+    right: 0;
+    top: calc(50% - 20px/2);
+    width: 60px;
+    font-size: 14px;
+    font-family: "Tahoma";
+    text-align: center;
+    color: #777;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .footer-year {
+    display: block;
+    position: absolute;
+    height: 20px;
+    left: calc(50% - 46px/2);
+    top: calc(50% - 20px/2);
+    width: 46px;
+    font-size: 14px;
+    font-family: "Tahoma";
+    text-align: center;
+    color: #777;
+    text-decoration: none;
+    cursor: pointer;   
+  }
+  #Layer_1 {
+    display: block;
+    position: absolute;
+    top: calc(50% - 30px/2);
+    left: 0;
+    width: 30px;
+    height: 30px;
+    background-color: yellow;
+    border-radius: 5px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .footer-wrapper {
+      max-width: 500px;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .footer-wrapper {
+      width: 100%;
+    }
+  }
