@@ -4,9 +4,12 @@ const SEND_SELECTOR_FIELD = document.getElementById('sendSelectorField');
 const TASK_DESCRIPTION = document.getElementById('taskDescription');
 const EXAMPLE_CONTAINER = document.getElementById('schemaContainer');
 const CODE_CONTAINER = document.getElementById('htmlCodeExample');
-const LEVELS_MENU = document.getElementById('levelsMenu');
+const SEND_BTN = document.getElementById('checkButton');
 const HINT = document.getElementById('hint');
+const LEVELS_MENU = document.getElementById('levelsMenu');
 const MENU = document.getElementById('menu');
+const MENU_BTN = document.getElementById('menuBtn');
+// const CLOSE_MENU_BTN = document.getElementById('closeMenuBtn');
 // const DELL_RESULTS_BTN = document.getElementById('dellResultsBtn');
 
 export default class Model {
@@ -20,7 +23,7 @@ export default class Model {
    */
 
   getSelectorFieldValue() {
-    return SEND_SELECTOR_FIELD.value;
+    return SEND_SELECTOR_FIELD.innerText;
   }
 
   getExpectedSelector(level) {
@@ -53,19 +56,32 @@ export default class Model {
 
   getParsedTextHTML(code) {
     let id = 0;
+    let mountOfGapsesBeforeCodeElement = 0;
+    function getGapsBeforeElement() {
+      if (mountOfGapsesBeforeCodeElement === 0) {
+        return '';
+      }
+      return Array(mountOfGapsesBeforeCodeElement).fill('&nbsp;').join('');
+    }
     return this.getExtendedHTMLCode(code).split('>').map((el, i) => {
       if (el === '') {
         return '';
       }
       if (el.indexOf('</') !== -1) {
-        return `${el.replaceAll('</', `&lt;/`)}&gt;</div>`;
+        if (mountOfGapsesBeforeCodeElement > 0) {
+          mountOfGapsesBeforeCodeElement -= 1;
+        }
+        return `${getGapsBeforeElement()}${el.replaceAll('</', `&lt;/`)}&gt;</div>`;
       }
       if (el.indexOf(' /') !== -1) {
-        return `<div class="code-item back-light" data-synch="id_${id++}">${el.replaceAll('<', `&lt;`)}&gt;</div>`;
+        return `<div class="code-item back-light" data-synch="id_${id++}">${getGapsBeforeElement()}${el.trim().replaceAll('<', `&lt;`)}&gt;</div>`;
       }
       if (i !== 0) {
-        return `<div class="code-item back-light" data-synch="id_${id++}">${el.replaceAll('<', `&lt;`)}&gt;`;
+        const html = `<div class="code-item back-light" data-synch="id_${id++}">${getGapsBeforeElement()}${el.replaceAll('<', `&lt;`)}&gt;`;
+        mountOfGapsesBeforeCodeElement += 1;
+        return html;
       }
+      mountOfGapsesBeforeCodeElement += 1;
       return `<div class="first-code-item">${el.replaceAll('<', `&lt;`)}&gt;`;
     }).join('');
   }
@@ -132,6 +148,8 @@ export default class Model {
   checSelector() {
     if (this.isElExist(this.getSelectorFieldValue())) {
       console.log('Yep!');
+      SEND_BTN.classList.add('send-button-animated');
+      setTimeout(() => SEND_BTN.classList.remove('send-button-animated'), 700);
       if (!this.setCurLevel(this.getCurrentLevel() + 1)) {
         console.log('There are not any levels!');
         return;
@@ -140,11 +158,13 @@ export default class Model {
       console.log(`Next Level: ${this.getCurrentLevel()}`);
       return;
     }
+    SEND_SELECTOR_FIELD.classList.add('send-button-animated');
+    setTimeout(() => SEND_SELECTOR_FIELD.classList.remove('send-button-animated'), 700);
     console.log('Wrong!');
   }
 
   putPropperSelectorToItsInputField() {
-    SEND_SELECTOR_FIELD.value = levels[this.getCurrentLevel()][0].selector;
+    SEND_SELECTOR_FIELD.innerText = levels[this.getCurrentLevel()][0].selector;
   }
 
   dellResultsData() {
@@ -152,18 +172,20 @@ export default class Model {
   }
 
   initLevel(level) {
+    MENU_BTN.innerText = `Уровень: ${this.getCurrentLevel() + 1}/${levels.length}`;
     this.removeHTMLFromActiveContainers();
     EXAMPLE_CONTAINER.innerHTML = this.getHTMLForLevel(level);
     this.putAllNecessaryAttrs(level);
     CODE_CONTAINER.innerHTML = this.getHTMLForLevel(level, true);
     TASK_DESCRIPTION.innerHTML = this.getTaskDescription();
     this.renderLevelMenu();
+    this.putNecessaryAttrsToTargetElements();
   }
 
   removeHTMLFromActiveContainers() {
     EXAMPLE_CONTAINER.innerHTML = '';
     CODE_CONTAINER.innerHTML = '';
-    SEND_SELECTOR_FIELD.value = '';
+    SEND_SELECTOR_FIELD.innerText = '';
   }
 
   revealPointedEl(obj) {
@@ -209,6 +231,18 @@ export default class Model {
     });
   }
 
+  putNecessaryAttrsToTargetElements() {
+    const selector = this.getExpectedSelector(this.getCurrentLevel());
+    const nodes = this.getNodes(selector);
+    if (nodes === 'false') {
+      return;
+    }
+    Object.keys(nodes).some((key) => {
+      nodes[key].classList.add('target-el-animated');
+      return false;
+    });
+  }
+
   renderLevelMenu() {
     LEVELS_MENU.innerHTML = '';
     LEVELS_MENU.innerHTML = this.getLevelsHTML();
@@ -216,12 +250,20 @@ export default class Model {
 
   toggleMenu() {
     const mSec = 250;
-    if (MENU.classList.contains('aside-menu-open')) {
-      MENU.classList.remove('aside-menu-open');
-      setTimeout(() => MENU.style.setProperty('display', 'none'), mSec);
+    if (this.closeMenu()) {
       return;
     }
     MENU.style.display = 'block';
     setTimeout(() => MENU.classList.add('aside-menu-open'), mSec);
+  }
+
+  closeMenu() {
+    const mSec = 250;
+    if (MENU.classList.contains('aside-menu-open')) {
+      MENU.classList.remove('aside-menu-open');
+      setTimeout(() => MENU.style.setProperty('display', 'none'), mSec);
+      return true;
+    }
+    return false;
   }
 }
