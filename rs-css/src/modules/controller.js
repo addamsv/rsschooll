@@ -13,6 +13,7 @@ export default class Controller extends View {
 
   initEvents() {
     const context = this;
+
     function check(e) {
       if (e.keyCode === 13) {
         context.checSelector();
@@ -22,6 +23,10 @@ export default class Controller extends View {
       }
       if (e.target.id === 'menuBtn') {
         context.toggleMenu();
+        return;
+      }
+      if (e.target.id === 'closeMenuBtn') {
+        context.closeMenu();
         return;
       }
       if (e.target.id === 'helpBtn') {
@@ -36,6 +41,7 @@ export default class Controller extends View {
         context.setCurLevel(parseInt(e.target.dataset.level, 10));
         context.initLevel(e.target.dataset.level);
       }
+      context.closeMenu();
     }
     function hovers(e) {
       function leave(ev) {

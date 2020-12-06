@@ -13,6 +13,7 @@
       <div id="menuBtn" class="menu-btn">Уровни</div>
     </div>
     <aside id="menu" class="aside-container">
+      <div id="closeMenuBtn" class="close-menu-btn">x</div>
       <p class="menu-slug">Уровень</p>
       <div id="levelsMenu" class="levels-menu"></div>
       <div id="dellResultsBtn" class="dell-results-btn">очистить</div>
@@ -28,18 +29,20 @@
         </div>
       </div>
     </div>
-    <div class="editor-field-wrapper">
-      <p>HTML:</p>
-      <div id="htmlCodeExample" class="block-html-code">
+    <div class="editor-field-container">
+      <div class="editor-field-wrapper">
+        <p>HTML:</p>
+        <div id="htmlCodeExample" class="block-html-code">
+        </div>
+        <div class="block-css-editor">
+          <p>Put Your Selector Here:</p>
+          <div id="sendSelectorField" class="send-selector-field" contenteditable="true"></div>
+          <div id="checkButton" class="selector-send-button">send</div>
+        </div>
       </div>
-      <div class="block-css-editor">
-        <p>Put Your Selector Here:</p>
-        <input id="sendSelectorField" class="send-selector-field" type="text" size="40" placeholder="your-selector">
-        <div id="checkButton" class="selector-send-button">send</div>
-      </div>
+      <div id="helpBtn" class="help-btn">HELP</div>
+      <div class="block-info-level"><p>Your Level</p></div>
     </div>
-    <div id="helpBtn" class="help-btn">HELP</div>
-    <div class="block-info-level"><p>Your Level</p></div>
   </main>
   <footer class="footer-container">
     <div class="footer-wrapper">
