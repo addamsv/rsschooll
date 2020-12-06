@@ -12,6 +12,8 @@ const MENU_BTN = document.getElementById('menuBtn');
 // const CLOSE_MENU_BTN = document.getElementById('closeMenuBtn');
 // const DELL_RESULTS_BTN = document.getElementById('dellResultsBtn');
 const BASIC_DELAY = 250;
+const MEDIUM_DELAY = 500;
+const LONG_DELAY = 700;
 
 export default class Model {
   constructor() {
@@ -150,7 +152,7 @@ export default class Model {
     if (this.isElExist(this.getSelectorFieldValue())) {
       console.log('Yep!');
       SEND_BTN.classList.add('send-button-animated');
-      setTimeout(() => SEND_BTN.classList.remove('send-button-animated'), 700);
+      setTimeout(() => SEND_BTN.classList.remove('send-button-animated'), LONG_DELAY);
       if (!this.setCurLevel(this.getCurrentLevel() + 1)) {
         console.log('There are not any levels!');
         return;
@@ -160,12 +162,29 @@ export default class Model {
       return;
     }
     SEND_SELECTOR_FIELD.classList.add('send-button-animated');
-    setTimeout(() => SEND_SELECTOR_FIELD.classList.remove('send-button-animated'), 700);
+    setTimeout(() => SEND_SELECTOR_FIELD.classList.remove('send-button-animated'), LONG_DELAY);
     console.log('Wrong!');
   }
 
   putProperSelectorToItsInputField() {
-    SEND_SELECTOR_FIELD.innerText = levels[this.getCurrentLevel()][0].selector;
+    SEND_SELECTOR_FIELD.setAttribute("contenteditable", false);
+    this.typeLetterOneByOne(levels[this.getCurrentLevel()][0].selector.split(''));
+  }
+
+  typeLetterOneByOne(letterArray) {
+    let counter = 0;
+    let letterNode;
+    const INTERVAL_ID = setInterval(() => {
+      if (counter < letterArray.length) {
+        letterNode = document.createElement('span');
+        letterNode.className = 'letter-animated';
+        letterNode.textContent = letterArray[counter];
+        SEND_SELECTOR_FIELD.appendChild(letterNode);
+        counter += 1;
+      } else {
+        clearInterval(INTERVAL_ID);
+      }
+    }, MEDIUM_DELAY);
   }
 
   dellResultsData() {
@@ -173,7 +192,7 @@ export default class Model {
   }
 
   initLevel(level) {
-    MENU_BTN.innerText = `Уровень: ${this.getCurrentLevel() + 1}/${levels.length}`;
+    MENU_BTN.innerText = `Level: ${this.getCurrentLevel() + 1}/${levels.length}`;
     this.removeHTMLFromActiveContainers();
     EXAMPLE_CONTAINER.innerHTML = this.getHTMLForLevel(level);
     this.putAllNecessaryAttrs(level);
