@@ -16,10 +16,10 @@ export default class Controller extends View {
 
     function check(e) {
       if (e.keyCode === 13) {
-        context.checSelector();
+        context.checkSelector();
       }
       if (e.target.id === 'checkButton') {
-        context.checSelector();
+        context.checkSelector();
       }
       if (e.target.id === 'menuBtn') {
         context.toggleMenu();
@@ -30,7 +30,7 @@ export default class Controller extends View {
         return;
       }
       if (e.target.id === 'helpBtn') {
-        context.putPropperSelectorToItsInputField();
+        context.putProperSelectorToItsInputField();
         return;
       }
       if (e.target.id === 'dellResultsBtn') {

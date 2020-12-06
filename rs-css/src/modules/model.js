@@ -11,6 +11,7 @@ const MENU = document.getElementById('menu');
 const MENU_BTN = document.getElementById('menuBtn');
 // const CLOSE_MENU_BTN = document.getElementById('closeMenuBtn');
 // const DELL_RESULTS_BTN = document.getElementById('dellResultsBtn');
+const BASIC_DELAY = 250;
 
 export default class Model {
   constructor() {
@@ -56,32 +57,32 @@ export default class Model {
 
   getParsedTextHTML(code) {
     let id = 0;
-    let mountOfGapsesBeforeCodeElement = 0;
-    function getGapsBeforeElement() {
-      if (mountOfGapsesBeforeCodeElement === 0) {
+    let mountOfSpaceBefore = 0;
+    function getSpaceBeforeElement() {
+      if (mountOfSpaceBefore === 0) {
         return '';
       }
-      return Array(mountOfGapsesBeforeCodeElement).fill('&nbsp;').join('');
+      return Array(mountOfSpaceBefore).fill('&nbsp;').join('');
     }
     return this.getExtendedHTMLCode(code).split('>').map((el, i) => {
       if (el === '') {
         return '';
       }
       if (el.indexOf('</') !== -1) {
-        if (mountOfGapsesBeforeCodeElement > 0) {
-          mountOfGapsesBeforeCodeElement -= 1;
+        if (mountOfSpaceBefore > 0) {
+          mountOfSpaceBefore -= 1;
         }
-        return `${getGapsBeforeElement()}${el.replaceAll('</', `&lt;/`)}&gt;</div>`;
+        return `${getSpaceBeforeElement()}${el.replaceAll('</', `&lt;/`)}&gt;</div>`;
       }
       if (el.indexOf(' /') !== -1) {
-        return `<div class="code-item back-light" data-synch="id_${id++}">${getGapsBeforeElement()}${el.trim().replaceAll('<', `&lt;`)}&gt;</div>`;
+        return `<div class="code-item back-light" data-synch="id_${id++}">${getSpaceBeforeElement()}${el.trim().replaceAll('<', `&lt;`)}&gt;</div>`;
       }
       if (i !== 0) {
-        const html = `<div class="code-item back-light" data-synch="id_${id++}">${getGapsBeforeElement()}${el.replaceAll('<', `&lt;`)}&gt;`;
-        mountOfGapsesBeforeCodeElement += 1;
+        const html = `<div class="code-item back-light" data-synch="id_${id++}">${getSpaceBeforeElement()}${el.replaceAll('<', `&lt;`)}&gt;`;
+        mountOfSpaceBefore += 1;
         return html;
       }
-      mountOfGapsesBeforeCodeElement += 1;
+      mountOfSpaceBefore += 1;
       return `<div class="first-code-item">${el.replaceAll('<', `&lt;`)}&gt;`;
     }).join('');
   }
@@ -138,14 +139,14 @@ export default class Model {
   }
 
   isItCertainEl(node) {
-    return !Object.keys(node).some((key) => !(node[key].dataset && node[key].dataset.elemetSet));
+    return !Object.keys(node).some((key) => !(node[key].dataset && node[key].dataset.elementSet));
   }
 
   /**
    * Average Functions
    */
 
-  checSelector() {
+  checkSelector() {
     if (this.isElExist(this.getSelectorFieldValue())) {
       console.log('Yep!');
       SEND_BTN.classList.add('send-button-animated');
@@ -163,7 +164,7 @@ export default class Model {
     console.log('Wrong!');
   }
 
-  putPropperSelectorToItsInputField() {
+  putProperSelectorToItsInputField() {
     SEND_SELECTOR_FIELD.innerText = levels[this.getCurrentLevel()][0].selector;
   }
 
@@ -191,7 +192,7 @@ export default class Model {
   revealPointedEl(obj) {
     const topShift = 60;
     document.querySelectorAll('[data-synch]').forEach((el) => {
-      if (el.dataset.elemetSet === obj.dataset.synch) {
+      if (el.dataset.elementSet === obj.dataset.synch) {
         el.classList.add('hovered');
         const box = el.getBoundingClientRect();
         HINT.style.display = 'block';
@@ -208,7 +209,7 @@ export default class Model {
 
   hidePointedEl(obj) {
     document.querySelectorAll('[data-synch]').forEach((el) => {
-      if (el.dataset.elemetSet === obj.dataset.synch) {
+      if (el.dataset.elementSet === obj.dataset.synch) {
         el.classList.remove('hovered');
         HINT.style.display = 'none';
       }
@@ -225,7 +226,7 @@ export default class Model {
     }
     let idCounter = 0;
     Object.keys(nodes).some((key) => {
-      nodes[key].setAttribute('data-elemet-set', `id_${idCounter}`);
+      nodes[key].setAttribute('data-element-set', `id_${idCounter}`);
       idCounter += 1;
       return false;
     });
@@ -249,19 +250,17 @@ export default class Model {
   }
 
   toggleMenu() {
-    const mSec = 250;
     if (this.closeMenu()) {
       return;
     }
     MENU.style.display = 'block';
-    setTimeout(() => MENU.classList.add('aside-menu-open'), mSec);
+    setTimeout(() => MENU.classList.add('aside-menu-open'), BASIC_DELAY);
   }
 
   closeMenu() {
-    const mSec = 250;
     if (MENU.classList.contains('aside-menu-open')) {
       MENU.classList.remove('aside-menu-open');
-      setTimeout(() => MENU.style.setProperty('display', 'none'), mSec);
+      setTimeout(() => MENU.style.setProperty('display', 'none'), BASIC_DELAY);
       return true;
     }
     return false;
