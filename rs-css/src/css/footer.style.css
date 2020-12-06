@@ -17,15 +17,20 @@
     height: 100%;
     margin: 0 auto;
   }
-  .footer-info {
+  .footer-item {
+    display: block;
     position: absolute;
     height: 20px;
     top: calc(50% - 20px/2);
-    left: 40px;
-    color: #777;
-    font-family: "Tahoma";
     font-size: 14px;
+    font-family: "Tahoma";
+    text-align: center;
+    color: #777;
     text-decoration: none;
+    cursor: pointer;
+  }
+  .footer-info {
+    left: 40px;
   }
   .github-img {
     position: absolute;
@@ -35,32 +40,12 @@
     top: calc(50% - 30px/2);
   }
   .footer-link {
-    display: block;
-    position: absolute;
-    height: 20px;
     right: 0;
-    top: calc(50% - 20px/2);
     width: 60px;
-    font-size: 14px;
-    font-family: "Tahoma";
-    text-align: center;
-    color: #777;
-    text-decoration: none;
-    cursor: pointer;
   }
   .footer-year {
-    display: block;
-    position: absolute;
-    height: 20px;
     left: calc(50% - 46px/2);
-    top: calc(50% - 20px/2);
     width: 46px;
-    font-size: 14px;
-    font-family: "Tahoma";
-    text-align: center;
-    color: #777;
-    text-decoration: none;
-    cursor: pointer;   
   }
   #Layer_1 {
     display: block;
