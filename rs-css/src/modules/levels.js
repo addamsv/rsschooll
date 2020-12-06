@@ -1,7 +1,7 @@
 const levels = [
   [{
     code: "<parcel class=\"item parcel parcel-0\"></parcel>",
-    codeExample: "&nbsp;<parcel />",
+    codeExample: "<parcel />",
     selector: "parcel",
     shortDescribe: {
       ru: 'Тэги',
@@ -13,7 +13,7 @@ const levels = [
   }],
   [{
     code: "<parcel class=\"item parcel parcel-0\"></parcel><div class=\"item\"><parcel id=\"thatElement\" class=\"item parcel parcel-1\"></parcel></div",
-    codeExample: "&nbsp;<parcel />&nbsp;<div>&nbsp;&nbsp;<parcel id=\"thatElement\" />&nbsp;</div>",
+    codeExample: "<parcel /><div><parcel id=\"thatElement\" /></div>",
     selector: "#thatElement",
     shortDescribe: {
       ru: 'ID селектор',
@@ -25,7 +25,7 @@ const levels = [
   }],
   [{
     code: "<parcel class=\"item parcel parcel-0\"></parcel><div class=\"item\"><parcel class=\"item parcel parcel-1\"></parcel></div>",
-    codeExample: "&nbsp;<parcel />&nbsp;<div>&nbsp;&nbsp;<parcel />&nbsp;</div>",
+    codeExample: "<parcel /><div><parcel /></div>",
     selector: "div parcel",
     shortDescribe: {
       ru: 'Тэги',
