@@ -42,10 +42,12 @@ module.exports = {
     }),
   ],
   devServer: {
-    contentBase: './build',
+    watchContentBase: true,
+    contentBase: './src',
     hot: true,
     port: 3001,
     open: true,
     historyApiFallback: true,
+    devtool: 'inline-source-map',
   },
 };
