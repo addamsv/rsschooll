@@ -1,6 +1,16 @@
+
+
+
 /* 
   Main
 */
+
+@keyframes target-el__feyframe {
+  0%{opacity:0.8;}10%{opacity:0.1;}20%{opacity:0.9;}30%{opacity:0.1;}40%{opacity:0.9;}50%{opacity:0.1;}100%{opacity:1;}
+}
+@keyframes send-button__feyframe {
+  0%{opacity:0.8;}10%{opacity:0.1;}20%{opacity:0.9;}30%{opacity:0.1;}40%{opacity:0.9;}50%{opacity:0.1;}100%{opacity:1;}
+}
 
 .main-container {
   display: block;
@@ -24,9 +34,24 @@
 .current-level {
   background-color: #333;
 }
+.close-menu-btn {
+  display: block;
+  width: fit-content;
+  padding: 3px;
+  background-color: #222;
+  font-size: 2em;
+  border-radius: 3px;
+  color: #999;
+  cursor: pointer;
+  transition: all .2s;
+}
+.close-menu-btn:hover {
+  color: #fff;
+}
 .dell-results-btn {
   display: block;
   position: absolute;
+  text-align: center;
   bottom: 30px;
   background: #333;
   width: 100px;
@@ -38,7 +63,7 @@
   position: relative;
   top: 0px;
   width: 100%;
-  height: 550px;
+  height: 46vh;
   background-color: #bbb;
   text-align: center;
 }
@@ -134,13 +159,17 @@
 
 
 
-
+.editor-field-container {
+  display: block;
+  position: relative;
+  height: 46vh;
+}
 .editor-field-wrapper{
   display: block;
   position: absolute;
   width: 500px;
   height: 300px;
-  bottom: 90px;
+  top: calc(50% - 300px/2);
   left: calc(50% - 500px/2);
 }
 .first-code-item {
@@ -163,10 +192,15 @@
     background: none;
     border: none;
     height: 30px;
-    width: 100%;
+    width: 85%;
     position: relative;
     font-size: 16px;
     padding-left: 5px;
+  }
+  .send-button-wrong-animated {
+    animation-name: send-button__feyframe;
+    animation-duration: 0.7s;
+    animation-delay: 0.s;
   }
   .selector-send-button {
     position: absolute;
@@ -179,6 +213,11 @@
     line-height: 3.5em;
     cursor: pointer;
   }
+  .send-button-animated {
+    animation-name: send-button__feyframe;
+    animation-duration: 0.7s;
+  }
+
 
 .block-html-code {
   display: block;
@@ -188,6 +227,11 @@
   left: calc(50% - 500px/2);
   margin-top: 10px;
   background-color: #eee;
+}
+.target-el-animated {
+  animation-name: target-el__feyframe;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
 }
 .back-light {
   color: #444;
@@ -200,7 +244,7 @@
 .help-btn {
   display: block;
   position: absolute;
-  bottom: 3%;
+  bottom: 0;
   left: calc(50% - 100px/2);
   width: 100px;
   height: 30px;
@@ -240,7 +284,7 @@
 
 @media only screen and (max-height: 745px) {
   .editor-field-wrapper {
-    height: 190px;
+    height: 222px;
   }
   .block-html-code {
     height: 120px;
