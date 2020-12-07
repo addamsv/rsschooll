@@ -9,16 +9,18 @@ const HINT = document.getElementById('hint');
 const LEVELS_MENU = document.getElementById('levelsMenu');
 const MENU = document.getElementById('menu');
 const MENU_BTN = document.getElementById('menuBtn');
-// const CLOSE_MENU_BTN = document.getElementById('closeMenuBtn');
-// const DELL_RESULTS_BTN = document.getElementById('dellResultsBtn');
+
 const BASIC_DELAY = 250;
 const MEDIUM_DELAY = 500;
 const LONG_DELAY = 700;
+
+const STORE_DATA_KEY = 'rsCssDATA';
 
 export default class Model {
   constructor() {
     this.curLevel = 0;
     this.lang = 'ru';
+    this.isTypingSelectorByHelp = false;
   }
 
   /**
@@ -106,22 +108,48 @@ export default class Model {
   }
 
   getLevelsHTML() {
-    return levels.reduce((out, el, l) => `${out}
-    <div data-level="${l}" class="level-item ${l === this.getCurrentLevel() ? 'current-level' : ''}">
-      ${l} ${el[0].shortDescribe[this.lang]}
+    const ob = JSON.parse(localStorage.getItem(STORE_DATA_KEY));
+    const CURRENT_LEVEL = this.getCurrentLevel();
+    return levels.reduce((out, element, level) => `${out}
+    <div data-level="${level}" class="level-item ${level === CURRENT_LEVEL ? 'current-level' : ''}">
+      <span data-level="${level}" class="level-done-sign ${this.getLevelStatus(ob, level)}"></span>
+      ${level} ${element[0].shortDescribe[this.lang]}
     </div>`, '');
+  }
+
+  getLevelStatus(ob, currentLevel) {
+    if (ob && ob[currentLevel]) {
+      return ob[currentLevel].isDoneByUser ? 'level-done' : 'level-done-by-computer';
+    }
+    return 'pending-to-done-level';
   }
 
   /**
    * Setters
    */
 
-  setCurLevel(level) {
+  setCurrentLevel(level) {
     if (level >= levels.length) {
       return false;
     }
     this.curLevel = level;
     return true;
+  }
+
+  setHintAttributes() {
+    document.querySelectorAll('.block-html-code div').forEach((el) => {
+      const hint = (el.innerText).split('>');
+      const hintText = `${hint[0].trim()}>${hint.length > 2 ? `${hint[hint.length - 2].trim()}>` : ''}`;
+      el.setAttribute('data-hint', hintText);
+    });
+  }
+
+  setProperSelectorToItsInputField() {
+    SEND_SELECTOR_FIELD.setAttribute("contenteditable", false);
+    if (!this.isTypingSelectorByHelp) {
+      this.isTypingSelectorByHelp = true;
+      this.typeLetterOneByOne(levels[this.getCurrentLevel()][0].selector.split(''));
+    }
   }
 
   /**
@@ -147,14 +175,33 @@ export default class Model {
   /**
    * Average Functions
    */
+  saveLevelAs(isDoneByUser) {
+    const ob = JSON.parse(localStorage.getItem(STORE_DATA_KEY));
+    if (ob) {
+      if (ob[this.getCurrentLevel()] && ob[this.getCurrentLevel()].isDoneByUser) {
+        return;
+      }
+      ob[this.getCurrentLevel()] = {};
+      ob[this.getCurrentLevel()].isDoneByUser = isDoneByUser;
+      localStorage.setItem(STORE_DATA_KEY, JSON.stringify(ob));
+      return;
+    }
+    localStorage.setItem(STORE_DATA_KEY, `{"${this.getCurrentLevel()}":{"isDoneByUser":${isDoneByUser}}}`);
+  }
 
-  checkSelector() {
+  removeLevelsData() {
+    localStorage.setItem(STORE_DATA_KEY, `{}`);
+    this.initLevel(this.getCurrentLevel());
+  }
+
+  checkSelector(isDoneByUser = true) {
     if (this.isElExist(this.getSelectorFieldValue())) {
-      console.log('Yep!');
+      console.log(`Yep! isDoneByUser: ${isDoneByUser}`);
+      this.saveLevelAs(isDoneByUser);
       SEND_BTN.classList.add('send-button-animated');
       setTimeout(() => SEND_BTN.classList.remove('send-button-animated'), LONG_DELAY);
-      if (!this.setCurLevel(this.getCurrentLevel() + 1)) {
-        console.log('There are not any levels!');
+      if (!this.setCurrentLevel(this.getCurrentLevel() + 1)) {
+        console.log('There are not any levels! Check for Win');
         return;
       }
       this.initLevel(this.getCurrentLevel());
@@ -166,14 +213,10 @@ export default class Model {
     console.log('Wrong!');
   }
 
-  putProperSelectorToItsInputField() {
-    SEND_SELECTOR_FIELD.setAttribute("contenteditable", false);
-    this.typeLetterOneByOne(levels[this.getCurrentLevel()][0].selector.split(''));
-  }
-
   typeLetterOneByOne(letterArray) {
     let counter = 0;
     let letterNode;
+    SEND_SELECTOR_FIELD.innerText = '';
     const INTERVAL_ID = setInterval(() => {
       if (counter < letterArray.length) {
         letterNode = document.createElement('span');
@@ -183,12 +226,12 @@ export default class Model {
         counter += 1;
       } else {
         clearInterval(INTERVAL_ID);
+        SEND_SELECTOR_FIELD.innerText = this.getExpectedSelector(this.getCurrentLevel());
+        this.checkSelector(false);
+        this.isTypingSelectorByHelp = false;
+        SEND_SELECTOR_FIELD.setAttribute("contenteditable", true);
       }
     }, MEDIUM_DELAY);
-  }
-
-  dellResultsData() {
-    console.log('removing results...');
   }
 
   initLevel(level) {
@@ -197,6 +240,7 @@ export default class Model {
     EXAMPLE_CONTAINER.innerHTML = this.getHTMLForLevel(level);
     this.putAllNecessaryAttrs(level);
     CODE_CONTAINER.innerHTML = this.getHTMLForLevel(level, true);
+    this.setHintAttributes();
     TASK_DESCRIPTION.innerHTML = this.getTaskDescription();
     this.renderLevelMenu();
     this.putNecessaryAttrsToTargetElements();
@@ -220,8 +264,7 @@ export default class Model {
       }
       if (el.dataset.synch === obj.dataset.synch && el.classList.contains('code-item')) {
         el.classList.add('back-light-hovered');
-        const hint = (el.innerText).split('>');
-        HINT.innerText = `${hint[0].trim()}>${hint.length > 2 ? `${hint[hint.length - 2].trim()}>` : ''}`;
+        HINT.innerText = el.dataset.hint;
       }
     });
   }
