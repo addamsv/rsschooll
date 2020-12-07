@@ -7,7 +7,6 @@
   "extends":["airbnb/base"],
   "rules": {
       "semi": "warn",
-      "no-console": "off",
       "no-plusplus": "off",
       "eol-last": "off",
       "max-len": ["error", 180, {"ignoreUrls": true}],
