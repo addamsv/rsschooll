@@ -15,6 +15,7 @@ const MEDIUM_DELAY = 500;
 const LONG_DELAY = 700;
 
 const STORE_DATA_KEY = 'rsCssDATA';
+const SAVED_POSITION_DATA_KEY = 'rsCssLevelPositionDATA';
 
 export default class Model {
   constructor() {
@@ -132,6 +133,7 @@ export default class Model {
     if (level >= levels.length) {
       return false;
     }
+    localStorage.setItem(SAVED_POSITION_DATA_KEY, level);
     this.curLevel = level;
     return true;
   }
@@ -201,7 +203,8 @@ export default class Model {
       SEND_BTN.classList.add('send-button-animated');
       setTimeout(() => SEND_BTN.classList.remove('send-button-animated'), LONG_DELAY);
       if (!this.setCurrentLevel(this.getCurrentLevel() + 1)) {
-        console.log('There are not any levels! Check for Win');
+        console.log(`There are not any levels! Check for Win: ${this.isUserWin()}`);
+
         return;
       }
       this.initLevel(this.getCurrentLevel());
@@ -211,6 +214,14 @@ export default class Model {
     SEND_SELECTOR_FIELD.classList.add('send-button-animated');
     setTimeout(() => SEND_SELECTOR_FIELD.classList.remove('send-button-animated'), LONG_DELAY);
     console.log('Wrong!');
+  }
+
+  isUserWin() {
+    const ob = JSON.parse(localStorage.getItem(STORE_DATA_KEY));
+    if (ob) {
+      return !(Object.keys(ob).some((el, i) => !(ob[i] && ob[i].isDoneByUser)));
+    }
+    return false;
   }
 
   typeLetterOneByOne(letterArray) {
@@ -232,6 +243,17 @@ export default class Model {
         SEND_SELECTOR_FIELD.setAttribute("contenteditable", true);
       }
     }, MEDIUM_DELAY);
+  }
+
+  initLevelFromSavedPosition() {
+    let level = (localStorage.getItem(SAVED_POSITION_DATA_KEY));
+    console.log(level);
+    if (level) {
+      level = parseInt(level, 10);
+      this.initLevel(level);
+      this.setCurrentLevel(level);
+    }
+    this.initLevel(this.getCurrentLevel());
   }
 
   initLevel(level) {
