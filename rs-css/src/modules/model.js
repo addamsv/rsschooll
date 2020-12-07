@@ -3,11 +3,12 @@ import levels from './levels';
 const SEND_SELECTOR_FIELD = document.getElementById('sendSelectorField');
 const TASK_DESCRIPTION = document.getElementById('taskDescription');
 const EXAMPLE_CONTAINER = document.getElementById('schemaContainer');
+const WIN_CONTAINER = document.getElementById('win');
 const CODE_CONTAINER = document.getElementById('htmlCodeExample');
-const SEND_BTN = document.getElementById('checkButton');
 const HINT = document.getElementById('hint');
 const LEVELS_MENU = document.getElementById('levelsMenu');
 const MENU = document.getElementById('menu');
+const SEND_BTN = document.getElementById('checkButton');
 const MENU_BTN = document.getElementById('menuBtn');
 
 const BASIC_DELAY = 250;
@@ -17,10 +18,12 @@ const LONG_DELAY = 700;
 const STORE_DATA_KEY = 'rsCssDATA';
 const SAVED_POSITION_DATA_KEY = 'rsCssLevelPositionDATA';
 
+const TOP_HINT_SHIFT = 64;
+
 export default class Model {
   constructor() {
     this.curLevel = 0;
-    this.lang = 'ru';
+    this.lang = 'en';
     this.isTypingSelectorByHelp = false;
   }
 
@@ -79,11 +82,15 @@ export default class Model {
         }
         return `${getSpaceBeforeElement()}${el.replaceAll('</', `&lt;/`)}&gt;</div>`;
       }
+
+      const wrapperStart = `<div class="code-item back-light" data-synch="id_${id}">`;
       if (el.indexOf(' /') !== -1) {
-        return `<div class="code-item back-light" data-synch="id_${id++}">${getSpaceBeforeElement()}${el.trim().replaceAll('<', `&lt;`)}&gt;</div>`;
+        id += 1;
+        return `${wrapperStart}${getSpaceBeforeElement()}${el.trim().replaceAll('<', `&lt;`)}&gt;</div>`;
       }
       if (i !== 0) {
-        const html = `<div class="code-item back-light" data-synch="id_${id++}">${getSpaceBeforeElement()}${el.replaceAll('<', `&lt;`)}&gt;`;
+        id += 1;
+        const html = `${wrapperStart}${getSpaceBeforeElement()}${el.replaceAll('<', `&lt;`)}&gt;`;
         mountOfSpaceBefore += 1;
         return html;
       }
@@ -114,7 +121,7 @@ export default class Model {
     return levels.reduce((out, element, level) => `${out}
     <div data-level="${level}" class="level-item ${level === CURRENT_LEVEL ? 'current-level' : ''}">
       <span data-level="${level}" class="level-done-sign ${this.getLevelStatus(ob, level)}"></span>
-      ${level} ${element[0].shortDescribe[this.lang]}
+      ${level + 1} ${element[0].shortDescribe[this.lang]}
     </div>`, '');
   }
 
@@ -123,6 +130,19 @@ export default class Model {
       return ob[currentLevel].isDoneByUser ? 'level-done' : 'level-done-by-computer';
     }
     return 'pending-to-done-level';
+  }
+
+  getNotSolvedLevel() {
+    const ob = JSON.parse(localStorage.getItem(STORE_DATA_KEY));
+    let level = -1;
+    if (ob) {
+      Object.keys(ob).forEach((el, i) => {
+        if (level === -1 && (!ob[i] || !ob[i].isDoneByUser)) {
+          level = i;
+        }
+      });
+    }
+    return level === -1 ? 0 : level;
   }
 
   /**
@@ -163,6 +183,7 @@ export default class Model {
     if (node === 'false') {
       return false;
     }
+    console.log(node);
     return this.isMountOfNodesRight(node.length) && this.isItCertainEl(node);
   }
 
@@ -172,6 +193,14 @@ export default class Model {
 
   isItCertainEl(node) {
     return !Object.keys(node).some((key) => !(node[key].dataset && node[key].dataset.elementSet));
+  }
+
+  isUserWin() {
+    const ob = JSON.parse(localStorage.getItem(STORE_DATA_KEY));
+    if (ob) {
+      return !(Object.keys(ob).some((el, i) => !(ob[i] && ob[i].isDoneByUser)));
+    }
+    return false;
   }
 
   /**
@@ -194,34 +223,33 @@ export default class Model {
   removeLevelsData() {
     localStorage.setItem(STORE_DATA_KEY, `{}`);
     this.initLevel(this.getCurrentLevel());
+    WIN_CONTAINER.removeAttribute('style');
   }
 
   checkSelector(isDoneByUser = true) {
     if (this.isElExist(this.getSelectorFieldValue())) {
-      console.log(`Yep! isDoneByUser: ${isDoneByUser}`);
       this.saveLevelAs(isDoneByUser);
       SEND_BTN.classList.add('send-button-animated');
       setTimeout(() => SEND_BTN.classList.remove('send-button-animated'), LONG_DELAY);
       if (!this.setCurrentLevel(this.getCurrentLevel() + 1)) {
-        console.log(`There are not any levels! Check for Win: ${this.isUserWin()}`);
-
+        if (this.isUserWin()) {
+          WIN_CONTAINER.style.display = 'block';
+          return;
+        }
+        const NEXT_LEVEL = this.getNotSolvedLevel();
+        if (NEXT_LEVEL === -1) {
+          return;
+        }
+        this.setCurrentLevel(NEXT_LEVEL);
+        this.initLevel(NEXT_LEVEL);
         return;
       }
       this.initLevel(this.getCurrentLevel());
-      console.log(`Next Level: ${this.getCurrentLevel()}`);
       return;
     }
     SEND_SELECTOR_FIELD.classList.add('send-button-animated');
     setTimeout(() => SEND_SELECTOR_FIELD.classList.remove('send-button-animated'), LONG_DELAY);
     console.log('Wrong!');
-  }
-
-  isUserWin() {
-    const ob = JSON.parse(localStorage.getItem(STORE_DATA_KEY));
-    if (ob) {
-      return !(Object.keys(ob).some((el, i) => !(ob[i] && ob[i].isDoneByUser)));
-    }
-    return false;
   }
 
   typeLetterOneByOne(letterArray) {
@@ -231,8 +259,8 @@ export default class Model {
     const INTERVAL_ID = setInterval(() => {
       if (counter < letterArray.length) {
         letterNode = document.createElement('span');
-        letterNode.className = 'letter-animated';
-        letterNode.textContent = letterArray[counter];
+        letterNode.className = `${letterArray[counter] === ' ' ? 'hidden-symbol ' : ''}letter-animated`;
+        letterNode.textContent = letterArray[counter] === ' ' ? '_' : letterArray[counter];
         SEND_SELECTOR_FIELD.appendChild(letterNode);
         counter += 1;
       } else {
@@ -275,14 +303,13 @@ export default class Model {
   }
 
   revealPointedEl(obj) {
-    const topShift = 60;
     document.querySelectorAll('[data-synch]').forEach((el) => {
       if (el.dataset.elementSet === obj.dataset.synch) {
         el.classList.add('hovered');
         const box = el.getBoundingClientRect();
         HINT.style.display = 'block';
         HINT.style.left = `${box.left}px`;
-        HINT.style.top = `${box.top - topShift}px`;
+        HINT.style.top = `${box.top - TOP_HINT_SHIFT}px`;
       }
       if (el.dataset.synch === obj.dataset.synch && el.classList.contains('code-item')) {
         el.classList.add('back-light-hovered');
