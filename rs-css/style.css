@@ -26,12 +26,14 @@
 .menu-btn {
   position: absolute;
   right: 0;
-  top: 4px;
+  top: 0px;
   padding: 3px;
+  font-size: 14px;
   cursor: pointer;
   transition: all .2s;
   background: #777;
   border-radius: 2px;
+  z-index: 1;
 }
 .menu-btn:hover {
   color: #fff;
@@ -276,8 +278,9 @@
         display: block;
         position: absolute;
         width: 30px;
-        height: 30px;
+        height: 23px;
         background-color: #aaa;
+        border-top: 7px solid #bbb;
         transition: .2s all;
         cursor: pointer;
       }
@@ -294,9 +297,21 @@
         transition: .2s all;
         cursor: pointer;
       }
+      .small-letter {
+        border: 12px solid #bbb;
+        border-top: 12px solid #fff;
+      }
+      .item-small-1 {
+        top: 5px;
+        left: 50px;  
+      }
       .item-inner {
         top: 5px;
         left: 5px;  
+      }
+      .item-inner-shifted {
+        top: 15px;
+        left: 15px;
       }
       .item-0 {
         top: 5px;
@@ -310,12 +325,31 @@
         top: 5px;
         left: 95px;  
       }
+      .item-3 {
+        top: 5px;
+        left: 135px;  
+      }
+      .item-4 {
+        top: 5px;
+        left: 145px;  
+      }
       .wrap {
         display: block;
         position: absolute;
         width: 41px;
         height: 41px;
         background-color: rgba(255,255,255,.8);
+      }
+      .envelop {
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 21px solid #aaa;
+        border-top: 21px solid #fff;
+        border-bottom: 21px solid #bbb;
+        transition: .2s all;
+        cursor: pointer;
       }
       .wrap-shift-0 {
         top: 2px;
@@ -332,6 +366,10 @@
       .wrap-shift-3 {
         top: 2px;
         left: 130px;
+      }
+      .wrap-shift-4 {
+        top: 2px;
+        left: 175px;
       }
 
 
