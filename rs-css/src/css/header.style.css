@@ -45,9 +45,33 @@
     right: -320px;
   }
   .menu-slug {
+    display: block;
     color: #bbb;
+    position: relative;
+    top: 25px;
+    left: 20px;
+    height: 38px;
   }
-
+  .level-done-sign {
+    display: inline-block;
+    position: relative;
+    width: 19px;
+    height: 10px;
+    left: 6px;
+    transform: rotate(-45deg) translate(0px, -5px);
+  }
+  .level-done {
+    border-left: 2px solid #0f0;
+    border-bottom: 2px solid #0f0;
+  }
+  .pending-to-done-level {
+    border-left: 2px solid #444;
+    border-bottom: 2px solid #444;
+  }
+  .level-done-by-computer {
+    border-left: 2px solid #660;
+    border-bottom: 2px solid #660;
+  }
   @media only screen and (max-width: 600px) {
     .header-wrapper {
       max-width: 500px;
