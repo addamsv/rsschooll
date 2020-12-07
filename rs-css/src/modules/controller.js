@@ -30,15 +30,15 @@ export default class Controller extends View {
         return;
       }
       if (e.target.id === 'helpBtn') {
-        context.putProperSelectorToItsInputField();
+        context.setProperSelectorToItsInputField();
         return;
       }
       if (e.target.id === 'dellResultsBtn') {
-        context.dellResultsData();
+        context.removeLevelsData();
         return;
       }
       if (e.target.dataset.level) {
-        context.setCurLevel(parseInt(e.target.dataset.level, 10));
+        context.setCurrentLevel(parseInt(e.target.dataset.level, 10));
         context.initLevel(e.target.dataset.level);
       }
       context.closeMenu();
