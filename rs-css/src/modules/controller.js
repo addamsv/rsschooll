@@ -15,6 +15,7 @@ export default class Controller extends Model {
 
     function check(e) {
       if (e.keyCode === 13) {
+        e.preventDefault();
         context.checkSelector();
       }
       if (e.target.id === 'checkButton') {
@@ -53,7 +54,7 @@ export default class Controller extends Model {
       }
     }
     document.addEventListener('click', check);
-    document.addEventListener('keyup', check);
+    document.addEventListener('keydown', check);
     document.addEventListener('mouseover', hovers);
   }
 }
