@@ -4,6 +4,7 @@ const SEND_SELECTOR_FIELD = document.getElementById('sendSelectorField');
 const TASK_DESCRIPTION = document.getElementById('taskDescription');
 const EXAMPLE_CONTAINER = document.getElementById('schemaContainer');
 const WIN_CONTAINER = document.getElementById('win');
+const RIGHT_ANSWER_CONTAINER = document.getElementById('rightAnswer');
 const CODE_CONTAINER = document.getElementById('htmlCodeExample');
 const HINT = document.getElementById('hint');
 const LEVELS_MENU = document.getElementById('levelsMenu');
@@ -49,17 +50,14 @@ export default class Model {
 
   getParsedHTML(code) {
     let id = 0;
-    return this.getExtendedHTMLCode(code, false).split('>').map((el, i) => {
+    return this.getExtendedHTMLCode(code, false).split('>').map((el) => {
       if (el === '') {
         return '';
       }
       if (el.indexOf('</') !== -1) {
         return `${el}>`;
       }
-      if (i !== 0) {
-        return `${el.trim().replace(' ', ` data-synch="id_${id++}" `)}>`;
-      }
-      return `${el}>`;
+      return `${el.trim().replace(' ', ` data-synch="id_${id++}" `)}>`;
     }).join('');
   }
 
@@ -72,7 +70,7 @@ export default class Model {
       }
       return Array(mountOfSpaceBefore).fill('&nbsp;').join('');
     }
-    return this.getExtendedHTMLCode(code).split('>').map((el, i) => {
+    return this.getExtendedHTMLCode(code).split('>').map((el) => {
       if (el === '') {
         return '';
       }
@@ -88,19 +86,15 @@ export default class Model {
         id += 1;
         return `${wrapperStart}${getSpaceBeforeElement()}${el.trim().replaceAll('<', `&lt;`)}&gt;</div>`;
       }
-      if (i !== 0) {
-        id += 1;
-        const html = `${wrapperStart}${getSpaceBeforeElement()}${el.replaceAll('<', `&lt;`)}&gt;`;
-        mountOfSpaceBefore += 1;
-        return html;
-      }
+      id += 1;
+      const html = `${wrapperStart}${getSpaceBeforeElement()}${el.replaceAll('<', `&lt;`)}&gt;`;
       mountOfSpaceBefore += 1;
-      return `<div class="first-code-item">${el.replaceAll('<', `&lt;`)}&gt;`;
+      return html;
     }).join('');
   }
 
   getExtendedHTMLCode(code) {
-    return `<div class="parcel-box"> ${code} </div>`;
+    return code;
   }
 
   getNodes(selector) {
@@ -183,7 +177,6 @@ export default class Model {
     if (node === 'false') {
       return false;
     }
-    console.log(node);
     return this.isMountOfNodesRight(node.length) && this.isItCertainEl(node);
   }
 
@@ -230,7 +223,13 @@ export default class Model {
     if (this.isElExist(this.getSelectorFieldValue())) {
       this.saveLevelAs(isDoneByUser);
       SEND_BTN.classList.add('send-button-animated');
-      setTimeout(() => SEND_BTN.classList.remove('send-button-animated'), LONG_DELAY);
+      RIGHT_ANSWER_CONTAINER.style.display = 'block';
+      RIGHT_ANSWER_CONTAINER.classList.add('send-button-animated');
+      setTimeout(() => {
+        SEND_BTN.classList.remove('send-button-animated;');
+        RIGHT_ANSWER_CONTAINER.classList.remove('send-button-animated');
+        RIGHT_ANSWER_CONTAINER.removeAttribute('style');
+      }, LONG_DELAY);
       if (!this.setCurrentLevel(this.getCurrentLevel() + 1)) {
         if (this.isUserWin()) {
           WIN_CONTAINER.style.display = 'block';
@@ -247,9 +246,8 @@ export default class Model {
       this.initLevel(this.getCurrentLevel());
       return;
     }
-    SEND_SELECTOR_FIELD.classList.add('send-button-animated');
-    setTimeout(() => SEND_SELECTOR_FIELD.classList.remove('send-button-animated'), LONG_DELAY);
-    console.log('Wrong!');
+    SEND_SELECTOR_FIELD.classList.add('wrong-result-animated');
+    setTimeout(() => SEND_SELECTOR_FIELD.classList.remove('wrong-result-animated'), LONG_DELAY);
   }
 
   typeLetterOneByOne(letterArray) {
@@ -275,7 +273,6 @@ export default class Model {
 
   initLevelFromSavedPosition() {
     let level = (localStorage.getItem(SAVED_POSITION_DATA_KEY));
-    console.log(level);
     if (level) {
       level = parseInt(level, 10);
       this.initLevel(level);
@@ -285,7 +282,7 @@ export default class Model {
   }
 
   initLevel(level) {
-    MENU_BTN.innerText = `Level: ${this.getCurrentLevel() + 1}/${levels.length}`;
+    MENU_BTN.innerText = `Level: ${this.getCurrentLevel() + 1} of ${levels.length}`;
     this.removeHTMLFromActiveContainers();
     EXAMPLE_CONTAINER.innerHTML = this.getHTMLForLevel(level);
     this.putAllNecessaryAttrs(level);
