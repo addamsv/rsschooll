@@ -26,12 +26,15 @@
 .menu-btn {
   position: absolute;
   right: 0;
-  top: 0;
+  top: 4px;
+  padding: 3px;
   cursor: pointer;
   transition: all .2s;
+  background: #777;
+  border-radius: 2px;
 }
 .menu-btn:hover {
-  color: #777;
+  color: #fff;
 }
 .aside-container {
   display: none;
@@ -51,9 +54,33 @@
     right: -320px;
   }
   .menu-slug {
+    display: block;
     color: #bbb;
+    position: relative;
+    top: 25px;
+    left: 20px;
+    height: 38px;
   }
-
+  .level-done-sign {
+    display: inline-block;
+    position: relative;
+    width: 19px;
+    height: 10px;
+    left: 6px;
+    transform: rotate(-45deg) translate(0px, -5px);
+  }
+  .level-done {
+    border-left: 2px solid #0f0;
+    border-bottom: 2px solid #0f0;
+  }
+  .pending-to-done-level {
+    border-left: 2px solid #444;
+    border-bottom: 2px solid #444;
+  }
+  .level-done-by-computer {
+    border-left: 2px solid #660;
+    border-bottom: 2px solid #660;
+  }
   @media only screen and (max-width: 600px) {
     .header-wrapper {
       max-width: 500px;
@@ -72,11 +99,17 @@
   Main
 */
 
-@keyframes target-el__feyframe {
+@keyframes target-el__keyframe {
   0%{opacity:0.8;}10%{opacity:0.1;}20%{opacity:0.9;}30%{opacity:0.1;}40%{opacity:0.9;}50%{opacity:0.1;}100%{opacity:1;}
 }
-@keyframes send-button__feyframe {
+@keyframes send-button__keyframe {
   0%{opacity:0.8;}10%{opacity:0.1;}20%{opacity:0.9;}30%{opacity:0.1;}40%{opacity:0.9;}50%{opacity:0.1;}100%{opacity:1;}
+}
+@keyframes wrong-result__keyframe {
+  0%{opacity:0.8;background-color: #f00;transform:translate(6px,0px);}10%{opacity:0.1;transform:translate(-6px,0px);}20%{opacity:0.9;transform:translate(6px,0px);}30%{opacity:0.1;transform:translate(-6px,0px);}40%{opacity:0.9;transform:translate(6px,0px);}50%{opacity:0.1;}100%{opacity:1;}
+}
+@keyframes letter-typing__keyframe {
+  0%{opacity:0;transform:translate(0px,3px);}100%{opacity:1;}
 }
 
 .main-container {
@@ -84,6 +117,31 @@
   position: relative;
   height: 92vh;
   background-color: #ccc;
+}
+.greetings-animation {
+  display: none;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: rgba(255,255,255,.8);
+  top: calc(50% - 500px/2);
+  left: calc(50% - 500px/2);
+  z-index: 100;
+  border-radius: 10px;
+  animation-name: target-el__keyframe;
+  animation-duration: 1s;
+}
+.new-game-btn {
+  display: block;
+  position: absolute;
+  color: #bbb;
+  text-align: center;
+  bottom: 30px;
+  background: #333;
+  width: 160px;
+  height: 22px;
+  left: calc(50% - 160px/2);
+  cursor: pointer;
 }
 .levels-menu {
   position: relative;
@@ -103,11 +161,12 @@
 }
 .close-menu-btn {
   display: block;
+  position: absolute;
+  top: 0px;
+  right: 10px;
   width: fit-content;
   padding: 3px;
-  background-color: #222;
   font-size: 2em;
-  border-radius: 3px;
   color: #999;
   cursor: pointer;
   transition: all .2s;
@@ -121,9 +180,9 @@
   text-align: center;
   bottom: 30px;
   background: #333;
-  width: 100px;
+  width: 160px;
   height: 22px;
-  left: calc(50% - 100px/2);
+  left: calc(50% - 160px/2);
   cursor: pointer;
 }
 .block-example {
@@ -133,6 +192,10 @@
   height: 46vh;
   background-color: #bbb;
   text-align: center;
+}
+.task-description {
+  width: 500px;
+  margin: 10% auto;
 }
 
 @media only screen and (max-height: 1100px) {
@@ -145,11 +208,17 @@
   .block-example {
     height: 350px;
   }
+  .task-description {
+    margin: 3% auto;
+  }
 }
 
 @media only screen and (max-height: 880px) {
   .block-example {
-    height: 250px;
+    height: 46vh;
+  }
+  .task-description {
+    margin: 0% auto;
   }
 }
 
@@ -161,7 +230,7 @@
     display: block;
     position: absolute;
     left: calc(50% - 300px/2);
-    top: calc(50% - 200px/2);
+    bottom: 20px;
     width: 300px;
     height: 200px;
     background-color: #444;
@@ -203,11 +272,11 @@
       height: 200px;
       background-color: #555;
     }
-      .parcel {
+      .item-help {
         display: block;
         position: absolute;
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         background-color: #aaa;
         transition: .2s all;
         cursor: pointer;
@@ -215,13 +284,54 @@
       .hovered {
         box-shadow: 0 0 0 6px rgba(255,255,255,.8);
       }
-      .parcel-0 {
+      .letter {
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 14px solid #aaa;
+        border-top: 14px solid #fff;
+        transition: .2s all;
+        cursor: pointer;
+      }
+      .item-inner {
         top: 5px;
         left: 5px;  
       }
-      .parcel-1 {
+      .item-0 {
         top: 5px;
-        left: 50px;  
+        left: 5px;  
+      }
+      .item-1 {
+        top: 5px;
+        left: 40px;  
+      }
+      .item-2 {
+        top: 5px;
+        left: 95px;  
+      }
+      .wrap {
+        display: block;
+        position: absolute;
+        width: 41px;
+        height: 41px;
+        background-color: rgba(255,255,255,.8);
+      }
+      .wrap-shift-0 {
+        top: 2px;
+        left: 2px;
+      }
+      .wrap-shift-1 {
+        top: 2px;
+        left: 44px;
+      }
+      .wrap-shift-2 {
+        top: 2px;
+        left: 87px;
+      }
+      .wrap-shift-3 {
+        top: 2px;
+        left: 130px;
       }
 
 
@@ -254,6 +364,14 @@
   background-color: #eee;
   margin-top: 10px;
 }
+  .letter-animated {
+    display: inline-block;
+    animation-name: letter-typing__keyframe;
+    animation-duration: 0.1s;
+  }
+  .hidden-symbol {
+    color: rgba(255,255,255,0);
+  }
   .send-selector-field{
     display: inline-block;
     background: none;
@@ -265,9 +383,9 @@
     padding-left: 5px;
   }
   .send-button-wrong-animated {
-    animation-name: send-button__feyframe;
+    animation-name: send-button__keyframe;
     animation-duration: 0.7s;
-    animation-delay: 0.s;
+    animation-delay: 0.2s;
   }
   .selector-send-button {
     position: absolute;
@@ -281,8 +399,32 @@
     cursor: pointer;
   }
   .send-button-animated {
-    animation-name: send-button__feyframe;
+    animation-name: send-button__keyframe;
     animation-duration: 0.7s;
+  }
+  .wrong-result-animated {
+    animation-name: wrong-result__keyframe;
+    animation-duration: 0.7s;  
+  }
+  .right-answer{
+    display: none;
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: #0f0;
+    z-index: 100;
+    border-radius: 50%;
+    top: calc(50% - 120px/2);
+    left: calc(50% - 120px/2);
+  }
+  .right-answer::after {
+    content: '';
+    position: absolute;
+    width: 54px;
+    height: 30px;
+    transform: rotate(-45deg) translate(3px, 44px);
+    border-left: 8px solid #fff;
+    border-bottom: 8px solid #fff;
   }
 
 
@@ -294,9 +436,11 @@
   left: calc(50% - 500px/2);
   margin-top: 10px;
   background-color: #eee;
+  overflow-y: scroll;
+  font-size: 14px;
 }
 .target-el-animated {
-  animation-name: target-el__feyframe;
+  animation-name: target-el__keyframe;
   animation-duration: 1s;
   animation-iteration-count: infinite;
 }
@@ -305,8 +449,12 @@
   cursor: pointer;
   transition: .3s all;
 }
+.highlight-code-blue {
+  color:blue;
+}
 .back-light-hovered{
-  color: #777;
+  color: #aaa;
+  background-color: #555;
 }
 .help-btn {
   display: block;
@@ -346,6 +494,9 @@
   .levels-menu {
     width: 100%;
   }
+  .task-description{
+    width: 100%;
+  }
 }
 
 
@@ -355,6 +506,13 @@
   }
   .block-html-code {
     height: 120px;
+  }
+  .schema-container{
+    top: initial;
+    bottom: 0;
+  }
+  .help-btn {
+    bottom: 10px;
   }
 }
 
@@ -376,15 +534,20 @@
     height: 100%;
     margin: 0 auto;
   }
-  .footer-info {
+  .footer-item {
+    display: block;
     position: absolute;
     height: 20px;
     top: calc(50% - 20px/2);
-    left: 40px;
-    color: #777;
-    font-family: "Tahoma";
     font-size: 14px;
+    font-family: "Tahoma";
+    text-align: center;
+    color: #777;
     text-decoration: none;
+    cursor: pointer;
+  }
+  .footer-info {
+    left: 40px;
   }
   .github-img {
     position: absolute;
@@ -394,32 +557,12 @@
     top: calc(50% - 30px/2);
   }
   .footer-link {
-    display: block;
-    position: absolute;
-    height: 20px;
     right: 0;
-    top: calc(50% - 20px/2);
     width: 60px;
-    font-size: 14px;
-    font-family: "Tahoma";
-    text-align: center;
-    color: #777;
-    text-decoration: none;
-    cursor: pointer;
   }
   .footer-year {
-    display: block;
-    position: absolute;
-    height: 20px;
     left: calc(50% - 46px/2);
-    top: calc(50% - 20px/2);
     width: 46px;
-    font-size: 14px;
-    font-family: "Tahoma";
-    text-align: center;
-    color: #777;
-    text-decoration: none;
-    cursor: pointer;   
   }
   #Layer_1 {
     display: block;
