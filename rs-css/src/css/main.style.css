@@ -31,6 +31,20 @@
   left: calc(50% - 500px/2);
   z-index: 100;
   border-radius: 10px;
+  animation-name: target-el__keyframe;
+  animation-duration: 1s;
+}
+.new-game-btn {
+  display: block;
+  position: absolute;
+  color: #bbb;
+  text-align: center;
+  bottom: 30px;
+  background: #333;
+  width: 160px;
+  height: 22px;
+  left: calc(50% - 160px/2);
+  cursor: pointer;
 }
 .levels-menu {
   position: relative;
@@ -82,6 +96,10 @@
   background-color: #bbb;
   text-align: center;
 }
+.task-description {
+  width: 500px;
+  margin: 10% auto;
+}
 
 @media only screen and (max-height: 1100px) {
   .block-example {
@@ -93,11 +111,17 @@
   .block-example {
     height: 350px;
   }
+  .task-description {
+    margin: 3% auto;
+  }
 }
 
 @media only screen and (max-height: 880px) {
   .block-example {
     height: 250px;
+  }
+  .task-description {
+    margin: 0% auto;
   }
 }
 
@@ -151,11 +175,11 @@
       height: 200px;
       background-color: #555;
     }
-      .parcel {
+      .item-help {
         display: block;
         position: absolute;
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         background-color: #aaa;
         transition: .2s all;
         cursor: pointer;
@@ -163,13 +187,50 @@
       .hovered {
         box-shadow: 0 0 0 6px rgba(255,255,255,.8);
       }
-      .parcel-0 {
+      .letter {
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 14px solid #aaa;
+        border-top: 14px solid #fff;
+        transition: .2s all;
+        cursor: pointer;
+      }
+      .item-inner {
         top: 5px;
         left: 5px;  
       }
-      .parcel-1 {
+      .item-0 {
         top: 5px;
-        left: 50px;  
+        left: 5px;  
+      }
+      .item-1 {
+        top: 5px;
+        left: 40px;  
+      }
+      .item-2 {
+        top: 5px;
+        left: 95px;  
+      }
+      .wrap {
+        display: block;
+        position: absolute;
+        width: 41px;
+        height: 41px;
+        background-color: rgba(255,255,255,.8);
+      }
+      .wrap-shift-0 {
+        top: 2px;
+        left: 2px;
+      }
+      .wrap-shift-1 {
+        top: 2px;
+        left: 44px;
+      }
+      .wrap-shift-2 {
+        top: 2px;
+        left: 88px;
       }
 
 
@@ -206,6 +267,9 @@
     display: inline-block;
     animation-name: letter-typing__keyframe;
     animation-duration: 0.1s;
+  }
+  .hidden-symbol {
+    color: rgba(255,255,255,0);
   }
   .send-selector-field{
     display: inline-block;
@@ -259,8 +323,12 @@
   cursor: pointer;
   transition: .3s all;
 }
+.highlight-code-blue {
+  color:blue;
+}
 .back-light-hovered{
-  color: #777;
+  color: #aaa;
+  background-color: #555;
 }
 .help-btn {
   display: block;
@@ -300,6 +368,9 @@
   .levels-menu {
     width: 100%;
   }
+  .task-description{
+    width: 100%;
+  }
 }
 
 
@@ -309,5 +380,9 @@
   }
   .block-html-code {
     height: 120px;
+  }
+  .schema-container{
+    top: initial;
+    bottom: 0;
   }
 }
