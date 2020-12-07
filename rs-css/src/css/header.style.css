@@ -20,12 +20,14 @@
 .menu-btn {
   position: absolute;
   right: 0;
-  top: 4px;
+  top: 0px;
   padding: 3px;
+  font-size: 14px;
   cursor: pointer;
   transition: all .2s;
   background: #777;
   border-radius: 2px;
+  z-index: 1;
 }
 .menu-btn:hover {
   color: #fff;
