@@ -1,14 +1,13 @@
-import View from './view';
+import Model from './model';
 
-export default class Controller extends View {
+export default class Controller extends Model {
   constructor() {
     super();
     this.initEvents();
   }
 
   init() {
-    this.initLevel(this.getCurrentLevel());
-    this.renderLevelMenu();
+    this.initLevelFromSavedPosition();
   }
 
   initEvents() {
