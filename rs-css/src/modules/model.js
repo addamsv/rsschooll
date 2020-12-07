@@ -15,6 +15,7 @@ const MENU_BTN = document.getElementById('menuBtn');
 const BASIC_DELAY = 250;
 const MEDIUM_DELAY = 500;
 const LONG_DELAY = 700;
+const SUPER_LONG_DELAY = 1200;
 
 const STORE_DATA_KEY = 'rsCssDATA';
 const SAVED_POSITION_DATA_KEY = 'rsCssLevelPositionDATA';
@@ -243,7 +244,7 @@ export default class Model {
         this.initLevel(NEXT_LEVEL);
         return;
       }
-      this.initLevel(this.getCurrentLevel());
+      setTimeout(() => this.initLevel(this.getCurrentLevel()), SUPER_LONG_DELAY);
       return;
     }
     SEND_SELECTOR_FIELD.classList.add('wrong-result-animated');
