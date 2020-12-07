@@ -11,6 +11,9 @@
 @keyframes send-button__keyframe {
   0%{opacity:0.8;}10%{opacity:0.1;}20%{opacity:0.9;}30%{opacity:0.1;}40%{opacity:0.9;}50%{opacity:0.1;}100%{opacity:1;}
 }
+@keyframes wrong-result__keyframe {
+  0%{opacity:0.8;background-color: #f00;transform:translate(6px,0px);}10%{opacity:0.1;transform:translate(-6px,0px);}20%{opacity:0.9;transform:translate(6px,0px);}30%{opacity:0.1;transform:translate(-6px,0px);}40%{opacity:0.9;transform:translate(6px,0px);}50%{opacity:0.1;}100%{opacity:1;}
+}
 @keyframes letter-typing__keyframe {
   0%{opacity:0;transform:translate(0px,3px);}100%{opacity:1;}
 }
@@ -118,7 +121,7 @@
 
 @media only screen and (max-height: 880px) {
   .block-example {
-    height: 250px;
+    height: 46vh;
   }
   .task-description {
     margin: 0% auto;
@@ -230,7 +233,11 @@
       }
       .wrap-shift-2 {
         top: 2px;
-        left: 88px;
+        left: 87px;
+      }
+      .wrap-shift-3 {
+        top: 2px;
+        left: 130px;
       }
 
 
@@ -301,6 +308,30 @@
     animation-name: send-button__keyframe;
     animation-duration: 0.7s;
   }
+  .wrong-result-animated {
+    animation-name: wrong-result__keyframe;
+    animation-duration: 0.7s;  
+  }
+  .right-answer{
+    display: none;
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: #0f0;
+    z-index: 100;
+    border-radius: 50%;
+    top: calc(50% - 120px/2);
+    left: calc(50% - 120px/2);
+  }
+  .right-answer::after {
+    content: '';
+    position: absolute;
+    width: 54px;
+    height: 30px;
+    transform: rotate(-45deg) translate(3px, 44px);
+    border-left: 8px solid #fff;
+    border-bottom: 8px solid #fff;
+  }
 
 
 .block-html-code {
@@ -311,6 +342,7 @@
   left: calc(50% - 500px/2);
   margin-top: 10px;
   background-color: #eee;
+  overflow-y: scroll;
   font-size: 14px;
 }
 .target-el-animated {
@@ -384,5 +416,8 @@
   .schema-container{
     top: initial;
     bottom: 0;
+  }
+  .help-btn {
+    bottom: 10px;
   }
 }
