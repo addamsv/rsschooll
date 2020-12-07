@@ -32,7 +32,7 @@ export default class Controller extends Model {
         context.setProperSelectorToItsInputField();
         return;
       }
-      if (e.target.id === 'dellResultsBtn') {
+      if (e.target.id === 'dellResultsBtn' || e.target.id === 'newGameBtn') {
         context.removeLevelsData();
         return;
       }
