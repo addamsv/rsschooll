@@ -11,12 +11,26 @@
 @keyframes send-button__keyframe {
   0%{opacity:0.8;}10%{opacity:0.1;}20%{opacity:0.9;}30%{opacity:0.1;}40%{opacity:0.9;}50%{opacity:0.1;}100%{opacity:1;}
 }
+@keyframes letter-typing__keyframe {
+  0%{opacity:0;transform:translate(0px,3px);}100%{opacity:1;}
+}
 
 .main-container {
   display: block;
   position: relative;
   height: 92vh;
   background-color: #ccc;
+}
+.greetings-animation {
+  display: none;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: rgba(255,255,255,.8);
+  top: calc(50% - 500px/2);
+  left: calc(50% - 500px/2);
+  z-index: 100;
+  border-radius: 10px;
 }
 .levels-menu {
   position: relative;
@@ -36,11 +50,12 @@
 }
 .close-menu-btn {
   display: block;
+  position: absolute;
+  top: 0px;
+  right: 10px;
   width: fit-content;
   padding: 3px;
-  background-color: #222;
   font-size: 2em;
-  border-radius: 3px;
   color: #999;
   cursor: pointer;
   transition: all .2s;
@@ -188,8 +203,9 @@
   margin-top: 10px;
 }
   .letter-animated {
-    animation-name: send-button__keyframe;
-    animation-duration: 0.7s;
+    display: inline-block;
+    animation-name: letter-typing__keyframe;
+    animation-duration: 0.1s;
   }
   .send-selector-field{
     display: inline-block;
@@ -231,6 +247,7 @@
   left: calc(50% - 500px/2);
   margin-top: 10px;
   background-color: #eee;
+  font-size: 14px;
 }
 .target-el-animated {
   animation-name: target-el__keyframe;
