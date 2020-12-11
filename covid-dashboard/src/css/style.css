@@ -1,0 +1,69 @@
+.menu {
+  cursor: pointer;
+}
+.menu-close {
+  color: #0f0;
+}
+.menu-open {
+  color: #f00;
+}
+
+
+
+* {
+  outline: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
+
+.header {
+  width: 100vw;
+  height: 80px;
+  background-color: #232323;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 60px;
+  color: #FFF; }
+  .header .dashboard {
+    display: flex;
+    align-items: center;
+    font-size: 36px; }
+  .header .burger-menu {
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; }
+    .header .burger-menu .line {
+      width: 40px;
+      height: 0;
+      border: 2px solid #FFF; }
+
+.footer {
+  width: 100vw;
+  height: 80px;
+  background-color: #232323;
+  color: #FFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  padding: 10px 60px; }
+  .footer .logo img {
+    height: 40px; }
+  .footer .year {
+    align-items: center;
+    font-size: 36px; }
+  .footer .git-link .link img {
+    height: 20px; }
+  .footer .git-link .link a {
+    font-size: 16px;
+    line-height: 30px;
+    color: #FFF;
+    text-decoration: none; }

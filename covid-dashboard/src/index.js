@@ -1,8 +1,7 @@
-import './css/common.style.css';
-import './css/header.style.css';
-import './css/main.style.css';
-import './css/footer.style.css';
+import './css/style.css';
 
-import App from './modules/controller';
+// import init from './modules/app';
+import App from './modules/app';
 
+// const footer = init();
 new App().init();
