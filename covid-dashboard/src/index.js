@@ -1,6 +1,7 @@
 import './css/style.css';
 
-// import init from './modules/app';
+import './assets/images/ok.png';
+
 import App from './modules/app';
 
 // const footer = init();
