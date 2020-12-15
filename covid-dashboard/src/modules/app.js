@@ -1,24 +1,16 @@
 import Functions from "./functions";
-import Footer from './footer';
+import Part3Map from './part_3_map';
 
 export default class App extends Functions {
   constructor() {
     super();
     this.initEvents();
-    this.footer = new Footer().createFooter();
+    this.Part3Map = new Part3Map();
   }
 
   initEvents() {
-    const THIS = this;
-
     function checkEvent(event) {
-      switch (event.target.id) {
-        case 'menuBtn':
-          THIS.toggleMenu();
-          return;
-        default:
-          THIS.closeMenu();
-      }
+      console.log(event);
     }
     /**
      * Add Event Listeners

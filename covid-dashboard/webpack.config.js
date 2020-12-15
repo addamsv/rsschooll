@@ -2,10 +2,13 @@ const PATH = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// require("@babel/core").transform("code", {
+//   plugins: ["transform-runtime"],
+// });
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: ['@babel/polyfill', './src/index.js'],
   output: {
     filename: 'bundle.js',
     path: PATH.resolve(__dirname, 'build'),
