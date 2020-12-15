@@ -10,7 +10,7 @@ module.exports = {
     filename: 'bundle.js',
     path: PATH.resolve(__dirname, 'build'),
     publicPath: '',
-    assetModuleFilename: 'images/[hash][ext][query]',
+    assetModuleFilename: 'assets/images/[name][ext]',
   },
   module: {
     rules: [{
