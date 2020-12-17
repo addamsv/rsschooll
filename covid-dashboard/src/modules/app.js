@@ -1,6 +1,6 @@
 import Functions from "./functions";
 import Part3Map from './part_3_map';
-import Part4Diagram from './part4_diagram';
+import Part4Diagram from './part_4_diagram';
 
 export default class App extends Functions {
   constructor() {

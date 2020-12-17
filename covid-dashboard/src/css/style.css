@@ -14,6 +14,12 @@ body {
   background-color:#000;
 }
 
+h3{
+  text-align: center;
+  font-size: 24px;
+  color: #FFF;
+  line-height: 36px;
+}
 .header {
   width: 100vw;
   height: 60px;
@@ -76,14 +82,31 @@ body {
 .main {
   display: flex;
   width: 100vw;
-  height: calc(100vh - 160px);
+  height: calc(100vh - 120px);
 }
 .main > .left, .main > .map, .main > .right{
   margin: 10px;
 }
 .main .left {
   width: 20%;
+  background-color: #000;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  color: #FFF;
+}
+.main .left .global-cases{
   background-color: #232323;
+  height: 30%;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.main .left .cases-list{
+  background-color: #232323;
+  height: 70%;
+  padding: 5px;
+  overflow-y: auto;
+
 }
 .main .map {
   width: 55%;
