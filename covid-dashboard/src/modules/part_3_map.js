@@ -6,7 +6,6 @@ class Part3Map {
   constructor() {
     this.createMap();
     this.utils = new Utils();
-    console.log(this.utils.getCountryData('Belarus'));
   }
 
   /**
