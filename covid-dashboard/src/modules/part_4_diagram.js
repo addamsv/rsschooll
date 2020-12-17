@@ -106,8 +106,8 @@ class Part4Diagram {
   }; 
 
   createDiagram(xData, yData, type, backgroundColor) {
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let chart = new Chart(ctx, {
       type: type,
       data: {
         labels: xData,
@@ -167,7 +167,6 @@ class Part4Diagram {
       field.textContent = 'incorrect data';
     }
   }
-
 }
 
 export default Part4Diagram;
