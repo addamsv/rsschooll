@@ -1,5 +1,5 @@
 import Utils from './utils';
-import a from './data';
+import a from './libs/data';
 
 const Chart = require('./libs/chart');
 
@@ -103,8 +103,11 @@ class Part4Diagram {
   }
 
   createDiagram(xData, yData, type, backgroundColor) {
+    document.querySelector('.chart').innerHTML = '';
+    const canvas = `<canvas id="myChart"></canvas>`;
+    document.querySelector('.chart').innerHTML = canvas;
     const ctx = document.getElementById('myChart').getContext('2d');
-    const chart = new Chart(ctx, {
+    new Chart(ctx, {
       type,
       data: {
         labels: xData,
@@ -118,6 +121,27 @@ class Part4Diagram {
       options: {
         legend: {
           display: false,
+        },
+        scales: {
+          yAxes: [{
+            gridLines: {
+              display: true,
+            },
+            ticks: {
+              maxTicksLimit: 5,
+              min: 0,
+            },
+
+          }],
+          xAxes: [{
+            gridLines: {
+              display: false,
+            },
+            ticks: {
+              display: false,
+            },
+          }],
+
         },
       },
     });
