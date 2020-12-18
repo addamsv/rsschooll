@@ -13,7 +13,14 @@ class Utils {
     const data = await res.json();
     return data;
   }
-
+  
+  async getGlobal() {
+    const url = `https://api.covid19api.com/summary`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data;
+  }
+  
   async getDailyWorldData() {
     const url = `https://disease.sh/v3/covid-19/historical/all?lastdays=366`;
     const res = await fetch(url);

@@ -26,8 +26,25 @@
       <aside class="left">
         <div class="global-cases">
           <h3>Global Cases</h3>
+          <div id = "allCases"></div>
         </div>
         <div class="cases-list">
+                <aside class="left">
+            <p><select>
+            <option disabled>Pick Specific Data</option>
+            <option selected value="allConfirmedCases">All Confirmed Cases</option>
+            <option value="allDeaths">All Deaths</option>
+            <option value="allRecoveredCases">All Recovered Cases</option>
+            <option value="allConfirmedCasesForLastDay">All Confirmed Cases for Last Day</option>
+            <option value="allDeathCasesForLastDay">All Deaths Cases for Last Day</option>
+            <option value="allRecoveredCasesForLastDay">All Recovered Cases for Last Day</option>
+            <option value="allConfirmedCasesForLastDay">Confirmed Cases per 100000</option>
+            <option value="allConfirmedCasesForLastDay">Deaths Cases per 100000</option>
+            <option value="allConfirmedCasesForLastDay">Recovered Cases per 100000</option>
+            <option value="allConfirmedCasesForLastDay">Confirmed Cases for Last Day per 100000</option>
+            <option value="allConfirmedCasesForLastDay">Deaths Cases for Last Day per 100000</option>
+            <option value="allConfirmedCasesForLastDay">Recovered Cases for Last Day per 100000</option>
+        </select></p>
         </div>
       </aside>
       <section id = "map" class="map"></section>
@@ -37,7 +54,7 @@
         </div>
         <div class="right-chart">
           <div class="chart">
-            
+            <canvas id="myChart"></canvas>
           </div>
           <div class="switch">
             <div class="left-arrow">&lt;</div>
