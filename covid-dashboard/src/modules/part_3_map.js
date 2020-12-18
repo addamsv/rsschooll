@@ -7,7 +7,6 @@ const L = require('./libs/leaflet');
 class Part3Map {
   constructor() {
     this.utils = new Utils();
-    this.utils.getFixed();
     this.createMap();
   }
 
