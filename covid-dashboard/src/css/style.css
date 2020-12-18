@@ -11,16 +11,23 @@ body {
   flex-direction: column;
   justify-content: space-between;
   font-family: Georgia, "Times New Roman", Times, serif;
-  background-color: #220303;
+  background-color:#000;
 }
 
+h3{
+  text-align: center;
+  font-size: 24px;
+  color: #FFF;
+  line-height: 36px;
+}
 .header {
   width: 100vw;
-  height: 80px;
+  height: 60px;
   background-color: #363535;
   display: flex;
   justify-content: space-between;
-  padding: 10px 60px;
+  align-items: center;
+  padding: 5px 60px;
   color: #fff;
 }
 .header .dashboard {
@@ -28,6 +35,34 @@ body {
   align-items: center;
   font-size: 36px;
   letter-spacing: 2px;
+  opacity: 0.7;
+}
+.header .right-part{
+  display: flex;
+}
+.header .search-field{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+}
+.header .search-field .search-field-input{
+  background-color:rgba(255, 255, 255, 0.7);
+  width: 150px;
+  padding: 3px 10px 3px 3px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  overflow: hidden;
+  color: #000;
+}
+
+.header .search-field .search-field-button .search-field-img{
+  width: 30px;
+  height: auto;
+  cursor: pointer;
+  background-color: transparent;
 }
 .header .burger-menu {
   height: 40px;
@@ -35,42 +70,93 @@ body {
   flex-direction: column;
   justify-content: space-around;
   cursor: pointer;
+  margin-left: 30px;
 }
 .header .burger-menu .line {
   width: 40px;
   height: 0;
   border: 2px solid #fff;
+  opacity: 0.7;
 }
 
 .main {
   display: flex;
   width: 100vw;
-  height: calc(100vh - 160px);
-  background-color: #000;
+  height: calc(100vh - 120px);
 }
 .main > .left, .main > .map, .main > .right{
   margin: 10px;
-  background-color: #232323;
 }
 .main .left {
   width: 20%;
+  background-color: #000;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  color: #FFF;
+}
+.main .left .global-cases{
+  background-color: #232323;
+  height: 30%;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.main .left .cases-list{
+  background-color: #232323;
+  height: 70%;
+  padding: 5px;
+  overflow-y: auto;
+
 }
 .main .map {
   width: 55%;
+  background-color: #232323;
 }
 .main .right {
   width: 25%;
+  background-color: #000;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.main .right .right-table{
+  height: 50%;
+  background-color: #232323;
+  margin-bottom: 10px;
+  padding: 5px;
+
+}
+.main .right .right-chart{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 50%;
+  background-color: #232323;
+  padding: 5px;
+}
+.main .right .right-chart .switch{
+  display: flex;
+  justify-content: space-between;
+}
+.main .right .right-chart .switch div{
+  font-size: 20px;
+  color: #FFF;
+}
+.main .right .right-chart .switch .left-arrow:hover, .main .right .right-chart .switch .right-arrow:hover{
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 .footer {
   width: 100vw;
-  height: 80px;
+  height: 60px;
   background-color: #232323;
   color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 60px;
+  padding: 5px 60px;
 }
 .footer .logo {
   cursor: pointer;
@@ -99,3 +185,4 @@ body {
 .footer .git-link .link a img {
   height: 25px;
 }
+
