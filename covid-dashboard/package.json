@@ -1,7 +1,7 @@
 {
-  "name": "rs-css",
+  "name": "covid-dashboard",
   "version": "1.0.0",
-  "description": "woohoo app",
+  "description": "covid app",
   "main": "index.js",
   "scripts": {
     "lint": "eslint ./src",
