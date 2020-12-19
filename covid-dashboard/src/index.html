@@ -26,31 +26,48 @@
       <aside class="left">
         <div class="global-cases">
           <h3>Global Cases</h3>
-          <div id = "allCases"></div>
+          <div class="all-cases"></div>
         </div>
         <div class="cases-list">
-                <aside class="left">
-            <p><select>
-            <option disabled>Pick Specific Data</option>
-            <option selected value="allConfirmedCases">All Confirmed Cases</option>
-            <option value="allDeaths">All Deaths</option>
-            <option value="allRecoveredCases">All Recovered Cases</option>
-            <option value="allConfirmedCasesForLastDay">All Confirmed Cases for Last Day</option>
-            <option value="allDeathCasesForLastDay">All Deaths Cases for Last Day</option>
-            <option value="allRecoveredCasesForLastDay">All Recovered Cases for Last Day</option>
-            <option value="allConfirmedCasesForLastDay">Confirmed Cases per 100000</option>
-            <option value="allConfirmedCasesForLastDay">Deaths Cases per 100000</option>
-            <option value="allConfirmedCasesForLastDay">Recovered Cases per 100000</option>
-            <option value="allConfirmedCasesForLastDay">Confirmed Cases for Last Day per 100000</option>
-            <option value="allConfirmedCasesForLastDay">Deaths Cases for Last Day per 100000</option>
-            <option value="allConfirmedCasesForLastDay">Recovered Cases for Last Day per 100000</option>
-        </select></p>
+          <h3>Cases by Country/ Region/ Sovereignty</h3>
+          <div class="country-list-data">
+          </div>
         </div>
       </aside>
       <section id = "map" class="map"></section>
       <aside class="right">
         <div class="right-table">
+          <div class="table-switches">
+            <div class="period">
+              <div class="period-switcher"></div>
+            </div>
+            <div class="populatio">
+              <div class="population-switcher"></div>
+            </div>
 
+          </div>
+          <h3>Global statistics</h3>
+          <table class="global-table">
+            <tr>
+              <td class="cases">cases</td>
+              <td class="deaths">deaths</td>
+              <td class="recovered">recovered</td>
+            </tr>
+            <tr>
+              <td class="cases">123456</td>
+              <td class="deaths">543</td>
+              <td class="recovered">23459</td>
+            </tr>
+          </table>
+          <h3>Countries' statistics</h3>
+          <table class="countries-table">
+            <tr>
+              <td class="cases">cases</td>
+              <td class="deaths">deaths</td>
+              <td class="recovered">recovered</td>
+            </tr>
+          </table>
+          <div class="right-table_country-cases"></div>
         </div>
         <div class="right-chart">
           <div class="chart">
