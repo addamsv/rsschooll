@@ -1,13 +1,13 @@
 import Functions from "./functions";
-import Part3Map from './part_3_map';
-import Part4Diagram from './part_4_diagram';
+import Part1Table from "./part_1_table";
+
 
 export default class App extends Functions {
   constructor() {
     super();
+    this.Part1Table = new Part1Table()
     this.initEvents();
-    this.Part3Map = new Part3Map();
-    this.Part4Diagram = new Part4Diagram();
+
   }
 
   initEvents() {
