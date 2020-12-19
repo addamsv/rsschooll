@@ -1,12 +1,12 @@
-import Utils from './utils';
+// import Utils from './utils';
 import DATA from './libs/data';
 import GEO_JSON_COUNTRY_LAYERS_DATA from './libs/geoJsonLib';
 
 const L = require('./libs/leaflet');
 
 class Part3Map {
-  constructor() {
-    this.utils = new Utils();
+  constructor(utils) {
+    this.utils = utils;
     this.createMap();
   }
 
@@ -19,6 +19,7 @@ class Part3Map {
     this.makeLayer();
     this.makeMarker();
     this.setCountryLayer();
+    this.polygonDevelopmentKit();
   }
 
   /**
@@ -27,7 +28,7 @@ class Part3Map {
 
   makeMap() {
     const MAP_OPTIONS = {
-      center: [23, 57],
+      center: [0, 57],
       zoom: 2,
     };
     // eslint-disable-next-line new-cap
@@ -40,27 +41,37 @@ class Part3Map {
   }
 
   setMarkerCertainCountry(certainCountryName) {
-    this.utils.getCountryData(certainCountryName).then((result) => {
-      const LAST_DAY_CANADIAN_DATA = this.getLastDayCertainCountryData(result);
-      // console.log(LAST_DAY_CANADIAN_DATA);
-      Object.keys(LAST_DAY_CANADIAN_DATA).some((provinceName) => {
-        if (LAST_DAY_CANADIAN_DATA[provinceName].Lat) {
-          const myIcon = L.icon({
-            iconUrl: './assets/images/ok.png',
-            iconSize: this.getMarkerSizeCertainCountry(LAST_DAY_CANADIAN_DATA[provinceName]),
-          });
-          const markerOptions = {
-            title: `${LAST_DAY_CANADIAN_DATA[provinceName].Province} confirmed: ${LAST_DAY_CANADIAN_DATA[provinceName].Confirmed}`,
-            clickable: true,
-            icon: myIcon,
-          };
-          const marker = L.marker([LAST_DAY_CANADIAN_DATA[provinceName].Lat, LAST_DAY_CANADIAN_DATA[provinceName].Lon], markerOptions);
-          // Deaths: ${LAST_DAY_CANADIAN_DATA[provinceName].Deaths};
-          marker.bindPopup(`${LAST_DAY_CANADIAN_DATA[provinceName].Province} Cases: ${LAST_DAY_CANADIAN_DATA[provinceName].Confirmed}`).openPopup();
-          marker.addTo(this.map);
-        }
-        return false;
+    if (!this.utils.getCountryDataLoaded(certainCountryName)) {
+      this.utils.getCountryData(certainCountryName).then((result) => {
+        this.utils.countryData[certainCountryName] = result;
+        this.setMarkerCertainCountryExecute(result);
       });
+      return false;
+    }
+    this.setMarkerCertainCountryExecute(this.utils.getCountryDataLoaded(certainCountryName));
+    return true;
+  }
+
+  setMarkerCertainCountryExecute(result) {
+    const LAST_DAY_CANADIAN_DATA = this.getLastDayCertainCountryData(result);
+    // console.log(LAST_DAY_CANADIAN_DATA);
+    Object.keys(LAST_DAY_CANADIAN_DATA).some((provinceName) => {
+      if (LAST_DAY_CANADIAN_DATA[provinceName].Lat) {
+        const myIcon = L.icon({
+          iconUrl: './assets/images/ok.png',
+          iconSize: this.getMarkerSizeCertainCountry(LAST_DAY_CANADIAN_DATA[provinceName]),
+        });
+        const markerOptions = {
+          title: `${LAST_DAY_CANADIAN_DATA[provinceName].Province} confirmed: ${LAST_DAY_CANADIAN_DATA[provinceName].Confirmed}`,
+          clickable: true,
+          icon: myIcon,
+        };
+        const marker = L.marker([LAST_DAY_CANADIAN_DATA[provinceName].Lat, LAST_DAY_CANADIAN_DATA[provinceName].Lon], markerOptions);
+        // Deaths: ${LAST_DAY_CANADIAN_DATA[provinceName].Deaths};
+        marker.bindPopup(`${LAST_DAY_CANADIAN_DATA[provinceName].Province} Cases: ${LAST_DAY_CANADIAN_DATA[provinceName].Confirmed}`).openPopup();
+        marker.addTo(this.map);
+      }
+      return false;
     });
   }
 
@@ -98,52 +109,60 @@ class Part3Map {
     return (markerSize) || [DEFAULT_SIZE, DEFAULT_SIZE];
   }
 
+  /**
+   * Creating a marker:
+   * also has iconAnchor: [22, 94], popupAnchor: [-3, -76], shadowUrl: 'ok.png', shadowSize: [68, 95], shadowAnchor: [22, 94]
+   */
   makeMarker() {
-    /**
-     * Creating a marker:
-     * also has iconAnchor: [22, 94], popupAnchor: [-3, -76], shadowUrl: 'ok.png', shadowSize: [68, 95], shadowAnchor: [22, 94]
-     */
+    if (!this.utils.getGlobalLoaded()) {
+      this.utils.getGlobal().then((result) => {
+        this.utils.global = result;
+        this.makeMarkerExecute(result);
+      });
+      return false;
+    }
+    this.makeMarkerExecute(this.utils.getGlobalLoaded());
+    return true;
+  }
 
+  makeMarkerExecute(result) {
     let countriesData = [];
     let countryData = [];
-
-    this.utils.getGlobal().then((result) => {
-      // document.getElementById('allCases').innerHTML = '';
-      document.getElementById('allCases').innerHTML = `<p style="color:#aaa; text-align: center;">${result.Global.TotalConfirmed}</p>`;
-      countriesData = result.Countries;
-      Object.keys(DATA).some((countrySlug) => {
-        switch (countrySlug) {
-          case "france":
-            this.setMarkerCertainCountry('fr');
-            break;
-          case "canada":
-            this.setMarkerCertainCountry('ca');
-            break;
-          case "australia":
-            this.setMarkerCertainCountry('au');
-            break;
-          case "china":
-            this.setMarkerCertainCountry('cn');
-            break;
-          default:
-        }
-        if (DATA[countrySlug].Lon) {
-          countryData = this.getCountryData(countriesData, countrySlug);
-          const myIcon = L.icon({
-            iconUrl: './assets/images/ok.png',
-            iconSize: this.getMarkerSize(countryData),
-          });
-          const markerOptions = {
-            title: `${countryData.Country} confirmed: ${countryData.TotalConfirmed}`,
-            clickable: true,
-            icon: myIcon,
-          };
-          const marker = L.marker([DATA[countrySlug].Lat, DATA[countrySlug].Lon], markerOptions);
-          marker.bindPopup(`${countryData.Country} Deaths: ${countryData.TotalDeaths}; Cases: ${countryData.TotalConfirmed}`).openPopup();
-          marker.addTo(this.map);
-        }
-        return false;
-      });
+    document.querySelector('.all-cases').innerHTML = `<p style="color:#aaa; text-align: center;">${result.Global.TotalConfirmed}</p>
+    <p style="color:#aaa; text-align: center;">on ${result.Date}</p>`;
+    countriesData = result.Countries;
+    Object.keys(DATA).some((countrySlug) => {
+      // switch (countrySlug) {
+      //   case "france":
+      //     this.setMarkerCertainCountry('fr');
+      //     break;
+      //   case "canada":
+      //     this.setMarkerCertainCountry('ca');
+      //     break;
+      //   case "australia":
+      //     this.setMarkerCertainCountry('au');
+      //     break;
+      //   case "china":
+      //     this.setMarkerCertainCountry('cn');
+      //     break;
+      //   default:
+      // }
+      if (DATA[countrySlug].Lon) {
+        countryData = this.getCountryData(countriesData, countrySlug);
+        const myIcon = L.icon({
+          iconUrl: './assets/images/ok.png',
+          iconSize: this.getMarkerSize(countryData),
+        });
+        const markerOptions = {
+          title: `${countryData.Country} confirmed: ${countryData.TotalConfirmed}`,
+          clickable: true,
+          icon: myIcon,
+        };
+        const marker = L.marker([DATA[countrySlug].Lat, DATA[countrySlug].Lon], markerOptions);
+        marker.bindPopup(`${countryData.Country} Deaths: ${countryData.TotalDeaths}; Cases: ${countryData.TotalConfirmed}`).openPopup();
+        marker.addTo(this.map);
+      }
+      return false;
     });
   }
 
@@ -198,6 +217,24 @@ class Part3Map {
       fillColor: "red",
     });
     gpsMarker.addTo(this.map);
+  }
+
+  polygonDevelopmentKit() {
+    this.map.on("click", (e) => {
+      console.log(`[${e.latlng.lng}, ${e.latlng.lat}],`);
+      const myIcon = L.icon({
+        iconUrl: './assets/images/ok.png',
+        iconSize: [6, 6],
+      });
+      const markerOptions = {
+        title: ``,
+        clickable: true,
+        icon: myIcon,
+      };
+      const marker = L.marker([e.latlng.lat, e.latlng.lng], markerOptions);
+      marker.bindPopup(`[${e.latlng.lat}, ${e.latlng.lng}]`).openPopup();
+      marker.addTo(this.map);
+    });
   }
 }
 
