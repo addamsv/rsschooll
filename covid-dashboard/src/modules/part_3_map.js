@@ -1,13 +1,17 @@
-// import Utils from './utils';
 import DATA from './libs/data';
-import GEO_JSON_COUNTRY_LAYERS_DATA from './libs/geoJsonLib';
 
 const L = require('./libs/leaflet');
 
 class Part3Map {
   constructor(utils) {
+    /* means 1-1000: 5px, 1000-3000: 9px... */
+    this.constrain = [
+      [1, 2], [1000, 5], [3000, 9], [20000, 12], [50000, 14], [100000, 16], [250000, 18], [400000, 20],
+      [500000, 22], [1000000, 24], [5000000, 26], [10000000, 28], [15000000, 30]];
     this.utils = utils;
     this.createMap();
+    this.setLegend();
+    this.setHint();
   }
 
   /**
@@ -19,7 +23,10 @@ class Part3Map {
     this.makeLayer();
     this.makeMarker();
     this.setCountryLayer();
+    this.markers = [];
+    this.polygonDevelopmentKitMarkersArray = [];
     this.polygonDevelopmentKit();
+    this.setAllCases();
   }
 
   /**
@@ -38,6 +45,23 @@ class Part3Map {
   makeLayer() {
     const LAYER = new L.TileLayer('https://{s}.basemaps.cartocdn.com/spotify_dark/{z}/{x}/{y}.png');
     this.map.addLayer(LAYER);
+  }
+
+  setAllCases() {
+    if (!this.utils.getForGlobalCasesPartLoaded()) {
+      this.utils.getDataForGlobalCasesPart().then((result) => {
+        this.utils.forGlobalCasesPart = result;
+        this.setAllCasesExecute(result);
+      });
+      return false;
+    }
+    this.setAllCasesExecute(this.utils.getForGlobalCasesPartLoaded());
+    return true;
+  }
+
+  setAllCasesExecute(result) {
+    document.querySelector('.all-cases').innerHTML = `${result.cases}
+    <p style="color:#aaa; text-align: center; font-size: 14px">today</p>`;
   }
 
   setMarkerCertainCountry(certainCountryName) {
@@ -95,8 +119,7 @@ class Part3Map {
     if (!provinceObject.Confirmed) {
       return [5, 5];
     }
-    const CONSTRAIN = [[1, 5], [1000, 7], [3000, 9], [20000, 12], [50000, 14], [100000, 16], [250000, 18],
-      [400000, 20], [500000, 22], [1000000, 24], [5000000, 25], [10000000, 30], [15000000, 40]];
+    const CONSTRAIN = this.constrain;
     const DEFAULT_SIZE = 27;
     let markerSize;
     CONSTRAIN.some((constrainElement) => {
@@ -114,6 +137,15 @@ class Part3Map {
    * also has iconAnchor: [22, 94], popupAnchor: [-3, -76], shadowUrl: 'ok.png', shadowSize: [68, 95], shadowAnchor: [22, 94]
    */
   makeMarker() {
+    // if (!this.utils.getGlobalLoaded()) {
+    //   this.utils.getGlobal().then((result) => {
+    //     this.utils.global = result;
+    //     this.makeMarkerExecute(result);
+    //   });
+    //   return false;
+    // }
+    // this.makeMarkerExecute(this.utils.getGlobalLoaded());
+    // return true;
     if (!this.utils.getGlobalLoaded()) {
       this.utils.getGlobal().then((result) => {
         this.utils.global = result;
@@ -126,11 +158,11 @@ class Part3Map {
   }
 
   makeMarkerExecute(result) {
-    let countriesData = [];
+    // let countriesData = [];
     let countryData = [];
-    document.querySelector('.all-cases').innerHTML = `<p style="color:#aaa; text-align: center;">${result.Global.TotalConfirmed}</p>
-    <p style="color:#aaa; text-align: center;">on ${result.Date}</p>`;
-    countriesData = result.Countries;
+    // document.querySelector('.all-cases').innerHTML = `${result.Global.TotalConfirmed}
+    // <p style="color:#aaa; text-align: center; font-size: 14px">api.covid19.com: on ${result.Date}</p>`;
+    // countriesData = result.Countries;
     Object.keys(DATA).some((countrySlug) => {
       // switch (countrySlug) {
       //   case "france":
@@ -147,32 +179,33 @@ class Part3Map {
       //     break;
       //   default:
       // }
-      if (DATA[countrySlug].Lon) {
-        countryData = this.getCountryData(countriesData, countrySlug);
+      if (DATA[countrySlug].Lon && DATA[countrySlug].ISO2) {
+        countryData = this.getCountryData(result, DATA[countrySlug].ISO2);
         const myIcon = L.icon({
           iconUrl: './assets/images/ok.png',
           iconSize: this.getMarkerSize(countryData),
         });
         const markerOptions = {
-          title: `${countryData.Country} confirmed: ${countryData.TotalConfirmed}`,
+          title: `${countryData.country} cases: ${countryData.cases}`,
           clickable: true,
           icon: myIcon,
         };
         const marker = L.marker([DATA[countrySlug].Lat, DATA[countrySlug].Lon], markerOptions);
-        marker.bindPopup(`${countryData.Country} Deaths: ${countryData.TotalDeaths}; Cases: ${countryData.TotalConfirmed}`).openPopup();
+        this.markers.push(marker);
+        marker.bindPopup(`${countryData.country} Deaths: ${countryData.deaths}; Cases: ${countryData.cases}`).openPopup();
         marker.addTo(this.map);
       }
       return false;
     });
   }
 
-  getCountryData(objArray, countrySlug) {
+  getCountryData(array, countrySlug) {
     let data = {};
-    if (!objArray) {
+    if (!array) {
       return false;
     }
-    objArray.some((innerObject) => {
-      if (innerObject.Slug === countrySlug || innerObject.Province === countrySlug) {
+    array.some((innerObject) => {
+      if (innerObject.countryInfo.iso2 === countrySlug) {
         data = innerObject;
         return true;
       }
@@ -182,16 +215,14 @@ class Part3Map {
   }
 
   getMarkerSize(countryData) {
-    if (!countryData.TotalConfirmed) {
+    if (!countryData.cases) {
       return [5, 5];
     }
-    const CONSTRAIN = [
-      [1, 5], [1000, 7], [3000, 9], [20000, 12], [50000, 14], [100000, 16], [250000, 18], [400000, 20],
-      [500000, 22], [1000000, 24], [5000000, 25], [10000000, 30], [15000000, 40]];
+    const CONSTRAIN = this.constrain;
     const DEFAULT_SIZE = 27;
     let markerSize;
     CONSTRAIN.some((constrainElement) => {
-      if (constrainElement[0] >= countryData.TotalConfirmed) {
+      if (constrainElement[0] >= countryData.cases) {
         markerSize = [constrainElement[1], constrainElement[1]];
         return true;
       }
@@ -200,28 +231,113 @@ class Part3Map {
     return (markerSize) || [DEFAULT_SIZE, DEFAULT_SIZE];
   }
 
+  getCountryGeoJsonData() {
+    let polygon;
+    const GEO_JSON_POLYGONS = {
+      type: "FeatureCollection",
+      features: [],
+    };
+    Object.keys(DATA).some((el) => {
+      if (DATA[el].data.length) {
+        polygon = {
+          type: "Feature",
+          properties: {
+            popupContent: el,
+            popupISO: DATA[el].ISO2,
+            popupCases: DATA[el].ISO2,
+            popupDeaths: DATA[el].ISO2,
+            popupRecovered: DATA[el].ISO2,
+            popupLat: DATA[el].Lat,
+            popupLon: DATA[el].Lon,
+          },
+          geometry: {
+            type: "MultiPolygon",
+            coordinates: DATA[el].data,
+          },
+        };
+        GEO_JSON_POLYGONS.features.push(polygon);
+      }
+      return false;
+    });
+    return GEO_JSON_POLYGONS;
+  }
+
   setCountryLayer() {
+    const style = {
+      default: {
+        opacity: 0,
+        fillOpacity: 0,
+      },
+      highlight: {
+        opacity: 0.3,
+        fillOpacity: 0.2,
+      },
+    };
     // eslint-disable-next-line new-cap
-    const gpsMarker = new L.geoJson(GEO_JSON_COUNTRY_LAYERS_DATA, {
+    // console.log(GEO_JSON_COUNTRY_LAYERS_DATA);
+    // console.log(this.getCountryGeoJsonData());
+    const CONTEXT = this;
+    // eslint-disable-next-line new-cap
+    const gpsMarker = new L.geoJson(this.getCountryGeoJsonData(), {
       onEachFeature(feature, layer) {
         if (feature.properties && feature.properties.popupContent) {
-          layer.bindPopup(feature.properties.popupContent, { closeButton: false, offset: L.point(0, 0) });
-          layer.on('mouseover', () => { console.log(feature.properties.popupContent); });
-          layer.on('mouseout', () => { console.log('something'); });
+          layer.bindPopup(feature.properties.popupContent, { closeButton: true, offset: L.point(0, 0) });
+          layer.on('click', () => {
+            CONTEXT.utils.setEventOfChangeCountry(feature.properties.popupISO);
+          });
+          layer.on('mouseover', () => {
+            document.querySelector('.country-name-hint').innerText = `Country: ${CONTEXT.capitalizeFirstLetter(feature.properties.popupContent)}`;
+            document.querySelector('.country-data').innerText = `Cases: ${feature.properties.popupISO}`;
+            layer.setStyle(style.highlight);
+          });
+          layer.on('mouseout', () => {
+            document.querySelector('.country-name-hint').innerText = '';
+            document.querySelector('.country-data').innerText = '';
+            layer.setStyle(style.default);
+          });
         }
       },
       color: 'red',
       weight: 1,
-      opacity: 0.2,
-      fillOpacity: 0.1,
+      opacity: 0,
+      fillOpacity: 0,
       fillColor: "red",
     });
     gpsMarker.addTo(this.map);
   }
 
+  setDataByCase(countryName, queryCase = 'confirmed') {
+    console.log(`${countryName} ${queryCase}`);
+  }
+
+  capitalizeFirstLetter(string) {
+    const stringArray = string.split('-');
+    if (stringArray.length > 0) {
+      stringArray.some((partName, index) => {
+        stringArray[index] = partName.charAt(0).toUpperCase() + partName.slice(1);
+        return false;
+      });
+      return stringArray.join(' ');
+    }
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  removeAllMarkers() {
+    this.markers.some((marker) => {
+      this.map.removeLayer(marker);
+      return false;
+    });
+  }
+
+  moveViewTo() {
+    // this.map.panTo(new L.LatLng(53.71, 27.9));
+    // this.map.setZoom(4);
+    // this.map.flyTo(new L.LatLng(53.71, 27.9), 8);
+    this.map.setView(new L.LatLng(53.71, 27.9), 4, { animation: true });
+  }
+
   polygonDevelopmentKit() {
     this.map.on("click", (e) => {
-      console.log(`[${e.latlng.lng}, ${e.latlng.lat}],`);
       const myIcon = L.icon({
         iconUrl: './assets/images/ok.png',
         iconSize: [6, 6],
@@ -231,10 +347,44 @@ class Part3Map {
         clickable: true,
         icon: myIcon,
       };
+      this.polygonDevelopmentKitMarkersArray.push([e.latlng.lng, e.latlng.lat]);
       const marker = L.marker([e.latlng.lat, e.latlng.lng], markerOptions);
-      marker.bindPopup(`[${e.latlng.lat}, ${e.latlng.lng}]`).openPopup();
+      marker.bindPopup(`${JSON.stringify(this.polygonDevelopmentKitMarkersArray)}`).openPopup();
       marker.addTo(this.map);
     });
+  }
+
+  setLegend() {
+    const legend = L.control({ position: 'topright' });
+    legend.onAdd = () => {
+      const DIV = L.DomUtil.create('div', 'info legend');
+      const LABELS = ['<strong  style="color:#aaa;">Legend</strong>'];
+      const categories = this.constrain;
+      let dimension;
+      for (let i = categories.length - 1; i >= 0; i--) {
+        dimension = i === 0 ? categories[i][1] : categories[i][1];
+        DIV.innerHTML
+              += LABELS.push(
+            `<div><img src="./assets/images/ok.png" class="circle" style="width:${dimension}px;height:${dimension}px;}"><span style="color:#aaa;"> ${
+              i === 0 ? 0 : categories[i - 1][0]}-${categories[i][0]}</span></div>`,
+          );
+      }
+      DIV.innerHTML = LABELS.join('');
+      return DIV;
+    };
+    legend.addTo(this.map);
+  }
+
+  setHint() {
+    const legend = L.control({ position: 'topleft' });
+    legend.onAdd = () => {
+      const DIV = L.DomUtil.create('div', 'info country-hint');
+      const HTML = `<div data-set-country="country" class="country-name-hint" style="color:#aaa;">Country: Belarus</div>
+                  <div class="country-data" style="color:#aaa;">Cases: 1234</div>`;
+      DIV.innerHTML = HTML;
+      return DIV;
+    };
+    legend.addTo(this.map);
   }
 }
 
