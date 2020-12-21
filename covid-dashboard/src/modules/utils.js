@@ -4,27 +4,31 @@ class Utils {
     this.countryData = {};
     this.worldData = null;
     this.dailyWorldData = null;
+    this.forGlobalCasesPart = null;
+    this.typeOfCase = 'cases';
   }
 
   getCountryDataLoaded(country) {
-    if (this.countryData[country]) {
-      return this.countryData[country];
-    }
-    return false;
+    return this.countryData[country] ? this.countryData[country] : false;
   }
 
   getDailyWorldDataLoaded() {
-    if (this.dailyWorldData) {
-      return this.dailyWorldData;
-    }
-    return false;
+    return this.dailyWorldData ? this.dailyWorldData : false;
   }
 
   getGlobalLoaded() {
-    if (this.global) {
-      return this.global;
-    }
-    return false;
+    return this.global ? this.global : false;
+  }
+
+  getForGlobalCasesPartLoaded() {
+    return this.forGlobalCasesPart ? this.forGlobalCasesPart : false;
+  }
+
+  async getDataForGlobalCasesPart() {
+    const url = `https://disease.sh/v3/covid-19/all`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data;
   }
 
   async getCountryData(country) {
@@ -43,10 +47,14 @@ class Utils {
   }
 
   async getGlobal() {
-    const url = `https://api.covid19api.com/summary`;
+    const url = `https://disease.sh/v3/covid-19/countries`;
     const res = await fetch(url);
     const data = await res.json();
     return data;
+    // const url = `https://api.covid19api.com/summary`;
+    // const res = await fetch(url);
+    // const data = await res.json();
+    // return data;
   }
 
   async getDailyWorldData() {
@@ -54,6 +62,25 @@ class Utils {
     const res = await fetch(url);
     const data = await res.json();
     return data;
+  }
+
+  setEventOfChangeCountry(countryName) {
+    const ELEMENT = document.querySelector('[data-set-country]');
+    ELEMENT.dataset.setCountry = countryName;
+    ELEMENT.click();
+  }
+
+  setTypeOfCase(type = 'cases') {
+    switch (type) {
+      case 'deaths':
+        this.typeOfCase = 'deaths';
+        break;
+      case 'recovered':
+        this.typeOfCase = 'recovered';
+        break;
+      default:
+        this.typeOfCase = 'cases';
+    }
   }
 }
 
