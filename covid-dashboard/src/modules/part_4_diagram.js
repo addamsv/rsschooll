@@ -60,6 +60,7 @@ class Part4Diagram {
   createWorldDiagram(diagramIndex) {
     if (!this.utils.getDailyWorldDataLoaded()) {
       this.utils.getDailyWorldData().then((dailyWorldData) => {
+        this.utils.dailyWorldData = dailyWorldData;
         this.createWorldDiagramExecute(diagramIndex, dailyWorldData);
       });
       return false;
