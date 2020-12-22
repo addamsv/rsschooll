@@ -26,8 +26,10 @@ class Part2List {
   createCountryListExecute(result) {
     // const countriesData = result.Countries;
     let countryListHTMLData = '';
+    let countryInputListHTMLData = '';
     const countryDataArray = [];
-    const listWrapper = document.querySelector('.country-list-data');
+    const LIST_WRAPPER = document.querySelector('.country-list-data');
+    const INPUT_LIST_WRAPPER = document.getElementById('countriesList');
     let countryNameAndTypeData;
     Object.keys(DATA).some((countrySlug) => {
       // switch (countrySlug) {
@@ -46,21 +48,26 @@ class Part2List {
       //   default:
       // }
       if (DATA[countrySlug].Lon) {
-        countryNameAndTypeData = this.getCountryName(result, DATA[countrySlug].ISO2);
-        countryDataArray.push(countryNameAndTypeData);
+        countryNameAndTypeData = this.getCountryDataByName(result, DATA[countrySlug].ISO2);
+        if (countryNameAndTypeData.length !== 0) {
+          countryDataArray.push(countryNameAndTypeData);
+        }
       }
       return false;
     });
     countryDataArray.sort((a, b) => b[1] - a[1]).some((object) => {
       countryListHTMLData += `<div data-country="${object[2]}" class="country-list-data-unit"><span class="number">${object[1]}</span>
-      <span class="span country">${object[0]}</span></div>`;
-      listWrapper.innerHTML = countryListHTMLData;
+      <span class="span country">${object[0]}</span><img class="country-flag" style="width:27px;height:auto;" src="${object[3]}" alt="${object[2]}"></div>`;
+
+      countryInputListHTMLData += `<option value="${object[0]}">${object[0]}</option>`;
       return false;
     });
+    LIST_WRAPPER.innerHTML = countryListHTMLData;
+    INPUT_LIST_WRAPPER.innerHTML = countryInputListHTMLData;
   }
 
-  getCountryName(countriesData, countrySlug) {
-    const countryNameTypeData = ['', '', ''];
+  getCountryDataByName(countriesData, countrySlug) {
+    const countryNameTypeData = [];
     countriesData.some((countryObject) => {
       if (countryObject.countryInfo.iso2 === countrySlug) {
         /* Country Name */
@@ -69,6 +76,8 @@ class Part2List {
         countryNameTypeData[1] = this.getMountByType(countryObject); // countryObject[type];
         /* Country Name ISO2 format */
         countryNameTypeData[2] = countryObject.countryInfo.iso2;
+        /* Country Flag (URL) */
+        countryNameTypeData[3] = countryObject.countryInfo.flag;
         return true;
       }
       return false;

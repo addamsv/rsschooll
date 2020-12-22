@@ -64,7 +64,7 @@ class Part3Map {
     this.setCountryLayer();
     this.markers = [];
     this.polygonDevelopmentKitMarkersArray = [];
-    this.polygonDevelopmentKit();
+    // this.polygonDevelopmentKit();
     this.setAllCases();
     this.setSelectOfCasesTypes();
   }
@@ -262,28 +262,54 @@ class Part3Map {
     return (markerSize) || [DEFAULT_SIZE, DEFAULT_SIZE];
   }
 
-  getCountryGeoJsonData() {
+  setCountryLayer() {
+    if (!this.utils.getGlobalLoaded()) {
+      this.utils.getGlobal().then((result) => {
+        this.utils.global = result;
+        this.setCountryLayerExecute(this.getCountryGeoJsonDataExecute(result));
+      });
+      return false;
+    }
+    this.setCountryLayerExecute(this.getCountryGeoJsonDataExecute(this.utils.getGlobalLoaded()));
+    return true
+  }
+
+  getCountryGeoJsonDataExecute(countriesData) {
     let polygon;
     const GEO_JSON_POLYGONS = {
       type: "FeatureCollection",
       features: [],
     };
-    Object.keys(DATA).some((el) => {
-      if (DATA[el].data.length) {
+    let countryNameAndTypeData;
+    Object.keys(DATA).some((countrySlug) => {
+      if (DATA[countrySlug].data.length) {
+        countryNameAndTypeData = this.getCountryDataByName(countriesData, DATA[countrySlug].ISO2);
         polygon = {
           type: "Feature",
           properties: {
-            popupContent: el,
-            popupISO: DATA[el].ISO2,
-            popupCases: DATA[el].ISO2,
-            popupDeaths: DATA[el].ISO2,
-            popupRecovered: DATA[el].ISO2,
-            popupLat: DATA[el].Lat,
-            popupLon: DATA[el].Lon,
+            popupContent: countrySlug,
+            popupISO: DATA[countrySlug].ISO2,
+            popupFlag: countryNameAndTypeData[12],
+
+            casesAll: countryNameAndTypeData[8],
+            deathsAll: countryNameAndTypeData[0],
+            recoveredAll: countryNameAndTypeData[4],
+
+            casesDay: countryNameAndTypeData[10],
+            deathsDay: countryNameAndTypeData[2],
+            recoveredDay: countryNameAndTypeData[6],
+
+            casesDay100: countryNameAndTypeData[11],
+            deathsDay100: countryNameAndTypeData[3],
+            recoveredDay100: countryNameAndTypeData[7],
+
+            casesAll100: countryNameAndTypeData[9],
+            deathsAll100: countryNameAndTypeData[1],
+            recoveredAll100: countryNameAndTypeData[5],
           },
           geometry: {
             type: "MultiPolygon",
-            coordinates: DATA[el].data,
+            coordinates: DATA[countrySlug].data,
           },
         };
         GEO_JSON_POLYGONS.features.push(polygon);
@@ -293,7 +319,31 @@ class Part3Map {
     return GEO_JSON_POLYGONS;
   }
 
-  setCountryLayer() {
+  getCountryDataByName(countriesData, iso2Name) {
+    const countryNameTypeData = [];
+    countriesData.some((countryObject) => {
+      if (countryObject.countryInfo.iso2 === iso2Name) {
+        countryNameTypeData[0] = countryObject.deaths; // 'deathsAll';
+        countryNameTypeData[1] = (countryObject.deaths / countryObject.population) * 100000; // 'deathsAll100';
+        countryNameTypeData[2] = countryObject.todayDeaths; // 'deathsDay';
+        countryNameTypeData[3] = (countryObject.todayDeaths / countryObject.population) * 100000; // 'deathsDay100';
+        countryNameTypeData[4] = countryObject.recovered; // 'recoveredAll';
+        countryNameTypeData[5] = (countryObject.recovered / countryObject.population) * 100000; // 'recoveredAll100';
+        countryNameTypeData[6] = countryObject.todayRecovered; // 'recoveredDay';
+        countryNameTypeData[7] = (countryObject.todayRecovered / countryObject.population) * 100000; // 'recoveredDay100';
+        countryNameTypeData[8] = countryObject.cases; // casesAll
+        countryNameTypeData[9] = (countryObject.cases / countryObject.population) * 100000; // 'casesAll100';
+        countryNameTypeData[10] = countryObject.todayCases; // 'casesDay';
+        countryNameTypeData[11] = (countryObject.todayCases / countryObject.population) * 100000; // 'casesDay100';
+        countryNameTypeData[12] = countryObject.countryInfo.flag;
+        return true;
+      }
+      return false;
+    });
+    return countryNameTypeData;
+  }
+
+  setCountryLayerExecute(geoJsonData) {
     const style = {
       default: {
         opacity: 0,
@@ -308,8 +358,9 @@ class Part3Map {
     // console.log(GEO_JSON_COUNTRY_LAYERS_DATA);
     // console.log(this.getCountryGeoJsonData());
     const CONTEXT = this;
+    console.log(geoJsonData);
     // eslint-disable-next-line new-cap
-    const gpsMarker = new L.geoJson(this.getCountryGeoJsonData(), {
+    const gpsMarker = new L.geoJson(geoJsonData, {
       onEachFeature(feature, layer) {
         if (feature.properties && feature.properties.popupContent) {
           layer.bindPopup(feature.properties.popupContent, { closeButton: true, offset: L.point(0, 0) });
@@ -318,7 +369,7 @@ class Part3Map {
           });
           layer.on('mouseover', () => {
             document.querySelector('.country-name-hint').innerText = `Country: ${CONTEXT.capitalizeFirstLetter(feature.properties.popupContent)}`;
-            document.querySelector('.country-data').innerText = `Cases: ${feature.properties.popupISO}`;
+            document.querySelector('.country-data').innerText = `Cases: ${feature.properties[CONTEXT.utils.typeOfCase]}`;
             layer.setStyle(style.highlight);
           });
           layer.on('mouseout', () => {
@@ -416,7 +467,7 @@ class Part3Map {
       DIV.innerHTML += `<strong class="legend-name">Type of Case:</strong>
       <p><select data-case="cases">
         <option disabled>Pick a Case:</option>
-        
+
         <option selected value="casesAll">casesAll</option>
         <option value="deathsAll">deathsAll</option>
         <option value="recoveredAll">recoveredAll</option>
