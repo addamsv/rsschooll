@@ -159,6 +159,11 @@ h3{
   line-height: 30px;
   border-bottom: solid 1px rgb(130, 126, 126);
 }
+.main .left .cases-list .country-list-data .country-list-data-unit:hover{
+  cursor: pointer;
+  background-color: #3c3c3c;
+  font-weight: bold;
+}
 .main .left .cases-list .country-list-data .country-list-data-unit .number{
   color:rgb(184, 16, 16);
   display: inline-block;
