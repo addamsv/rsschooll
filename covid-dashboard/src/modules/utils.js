@@ -70,17 +70,50 @@ class Utils {
     ELEMENT.click();
   }
 
-  setTypeOfCase(type = 'cases') {
+  setTypeOfCase(type = 'casesAll') {
+    const ELEMENT = document.querySelector('[data-set-case]');
     switch (type) {
-      case 'deaths':
-        this.typeOfCase = 'deaths';
+      case 'deathsAll':
+        this.typeOfCase = 'deathsAll';
         break;
-      case 'recovered':
-        this.typeOfCase = 'recovered';
+      case 'deathsAll100':
+        this.typeOfCase = 'deathsAll100';
+        break;
+      case 'deathsDay':
+        this.typeOfCase = 'deathsDay';
+        break;
+      case 'deathsDay100':
+        this.typeOfCase = 'deathsDay100';
+        break;
+      case 'recoveredAll':
+        this.typeOfCase = 'recoveredAll';
+        break;
+      case 'recoveredAll100':
+        this.typeOfCase = 'recoveredAll100';
+        break;
+      case 'recoveredDay':
+        this.typeOfCase = 'recoveredDay';
+        break;
+      case 'recoveredDay100':
+        this.typeOfCase = 'recoveredDay100';
+        break;
+      case 'casesAll':
+        this.typeOfCase = 'casesAll';
+        break;
+      case 'casesAll100':
+        this.typeOfCase = 'casesAll100';
+        break;
+      case 'casesDay':
+        this.typeOfCase = 'casesDay';
+        break;
+      case 'casesDay100':
+        this.typeOfCase = 'casesDay100';
         break;
       default:
-        this.typeOfCase = 'cases';
+        this.typeOfCase = 'casesAll';
     }
+    ELEMENT.dataset.setCase = this.typeOfCase;
+    ELEMENT.click();
   }
 }
 

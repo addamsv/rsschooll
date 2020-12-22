@@ -14,43 +14,57 @@ export default class App extends Functions {
     super();
     this.initEvents();
     this.utils = new Utils();
-    this.Part3Map = new Part3Map(this.utils);
-    this.Part4Diagram = new Part4Diagram(this.utils);
-    this.Part2List = new Part2List(this.utils);
+    this.part3Map = new Part3Map(this.utils);
+    this.part4Diagram = new Part4Diagram(this.utils);
+    this.part2List = new Part2List(this.utils);
   }
 
   initEvents() {
     const CONTEXT = this;
     function checkEvent(event) {
+      /* countries */
       if (event.target && event.target.dataset && event.target.dataset.setCountry) {
-        // CONTEXT.Part2List.setDataByCase(event.target.dataset.setCountry);
-        CONTEXT.Part3Map.setDataByCase(event.target.dataset.setCountry);
-        // CONTEXT.Part4Diagram.setDataByCase(event.target.dataset.setCountry);
+        const ISO2 = event.target.dataset.setCountry;
+        // CONTEXT.part2List.setDataByCountry(event.target.dataset.setCountry);
+        CONTEXT.part3Map.setDataByCountry(ISO2);
+        CONTEXT.part4Diagram.setDataByCountry(ISO2);
       }
       if (event.target && event.target.dataset && event.target.dataset.country) {
-        // CONTEXT.Part2List.setDataByCase(event.target.dataset.country);
-        CONTEXT.Part3Map.setDataByCase(event.target.dataset.country);
-        // CONTEXT.Part4Diagram.setDataByCase(event.target.dataset.country);
+        const ISO2 = event.target.dataset.country;
+        CONTEXT.utils.setEventOfChangeCountry(ISO2);
       }
       if (event.target && event.target.parentElement && event.target.parentElement.dataset.country) {
-        // CONTEXT.Part2List.setDataByCase(event.target.parentElement.country);
-        CONTEXT.Part3Map.setDataByCase(event.target.parentElement.dataset.country);
-        // CONTEXT.Part4Diagram.setDataByCase(event.target.parentElement.country);
+        const ISO2 = event.target.parentElement.dataset.country;
+        CONTEXT.utils.setEventOfChangeCountry(ISO2);
+      }
+      /* cases */
+      if (event.target && event.target.dataset && event.target.dataset.setCase) {
+        // CONTEXT.part2List.setDataByCase(event.target.dataset.setCase);
+        CONTEXT.part3Map.setDataByCase(event.target.dataset.setCase);
+        CONTEXT.part4Diagram.setDataByCase(event.target.dataset.setCase);
+      }
+    }
+    function checkSelect(event) {
+      if (event.target && event.target.dataset && event.target.dataset.case) {
+        event.stopPropagation();
+        // console.log(event.target[event.target.selectedIndex].value);//+ ' '+ event.target[event.target.selectedIndex].value
+        const CASE = event.target[event.target.selectedIndex].value;
+        CONTEXT.utils.setTypeOfCase(CASE);
       }
     }
     function getPreviousDiagram() {
-      CONTEXT.Part4Diagram.getPreviousDiagram();
+      CONTEXT.part4Diagram.getPreviousDiagram();
     }
     function getNextDiagram() {
-      CONTEXT.Part4Diagram.getNextDiagram();
+      CONTEXT.part4Diagram.getNextDiagram();
     }
     function checkCountryExists() {
-      CONTEXT.Part4Diagram.checkCountryExists(inputCountryField);
+      CONTEXT.part4Diagram.checkCountryExists(inputCountryField);
     }
     /**
      * Add Event Listeners
      */
-    // document.addEventListener('click', checkEvent);
+    document.addEventListener('change', checkSelect);
     document.addEventListener('click', checkEvent);
     leftArrow.addEventListener('click', () => getPreviousDiagram());
     rightArrow.addEventListener('click', () => getNextDiagram());

@@ -14,6 +14,15 @@ class Part3Map {
     this.setHint();
   }
 
+  setDataByCountry(countryName) {
+    this.moveViewTo(this.getCountryCoordinates(countryName));
+    console.log(`${countryName} ${this.getCountryCoordinates(countryName)}`);
+  }
+
+  setDataByCase(caseName) {
+    console.log(`part3 case: ${caseName}`);
+  }
+
   /**
   * Interface (@public)
   */
@@ -306,11 +315,6 @@ class Part3Map {
     gpsMarker.addTo(this.map);
   }
 
-  setDataByCase(countryName, queryCase = 'confirmed') {
-    this.moveViewTo(this.getCountryCoordinates(countryName));
-    console.log(`${countryName} ${queryCase} ${this.getCountryCoordinates(countryName)}`);
-  }
-
   getCountryCoordinates(iso2) {
     const latLon = [];
     Object.keys(DATA).some((country) => {
@@ -387,7 +391,7 @@ class Part3Map {
     const legend = L.control({ position: 'topleft' });
     legend.onAdd = () => {
       const DIV = L.DomUtil.create('div', 'info country-hint');
-      const HTML = `<div data-set-country="country" class="country-name-hint" style="color:#aaa;">Country: Belarus</div>
+      const HTML = `<div class="country-name-hint" style="color:#aaa;">Country: Belarus</div>
                   <div class="country-data" style="color:#aaa;">Cases: 1234</div>`;
       DIV.innerHTML = HTML;
       return DIV;

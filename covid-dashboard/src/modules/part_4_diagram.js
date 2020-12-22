@@ -57,6 +57,19 @@ class Part4Diagram {
     this.createWorldDiagram(this.currentDiagram);
   }
 
+  /**
+   * Common Messages
+   */
+
+  setDataByCase(caseName) {
+    console.log(`part4 case: ${caseName}`);
+  }
+
+  setDataByCountry(iso2) {
+    // this.createCountryDiagram(this.currentDiagram, iso2);
+    console.log(`Diagram obj: ${iso2}`);
+  }
+
   createWorldDiagram(diagramIndex) {
     if (!this.utils.getDailyWorldDataLoaded()) {
       this.utils.getDailyWorldData().then((dailyWorldData) => {
