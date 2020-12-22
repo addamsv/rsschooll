@@ -307,7 +307,20 @@ class Part3Map {
   }
 
   setDataByCase(countryName, queryCase = 'confirmed') {
-    console.log(`${countryName} ${queryCase}`);
+    this.moveViewTo(this.getCountryCoordinates(countryName));
+    console.log(`${countryName} ${queryCase} ${this.getCountryCoordinates(countryName)}`);
+  }
+
+  getCountryCoordinates(iso2) {
+    const latLon = [];
+    Object.keys(DATA).some((country) => {
+      if (DATA[country].ISO2 === iso2) {
+        latLon[0] = DATA[country].Lat;
+        latLon[1] = DATA[country].Lon;
+      }
+      return false;
+    });
+    return latLon;
   }
 
   capitalizeFirstLetter(string) {
@@ -329,11 +342,8 @@ class Part3Map {
     });
   }
 
-  moveViewTo() {
-    // this.map.panTo(new L.LatLng(53.71, 27.9));
-    // this.map.setZoom(4);
-    // this.map.flyTo(new L.LatLng(53.71, 27.9), 8);
-    this.map.setView(new L.LatLng(53.71, 27.9), 4, { animation: true });
+  moveViewTo(coordinates) {
+    this.map.setView(new L.LatLng(...coordinates), 4, { animation: true });
   }
 
   polygonDevelopmentKit() {
