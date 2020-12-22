@@ -358,15 +358,15 @@ class Part3Map {
     const legend = L.control({ position: 'topright' });
     legend.onAdd = () => {
       const DIV = L.DomUtil.create('div', 'info legend');
-      const LABELS = ['<strong  style="color:#aaa;">Legend</strong>'];
+      const LABELS = ['<strong class="legend-name">Legend</strong>'];
       const categories = this.constrain;
       let dimension;
       for (let i = categories.length - 1; i >= 0; i--) {
         dimension = i === 0 ? categories[i][1] : categories[i][1];
         DIV.innerHTML
               += LABELS.push(
-            `<div><img src="./assets/images/ok.png" class="circle" style="width:${dimension}px;height:${dimension}px;}"><span style="color:#aaa;"> ${
-              i === 0 ? 0 : categories[i - 1][0]}-${categories[i][0]}</span></div>`,
+            `<div><div class="legend-mark"><img src="./assets/images/ok.png" class="circle" style="width:${dimension}px;height:${dimension}px;}"></div><div class="legend-mark-value"> ${
+              i === 0 ? 0 : categories[i - 1][0]}-${categories[i][0]}</div></div>`,
           );
       }
       DIV.innerHTML = LABELS.join('');
