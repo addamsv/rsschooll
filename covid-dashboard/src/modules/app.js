@@ -25,7 +25,6 @@ export default class App extends Functions {
       /* countries */
       if (event.target && event.target.dataset && event.target.dataset.setCountry) {
         const ISO2 = event.target.dataset.setCountry;
-        // CONTEXT.part2List.setDataByCountry(event.target.dataset.setCountry);
         CONTEXT.part3Map.setDataByCountry(ISO2);
         CONTEXT.part4Diagram.setDataByCountry(ISO2);
       }
@@ -39,7 +38,7 @@ export default class App extends Functions {
       }
       /* cases */
       if (event.target && event.target.dataset && event.target.dataset.setCase) {
-        // CONTEXT.part2List.setDataByCase(event.target.dataset.setCase);
+        CONTEXT.part2List.setDataByCase(event.target.dataset.setCase);
         CONTEXT.part3Map.setDataByCase(event.target.dataset.setCase);
         CONTEXT.part4Diagram.setDataByCase(event.target.dataset.setCase);
       }
@@ -47,7 +46,6 @@ export default class App extends Functions {
     function checkSelect(event) {
       if (event.target && event.target.dataset && event.target.dataset.case) {
         event.stopPropagation();
-        // console.log(event.target[event.target.selectedIndex].value);//+ ' '+ event.target[event.target.selectedIndex].value
         const CASE = event.target[event.target.selectedIndex].value;
         CONTEXT.utils.setTypeOfCase(CASE);
       }

@@ -5,7 +5,7 @@ class Utils {
     this.worldData = null;
     this.dailyWorldData = null;
     this.forGlobalCasesPart = null;
-    this.typeOfCase = 'cases';
+    this.typeOfCase = 'casesAll';
   }
 
   getCountryDataLoaded(country) {

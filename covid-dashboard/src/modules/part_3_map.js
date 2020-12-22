@@ -12,7 +12,37 @@ class Part3Map {
     this.createMap();
     this.setLegend();
     this.setHint();
+    // this.getGlobal(this.createWorldDiagramNew());
   }
+
+  // getGlobal(fn, context) {
+  //   if (!this.utils.getGlobalLoaded()) {
+  //     this.utils.getGlobal().then((result) => {
+  //       this.utils.global = result;
+  //       context.fn(result);
+  //     });
+  //     return false;
+  //   }
+  //   this.createWorldDiagramNew(this.utils.getGlobalLoaded());
+  //   return true;
+  // }
+
+  // createWorldDiagramNew(globalResult) {
+  //   if (!this.utils.getDailyWorldDataLoaded()) {
+  //     this.utils.getDailyWorldData().then((dailyWorldData) => {
+  //       this.utils.dailyWorldData = dailyWorldData;
+  //       this.FUNCTION_THAT_YOU_NEED(globalResult, dailyWorldData);
+  //     });
+  //     return false;
+  //   }
+  //   this.FUNCTION_THAT_YOU_NEED(globalResult, this.utils.getDailyWorldDataLoaded());
+  //   return true;
+  // }
+
+  // FUNCTION_THAT_YOU_NEED(globalResult, dailyWorldDataResult) {
+  //   console.log(globalResult);
+  //   console.log(dailyWorldDataResult);
+  // }
 
   setDataByCountry(countryName) {
     this.moveViewTo(this.getCountryCoordinates(countryName));
@@ -36,6 +66,7 @@ class Part3Map {
     this.polygonDevelopmentKitMarkersArray = [];
     this.polygonDevelopmentKit();
     this.setAllCases();
+    this.setSelectOfCasesTypes();
   }
 
   /**
@@ -146,15 +177,6 @@ class Part3Map {
    * also has iconAnchor: [22, 94], popupAnchor: [-3, -76], shadowUrl: 'ok.png', shadowSize: [68, 95], shadowAnchor: [22, 94]
    */
   makeMarker() {
-    // if (!this.utils.getGlobalLoaded()) {
-    //   this.utils.getGlobal().then((result) => {
-    //     this.utils.global = result;
-    //     this.makeMarkerExecute(result);
-    //   });
-    //   return false;
-    // }
-    // this.makeMarkerExecute(this.utils.getGlobalLoaded());
-    // return true;
     if (!this.utils.getGlobalLoaded()) {
       this.utils.getGlobal().then((result) => {
         this.utils.global = result;
@@ -382,6 +404,35 @@ class Part3Map {
         <div class="legend-mark-value"> ${i === 0 ? 0 : categories[i - 1][0]}-${categories[i][0]}</div></div>`);
       }
       DIV.innerHTML = LABELS.join('');
+      return DIV;
+    };
+    legend.addTo(this.map);
+  }
+
+  setSelectOfCasesTypes() {
+    const legend = L.control({ position: 'topright' });
+    legend.onAdd = () => {
+      const DIV = L.DomUtil.create('div', 'info type-of-cases');
+      DIV.innerHTML += `<strong class="legend-name">Type of Case:</strong>
+      <p><select data-case="cases">
+        <option disabled>Pick a Case:</option>
+        
+        <option selected value="casesAll">casesAll</option>
+        <option value="deathsAll">deathsAll</option>
+        <option value="recoveredAll">recoveredAll</option>
+
+        <option value="casesDay">casesDay</option>
+        <option value="deathsDay">deathsDay</option>
+        <option value="recoveredDay">recoveredDay</option>
+
+        <option value="casesDay100">casesDay100</option>
+        <option value="deathsDay100">deathsDay100</option>
+        <option value="recoveredDay100">recoveredDay100</option>
+
+        <option value="casesAll100">casesAll100</option>
+        <option value="deathsAll100">deathsAll100</option>
+        <option value="recoveredAll100">recoveredAll100</option>
+      </select></p>`;
       return DIV;
     };
     legend.addTo(this.map);

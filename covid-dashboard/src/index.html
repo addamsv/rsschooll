@@ -27,25 +27,35 @@
         <div class="global-cases">
           <h3>Global Cases</h3>
           <div class="all-cases"></div>
-          <select data-case="cases">
-            <option disabled>Pick a Case:</option>
-            <option value=""></option>
-            <option selected value="deathsAll">deathsAll</option>
-            <option value="deathsAll100">deathsAll100</option>
-            <option value="deathsDay">deathsDay</option>
-            <option value="deathsDay100">deathsDay100</option>
-            <option value="recoveredAll">recoveredAll</option>
-            <option value="recoveredAll100">recoveredAll100</option>
-            <option value="recoveredDay">recoveredDay</option>
-            <option value="recoveredDay100">recoveredDay100</option>
-            <option value="casesAll">casesAll</option>
-            <option value="casesAll100">casesAll100</option>
-            <option value="casesDay">casesDay</option>
-            <option value="casesDay100">casesDay100</option>
-          </select>
         </div>
         <div data-set-case="casesAll" class="cases-list">
-          <h3>Cases by Country/ Region/ Sovereignty</h3>
+          <h3>Cases by Country/ Region/ Sovereignty
+            <input type="text" name="example" list="exampleList">
+            <datalist id="exampleList">
+              <option value="017">
+              <option value="028">
+              <option value="039">
+            </datalist>
+            <p><select data-case="cases">
+              <option disabled>Pick a Case:</option>
+              
+              <option selected value="casesAll">casesAll</option>
+              <option value="deathsAll">deathsAll</option>
+              <option value="recoveredAll">recoveredAll</option>
+      
+              <option value="casesDay">casesDay</option>
+              <option value="deathsDay">deathsDay</option>
+              <option value="recoveredDay">recoveredDay</option>
+      
+              <option value="casesDay100">casesDay100</option>
+              <option value="deathsDay100">deathsDay100</option>
+              <option value="recoveredDay100">recoveredDay100</option>
+      
+              <option value="casesAll100">casesAll100</option>
+              <option value="deathsAll100">deathsAll100</option>
+              <option value="recoveredAll100">recoveredAll100</option>
+            </select></p>
+          </h3>
           <div data-set-country="US" class="country-list-data">
           </div>
         </div>
