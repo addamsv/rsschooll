@@ -177,7 +177,7 @@ class Part4Diagram {
         },
       },
     };
-    const chart = new Chart(ctx, chartOptions);
+    return new Chart(ctx, chartOptions);
   }
 
   addDiagramLabel(diagramIndex) {
