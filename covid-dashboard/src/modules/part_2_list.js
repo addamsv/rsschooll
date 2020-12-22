@@ -16,21 +16,12 @@ class Part2List {
     }
     this.createCountryListExecute(this.utils.getGlobalLoaded());
     return true;
-
-    // if (!this.utils.getGlobalLoaded()) {
-    //   this.utils.getGlobal().then((result) => {
-    //     this.utils.global = result;
-    //     this.createCountryListExecute(result);
-    //   });
-    //   return false;
-    // }
-    // this.createCountryListExecute(this.utils.getGlobalLoaded());
-    // return true;
   }
 
   createCountryListExecute(result) {
     // const countriesData = result.Countries;
     let countryListHTMLData = '';
+    const countryDataArray = [];
     const listWrapper = document.querySelector('.country-list-data');
     let countryNameAndTypeData;
     Object.keys(DATA).some((countrySlug) => {
@@ -51,12 +42,17 @@ class Part2List {
       // }
       if (DATA[countrySlug].Lon) {
         countryNameAndTypeData = this.getCountryName(result, DATA[countrySlug].ISO2);
-        countryListHTMLData += `<div data-country="${DATA[countrySlug].ISO2}" class="country-list-data-unit"><span class="number">${countryNameAndTypeData[1]}</span>
-        <span class="span country">${countryNameAndTypeData[0]}</span></div>`;
+        countryDataArray.push(countryNameAndTypeData);
       }
+      return false;
+    });
+    countryDataArray.sort((a, b) => b[1] - a[1]).some((object) => {
+      countryListHTMLData += `<div data-country="${object[2]}" class="country-list-data-unit"><span class="number">${object[0]}</span>
+      <span class="span country">${object[1]}</span></div>`;
       listWrapper.innerHTML = countryListHTMLData;
       return false;
     });
+    // console.log(countryDataArray.sort((a, b) => b[1] - a[1]));
   }
 
   getCountryName(countriesData, countrySlug, type = 'cases') {
@@ -65,6 +61,7 @@ class Part2List {
       if (countryObject.countryInfo.iso2 === countrySlug) {
         countryNameTypeData[0] = countryObject.country;
         countryNameTypeData[1] = countryObject[type];
+        countryNameTypeData[2] = countryObject.countryInfo.iso2;
         return true;
       }
       return false;
