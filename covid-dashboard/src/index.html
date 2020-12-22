@@ -26,6 +26,7 @@
       <aside class="left">
         <div class="global-cases">
           <h3>Global Cases</h3>
+
           <div class="all-сases">1234567</div>
         </div>
         <div class="cases-list">
@@ -33,14 +34,52 @@
           <h3>Cases by Country/ Region/ Sovereignty</h3>
           <div class="country-list-data">
   
+=======
+          <div class="all-cases"></div>
+        </div>
+        <div data-set-case="casesAll" class="cases-list">
+          <h3>Cases by Country/ Region/ Sovereignty
+            <input type="text" name="example" list="exampleList">
+            <datalist id="exampleList">
+              <option value="017">
+              <option value="028">
+              <option value="039">
+            </datalist>
+            <p><select data-case="cases">
+              <option disabled>Pick a Case:</option>
+              
+              <option selected value="casesAll">casesAll</option>
+              <option value="deathsAll">deathsAll</option>
+              <option value="recoveredAll">recoveredAll</option>
+      
+              <option value="casesDay">casesDay</option>
+              <option value="deathsDay">deathsDay</option>
+              <option value="recoveredDay">recoveredDay</option>
+      
+              <option value="casesDay100">casesDay100</option>
+              <option value="deathsDay100">deathsDay100</option>
+              <option value="recoveredDay100">recoveredDay100</option>
+      
+              <option value="casesAll100">casesAll100</option>
+              <option value="deathsAll100">deathsAll100</option>
+              <option value="recoveredAll100">recoveredAll100</option>
+            </select></p>
+          </h3>
+          <div data-set-country="US" class="country-list-data">
+
           </div>
         </div>
       </aside>
       <section id = "map" class="map"></section>
       <aside class="right">
         <div class="right-table">
-          <h3>Global statistics</h3>
-          <div class="right-table_country-cases">
+          <div class="table-switches">
+            <div class="period">
+              <div class="period-switcher"></div>
+            </div>
+            <div class="populatio">
+              <div class="population-switcher"></div>
+            </div>
 
           </div>
         </div>
@@ -60,19 +99,19 @@
       <div class="logo">
         <img src="./assets/images/rss-logo.png" alt="" />
       </div>
-      <div class="year"></div>
+      <div class="year"><a href="https://rs.school/js/" target="_blank">
+        RSS-2020-Q3
+      </a>
+      </div>
       <div class="git-link">
         <div class="link">
-          <a href="https://github.com/ElizavetaPanasiuk?tab=repositories" target="_blank">
+          <div class="link-img">
             <img src="./assets/images/github-logo.png" alt="" />
-          </a>
-          <a href="https://github.com/ElizavetaPanasiuk?tab=repositories" target="_blank">Elizaveta</a>
-        </div>
-        <div class="link">
-          <a href="https://github.com/addamsv" target="_blank">
-            <img src="./assets/images/github-logo.png" alt="" />
-          </a>
-          <a href="https://github.com/addamsv" target="_blank">Sergey</a>
+          </div>
+          <div class="link-hrefs">
+            <a href="https://github.com/ElizavetaPanasiuk?tab=repositories" target="_blank">Elizaveta</a>
+            <a href="https://github.com/addamsv" target="_blank">Sergey</a>
+          </div>
         </div>
       </div>
     </footer>
