@@ -5,61 +5,98 @@ const Chart = require('./libs/chart');
 
 class Part4Diagram {
   constructor(utils) {
-    this.utils = utils; // new Utils();
-    this.diagramNameField = document.querySelector('.diagram-name');
+    this.utils = utils; 
     this.currentDiagram = 0;
     this.currentDiagramGlobalType = 'world';
     this.diagramTypes = [
       {
-        diagramType: 'casesBar',
-        diagramName: 'Daily Cases',
-        graphicType: 'bar',
-        indicatorW: 'cases',
-        indicatorC: 'Confirmed',
-      },
-      {
-        diagramType: 'casesLine',
-        diagramName: 'Cumulative Cases',
+        diagramType: 'casesAll',
+        diagramName: 'Cumulative Confirmed',
         graphicType: 'line',
         indicatorW: 'cases',
-        indicatorC: 'Confirmed',
+        populationType: 'all',
       },
       {
-        diagramType: 'deathsBar',
-        diagramName: 'Daily Deaths',
+        diagramType: 'casesAll100',
+        diagramName: 'Cumulative Confirmed per 100k',
+        graphicType: 'line',
+        indicatorW: 'cases',
+        populationType: '100k',
+      },
+      {
+        diagramType: 'casesDay',
+        diagramName: 'Daily Confirmed',
         graphicType: 'bar',
-        indicatorW: 'deaths',
-        indicatorC: 'Deaths',
+        indicatorW: 'cases',
+        populationType: 'all',
       },
       {
-        diagramType: 'deathsLine',
+        diagramType: 'casesDay100',
+        diagramName: 'Daily Confirmed per 100k',
+        graphicType: 'bar',
+        indicatorW: 'cases',
+        populationType: '100k',
+      },
+      {
+        diagramType: 'deathsAll',
         diagramName: 'Cumulative Deaths',
         graphicType: 'line',
         indicatorW: 'deaths',
-        indicatorC: 'Deaths',
+        populationType: 'all',
       },
       {
-        diagramType: 'recoveredBar',
-        diagramName: 'Daily Recovered',
+        diagramType: 'deathsAll100',
+        diagramName: 'Cumulative Deaths per 100k',
+        graphicType: 'line',
+        indicatorW: 'deaths',
+        populationType: '100k',
+      },
+      {
+        diagramType: 'deathsDay',
+        diagramName: 'Daily Deaths',
         graphicType: 'bar',
-        indicatorW: 'recovered',
-        indicatorC: 'Recovered',
+        indicatorW: 'deaths',
+        populationType: 'all',
       },
       {
-        diagramType: 'recoveredLine',
+        diagramType: 'deathsDay100',
+        diagramName: 'Daily Deaths per 100k',
+        graphicType: 'bar',
+        indicatorW: 'deaths',
+        populationType: '100k',
+      },
+      {
+        diagramType: 'recoveredAll',
         diagramName: 'Cumulative Recovered',
         graphicType: 'line',
         indicatorW: 'recovered',
-        indicatorC: 'Recovered',
+        populationType: 'all',
+      },
+      {
+        diagramType: 'recoveredAll100',
+        diagramName: 'Cumulative Recovered per 100k',
+        graphicType: 'line',
+        indicatorW: 'recovered',
+        populationType: '100k',
+      },
+      {
+        diagramType: 'recoveredDay',
+        diagramName: 'Daily Recovered',
+        graphicType: 'bar',
+        indicatorW: 'recovered',
+        populationType: 'all',
+      },
+      {
+        diagramType: 'recoveredDay100',
+        diagramName: 'Daily Recovered per 100k',
+        graphicType: 'bar',
+        indicatorW: 'recovered',
+        populationType: '100k',
       },
     ];
-    // this.activateEventListeners();
-    this.createWorldDiagram(this.currentDiagram);
+    this.diagramNameField = document.querySelector('.diagram-name');
+    this.createWorldDiagram(0);
   }
-
-  /**
-   * Common Messages
-   */
 
   setDataByCase(caseName) {
     console.log(`part4 case: ${caseName}`);
@@ -88,63 +125,83 @@ class Part4Diagram {
     const indicator = this.diagramTypes[diagramIndex].indicatorW;
     let totalPrevCases = 0;
     let backgroundColor;
-    Object.keys(dailyWorldData[indicator]).some((dayWorldData) => {
-      dates.push(dayWorldData);
-      if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
-        statistics.push(Math.abs(dailyWorldData[indicator][dayWorldData] - totalPrevCases));
-        backgroundColor = 'rgb(255, 170, 0)';
-      } else {
-        statistics.push(dailyWorldData[indicator][dayWorldData]);
-      }
-      totalPrevCases = dailyWorldData[indicator][dayWorldData];
-      return false;
-    });
-    this.createDiagram(dates, statistics, this.diagramTypes[diagramIndex].graphicType, backgroundColor);
+    if (this.diagramTypes[diagramIndex].populationType === 'all') {
+      Object.keys(dailyWorldData[indicator]).some((dayWorldData) => {
+        dates.push(dayWorldData);
+        if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
+          statistics.push(Math.abs(dailyWorldData[indicator][dayWorldData] - totalPrevCases));
+          backgroundColor = 'rgb(255, 170, 0)';
+        } else {
+          statistics.push(dailyWorldData[indicator][dayWorldData]);
+        }
+        totalPrevCases = dailyWorldData[indicator][dayWorldData];
+        return false;
+      });
+      this.createDiagram(dates, statistics, this.diagramTypes[diagramIndex].graphicType, backgroundColor);
+    } else if(this.diagramTypes[diagramIndex].populationType === '100k'){
+      this.utils.getDataForGlobalCasesPart().then(data => {
+        let population = data.population;
+        console.log(population);
+        Object.keys(dailyWorldData[indicator]).some((dayWorldData) => {
+          dates.push(dayWorldData);
+          if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
+            statistics.push((Math.abs(dailyWorldData[indicator][dayWorldData] - totalPrevCases) / population) * 100000);
+            backgroundColor = 'rgb(255, 170, 0)';
+          } else {
+            statistics.push((dailyWorldData[indicator][dayWorldData] / population) * 100000);
+          }
+          totalPrevCases = dailyWorldData[indicator][dayWorldData];
+          return false;
+        });
+        this.createDiagram(dates, statistics, this.diagramTypes[diagramIndex].graphicType, backgroundColor);
+      });
+    }
     this.addDiagramLabel(diagramIndex);
-    // for (const dayWorldData in dailyWorldData[indicator]) {
-    //   dates.push(dayWorldData);
-    //   if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
-    //     statistics.push(Math.abs(dailyWorldData[indicator][dayWorldData] - totalPrevCases));
-    //     backgroundColor = 'rgb(255, 170, 0)';
-    //   } else {
-    //     statistics.push(dailyWorldData[indicator][dayWorldData]);
-    //   }
-    //   totalPrevCases = dailyWorldData[indicator][dayWorldData];
-    // }
   }
+
 
   createCountryDiagram(diagramIndex, country) {
-    if (!this.utils.getCountryDataLoaded(country)) {
-      this.utils.getCountryData(country).then((dailyCountryData) => {
-        this.utils.countryData[country] = dailyCountryData;
-        console.log(dailyCountryData);
-        this.createCountryDiagramExecute(diagramIndex, dailyCountryData);
-      });
-      return false;
-    }
-    this.createCountryDiagramExecute(diagramIndex, this.utils.getCountryDataLoaded(country));
-    return true;
-  }
-
-  createCountryDiagramExecute(diagramIndex, dailyCountryData) {
-    console.log(dailyCountryData);
-    const dates = [];
-    const statistics = [];
-    const indicator = this.diagramTypes[diagramIndex].indicatorC;
-    let backgroundColor;
-    let totalPrevCases = 0;
-    dailyCountryData.forEach((dailyData) => {
-      dates.push(`${dailyData.Date.slice(8, 10)}/${dailyData.Date.slice(5, 7)}/${dailyData.Date.slice(0, 4)}`);
-      if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
-        statistics.push(dailyData[indicator] - totalPrevCases);
-        totalPrevCases = dailyData[indicator];
-        backgroundColor = 'rgb(255, 170, 0)';
-      } else {
-        statistics.push(dailyData[indicator]);
+    this.utils.getDailyCountryData(country).then((dailyCountryData) => {
+      dailyCountryData = dailyCountryData.timeline;
+      const dates = [];
+      const statistics = [];
+      const indicator = this.diagramTypes[diagramIndex].indicatorW;
+      let totalPrevCases = 0;
+      let backgroundColor;
+      console.log(dailyCountryData);
+      if (this.diagramTypes[diagramIndex].populationType === 'all') {
+        Object.keys(dailyCountryData[indicator]).some((dayCountryData) => {
+          dates.push(dayCountryData);
+          if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
+            statistics.push(Math.abs(dailyCountryData[indicator][dayCountryData] - totalPrevCases));
+            backgroundColor = 'rgb(255, 170, 0)';
+          } else {
+            statistics.push(dailyCountryData[indicator][dayCountryData]);
+          }
+          totalPrevCases = dailyCountryData[indicator][dayCountryData];
+          return false;
+        });
+        this.createDiagram(dates, statistics, this.diagramTypes[diagramIndex].graphicType, backgroundColor);
+      } else if (this.diagramTypes[diagramIndex].populationType === '100k') {
+        this.utils.getDataForGlobalCasesPart().then(data => {
+          let population = data.population;
+          console.log(population);
+          Object.keys(dailyCountryData[indicator]).some((dayCountryData) => {
+            dates.push(dayCountryData);
+            if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
+              statistics.push((Math.abs(dailyCountryData[indicator][dayCountryData] - totalPrevCases) / population) * 100000);
+              backgroundColor = 'rgb(255, 170, 0)';
+            } else {
+              statistics.push((dailyCountryData[indicator][dayCountryData] / population) * 100000);
+            }
+            totalPrevCases = dailyCountryData[indicator][dayCountryData];
+            return false;
+          });
+          this.createDiagram(dates, statistics, this.diagramTypes[diagramIndex].graphicType, backgroundColor);
+        });
       }
+      this.addDiagramLabel(diagramIndex);
     });
-    this.createDiagram(dates, statistics, this.diagramTypes[diagramIndex].graphicType, backgroundColor);
-    this.addDiagramLabel(diagramIndex);
   }
 
   createDiagram(xData, yData, type, backgroundColor) {
@@ -209,7 +266,7 @@ class Part4Diagram {
   }
 
   getNextDiagram() {
-    this.currentDiagram = (this.currentDiagram + 1) % 6;
+    this.currentDiagram = (this.currentDiagram + 1) % 12;
     if (this.currentDiagramGlobalType === 'world') {
       this.createWorldDiagram(this.currentDiagram);
     } else {
@@ -218,7 +275,7 @@ class Part4Diagram {
   }
 
   getPreviousDiagram() {
-    this.currentDiagram = (this.currentDiagram + 6 - 1) % 6;
+    this.currentDiagram = (this.currentDiagram + 12 - 1) % 12;
     if (this.currentDiagramGlobalType === 'world') {
       this.createWorldDiagram(this.currentDiagram);
     } else {
