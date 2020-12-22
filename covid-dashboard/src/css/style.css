@@ -178,6 +178,32 @@ h3{
   width: 55%;
   background-color: #232323;
 }
+.main .map .leaflet-control{
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 5px;
+}
+.main .map .leaflet-control div{
+  display: flex;
+}
+.main .map .leaflet-control .legend-name{
+  display: block;
+  font-weight: bold;
+  text-align: center;
+  font-size: 18px;
+  color: #aaa;
+}
+.main .map .leaflet-control .legend-mark{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 40px;
+}
+.main .map .leaflet-control .legend-mark-value{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: #aaa;
+}
 .main .right {
   width: 25%;
   background-color: #000;
