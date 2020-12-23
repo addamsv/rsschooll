@@ -18,7 +18,7 @@ export default class App extends Functions {
     this.part3Map = new Part3Map(this.utils);
     this.part4Diagram = new Part4Diagram(this.utils);
     this.part2List = new Part2List(this.utils);
-    this.Part1Table = new Part1Table(this.utils);
+    this.part1Table = new Part1Table(this.utils);
   }
 
   initEvents() {
@@ -29,6 +29,7 @@ export default class App extends Functions {
         const ISO2 = event.target.dataset.setCountry;
         CONTEXT.part3Map.setDataByCountry(ISO2);
         CONTEXT.part4Diagram.setDataByCountry(ISO2);
+        CONTEXT.part1Table.setDataByCountry(ISO2);
       }
       if (event.target && event.target.dataset && event.target.dataset.country) {
         const ISO2 = event.target.dataset.country;
@@ -43,6 +44,7 @@ export default class App extends Functions {
         CONTEXT.part2List.setDataByCase(event.target.dataset.setCase);
         CONTEXT.part3Map.setDataByCase(event.target.dataset.setCase);
         CONTEXT.part4Diagram.setDataByCase(event.target.dataset.setCase);
+        CONTEXT.part1Table.setDataByCase(event.target.dataset.setCase);
       }
     }
     function checkSelect(event) {
@@ -73,7 +75,6 @@ export default class App extends Functions {
     });
     inputCountryIcon.addEventListener('click', () => {
       checkCountryExists(inputCountryField);
-      console.log(inputCountryField.textContent);
     });
   }
 }

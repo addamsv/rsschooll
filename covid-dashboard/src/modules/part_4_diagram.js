@@ -94,17 +94,40 @@ class Part4Diagram {
         populationType: '100k',
       },
     ];
+    this.currentISO2Name = null;
     this.diagramNameField = document.querySelector('.diagram-name');
     this.createWorldDiagram(0);
   }
 
-  setDataByCase(caseName) {
-    console.log(`part4 case: ${caseName}`);
+  setDataByCountry(ISO2) {
+    this.currentISO2Name = ISO2;
+    this.createCountryDiagram(this.getIndexByCase(this.utils.typeOfCase), ISO2);
   }
 
-  setDataByCountry(iso2) {
-    // this.createCountryDiagram(this.currentDiagram, iso2);
-    console.log(`Diagram obj: ${iso2}`);
+  setDataByCase(caseName) {
+    this.diagramTypes.some((type, index) => {
+      if (type.diagramType === caseName) {
+        if (this.currentDiagramGlobalType === 'world') {
+          this.createWorldDiagram(index);
+        } else {
+          this.createCountryDiagram(index, this.currentISO2Name);
+        }
+        return true;
+      }
+      return false;
+    });
+  }
+
+  getIndexByCase(caseName) {
+    let outIndex = 0;
+    this.diagramTypes.some((type, index) => {
+      if (type.diagramType === caseName) {
+        outIndex = index;
+        return true;
+      }
+      return false;
+    });
+    return outIndex;
   }
 
   createWorldDiagram(diagramIndex) {
@@ -116,6 +139,7 @@ class Part4Diagram {
       return false;
     }
     this.createWorldDiagramExecute(diagramIndex, this.utils.getDailyWorldDataLoaded());
+    this.currentDiagramGlobalType = 'world';
     return true;
   }
 
@@ -141,7 +165,6 @@ class Part4Diagram {
     } else if (this.diagramTypes[diagramIndex].populationType === '100k') {
       this.utils.getDataForGlobalCasesPart().then((data) => {
         const population = data.population;
-        console.log(population);
         Object.keys(dailyWorldData[indicator]).some((dayWorldData) => {
           dates.push(dayWorldData);
           if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
@@ -183,12 +206,15 @@ class Part4Diagram {
       } else if (this.diagramTypes[diagramIndex].populationType === '100k') {
         this.utils.getDataForGlobalCasesPart().then((data) => {
           const population = data.population;
+          console.log(population);
           Object.keys(dailyCountryData[indicator]).some((dayCountryData) => {
             dates.push(dayCountryData);
             if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
+              console.log(population);
               statistics.push(+((Math.abs(dailyCountryData[indicator][dayCountryData] - totalPrevCases) / population) * 100000).toFixed(6));
               backgroundColor = 'rgb(255, 170, 0)';
             } else {
+              console.log(population);
               statistics.push(+((dailyCountryData[indicator][dayCountryData] / population) * 100000).toFixed(6));
             }
             totalPrevCases = dailyCountryData[indicator][dayCountryData];
@@ -269,6 +295,8 @@ class Part4Diagram {
     } else {
       this.createCountryDiagram(this.currentDiagram, this.currentDiagramGlobalType);
     }
+    console.log(`diagram get case${this.diagramTypes[this.currentDiagram].diagramType}`);
+    this.utils.setTypeOfCase(this.diagramTypes[this.currentDiagram].diagramType);
   }
 
   getPreviousDiagram() {
@@ -278,6 +306,7 @@ class Part4Diagram {
     } else {
       this.createCountryDiagram(this.currentDiagram, this.currentDiagramGlobalType);
     }
+    this.utils.setTypeOfCase(this.diagramTypes[this.currentDiagram].diagramType);
   }
 
   checkCountryExists(field) {

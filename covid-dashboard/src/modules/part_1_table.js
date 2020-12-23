@@ -11,7 +11,6 @@ class Part1Table {
         populationType: 'all',
         period: 'all',
         indicator: 'cases',
-
       },
       {
         tableType: 'casesAll100',
@@ -102,38 +101,90 @@ class Part1Table {
         indicator: 'recovered',
       },
     ];
+    this.currentISO2Name = null;
     this.activateEvents();
     this.createWorldTable(0);
   }
 
-  createWorldTable(tableIndex) {
-    let value;
-    this.utils.getDataForGlobalCasesPart().then((worldData) => {
-      if (this.tableTypes[tableIndex].populationType === 'all') {
-        value = worldData[this.tableTypes[tableIndex].indicatorW];
-      } else if (this.tableTypes[tableIndex].populationType === '100k') {
-        value = +((worldData[this.tableTypes[tableIndex].indicatorW] / worldData.population) * 100000).toFixed(6);
+  setDataByCountry(ISO2) {
+    this.currentISO2Name = ISO2;
+    this.createCountryTable(this.getIndexByCase(this.utils.typeOfCase), ISO2);
+  }
+
+  setDataByCase(caseName) {
+    this.tableTypes.some((type, index) => {
+      if (type.tableType === caseName) {
+        if (this.currentTableGlobalType === 'world') {
+          this.createWorldTable(index);
+        } else {
+          this.createCountryTable(index, this.currentISO2Name);
+        }
+        return true;
       }
-      this.fillTable(this.tableTypes[tableIndex].indicator, value, this.tableTypes[tableIndex].tableName);
-      document.querySelector('.right-table').querySelector('h3').textContent = `Global statistics`;
+      return false;
     });
   }
 
-  createCountryTable(tableIndex, countryISO) {
-    let value;
-    this.utils.getGlobal().then((dailyCountryData) => {
-      dailyCountryData.forEach((country) => {
-        if (country.countryInfo.iso2 === countryISO) {
-          const countryData = country;
-          if (this.tableTypes[tableIndex].populationType === 'all') {
-            value = countryData[this.tableTypes[tableIndex].indicatorW];
-          } else if (this.tableTypes[tableIndex].populationType === '100k') {
-            value = +((countryData[this.tableTypes[tableIndex].indicatorW] / countryData.population) * 100000).toFixed(6);
-          }
-          this.fillTable(this.tableTypes[tableIndex].indicator, value, this.tableTypes[tableIndex].tableName);
-          document.querySelector('.right-table').querySelector('h3').textContent = `${country.country} statistics`;
-        }
+  getIndexByCase(caseName) {
+    let outIndex = 0;
+    this.tableTypes.some((type, index) => {
+      if (type.tableType === caseName) {
+        outIndex = index;
+        return true;
+      }
+      return false;
+    });
+    return outIndex;
+  }
+
+  createWorldTable(tableIndex) {
+    if (!this.utils.getForGlobalCasesPartLoaded()) {
+      this.utils.getDataForGlobalCasesPart().then((worldData) => {
+        this.utils.forGlobalCasesPart = worldData;
+        this.createWorldTableExecute(tableIndex, worldData);
       });
+    } else {
+      this.createWorldTableExecute(tableIndex, this.utils.getForGlobalCasesPartLoaded());
+    }
+    this.currentTableGlobalType = 'world';
+  }
+
+  createWorldTableExecute(tableIndex, worldData) {
+    let value;
+    if (this.tableTypes[tableIndex].populationType === 'all') {
+      value = worldData[this.tableTypes[tableIndex].indicatorW];
+    } else if (this.tableTypes[tableIndex].populationType === '100k') {
+      value = +((worldData[this.tableTypes[tableIndex].indicatorW] / worldData.population) * 100000).toFixed(6);
+    }
+    this.fillTable(this.tableTypes[tableIndex].indicator, value, this.tableTypes[tableIndex].tableName);
+    document.querySelector('.right-table').querySelector('h3').textContent = `Global statistics`;
+  }
+
+  createCountryTable(tableIndex, countryISO) {
+    if (!this.utils.getGlobalLoaded()) {
+      this.utils.getGlobal().then((dailyCountryData) => {
+        this.utils.global = dailyCountryData;
+        this.createCountryTableExecute(tableIndex, countryISO, dailyCountryData);
+      });
+    } else {
+      this.createCountryTableExecute(tableIndex, countryISO, this.utils.getGlobalLoaded());
+    }
+    this.currentTableGlobalType = countryISO;
+  }
+
+  createCountryTableExecute(tableIndex, countryISO, dailyCountryData) {
+    let value;
+    dailyCountryData.forEach((country) => {
+      if (country.countryInfo.iso2 === countryISO) {
+        const countryData = country;
+        if (this.tableTypes[tableIndex].populationType === 'all') {
+          value = countryData[this.tableTypes[tableIndex].indicatorW];
+        } else if (this.tableTypes[tableIndex].populationType === '100k') {
+          value = +((countryData[this.tableTypes[tableIndex].indicatorW] / countryData.population) * 100000).toFixed(6);
+        }
+        this.fillTable(this.tableTypes[tableIndex].indicator, value, this.tableTypes[tableIndex].tableName);
+        document.querySelector('.right-table').querySelector('h3').textContent = `${country.country} statistics`;
+      }
     });
   }
 
@@ -153,6 +204,7 @@ class Part1Table {
     } else {
       this.createCountryTable(this.currentTable, this.currentTableGlobalType);
     }
+    this.utils.setTypeOfCase(this.tableTypes[this.currentTable].tableType);
   }
 
   getPreviousTable() {
@@ -162,6 +214,7 @@ class Part1Table {
     } else {
       this.createCountryTable(this.currentTable, this.currentTableGlobalType);
     }
+    this.utils.setTypeOfCase(this.tableTypes[this.currentTable].tableType);
   }
 
   activateEvents() {
