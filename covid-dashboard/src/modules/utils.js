@@ -121,6 +121,25 @@ class Utils {
     }
     ELEMENT.dataset.setCase = this.typeOfCase;
     ELEMENT.click();
+    this.setAllSelectToProperType(this.typeOfCase);
+  }
+
+  setAllSelectToProperType(Type) {
+    const SELECTS_HTML_ELEMENT_ARRAY = document.querySelectorAll('[data-case]');
+    Object.keys(SELECTS_HTML_ELEMENT_ARRAY).some((htmlElementIndex) => {
+      this.setSelectsOption(SELECTS_HTML_ELEMENT_ARRAY[htmlElementIndex], Type);
+      return false;
+    });
+  }
+
+  setSelectsOption(htmlElement, type) {
+    const htmlElementObj = htmlElement;
+    Object.keys(htmlElementObj).some((htmlElementOptionIndex) => {
+      if (htmlElementObj[htmlElementOptionIndex].value === type) {
+        htmlElementObj[htmlElementOptionIndex].selected = true;
+      }
+      return false;
+    });
   }
 }
 
