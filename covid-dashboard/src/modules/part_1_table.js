@@ -115,7 +115,6 @@ class Part1Table {
       }
       this.fillTable(this.tableTypes[tableIndex].indicator, value, this.tableTypes[tableIndex].tableName);
     })
-    console.log('done');
   }
   
   fillTable(indicator, value, tableName) {
