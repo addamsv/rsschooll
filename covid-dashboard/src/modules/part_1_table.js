@@ -111,7 +111,7 @@ class Part1Table {
       if (this.tableTypes[tableIndex].populationType === 'all') {
         value = worldData[this.tableTypes[tableIndex].indicatorW];
       } else if (this.tableTypes[tableIndex].populationType === '100k') {
-        value = +(worldData[this.tableTypes[tableIndex].indicatorW] / worldData.population * 100000).toFixed(3);
+        value = +(worldData[this.tableTypes[tableIndex].indicatorW] / worldData.population * 100000).toFixed(6);
       }
       this.fillTable(this.tableTypes[tableIndex].indicator, value, this.tableTypes[tableIndex].tableName);
     })

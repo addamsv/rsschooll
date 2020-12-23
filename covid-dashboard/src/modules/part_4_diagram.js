@@ -145,10 +145,10 @@ class Part4Diagram {
         Object.keys(dailyWorldData[indicator]).some((dayWorldData) => {
           dates.push(dayWorldData);
           if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
-            statistics.push((Math.abs(dailyWorldData[indicator][dayWorldData] - totalPrevCases) / population) * 100000);
+            statistics.push(+((Math.abs(dailyWorldData[indicator][dayWorldData] - totalPrevCases) / population) * 100000).toFixed(6));
             backgroundColor = 'rgb(255, 170, 0)';
           } else {
-            statistics.push((dailyWorldData[indicator][dayWorldData] / population) * 100000);
+            statistics.push(+((dailyWorldData[indicator][dayWorldData] / population) * 100000).toFixed(6));
           }
           totalPrevCases = dailyWorldData[indicator][dayWorldData];
           return false;
@@ -189,10 +189,10 @@ class Part4Diagram {
           Object.keys(dailyCountryData[indicator]).some((dayCountryData) => {
             dates.push(dayCountryData);
             if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
-              statistics.push((Math.abs(dailyCountryData[indicator][dayCountryData] - totalPrevCases) / population) * 100000);
+              statistics.push(+((Math.abs(dailyCountryData[indicator][dayCountryData] - totalPrevCases) / population) * 100000).toFixed(6));
               backgroundColor = 'rgb(255, 170, 0)';
             } else {
-              statistics.push((dailyCountryData[indicator][dayCountryData] / population) * 100000);
+              statistics.push(+((dailyCountryData[indicator][dayCountryData] / population) * 100000).toFixed(6));
             }
             totalPrevCases = dailyCountryData[indicator][dayCountryData];
             return false;
