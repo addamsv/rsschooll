@@ -1,4 +1,3 @@
-// import Utils from './utils';
 import a from './libs/data';
 
 const Chart = require('./libs/chart');
@@ -204,7 +203,6 @@ class Part4Diagram {
         });
         this.createDiagram(dates, statistics, this.diagramTypes[diagramIndex].graphicType, backgroundColor);
       } else if (this.diagramTypes[diagramIndex].populationType === '100k') {
-        // this.utils.getDataForGlobalCasesPart().then((data) => { data.population;
         const population = 7795328340;
         Object.keys(dailyCountryData[indicator]).some((dayCountryData) => {
           dates.push(dayCountryData);

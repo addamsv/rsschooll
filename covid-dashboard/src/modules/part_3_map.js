@@ -12,41 +12,10 @@ class Part3Map {
     this.createMap();
     this.setLegend();
     this.setHint();
-    // this.getGlobal(this.createWorldDiagramNew());
   }
-
-  // getGlobal(fn, context) {
-  //   if (!this.utils.getGlobalLoaded()) {
-  //     this.utils.getGlobal().then((result) => {
-  //       this.utils.global = result;
-  //       context.fn(result);
-  //     });
-  //     return false;
-  //   }
-  //   this.createWorldDiagramNew(this.utils.getGlobalLoaded());
-  //   return true;
-  // }
-
-  // createWorldDiagramNew(globalResult) {
-  //   if (!this.utils.getDailyWorldDataLoaded()) {
-  //     this.utils.getDailyWorldData().then((dailyWorldData) => {
-  //       this.utils.dailyWorldData = dailyWorldData;
-  //       this.FUNCTION_THAT_YOU_NEED(globalResult, dailyWorldData);
-  //     });
-  //     return false;
-  //   }
-  //   this.FUNCTION_THAT_YOU_NEED(globalResult, this.utils.getDailyWorldDataLoaded());
-  //   return true;
-  // }
-
-  // FUNCTION_THAT_YOU_NEED(globalResult, dailyWorldDataResult) {
-  //   console.log(globalResult);
-  //   console.log(dailyWorldDataResult);
-  // }
 
   setDataByCountry(countryName) {
     this.moveViewTo(this.getCountryCoordinates(countryName));
-    // console.log(`${countryName} ${this.getCountryCoordinates(countryName)}`);
   }
 
   setDataByCase() {
@@ -65,7 +34,6 @@ class Part3Map {
     this.setCountryLayer();
     this.markers = [];
     this.polygonDevelopmentKitMarkersArray = [];
-    // this.polygonDevelopmentKit();
     this.setAllCases();
     this.setSelectOfCasesTypes();
   }
@@ -101,8 +69,9 @@ class Part3Map {
   }
 
   setAllCasesExecute(result) {
+    const DATE = new Date();
     document.querySelector('.all-cases').innerHTML = `${result.cases}
-    <p style="color:#aaa; text-align: center; font-size: 14px">today</p>`;
+    <p style="color:#aaa; text-align: center; font-size: 14px">Last Update: ${DATE.getDate()} ${DATE.getMonth()} ${DATE.getFullYear()}</p>`;
   }
 
   setMarkerCertainCountry(certainCountryName) {
@@ -119,7 +88,6 @@ class Part3Map {
 
   setMarkerCertainCountryExecute(result) {
     const LAST_DAY_CANADIAN_DATA = this.getLastDayCertainCountryData(result);
-    // console.log(LAST_DAY_CANADIAN_DATA);
     Object.keys(LAST_DAY_CANADIAN_DATA).some((provinceName) => {
       if (LAST_DAY_CANADIAN_DATA[provinceName].Lat) {
         const myIcon = L.icon({
@@ -132,8 +100,6 @@ class Part3Map {
           icon: myIcon,
         };
         const marker = L.marker([LAST_DAY_CANADIAN_DATA[provinceName].Lat, LAST_DAY_CANADIAN_DATA[provinceName].Lon], markerOptions);
-        // Deaths: ${LAST_DAY_CANADIAN_DATA[provinceName].Deaths};
-        // marker.bindPopup(`${LAST_DAY_CANADIAN_DATA[provinceName].Province} Cases: ${LAST_DAY_CANADIAN_DATA[provinceName].Confirmed}`).openPopup();
         marker.addTo(this.map);
       }
       return false;
@@ -173,10 +139,6 @@ class Part3Map {
     return (markerSize) || [DEFAULT_SIZE, DEFAULT_SIZE];
   }
 
-  /**
-   * Creating a marker:
-   * also has iconAnchor: [22, 94], popupAnchor: [-3, -76], shadowUrl: 'ok.png', shadowSize: [68, 95], shadowAnchor: [22, 94]
-   */
   makeMarker() {
     if (!this.utils.getGlobalLoaded()) {
       this.utils.getGlobal().then((result) => {
@@ -190,27 +152,8 @@ class Part3Map {
   }
 
   makeMarkerExecute(result) {
-    // let countriesData = [];
     let countryData = [];
-    // document.querySelector('.all-cases').innerHTML = `${result.Global.TotalConfirmed}
-    // <p style="color:#aaa; text-align: center; font-size: 14px">api.covid19.com: on ${result.Date}</p>`;
-    // countriesData = result.Countries;
     Object.keys(DATA).some((countrySlug) => {
-      // switch (countrySlug) {
-      //   case "france":
-      //     this.setMarkerCertainCountry('fr');
-      //     break;
-      //   case "canada":
-      //     this.setMarkerCertainCountry('ca');
-      //     break;
-      //   case "australia":
-      //     this.setMarkerCertainCountry('au');
-      //     break;
-      //   case "china":
-      //     this.setMarkerCertainCountry('cn');
-      //     break;
-      //   default:
-      // }
       if (DATA[countrySlug].Lon && DATA[countrySlug].ISO2) {
         countryData = this.getCountryData(result, DATA[countrySlug].ISO2);
         const myIcon = L.icon({
@@ -358,18 +301,18 @@ class Part3Map {
     const countryNameTypeData = [];
     countriesData.some((countryObject) => {
       if (countryObject.countryInfo.iso2 === iso2Name) {
-        countryNameTypeData[0] = countryObject.deaths; // 'deathsAll';
-        countryNameTypeData[1] = (countryObject.deaths / countryObject.population) * 100000; // 'deathsAll100';
-        countryNameTypeData[2] = countryObject.todayDeaths; // 'deathsDay';
-        countryNameTypeData[3] = (countryObject.todayDeaths / countryObject.population) * 100000; // 'deathsDay100';
-        countryNameTypeData[4] = countryObject.recovered; // 'recoveredAll';
-        countryNameTypeData[5] = (countryObject.recovered / countryObject.population) * 100000; // 'recoveredAll100';
-        countryNameTypeData[6] = countryObject.todayRecovered; // 'recoveredDay';
-        countryNameTypeData[7] = (countryObject.todayRecovered / countryObject.population) * 100000; // 'recoveredDay100';
-        countryNameTypeData[8] = countryObject.cases; // casesAll
-        countryNameTypeData[9] = (countryObject.cases / countryObject.population) * 100000; // 'casesAll100';
-        countryNameTypeData[10] = countryObject.todayCases; // 'casesDay';
-        countryNameTypeData[11] = (countryObject.todayCases / countryObject.population) * 100000; // 'casesDay100';
+        countryNameTypeData[0] = countryObject.deaths;
+        countryNameTypeData[1] = (countryObject.deaths / countryObject.population) * 100000;
+        countryNameTypeData[2] = countryObject.todayDeaths;
+        countryNameTypeData[3] = (countryObject.todayDeaths / countryObject.population) * 100000;
+        countryNameTypeData[4] = countryObject.recovered;
+        countryNameTypeData[5] = (countryObject.recovered / countryObject.population) * 100000;
+        countryNameTypeData[6] = countryObject.todayRecovered;
+        countryNameTypeData[7] = (countryObject.todayRecovered / countryObject.population) * 100000;
+        countryNameTypeData[8] = countryObject.cases;
+        countryNameTypeData[9] = (countryObject.cases / countryObject.population) * 100000;
+        countryNameTypeData[10] = countryObject.todayCases;
+        countryNameTypeData[11] = (countryObject.todayCases / countryObject.population) * 100000;
         countryNameTypeData[12] = countryObject.countryInfo.flag;
         return true;
       }
@@ -389,15 +332,11 @@ class Part3Map {
         fillOpacity: 0.2,
       },
     };
-    // eslint-disable-next-line new-cap
-    // console.log(GEO_JSON_COUNTRY_LAYERS_DATA);
-    // console.log(this.getCountryGeoJsonData());
     const CONTEXT = this;
     // eslint-disable-next-line new-cap
     const gpsMarker = new L.geoJson(geoJsonData, {
       onEachFeature(feature, layer) {
         if (feature.properties && feature.properties.popupContent) {
-          // layer.bindPopup(feature.properties.popupContent, { closeButton: true, offset: L.point(0, 0) });
           layer.on('click', () => {
             CONTEXT.utils.setEventOfChangeCountry(feature.properties.popupISO);
           });
