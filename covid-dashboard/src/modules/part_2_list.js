@@ -106,18 +106,18 @@ class Part2List {
         return object.todayRecovered;
 
       case 'casesDay100':
-        return (object.todayCases / object.population) * 100000;
+        return ((object.todayCases / object.population) * 100000).toFixed(3);
       case 'deathsDay100':
-        return (object.todayDeaths / object.population) * 100000;
+        return ((object.todayDeaths / object.population) * 100000).toFixed(3);
       case 'recoveredDay100':
-        return (object.todayRecovered / object.population) * 100000;
+        return ((object.todayRecovered / object.population) * 100000).toFixed(3);
 
       case 'casesAll100':
-        return (object.cases / object.population) * 100000;
+        return ((object.cases / object.population) * 100000).toFixed(3);
       case 'deathsAll100':
-        return (object.deaths / object.population) * 100000;
+        return ((object.deaths / object.population) * 100000).toFixed(3);
       case 'recoveredAll100':
-        return (object.recovered / object.population) * 100000;
+        return ((object.recovered / object.population) * 100000).toFixed(3);
       default:
         return false;
     }

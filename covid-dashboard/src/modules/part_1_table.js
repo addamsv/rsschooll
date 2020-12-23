@@ -154,10 +154,10 @@ class Part1Table {
     if (this.tableTypes[tableIndex].populationType === 'all') {
       value = worldData[this.tableTypes[tableIndex].indicatorW];
     } else if (this.tableTypes[tableIndex].populationType === '100k') {
-      value = +((worldData[this.tableTypes[tableIndex].indicatorW] / worldData.population) * 100000).toFixed(6);
+      value = +((worldData[this.tableTypes[tableIndex].indicatorW] / worldData.population) * 100000).toFixed(3);
     }
     this.fillTable(this.tableTypes[tableIndex].indicator, value, this.tableTypes[tableIndex].tableName);
-    document.querySelector('.right-table').querySelector('h3').textContent = `Global statistics`;
+    document.querySelector('.right-table').querySelector('h3').textContent = `Global Statistics`;
   }
 
   createCountryTable(tableIndex, countryISO) {
@@ -180,10 +180,10 @@ class Part1Table {
         if (this.tableTypes[tableIndex].populationType === 'all') {
           value = countryData[this.tableTypes[tableIndex].indicatorW];
         } else if (this.tableTypes[tableIndex].populationType === '100k') {
-          value = +((countryData[this.tableTypes[tableIndex].indicatorW] / countryData.population) * 100000).toFixed(6);
+          value = +((countryData[this.tableTypes[tableIndex].indicatorW] / countryData.population) * 100000).toFixed(3);
         }
         this.fillTable(this.tableTypes[tableIndex].indicator, value, this.tableTypes[tableIndex].tableName);
-        document.querySelector('.right-table').querySelector('h3').textContent = `${country.country} statistics`;
+        document.querySelector('.right-table').querySelector('h3').textContent = `${country.country} Statistics`;
       }
     });
   }
