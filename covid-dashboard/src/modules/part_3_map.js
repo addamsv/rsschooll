@@ -271,7 +271,7 @@ class Part3Map {
       return false;
     }
     this.setCountryLayerExecute(this.getCountryGeoJsonDataExecute(this.utils.getGlobalLoaded()));
-    return true
+    return true;
   }
 
   getCountryGeoJsonDataExecute(countriesData) {
