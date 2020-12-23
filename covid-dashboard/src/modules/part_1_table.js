@@ -1,126 +1,134 @@
-import Utils from './utils';
-import a from './libs/data';
 class Part1Table {
-  constructor() {
-    this.utils = new Utils();
-    this.countriesTable = document.querySelector('.countries-table');
-    this.diagramNameField = document.querySelector('.table-name');
+  constructor(utils) {
+    this.utils = utils; 
     this.currentTable = 0;
     this.currentTableGlobalType = 'world';
     this.tableTypes = [
       {
-        tableName: 'Total Confirmed',
+        tableType: 'casesAll',
+        tableName: 'Cumulative Confirmed',
         indicatorW: 'cases',
-        indicatorC: 'Confirmed',
-        period: 2, // 2 - all period, 1 last day
-        population: 2, // 2 - all population, 1 - 100k
+        populationType: 'all',
+        period: 'all',
+        indicator: 'cases',
+
       },
       {
-        tableName: 'Total Confirmed per 100k population',
+        tableType: 'casesAll100',
+        tableName: 'Cumulative Confirmed per 100k',
         indicatorW: 'cases',
-        indicatorC: 'Confirmed',
-        period: 2,
-        population: 1,
+        populationType: '100k',
+        period: 'all',
+        indicator: 'cases',
       },
       {
-        tableName: 'Confirmed for the last day',
-        indicatorW: 'cases',
-        indicatorC: 'Confirmed',
-        period: 1,
-        population: 2,
+        tableType: 'casesDay',
+        tableName: 'Daily Confirmed',
+        indicatorW: 'todayCases',
+        populationType: 'all',
+        period: 'last',
+        indicator: 'cases',
       },
       {
-        tableName: 'Confirmed per 100k population for the last day',
-        indicatorW: 'cases',
-        indicatorC: 'Confirmed',
-        period: 1,
-        population: 1,
+        tableType: 'casesDay100',
+        tableName: 'Daily Confirmed per 100k',
+        indicatorW: 'todayCases',
+        populationType: '100k',
+        period: 'last',
+        indicator: 'cases',
       },
       {
-        tableName: 'Total Deaths',
+        tableType: 'deathsAll',
+        tableName: 'Cumulative Deaths',
         indicatorW: 'deaths',
-        indicatorC: 'Deaths',
-        period: 2, 
-        population: 2,
+        populationType: 'all',
+        period: 'all',
+        indicator: 'deaths',
       },
       {
-        tableName: 'Total Deaths per 100k population',
+        tableType: 'deathsAll100',
+        tableName: 'Cumulative Deaths per 100k',
         indicatorW: 'deaths',
-        indicatorC: 'Deaths',
-        period: 2,
-        population: 1,
+        populationType: '100k',
+        period: 'all',
+        indicator: 'deaths',
       },
       {
-        tableName: 'Deaths for the last day',
-        indicatorW: 'deaths',
-        indicatorC: 'Deaths',
-        period: 1,
-        population: 2,
+        tableType: 'deathsDay',
+        tableName: 'Daily Deaths',
+        indicatorW: 'todayDeaths',
+        populationType: 'all',
+        period: 'last',
+        indicator: 'deaths',
       },
       {
-        tableName: 'Deaths per 100k population for the last day',
-        indicatorW: 'deaths',
-        indicatorC: 'Deaths',
-        period: 1,
-        population: 1,
+        tableType: 'deathsDay100',
+        tableName: 'Daily Deaths per 100k',
+        indicatorW: 'todayDeaths',
+        populationType: '100k',
+        period: 'last',
+        indicator: 'deaths',
       },
       {
-        tableName: 'Total Recovered',
+        tableType: 'recoveredAll',
+        tableName: 'Cumulative Recovered',
         indicatorW: 'recovered',
-        indicatorC: 'Recovered',
-        period: 2,
-        population: 2,
+        populationType: 'all',
+        period: 'all',
+        indicator: 'recovered',
       },
       {
-        tableName: 'Total Recovered per 100k population',
+        tableType: 'recoveredAll100',
+        tableName: 'Cumulative Recovered per 100k',
         indicatorW: 'recovered',
-        indicatorC: 'Recovered',
-        period: 2,
-        population: 1,
+        populationType: '100k',
+        period: 'all',
+        indicator: 'recovered',
       },
       {
-        tableName: 'Recovered for the last day',
-        indicatorW: 'recovered',
-        indicatorC: 'Recovered',
-        period: 1,
-        population: 2,
+        tableType: 'recoveredDay',
+        tableName: 'Daily Recovered',
+        indicatorW: 'todayRecovered',
+        populationType: 'all',
+        period: 'last',
+        indicator: 'recovered',
       },
       {
-        tableName: 'Recovered per 100k population for the last day',
-        indicatorW: 'recovered',
-        indicatorC: 'Recovered',
-        period: 1,
-        population: 1,
+        tableType: 'recoveredDay100',
+        tableName: 'Daily Recovered per 100k',
+        indicatorW: 'todayRecovered',
+        populationType: '100k',
+        period: 'last',
+        indicator: 'recovered',
       },
     ];
-    this.activateEventListeners();
+    this.activateEvents();
     this.createWorldTable(0);
   }
   createWorldTable(tableIndex) {
-    this.utils.getDailyWorldData().then((dailyWorldData) => {
-      const indicator = this.tableTypes[tableIndex].indicatorW;
-      document.querySelector('.table-key').textContent = this.tableTypes[tableIndex].indicatorC;
-      const value;
-      if (this.tableTypes[tableIndex].period === 2) {
-        if (this.tableTypes[tableIndex].period.population === 1) {
-          value = this.getLastReturnedData(dailyWorldData, indicator) / 1000000 * 100000;
-        } else {
-          value = this.getLastReturnedData(dailyWorldData, indicator);
-        }
-      } else {
-        if (this.tableTypes[tableIndex].period.population === 1) {
-          value = this.getLastReturnedData(dailyWorldData, indicator) / 1000000 * 100000;
-        } else {
-          
-        }
+    let value;
+    this.utils.getDataForGlobalCasesPart().then(worldData => {
+      if (this.tableTypes[tableIndex].populationType === 'all') {
+        value = worldData[this.tableTypes[tableIndex].indicatorW];
+      } else if (this.tableTypes[tableIndex].populationType === '100k') {
+        value = +(worldData[this.tableTypes[tableIndex].indicatorW] / worldData.population * 100000).toFixed(3);
       }
-
-      document.querySelector('.table-value').innerHTML = value;
-      this.setTableLabel(tableIndex);
-    });
+      this.fillTable(this.tableTypes[tableIndex].indicator, value, this.tableTypes[tableIndex].tableName);
+    })
+    console.log('done');
   }
+  
+  fillTable(indicator, value, tableName) {
+    const tableNameField = document.querySelector('.table-name');
+    tableNameField.textContent = tableName;
+    const tableindicatorField = document.querySelector('.table-key');
+    tableindicatorField.textContent = indicator;
+    const tableValueField = document.querySelector('.table-value');
+    tableValueField.textContent = value;
+  }
+
   getNextTable() {
-    this.currentTable = (this.currentTable+ 1) % 12;
+    this.currentTable = (this.currentTable + 1) % 12;
     if (this.currentTableGlobalType === 'world') {
       this.createWorldTable(this.currentTable);
     } else {
@@ -136,39 +144,12 @@ class Part1Table {
       this.createCountryTable(this.currentTable, this.currentTableGlobalType);
     }
   }
-  setTableLabel(tableIndex) {
-    const tableLabel = document.querySelector('.table-name');
-    tableLabel.textContent = this.tableTypes[tableIndex].tableName;
-  }
-  setCountryName() {
-    document.querySelector('.table-country').textContent = this.currentTableGlobalType;
-  }
-  activateEventListeners() {
-    const leftArrow = document.querySelector('.left-table-arrow');
-    const rightArrow = document.querySelector('.right-table-arrow');
-    leftArrow.addEventListener('click', () => this.getPreviousTable());
-    rightArrow.addEventListener('click', () => this.getNextTable());
-    const inputCountryField = document.querySelector('.search-field-input');
-    inputCountryField.addEventListener('focus', () => { inputCountryField.textContent = ''; });
-    const inputCountryIcon = document.querySelector('.search-field-img');
-    inputCountryIcon.addEventListener('click', () => this.checkCountryExists(inputCountryField));
-  }
-  checkCountryExists(field) {
-    if (a[field.textContent.toLowerCase()]) {
-      this.createCountryDiagram(this.currentDiagram, field.textContent);
-      this.currentDiagramGlobalType = field.textContent;
-    } else {
-      field.textContent = 'incorrect data';
-    }
-  }
-  getLastReturnedData(dataObject, indicator) {
-    const today = new Date();
-    const currentDate = `${today.getMonth() + 1}/${today.getDate()}/${`${today.getFullYear()}`.slice(2)}`;
-    const yesterday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1);
-    const previousDate =`${yesterday.getMonth() + 1}/${yesterday.getDate()}/${`${yesterday.getFullYear()}`.slice(2)}`;
-    const value = (dataObject[indicator][currentDate] in dataObject[indicator]) ? dataObject[indicator][currentDate] : dataObject[indicator][previousDate];
-    return value;
-  }
+  activateEvents() {
+    const leftTableArrow = document.querySelector('.left-table-arrow');
+    const rightTableArrow = document.querySelector('.right-table-arrow');
+    leftTableArrow.addEventListener('click', () => this.getPreviousTable());
+    rightTableArrow.addEventListener('click', () => this.getNextTable());
+ }
 }
 
 export default Part1Table;
