@@ -89,6 +89,7 @@ h3{
   height: 30%;
   margin-bottom: 10px;
   padding: 5px;
+  position: relative;
 }
 .main .left .global-cases h3{
   width: 100%;
@@ -105,6 +106,7 @@ h3{
 .main .left .cases-list{
   background-color: #232323;
   height: 70%;
+  position: relative;
   overflow-y: auto;
 }
 
@@ -144,6 +146,7 @@ h3{
 .main .map {
   width: 55%;
   background-color: #232323;
+  position: relative;
 }
 .main .map .leaflet-control{
   background-color: rgba(0, 0, 0, 0.7);
@@ -185,7 +188,7 @@ h3{
   justify-content: space-between;
   flex-direction: column;
 }
-.main .right .right-table{
+.right-table{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -193,6 +196,7 @@ h3{
   background-color: #232323;
   margin-bottom: 10px;
   padding: 5px;
+  position: relative;
 }
 .main .right .right-table .right-table_country-cases{
   display: flex;
@@ -223,10 +227,11 @@ h3{
   font-size: 14px;
 }
 
-.main .right .right-chart{
+.right-chart{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-between;  
+  position: relative;
 
   height: 50%;
   background-color: #232323;
@@ -342,4 +347,28 @@ h3{
     height: 500px;
   }
 
+}
+.close{
+  color: #FFF;
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 999;
+}
+.close:hover{
+  cursor: pointer;
+  opacity: 0.5;
+}
+.all-window{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 998;
+}
+.disabled{
+  display: none;
 }
