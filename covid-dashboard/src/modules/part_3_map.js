@@ -71,7 +71,7 @@ class Part3Map {
   setAllCasesExecute(result) {
     const DATE = new Date();
     document.querySelector('.all-cases').innerHTML = `${result.cases}
-    <p style="color:#aaa; text-align: center; font-size: 14px">Last Update: ${DATE.getDate()} ${DATE.getMonth()} ${DATE.getFullYear()}</p>`;
+    <p style="color:#aaa; text-align: center; font-size: 14px">Last Updated: ${DATE.getDate()} ${DATE.getMonth()} ${DATE.getFullYear()}</p>`;
   }
 
   setMarkerCertainCountry(certainCountryName) {

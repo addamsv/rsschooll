@@ -143,7 +143,7 @@ h3{
 .main .left .cases-list .country-list-data .country-list-data-unit .country{
   color: #FFF;
 }
-.main .map {
+.map {
   width: 55%;
   background-color: #232323;
   position: relative;
@@ -352,7 +352,7 @@ h3{
   font-size: 16px;
   font-weight: bold;
   position: absolute;
-  top: 2px;
+  top: -9px;
   right: 15px;
   z-index: 999;
 }
@@ -377,4 +377,7 @@ h3{
 }
 .height100{
   height: 100%;
+}
+.width100{
+  width: 100%;
 }

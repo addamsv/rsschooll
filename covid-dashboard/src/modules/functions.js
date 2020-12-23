@@ -19,6 +19,7 @@ export default class Functions {
 
     MAP.querySelector('.close').addEventListener('click', () => {
       MAP.classList.toggle('all-window');
+      MAP.classList.toggle('width100');
       GLOBAL_CASES.classList.toggle('disabled');
       LIST.classList.toggle('disabled');
       TABLE.classList.toggle('disabled');
