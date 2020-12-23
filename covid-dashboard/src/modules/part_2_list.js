@@ -6,24 +6,42 @@ class Part2List {
     this.createCountryList();
   }
 
+  setFirstOptionInSearchList() {
+    const LIST_WRAPPER = document.querySelector('.country-list-data');
+    const LIST_WRAPPER_UNITS = document.querySelectorAll('.country-list-data-unit');
+    if (LIST_WRAPPER.value !== '') {
+      LIST_WRAPPER_UNITS[0].click();
+    }
+  }
+
+  setListByDataInSearchTextField() {
+    const SEARCH_FIELD = document.getElementById('countriesSearch');
+    const SEARCH_FIELD_VALUE = SEARCH_FIELD.value;
+    if (SEARCH_FIELD_VALUE === '') {
+      this.createCountryList();
+      return false;
+    }
+    this.createCountryList(SEARCH_FIELD_VALUE);
+    return true;
+  }
+
   setDataByCase() {
     this.createCountryList();
   }
 
-  createCountryList() {
+  createCountryList(startCountryName = '') {
     if (!this.utils.getGlobalLoaded()) {
       this.utils.getGlobal().then((result) => {
         this.utils.global = result;
-        this.createCountryListExecute(result);
+        this.createCountryListExecute(result, startCountryName);
       });
       return false;
     }
-    this.createCountryListExecute(this.utils.getGlobalLoaded());
+    this.createCountryListExecute(this.utils.getGlobalLoaded(), startCountryName);
     return true;
   }
 
-  createCountryListExecute(result) {
-    // const countriesData = result.Countries;
+  createCountryListExecute(result, startCountryName) {
     let countryListHTMLData = '';
     let countryInputListHTMLData = '';
     const countryDataArray = [];
@@ -31,25 +49,16 @@ class Part2List {
     const INPUT_LIST_WRAPPER = document.getElementById('countriesList');
     let countryNameAndTypeData;
     Object.keys(DATA).some((countrySlug) => {
-      // switch (countrySlug) {
-      //   case "france":
-      //     this.setMarkerCertainCountry('fr');
-      //     break;
-      //   case "canada":
-      //     this.setMarkerCertainCountry('ca');
-      //     break;
-      //   case "australia":
-      //     this.setMarkerCertainCountry('au');
-      //     break;
-      //   case "china":
-      //     this.setMarkerCertainCountry('cn');
-      //     break;
-      //   default:
-      // }
       if (DATA[countrySlug].Lon) {
         countryNameAndTypeData = this.getCountryDataByName(result, DATA[countrySlug].ISO2);
         if (countryNameAndTypeData.length !== 0) {
-          countryDataArray.push(countryNameAndTypeData);
+          if (startCountryName.length !== 0) {
+            if (countryNameAndTypeData[0].slice(0, startCountryName.length).toLowerCase() === startCountryName.toLowerCase()) {
+              countryDataArray.push(countryNameAndTypeData);
+            }
+          } else {
+            countryDataArray.push(countryNameAndTypeData);
+          }
         }
       }
       return false;
@@ -76,7 +85,7 @@ class Part2List {
         /* Country Name */
         countryNameTypeData[0] = countryObject.country;
         /* Mount of Cases etc */
-        countryNameTypeData[1] = this.getMountByType(countryObject); // countryObject[type];
+        countryNameTypeData[1] = this.getMountByType(countryObject);
         /* Country Name ISO2 format */
         countryNameTypeData[2] = countryObject.countryInfo.iso2;
         /* Country Flag (URL) */

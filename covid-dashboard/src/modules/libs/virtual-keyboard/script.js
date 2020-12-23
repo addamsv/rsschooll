@@ -4,7 +4,7 @@ class RSSKeyBoard {
    *       Controller
    *
    */
-  constructor() { // id = 'rssKeyBoard'
+  constructor() {
     this.APP = {
       keys: {
         ru: [
@@ -40,14 +40,14 @@ class RSSKeyBoard {
         capsLock: false,
         shift: false,
         lang: "en",
-        speechRecLeng: 'en',
+        speechRecLang: 'en',
         speechRecTranscript: '',
         keySound: true,
         speech: false,
         fnKeys: {
           en: 'langChange', ru: 'langChange', left: 37, right: 'ArrowRight', space: 32, enter: 13, shift: 16, caps: 20, backspace: 8,
         },
-        notAlowedKeyCode: [
+        notAllowedKeyCode: [
           'Control', 'Alt', 'Meta', 'AltRight', 'AltLeft', 'MetaLeft', 'MetaRight', 'ControlLeft', 'ControlRight', 'IntlBackslash', 'ArrowDown', 'ArrowUp', 'Backslash'],
         fixCodeEnter: {
           Comma: 44, Period: 46, Slash: 47, Minus: 45, Equal: 61, Quote: 39, Semicolon: 59, BracketRight: 93, BracketLeft: 91,
@@ -60,30 +60,25 @@ class RSSKeyBoard {
         firstRow: null,
         mainRows: null,
         lastRow: null,
-        musica: null,
-        speechRecognBtn: null,
-        speechRecognBtnLeng: null,
+        music: null,
+        speechRecognitionBtn: null,
+        speechRecognitionBtnLang: null,
         clickSoundSwitchOffBtn: null,
         speechObj: null,
         keys: [],
       },
       string: {
         ru: {
-          changeSpeechRecLangAlert: `Для того чтобы изменить язык распознования голоса,
-           необходимо девктивировать кнопку микрофон, затем надо изменить 'ru'->'en' клавишу и снова активировать кнопку микрофон`,
+          changeSpeechRecLangAlert: '',
         },
         en: {
-          changeSpeechRecLangAlert: `Для того чтобы изменить язык распознования голоса, 
-            необходимо девктивировать кнопку микрофон, затем надо изменить 'en'->'ru' клавишу и снова активировать кнопку микрофон`,
+          changeSpeechRecLangAlert: '',
         },
       },
 
     };
-
     this.makeKeyBoardContainer();
-
     this.createKeys();
-
     this.setEvents();
   }
 
@@ -91,10 +86,6 @@ class RSSKeyBoard {
     const CONTEXT = this;
 
     function mainControllerClick(e) {
-      // console.log(e);
-
-      /* input STANDART kb */
-
       if (e.keyCode) {
         if (!document.getElementById(`id_${e.keyCode}`) && e.code.substring(0, 3) === 'Key') {
           if (!document.getElementById(`id_${e.key.charCodeAt(0)}`)) {
@@ -106,8 +97,6 @@ class RSSKeyBoard {
           CONTEXT.keyAnimated(document.getElementById(`id_${e.key.charCodeAt(0)}`));
           return;
         }
-
-        // console.log(e.code);
         switch (e.code) {
           case 'ArrowRight':
             CONTEXT.right(0);
@@ -144,7 +133,7 @@ class RSSKeyBoard {
             return;
 
           default:
-            if (CONTEXT.APP.prop.notAlowedKeyCode.indexOf(e.code) === -1) {
+            if (CONTEXT.APP.prop.notAllowedKeyCode.indexOf(e.code) === -1) {
               if (e.code in CONTEXT.APP.prop.fixCodeEnter) {
                 const SELECTION_START = CONTEXT.APP.ID.textField.selectionStart;
                 const SELECTION_END = CONTEXT.APP.ID.textField.selectionEnd;
@@ -174,16 +163,12 @@ class RSSKeyBoard {
 
         return;
       }
-
-      /* Additional Buttons */
       switch (e.target.id) {
-        case 'speechRecognBtn':
-          // CONTEXT.startSpeechRec();
+        case 'speechRecognitionBtn':
           return;
         case 'soundSwitchOffBtn':
           CONTEXT.soundSwitchOnOff();
           return;
-          /* depricated */
         case 'speechLang':
           CONTEXT.changeSpeechLang(e.target.dataset.val);
           return;
@@ -192,8 +177,6 @@ class RSSKeyBoard {
       if (!e.target.dataset.val) {
         return;
       }
-
-      /* input VIRTUAL kb */
       CONTEXT.keyAnimated(e.target);
       switch (e.target.dataset.val) {
         case 'left':
@@ -247,9 +230,8 @@ class RSSKeyBoard {
    *          Model
    *
   */
-
-  toggleCalss(ob, isNeddedToRem, cssClass) {
-    if (isNeddedToRem) {
+  toggleClass(ob, isNeededToRem, cssClass) {
+    if (isNeededToRem) {
       ob.classList.remove(cssClass);
       return;
     }
@@ -258,13 +240,13 @@ class RSSKeyBoard {
 
   soundSwitchOnOff() {
     this.APP.prop.keySound = !this.APP.prop.keySound;
-    this.toggleCalss(this.APP.ID.clickSoundSwitchOffBtn, !this.APP.prop.keySound, 'keySoundSwitch--active');
+    this.toggleClass(this.APP.ID.clickSoundSwitchOffBtn, !this.APP.prop.keySound, 'keySoundSwitch--active');
   }
 
   changeSpeechLang(val = 'en') {
-    this.APP.prop.speechRecLeng = val === 'en' ? 'ru' : 'en';
-    this.APP.ID.speechRecognBtnLeng.dataset.val = this.APP.prop.speechRecLeng;
-    this.APP.ID.speechRecognBtnLeng.innerText = this.APP.prop.speechRecLeng;
+    this.APP.prop.speechRecLang = val === 'en' ? 'ru' : 'en';
+    this.APP.ID.speechRecognitionBtnLang.dataset.val = this.APP.prop.speechRecLang;
+    this.APP.ID.speechRecognitionBtnLang.innerText = this.APP.prop.speechRecLang;
   }
 
   keyAnimated(ob) {
@@ -290,11 +272,10 @@ class RSSKeyBoard {
 
   setCaps() {
     this.setAndToggleCaps();
-    this.arraseFrgmnt(this.APP.ID.mainRows);
+    this.remFragment(this.APP.ID.mainRows);
     this.createMainRows();
     if (this.APP.prop.capsLock) {
-      document.getElementById('id_20').classList.add("keyboard__key--active");// , "keyboard__quick-animated"
-      // this.keyAnimated(document.getElementById('id_20'));
+      document.getElementById('id_20').classList.add("keyboard__key--active");
     }
     this.rebuildFnButtonsStyles(document.getElementById('id_16'), 'shift');
   }
@@ -309,12 +290,12 @@ class RSSKeyBoard {
 
   setShift() {
     this.setAndToggleShift();
-    this.arraseFrgmnt(this.APP.ID.firstRow);
+    this.remFragment(this.APP.ID.firstRow);
     this.createFirstRow();
-    this.arraseFrgmnt(this.APP.ID.mainRows);
+    this.remFragment(this.APP.ID.mainRows);
     this.createMainRows();
     if (this.APP.prop.shift) {
-      document.getElementById('id_16').classList.add("keyboard__key--active");// , "keyboard__quick-animated"
+      document.getElementById('id_16').classList.add("keyboard__key--active");
     }
     this.rebuildFnButtonsStyles(document.getElementById('id_20'), 'capsLock');
   }
@@ -328,9 +309,9 @@ class RSSKeyBoard {
 
     this.setAndToggleLangName();
 
-    this.arraseFrgmnt(this.APP.ID.firstRow);
+    this.remFragment(this.APP.ID.firstRow);
     this.createFirstRow();
-    this.arraseFrgmnt(this.APP.ID.mainRows);
+    this.remFragment(this.APP.ID.mainRows);
     this.createMainRows();
 
     document.getElementById('id_langChange').innerText = this.APP.prop.lang;
@@ -342,7 +323,7 @@ class RSSKeyBoard {
     this.APP.prop.lang = this.APP.prop.lang === 'ru' ? 'en' : 'ru';
   }
 
-  arraseFrgmnt(ob) {
+  remFragment(ob) {
     const object = ob;
     object.innerHTML = '';
   }
@@ -384,6 +365,7 @@ class RSSKeyBoard {
     this.APP.ID.textField.setSelectionRange(
       start === undefined ? this.APP.ID.textField.selectionStart + n : start, fin === undefined ? this.APP.ID.textField.selectionEnd + n : fin,
     );
+    this.APP.ID.textField.click();
   }
 
   isActualStateUpperCase(val = false) {
@@ -404,6 +386,7 @@ class RSSKeyBoard {
     }
 
     this.setFocusOnTextField();
+
     if (this.isActualStateUpperCase()) {
       val = val.toUpperCase();
     }
@@ -429,29 +412,24 @@ class RSSKeyBoard {
 
   /**
    *
-   *           Wiew
+   *           View
    *
    */
-
   makeKeyBoardContainer() {
     this.APP.ID.textField = document.getElementById(`countriesSearch`);
     this.APP.ID.main = document.getElementById('rssKeyBoard');
-
     this.APP.ID.keysContainer = this.makeElement('div', "keyboard__keys");
-
     this.APP.ID.firstRow = this.makeElement('div', "keyboard__firstRow", '', '', 'firstRow');
     this.APP.ID.mainRows = this.makeElement('div', "keyboard__mainRows", '', '', 'mainRow');
     this.APP.ID.lastRow = this.makeElement('div', "keyboard__lastRow", '', '', 'lastRow');
-
     this.APP.ID.keysContainer.appendChild(this.APP.ID.firstRow);
     this.APP.ID.keysContainer.appendChild(this.APP.ID.mainRows);
     this.APP.ID.keysContainer.appendChild(this.APP.ID.lastRow);
-
     this.APP.ID.main.appendChild(this.APP.ID.keysContainer);
   }
 
-  makeElement(elmnt, cssClass, textVal = '', _type = '', _id = '') {
-    const el = document.createElement(elmnt);
+  makeElement(element, cssClass, textVal = '', _type = '', _id = '') {
+    const el = document.createElement(element);
     if (cssClass) {
       el.classList.add(...cssClass.split(' '));
     }

@@ -292,7 +292,6 @@ class Part4Diagram {
     } else {
       this.createCountryDiagram(this.currentDiagram, this.currentDiagramGlobalType);
     }
-    console.log(`diagram get case${this.diagramTypes[this.currentDiagram].diagramType}`);
     this.utils.setTypeOfCase(this.diagramTypes[this.currentDiagram].diagramType);
   }
 
