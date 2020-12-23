@@ -56,8 +56,12 @@ class Part2List {
       return false;
     });
     countryDataArray.sort((a, b) => b[1] - a[1]).some((object) => {
-      countryListHTMLData += `<div data-country="${object[2]}" class="country-list-data-unit"><span class="number">${object[1]}</span>
-      <span class="span country">${object[0]}</span><img class="country-flag" style="width:27px;height:auto;" src="${object[3]}" alt="${object[2]}"></div>`;
+      countryListHTMLData += `
+      <div data-country="${object[2]}" class="country-list-data-unit">
+        <img class="country-flag" style="width:14px;height:10px;" src="${object[3]}" alt="${object[2]}">
+        <span class="number">${object[1]}</span>
+        <span class="span country">${object[0]}</span>
+      </div>`;
 
       countryInputListHTMLData += `<option value="${object[0]}">${object[0]}</option>`;
       return false;

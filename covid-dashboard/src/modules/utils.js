@@ -63,14 +63,14 @@ class Utils {
     const data = await res.json();
     return data;
   }
-  
+
   async getDailyCountryData(country) {
     const url = `https://disease.sh/v3/covid-19/historical/${country}?lastdays=all`;
     const res = await fetch(url);
     const data = await res.json();
     return data;
   }
-  
+
   setEventOfChangeCountry(countryName) {
     const ELEMENT = document.querySelector('[data-set-country]');
     ELEMENT.dataset.setCountry = countryName;

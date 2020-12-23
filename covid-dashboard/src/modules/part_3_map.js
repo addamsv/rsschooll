@@ -46,10 +46,12 @@ class Part3Map {
 
   setDataByCountry(countryName) {
     this.moveViewTo(this.getCountryCoordinates(countryName));
-    console.log(`${countryName} ${this.getCountryCoordinates(countryName)}`);
+    // console.log(`${countryName} ${this.getCountryCoordinates(countryName)}`);
   }
 
   setDataByCase(caseName) {
+    this.removeAllMarkers();
+    this.makeMarker();
     console.log(`part3 case: ${caseName}`);
   }
 
@@ -217,7 +219,7 @@ class Part3Map {
           iconSize: this.getMarkerSize(countryData),
         });
         const markerOptions = {
-          title: `${countryData.country} cases: ${countryData.cases}`,
+          title: `${countryData.country} Cases: ${countryData.cases}`,
           clickable: true,
           icon: myIcon,
         };
@@ -246,20 +248,54 @@ class Part3Map {
   }
 
   getMarkerSize(countryData) {
-    if (!countryData.cases) {
-      return [5, 5];
+    if (!this.getMountByType(countryData)) {
+      return [2, 2];
     }
     const CONSTRAIN = this.constrain;
     const DEFAULT_SIZE = 27;
     let markerSize;
     CONSTRAIN.some((constrainElement) => {
-      if (constrainElement[0] >= countryData.cases) {
+      if (constrainElement[0] >= this.getMountByType(countryData)) {
         markerSize = [constrainElement[1], constrainElement[1]];
         return true;
       }
       return false;
     });
     return (markerSize) || [DEFAULT_SIZE, DEFAULT_SIZE];
+  }
+
+  getMountByType(object) {
+    switch (this.utils.typeOfCase) {
+      case 'casesAll':
+        return object.cases;
+      case 'deathsAll':
+        return object.deaths;
+      case 'recoveredAll':
+        return object.recovered;
+
+      case 'casesDay':
+        return object.todayCases;
+      case 'deathsDay':
+        return object.todayDeaths;
+      case 'recoveredDay':
+        return object.todayRecovered;
+
+      case 'casesDay100':
+        return (object.todayCases / object.population) * 100000;
+      case 'deathsDay100':
+        return (object.todayDeaths / object.population) * 100000;
+      case 'recoveredDay100':
+        return (object.todayRecovered / object.population) * 100000;
+
+      case 'casesAll100':
+        return (object.cases / object.population) * 100000;
+      case 'deathsAll100':
+        return (object.deaths / object.population) * 100000;
+      case 'recoveredAll100':
+        return (object.recovered / object.population) * 100000;
+      default:
+        return false;
+    }
   }
 
   setCountryLayer() {
@@ -417,6 +453,7 @@ class Part3Map {
       this.map.removeLayer(marker);
       return false;
     });
+    this.markers = [];
   }
 
   moveViewTo(coordinates) {
