@@ -133,7 +133,7 @@ class Part3Map {
         };
         const marker = L.marker([LAST_DAY_CANADIAN_DATA[provinceName].Lat, LAST_DAY_CANADIAN_DATA[provinceName].Lon], markerOptions);
         // Deaths: ${LAST_DAY_CANADIAN_DATA[provinceName].Deaths};
-        marker.bindPopup(`${LAST_DAY_CANADIAN_DATA[provinceName].Province} Cases: ${LAST_DAY_CANADIAN_DATA[provinceName].Confirmed}`).openPopup();
+        // marker.bindPopup(`${LAST_DAY_CANADIAN_DATA[provinceName].Province} Cases: ${LAST_DAY_CANADIAN_DATA[provinceName].Confirmed}`).openPopup();
         marker.addTo(this.map);
       }
       return false;
@@ -397,7 +397,7 @@ class Part3Map {
     const gpsMarker = new L.geoJson(geoJsonData, {
       onEachFeature(feature, layer) {
         if (feature.properties && feature.properties.popupContent) {
-          layer.bindPopup(feature.properties.popupContent, { closeButton: true, offset: L.point(0, 0) });
+          // layer.bindPopup(feature.properties.popupContent, { closeButton: true, offset: L.point(0, 0) });
           layer.on('click', () => {
             CONTEXT.utils.setEventOfChangeCountry(feature.properties.popupISO);
           });
