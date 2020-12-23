@@ -8,10 +8,12 @@ import RSSKeyBoard from "./libs/virtual-keyboard/script";
 
 const leftDiagramArrow = document.querySelector('.diagram-left-arrow');
 const rightDiagramArrow = document.querySelector('.diagram-right-arrow');
+
 export default class App extends Functions {
   constructor() {
     super();
     this.initEvents();
+    this.activateStretchingEvent();
     this.utils = new Utils();
     this.part3Map = new Part3Map(this.utils);
     this.part4Diagram = new Part4Diagram(this.utils);
