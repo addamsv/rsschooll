@@ -103,8 +103,9 @@ class Part1Table {
       },
     ];
     this.activateEvents();
-    this.createWorldTable(0);
+    this.createCountryTable(0, 'BY');
   }
+
   createWorldTable(tableIndex) {
     let value;
     this.utils.getDataForGlobalCasesPart().then(worldData => {
@@ -114,7 +115,26 @@ class Part1Table {
         value = +(worldData[this.tableTypes[tableIndex].indicatorW] / worldData.population * 100000).toFixed(6);
       }
       this.fillTable(this.tableTypes[tableIndex].indicator, value, this.tableTypes[tableIndex].tableName);
+      document.querySelector('.right-table').querySelector('h3').textContent = `Global statistics`;
     })
+  }
+
+  createCountryTable(tableIndex, countryISO) {
+    let value;
+    this.utils.getGlobal().then((dailyCountryData) => {
+      dailyCountryData.forEach((country) => {
+        if (country.countryInfo.iso2 === countryISO) {
+          let countryData = country;
+          if (this.tableTypes[tableIndex].populationType === 'all') {
+            value = countryData[this.tableTypes[tableIndex].indicatorW];
+          } else if (this.tableTypes[tableIndex].populationType === '100k') {
+            value = +(countryData[this.tableTypes[tableIndex].indicatorW] / countryData.population * 100000).toFixed(6);
+          }
+          this.fillTable(this.tableTypes[tableIndex].indicator, value, this.tableTypes[tableIndex].tableName);
+          document.querySelector('.right-table').querySelector('h3').textContent = `${country.country} statistics`;
+        }
+      })
+    });
   }
   
   fillTable(indicator, value, tableName) {

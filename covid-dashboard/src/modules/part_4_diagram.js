@@ -168,7 +168,6 @@ class Part4Diagram {
       const indicator = this.diagramTypes[diagramIndex].indicatorW;
       let totalPrevCases = 0;
       let backgroundColor;
-      console.log(dailyCountryData);
       if (this.diagramTypes[diagramIndex].populationType === 'all') {
         Object.keys(dailyCountryData[indicator]).some((dayCountryData) => {
           dates.push(dayCountryData);
@@ -185,7 +184,6 @@ class Part4Diagram {
       } else if (this.diagramTypes[diagramIndex].populationType === '100k') {
         this.utils.getDataForGlobalCasesPart().then(data => {
           let population = data.population;
-          console.log(population);
           Object.keys(dailyCountryData[indicator]).some((dayCountryData) => {
             dates.push(dayCountryData);
             if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
