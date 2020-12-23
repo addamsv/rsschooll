@@ -1,6 +1,6 @@
 class Part1Table {
   constructor(utils) {
-    this.utils = utils; 
+    this.utils = utils;
     this.currentTable = 0;
     this.currentTableGlobalType = 'world';
     this.tableTypes = [
@@ -108,15 +108,15 @@ class Part1Table {
 
   createWorldTable(tableIndex) {
     let value;
-    this.utils.getDataForGlobalCasesPart().then(worldData => {
+    this.utils.getDataForGlobalCasesPart().then((worldData) => {
       if (this.tableTypes[tableIndex].populationType === 'all') {
         value = worldData[this.tableTypes[tableIndex].indicatorW];
       } else if (this.tableTypes[tableIndex].populationType === '100k') {
-        value = +(worldData[this.tableTypes[tableIndex].indicatorW] / worldData.population * 100000).toFixed(6);
+        value = +((worldData[this.tableTypes[tableIndex].indicatorW] / worldData.population) * 100000).toFixed(6);
       }
       this.fillTable(this.tableTypes[tableIndex].indicator, value, this.tableTypes[tableIndex].tableName);
       document.querySelector('.right-table').querySelector('h3').textContent = `Global statistics`;
-    })
+    });
   }
 
   createCountryTable(tableIndex, countryISO) {
@@ -124,19 +124,19 @@ class Part1Table {
     this.utils.getGlobal().then((dailyCountryData) => {
       dailyCountryData.forEach((country) => {
         if (country.countryInfo.iso2 === countryISO) {
-          let countryData = country;
+          const countryData = country;
           if (this.tableTypes[tableIndex].populationType === 'all') {
             value = countryData[this.tableTypes[tableIndex].indicatorW];
           } else if (this.tableTypes[tableIndex].populationType === '100k') {
-            value = +(countryData[this.tableTypes[tableIndex].indicatorW] / countryData.population * 100000).toFixed(6);
+            value = +((countryData[this.tableTypes[tableIndex].indicatorW] / countryData.population) * 100000).toFixed(6);
           }
           this.fillTable(this.tableTypes[tableIndex].indicator, value, this.tableTypes[tableIndex].tableName);
           document.querySelector('.right-table').querySelector('h3').textContent = `${country.country} statistics`;
         }
-      })
+      });
     });
   }
-  
+
   fillTable(indicator, value, tableName) {
     const tableNameField = document.querySelector('.table-name');
     tableNameField.textContent = tableName;
@@ -163,12 +163,13 @@ class Part1Table {
       this.createCountryTable(this.currentTable, this.currentTableGlobalType);
     }
   }
+
   activateEvents() {
     const leftTableArrow = document.querySelector('.left-table-arrow');
     const rightTableArrow = document.querySelector('.right-table-arrow');
     leftTableArrow.addEventListener('click', () => this.getPreviousTable());
     rightTableArrow.addEventListener('click', () => this.getNextTable());
- }
+  }
 }
 
 export default Part1Table;

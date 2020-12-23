@@ -394,7 +394,6 @@ class Part3Map {
     // console.log(GEO_JSON_COUNTRY_LAYERS_DATA);
     // console.log(this.getCountryGeoJsonData());
     const CONTEXT = this;
-    console.log(geoJsonData);
     // eslint-disable-next-line new-cap
     const gpsMarker = new L.geoJson(geoJsonData, {
       onEachFeature(feature, layer) {
@@ -530,8 +529,8 @@ class Part3Map {
     const legend = L.control({ position: 'topleft' });
     legend.onAdd = () => {
       const DIV = L.DomUtil.create('div', 'info country-hint');
-      const HTML = `<div class="country-name-hint" style="color:#aaa;">Country: Belarus</div>
-                  <div class="country-data" style="color:#aaa;">Cases: 1234</div>`;
+      const HTML = `<div class="country-name-hint" style="color:#aaa;"></div>
+                  <div class="country-data" style="color:#aaa;"></div>`;
       DIV.innerHTML = HTML;
       return DIV;
     };

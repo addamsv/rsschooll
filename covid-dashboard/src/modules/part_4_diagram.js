@@ -160,8 +160,8 @@ class Part4Diagram {
   }
 
   createCountryDiagram(diagramIndex, country) {
-    this.utils.getDailyCountryData(country).then((dailyCountryData) => {
-      dailyCountryData = dailyCountryData.timeline;
+    this.utils.getDailyCountryData(country).then((countryData) => {
+      const dailyCountryData = countryData.timeline;
       const dates = [];
       const statistics = [];
       const indicator = this.diagramTypes[diagramIndex].indicatorW;

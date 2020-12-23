@@ -68,7 +68,12 @@ export default class App extends Functions {
     document.addEventListener('click', checkEvent);
     leftDiagramArrow.addEventListener('click', () => getPreviousDiagram());
     rightDiagramArrow.addEventListener('click', () => getNextDiagram());
-    inputCountryField.addEventListener('focus', () => { inputCountryField.textContent = ''; });
-    inputCountryIcon.addEventListener('click', () => { checkCountryExists(inputCountryField); console.log(inputCountryField.textContent) });
+    inputCountryField.addEventListener('focus', () => {
+      inputCountryField.textContent = '';
+    });
+    inputCountryIcon.addEventListener('click', () => {
+      checkCountryExists(inputCountryField);
+      console.log(inputCountryField.textContent);
+    });
   }
 }
