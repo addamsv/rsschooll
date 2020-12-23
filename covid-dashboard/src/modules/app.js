@@ -4,12 +4,15 @@ import Part3Map from './part_3_map';
 import Part2List from './part_2_list';
 import Part4Diagram from './part_4_diagram';
 import Utils from "./utils";
+import RSSKeyBoard from "./libs/virtual-keyboard/script";
 
 // const EVENT_ELEMENT = document.querySelector('[data-set-country]');
 const leftDiagramArrow = document.querySelector('.diagram-left-arrow');
 const rightDiagramArrow = document.querySelector('.diagram-right-arrow');
 const inputCountryField = document.querySelector('.search-field-input');
 const inputCountryIcon = document.querySelector('.search-field-img');
+// const countriesSearchInput = document.querySelector('.countries-search-input');
+
 export default class App extends Functions {
   constructor() {
     super();
@@ -19,6 +22,7 @@ export default class App extends Functions {
     this.part4Diagram = new Part4Diagram(this.utils);
     this.part2List = new Part2List(this.utils);
     this.part1Table = new Part1Table(this.utils);
+    this.rssKeyBoard = new RSSKeyBoard();
   }
 
   initEvents() {
@@ -54,6 +58,11 @@ export default class App extends Functions {
         CONTEXT.utils.setTypeOfCase(CASE);
       }
     }
+    function setSearchingCountry(event) {
+      if (event.target.id === 'countriesSearch' && (event.keyCode === 13)) {
+        console.log(event.keyCode);
+      }
+    }
     function getPreviousDiagram() {
       CONTEXT.part4Diagram.getPreviousDiagram();
     }
@@ -68,6 +77,7 @@ export default class App extends Functions {
      */
     document.addEventListener('change', checkSelect);
     document.addEventListener('click', checkEvent);
+    document.addEventListener('keyup', setSearchingCountry);
     leftDiagramArrow.addEventListener('click', () => getPreviousDiagram());
     rightDiagramArrow.addEventListener('click', () => getNextDiagram());
     inputCountryField.addEventListener('focus', () => {
