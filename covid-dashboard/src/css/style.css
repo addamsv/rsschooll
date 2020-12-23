@@ -272,7 +272,7 @@ h3{
   font-size: 20px;
   color: #FFF;
 }
-.switch .diagram-left-arrow:hover, .switch .diagram-right-arrow:hover{
+.switch .left-arrow:hover, .switch .right-arrow:hover{
   cursor: pointer;
   opacity: 0.5;
 }
@@ -324,4 +324,3 @@ h3{
 .footer .git-link .link .link-img img {
   height: 50px;
 }
-
