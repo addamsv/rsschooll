@@ -204,24 +204,21 @@ class Part4Diagram {
         });
         this.createDiagram(dates, statistics, this.diagramTypes[diagramIndex].graphicType, backgroundColor);
       } else if (this.diagramTypes[diagramIndex].populationType === '100k') {
-        this.utils.getDataForGlobalCasesPart().then((data) => {
-          const population = data.population;
-          console.log(population);
-          Object.keys(dailyCountryData[indicator]).some((dayCountryData) => {
-            dates.push(dayCountryData);
-            if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
-              console.log(population);
-              statistics.push(+((Math.abs(dailyCountryData[indicator][dayCountryData] - totalPrevCases) / population) * 100000).toFixed(6));
-              backgroundColor = 'rgb(255, 170, 0)';
-            } else {
-              console.log(population);
-              statistics.push(+((dailyCountryData[indicator][dayCountryData] / population) * 100000).toFixed(6));
-            }
-            totalPrevCases = dailyCountryData[indicator][dayCountryData];
-            return false;
-          });
-          this.createDiagram(dates, statistics, this.diagramTypes[diagramIndex].graphicType, backgroundColor);
+        // this.utils.getDataForGlobalCasesPart().then((data) => { data.population;
+        const population = 7795328340;
+        Object.keys(dailyCountryData[indicator]).some((dayCountryData) => {
+          dates.push(dayCountryData);
+          if (this.diagramTypes[diagramIndex].graphicType === 'bar') {
+            statistics.push(+((Math.abs(dailyCountryData[indicator][dayCountryData] - totalPrevCases) / population) * 100000).toFixed(6));
+            backgroundColor = 'rgb(255, 170, 0)';
+          } else {
+            statistics.push(+((dailyCountryData[indicator][dayCountryData] / population) * 100000).toFixed(6));
+          }
+          totalPrevCases = dailyCountryData[indicator][dayCountryData];
+          return false;
         });
+        this.createDiagram(dates, statistics, this.diagramTypes[diagramIndex].graphicType, backgroundColor);
+        // });
       }
       this.addDiagramLabel(diagramIndex);
     });
