@@ -103,7 +103,7 @@ class Part1Table {
       },
     ];
     this.activateEvents();
-    this.createCountryTable(0, 'BY');
+    this.createWorldTable(0);
   }
 
   createWorldTable(tableIndex) {
