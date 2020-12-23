@@ -5,7 +5,7 @@ const Chart = require('./libs/chart');
 
 class Part4Diagram {
   constructor(utils) {
-    this.utils = utils; 
+    this.utils = utils;
     this.currentDiagram = 0;
     this.currentDiagramGlobalType = 'world';
     this.diagramTypes = [
@@ -138,9 +138,9 @@ class Part4Diagram {
         return false;
       });
       this.createDiagram(dates, statistics, this.diagramTypes[diagramIndex].graphicType, backgroundColor);
-    } else if(this.diagramTypes[diagramIndex].populationType === '100k'){
-      this.utils.getDataForGlobalCasesPart().then(data => {
-        let population = data.population;
+    } else if (this.diagramTypes[diagramIndex].populationType === '100k') {
+      this.utils.getDataForGlobalCasesPart().then((data) => {
+        const population = data.population;
         console.log(population);
         Object.keys(dailyWorldData[indicator]).some((dayWorldData) => {
           dates.push(dayWorldData);
@@ -158,7 +158,6 @@ class Part4Diagram {
     }
     this.addDiagramLabel(diagramIndex);
   }
-
 
   createCountryDiagram(diagramIndex, country) {
     this.utils.getDailyCountryData(country).then((dailyCountryData) => {
@@ -183,8 +182,8 @@ class Part4Diagram {
         });
         this.createDiagram(dates, statistics, this.diagramTypes[diagramIndex].graphicType, backgroundColor);
       } else if (this.diagramTypes[diagramIndex].populationType === '100k') {
-        this.utils.getDataForGlobalCasesPart().then(data => {
-          let population = data.population;
+        this.utils.getDataForGlobalCasesPart().then((data) => {
+          const population = data.population;
           console.log(population);
           Object.keys(dailyCountryData[indicator]).some((dayCountryData) => {
             dates.push(dayCountryData);
