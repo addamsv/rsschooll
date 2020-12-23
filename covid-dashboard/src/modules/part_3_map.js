@@ -49,10 +49,9 @@ class Part3Map {
     // console.log(`${countryName} ${this.getCountryCoordinates(countryName)}`);
   }
 
-  setDataByCase(caseName) {
+  setDataByCase() {
     this.removeAllMarkers();
     this.makeMarker();
-    console.log(`part3 case: ${caseName}`);
   }
 
   /**
@@ -502,24 +501,24 @@ class Part3Map {
       const DIV = L.DomUtil.create('div', 'info type-of-cases');
       DIV.innerHTML += `<strong class="legend-name">Type of Case:</strong>
       <p><select data-case="cases">
-        <option disabled>Pick a Case:</option>
+      <option disabled>Pick a Case:</option>
+      
+      <option selected value="casesAll">Cumulative Confirmed</option>
+      <option value="deathsAll">Cumulative Deaths</option>
+      <option value="recoveredAll">Cumulative Recovered</option>
 
-        <option selected value="casesAll">casesAll</option>
-        <option value="deathsAll">deathsAll</option>
-        <option value="recoveredAll">recoveredAll</option>
+      <option value="casesDay">Confirmed For The Last Day</option>
+      <option value="deathsDay">Deaths For The Last Day</option>
+      <option value="recoveredDay">Recovered For The Last Day</option>
 
-        <option value="casesDay">casesDay</option>
-        <option value="deathsDay">deathsDay</option>
-        <option value="recoveredDay">recoveredDay</option>
+      <option value="casesDay100">Confirmed per 100k For The Last Day</option>
+      <option value="deathsDay100">Deaths per 100k For The Last Day</option>
+      <option value="recoveredDay100">Recovered per 100k For The Last Day</option>
 
-        <option value="casesDay100">casesDay100</option>
-        <option value="deathsDay100">deathsDay100</option>
-        <option value="recoveredDay100">recoveredDay100</option>
-
-        <option value="casesAll100">casesAll100</option>
-        <option value="deathsAll100">deathsAll100</option>
-        <option value="recoveredAll100">recoveredAll100</option>
-      </select></p>`;
+      <option value="casesAll100">Cumulative Confirmed per 100k</option>
+      <option value="deathsAll100">Cumulative Deaths per 100k</option>
+      <option value="recoveredAll100">Cumulative Recovered per 100k</option>
+    </select></p>`;
       return DIV;
     };
     legend.addTo(this.map);
