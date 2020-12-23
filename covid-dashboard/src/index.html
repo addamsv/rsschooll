@@ -30,12 +30,11 @@
         </div>
         <div data-set-case="casesAll" class="cases-list">
           <h3>Cases by Country/ Region/ Sovereignty
-            <input type="text" class="country-input-list-data" name="countries" list="countriesList">
-            <img src="./assets/images/search.png" alt="" class="" style="width:15px;height:15px;">
-            <datalist id="countriesList">
-              <!-- <option value="017">
+            <input type="text" name="example" list="exampleList">
+            <datalist id="exampleList">
+              <option value="017">
               <option value="028">
-              <option value="039"> -->
+              <option value="039">
             </datalist>
             <p><select data-case="cases">
               <option disabled>Pick a Case:</option>
@@ -65,24 +64,25 @@
       <section id = "map" class="map"></section>
       <aside class="right">
         <div class="right-table">
-          <div class="table-switches">
-            <div class="period">
-              <div class="period-switcher"></div>
-            </div>
-            <div class="populatio">
-              <div class="population-switcher"></div>
-            </div>
-
+          <h3></h3>
+          <div class="right-table_country-cases">
+            <div class="table-country"></div>
+            <div class="table-row"><span class="table-key"></span><span class="table-value"></span></div>
           </div>
+        <div class="switch">
+          <div class="left-arrow left-table-arrow">&lt;</div>
+          <div class="table-name"></div>
+          <div class="right-arrow right-table-arrow">&gt;</div>
+        </div>
         </div>
         <div class="right-chart">
           <div class="chart">
      
           </div>
           <div class="switch">
-            <div class="left-arrow">&lt;</div>
+            <div class="left-arrow diagram-left-arrow">&lt;</div>
             <div class="diagram-name"></div>
-            <div class="right-arrow">&gt;</div>
+            <div class="right-arrow diagram-right-arrow">&gt;</div>
           </div>
         </div>
       </aside>

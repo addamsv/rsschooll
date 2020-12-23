@@ -1,12 +1,13 @@
 import Functions from "./functions";
+import Part1Table from './part_1_table';
 import Part3Map from './part_3_map';
 import Part2List from './part_2_list';
 import Part4Diagram from './part_4_diagram';
 import Utils from "./utils";
 
 // const EVENT_ELEMENT = document.querySelector('[data-set-country]');
-const leftArrow = document.querySelector('.left-arrow');
-const rightArrow = document.querySelector('.right-arrow');
+const leftDiagramArrow = document.querySelector('.diagram-left-arrow');
+const rightDiagramArrow = document.querySelector('.diagram-right-arrow');
 const inputCountryField = document.querySelector('.search-field-input');
 const inputCountryIcon = document.querySelector('.search-field-img');
 export default class App extends Functions {
@@ -17,6 +18,7 @@ export default class App extends Functions {
     this.part3Map = new Part3Map(this.utils);
     this.part4Diagram = new Part4Diagram(this.utils);
     this.part2List = new Part2List(this.utils);
+    this.Part1Table = new Part1Table(this.utils);
   }
 
   initEvents() {
@@ -64,9 +66,9 @@ export default class App extends Functions {
      */
     document.addEventListener('change', checkSelect);
     document.addEventListener('click', checkEvent);
-    leftArrow.addEventListener('click', () => getPreviousDiagram());
-    rightArrow.addEventListener('click', () => getNextDiagram());
+    leftDiagramArrow.addEventListener('click', () => getPreviousDiagram());
+    rightDiagramArrow.addEventListener('click', () => getNextDiagram());
     inputCountryField.addEventListener('focus', () => { inputCountryField.textContent = ''; });
-    inputCountryIcon.addEventListener('click', () => checkCountryExists(inputCountryField));
+    inputCountryIcon.addEventListener('click', () => { checkCountryExists(inputCountryField); console.log(inputCountryField.textContent) });
   }
 }
