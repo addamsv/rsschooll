@@ -93,7 +93,7 @@ h3{
 .main .left .global-cases h3{
   width: 100%;
 }
-.main .left .global-cases h3 .chosen-field{
+.main .left .cases-list h3 p select.chosen-field{
   width: 100%;
 }
 .main .left .global-cases .all-cases{
