@@ -10,17 +10,6 @@
   <body>
     <header class="header">
       <h1 class="dashboard">COVID-19 Dashboard</h1>
-      <div class="right-part">
-        <div class="search-field">
-          <p class="search-field-input" contenteditable="true"></p>
-          <div class="search-field-button"> <img src="./assets/images/search.png" alt="" class="search-field-img"> </div>
-        </div>
-        <div class="burger-menu">
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-        </div>
-      </div>
     </header>
     <main class="main">
       <aside class="left">
@@ -30,7 +19,7 @@
         </div>
         <div data-set-case="casesAll" class="cases-list">
           <h3>Country List
-            <p><select data-case="cases">
+            <p><select data-case="cases" class="chosen-field">
               <option disabled>Pick a Case:</option>
               
               <option selected value="casesAll">Cumulative Confirmed</option>

@@ -6,13 +6,8 @@ import Part4Diagram from './part_4_diagram';
 import Utils from "./utils";
 import RSSKeyBoard from "./libs/virtual-keyboard/script";
 
-// const EVENT_ELEMENT = document.querySelector('[data-set-country]');
 const leftDiagramArrow = document.querySelector('.diagram-left-arrow');
 const rightDiagramArrow = document.querySelector('.diagram-right-arrow');
-const inputCountryField = document.querySelector('.search-field-input');
-const inputCountryIcon = document.querySelector('.search-field-img');
-// const countriesSearchInput = document.querySelector('.countries-search-input');
-
 export default class App extends Functions {
   constructor() {
     super();
@@ -69,22 +64,11 @@ export default class App extends Functions {
     function getNextDiagram() {
       CONTEXT.part4Diagram.getNextDiagram();
     }
-    function checkCountryExists() {
-      CONTEXT.part4Diagram.checkCountryExists(inputCountryField);
-    }
-    /**
-     * Add Event Listeners
-     */
+
     document.addEventListener('change', checkSelect);
     document.addEventListener('click', checkEvent);
     document.addEventListener('keyup', setSearchingCountry);
     leftDiagramArrow.addEventListener('click', () => getPreviousDiagram());
     rightDiagramArrow.addEventListener('click', () => getNextDiagram());
-    inputCountryField.addEventListener('focus', () => {
-      inputCountryField.textContent = '';
-    });
-    inputCountryIcon.addEventListener('click', () => {
-      checkCountryExists(inputCountryField);
-    });
   }
 }
