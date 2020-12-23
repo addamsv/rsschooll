@@ -52,10 +52,13 @@ export default class App extends Functions {
         const CASE = event.target[event.target.selectedIndex].value;
         CONTEXT.utils.setTypeOfCase(CASE);
       }
+      if (event.target.id === 'countriesSearch') {
+        CONTEXT.part2List.setListByDataInSearchTextField();
+      }
     }
     function setSearchingCountry(event) {
       if (event.target.id === 'countriesSearch' && (event.keyCode === 13)) {
-        console.log(event.keyCode);
+        CONTEXT.part2List.setFirstOptionInSearchList();
       }
     }
     function getPreviousDiagram() {
@@ -66,6 +69,7 @@ export default class App extends Functions {
     }
 
     document.addEventListener('change', checkSelect);
+    document.addEventListener('click', checkSelect);
     document.addEventListener('click', checkEvent);
     document.addEventListener('keyup', setSearchingCountry);
     leftDiagramArrow.addEventListener('click', () => getPreviousDiagram());
