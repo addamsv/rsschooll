@@ -6,9 +6,8 @@ class Part2List {
     this.createCountryList();
   }
 
-  setDataByCase(caseName) {
+  setDataByCase() {
     this.createCountryList();
-    console.log(`part2 case: ${caseName}`);
   }
 
   createCountryList() {
@@ -59,8 +58,8 @@ class Part2List {
       countryListHTMLData += `
       <div data-country="${object[2]}" class="country-list-data-unit">
         <img class="country-flag" style="width:14px;height:10px;" src="${object[3]}" alt="${object[2]}">
-        <span class="number">${object[1]}</span>
         <span class="span country">${object[0]}</span>
+        <span class="number">${object[1]}</span>
       </div>`;
 
       countryInputListHTMLData += `<option value="${object[0]}">${object[0]}</option>`;
