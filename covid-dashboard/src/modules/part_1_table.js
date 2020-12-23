@@ -22,7 +22,7 @@ class Part1Table {
       },
       {
         tableType: 'casesDay',
-        tableName: 'Daily Confirmed',
+        tableName: 'Confirmed For The Last Day',
         indicatorW: 'todayCases',
         populationType: 'all',
         period: 'last',
@@ -30,7 +30,7 @@ class Part1Table {
       },
       {
         tableType: 'casesDay100',
-        tableName: 'Daily Confirmed per 100k',
+        tableName: 'Confirmed per 100k For The Last Day',
         indicatorW: 'todayCases',
         populationType: '100k',
         period: 'last',
@@ -54,7 +54,7 @@ class Part1Table {
       },
       {
         tableType: 'deathsDay',
-        tableName: 'Daily Deaths',
+        tableName: 'Deaths For The Last Day',
         indicatorW: 'todayDeaths',
         populationType: 'all',
         period: 'last',
@@ -62,7 +62,7 @@ class Part1Table {
       },
       {
         tableType: 'deathsDay100',
-        tableName: 'Daily Deaths per 100k',
+        tableName: 'Deaths per 100k For The Last Day',
         indicatorW: 'todayDeaths',
         populationType: '100k',
         period: 'last',
@@ -86,7 +86,7 @@ class Part1Table {
       },
       {
         tableType: 'recoveredDay',
-        tableName: 'Daily Recovered',
+        tableName: 'Recovered For The Last Day',
         indicatorW: 'todayRecovered',
         populationType: 'all',
         period: 'last',
@@ -94,7 +94,7 @@ class Part1Table {
       },
       {
         tableType: 'recoveredDay100',
-        tableName: 'Daily Recovered per 100k',
+        tableName: 'Recovered per 100k For The Last Day',
         indicatorW: 'todayRecovered',
         populationType: '100k',
         period: 'last',
