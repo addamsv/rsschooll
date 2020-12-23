@@ -51,10 +51,6 @@ class Utils {
     const res = await fetch(url);
     const data = await res.json();
     return data;
-    // const url = `https://api.covid19api.com/summary`;
-    // const res = await fetch(url);
-    // const data = await res.json();
-    // return data;
   }
 
   async getDailyWorldData() {

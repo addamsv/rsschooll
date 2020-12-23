@@ -2,9 +2,6 @@ const PATH = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// require("@babel/core").transform("code", {
-//   plugins: ["transform-runtime"],
-// });
 
 module.exports = {
   mode: 'development',
@@ -52,5 +49,4 @@ module.exports = {
     open: true,
     historyApiFallback: true,
   },
-  devtool: 'inline-source-map',
 };
