@@ -8,8 +8,6 @@ import Utils from "./utils";
 // const EVENT_ELEMENT = document.querySelector('[data-set-country]');
 const leftDiagramArrow = document.querySelector('.diagram-left-arrow');
 const rightDiagramArrow = document.querySelector('.diagram-right-arrow');
-const inputCountryField = document.querySelector('.search-field-input');
-const inputCountryIcon = document.querySelector('.search-field-img');
 export default class App extends Functions {
   constructor() {
     super();
@@ -70,11 +68,5 @@ export default class App extends Functions {
     document.addEventListener('click', checkEvent);
     leftDiagramArrow.addEventListener('click', () => getPreviousDiagram());
     rightDiagramArrow.addEventListener('click', () => getNextDiagram());
-    inputCountryField.addEventListener('focus', () => {
-      inputCountryField.textContent = '';
-    });
-    inputCountryIcon.addEventListener('click', () => {
-      checkCountryExists(inputCountryField);
-    });
   }
 }
