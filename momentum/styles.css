@@ -1,0 +1,249 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-shadow: 0px 0px 8px rgba(0,0,0,0.7);
+}
+.error{
+  color: red;
+}
+  
+  body {
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
+    color: black;
+    background-color: rgba( 78, 78, 78, 0 );
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
+    transition: background-image 1s ease-in-out;
+  }
+  
+ #time > span{
+  font-size: 5rem;
+ }
+.time-frmt{
+  display:inline-block;
+  width:100px;
+  color: white;
+}
+.sec{
+  text-align: left;
+  padding-left: 12px;
+}
+
+  h1 {
+    margin-bottom: 2rem;
+    color: white;
+  }
+  
+  h2 {
+    margin-bottom: 0.5rem;
+    opacity: 0.6;
+    color: white;
+  }
+
+#name,
+#focus {
+  display: inline-block;
+  min-width: 40px;
+  outline-width: 3px;
+}
+#name:hover{
+  outline-style: solid;
+  outline-color: blue;
+  outline-width: 2px;
+  cursor: pointer;
+}
+#focus:hover{
+  outline-style: solid;
+  outline-color: blue;
+  cursor: pointer;
+}
+.city{
+  min-width: 30px;
+}
+.city:hover{
+  outline-style: solid;
+  outline-color: blue;
+  cursor: pointer;
+}
+
+
+  
+
+
+
+ 
+
+#imgChangeBtn{
+    position: absolute;
+    top: calc(50% + 200px);
+    left: calc(50% - 80px);
+    width: 150px;
+    height: 150px;
+    background: rgba( 255, 255, 255, 0.5 );
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color .5s ease-in-out;
+}
+#imgChangeBtn::before{
+    content: '';
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    top: 35px;
+    left: 60px;
+    border-left: 50px solid rgba(255,255,255,0.5);
+    border-top: 40px solid rgba(255,255,255,0);
+    border-bottom: 40px solid rgba(255,255,255,0);
+    transition: border-left-color .2s ease-in-out;
+}
+#imgChangeBtn:hover {
+    background: rgba(255,255,255,0.2);
+}
+#imgChangeBtn:hover:before {
+    border-left-color:rgba(255,255,255,0.7);
+}
+
+
+
+
+.btn-q {
+    position: absolute;
+    display: block;
+    right: 10px;
+    top: 10px;
+    border: 0;
+    width: 0px;
+    height: 0px;
+    background: none;
+    border-left: 12px solid rgba(0,0,0,0.5);
+    border-top: 10px solid rgba(0,0,0,0);
+    border-bottom: 10px solid rgba(0,0,0,0);
+    transition: border-left-color .2s ease-in-out;
+    cursor: pointer;
+}
+.btn-q:hover {
+  border-left: 12px solid rgba(0,0,0,0.9);
+}
+.btn-q:active,
+.btn-q:focus {
+    outline: 0;
+}
+
+
+.quote {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font: 1.2rem ;
+    width: 400px;
+    align-self: flex-start;
+    margin: 0;
+    background-color: rgba( 255, 255, 255, 0.5 );
+    padding: 0.2em;
+    padding-right: 40px;
+    border-radius: 1em;
+}
+.quote figcaption,
+.quote blockquote {
+    margin: 1em;
+}
+.quote figcaption {
+    text-align: right;
+}
+
+
+
+.weather{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  right: 15px;
+  top: 15px;
+  font: 1.2rem ;
+  width: 200px;
+  margin: 0;
+  background-color: rgba( 255, 255, 255, 0.5 );
+  padding: 0.3em;
+  border-radius: 1em;   
+}
+
+
+@media (max-width: 680px) {
+  body{
+    display: block;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+  #time > span{
+    font-size: 3rem;
+    margin-top: 40px;
+    width: 60px;
+   }
+  .quote{
+    position: relative;
+    width: 90vw;
+  }
+  .weather{
+    position: relative;
+    left: 15px;
+    top: 20px;
+    right: initial;
+    width: 90vw;
+  }
+  h1{
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+  h1 > span{
+    font-size: 20px;
+  }
+  h2{
+    font-size: 14px;
+    color: white;
+  }
+
+  #imgChangeBtn{
+    top: initial;
+    bottom: 25px;
+    left: calc(50% - 25px);
+    background: rgba( 255, 255, 255, 0.5 );
+    width: 50px;
+    height: 50px;
+  }
+  #imgChangeBtn:hover {
+    background: rgba(255,255,255,0);
+  }
+  #imgChangeBtn::before{
+    top: 5px;
+    left: 14px;
+    border-left: 25px solid rgba(255,255,255,0.5);
+    border-top: 20px solid rgba(255,255,255,0);
+    border-bottom: 20px solid rgba(255,255,255,0);
+    transition: border-left-color .2s ease-in-out;
+  }
+}
+
+
+@media (max-width: 320px) {
+  #imgChangeBtn{
+    top: initial;
+    bottom: 5px;
+    background: rgba( 255, 255, 255, 0.5 );
+    width: 50px;
+    height: 50px;
+  }
+}
