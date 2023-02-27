@@ -1,0 +1,196 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: Gotham Rounded, sans-serif;
+    font-weight: normal;
+  }
+  
+  body {
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(to right, #bbb, #fff);/* background: linear-gradient(to right, #00AAFF, #00FF6C); */
+  }
+  .rss-clc-wrapper{
+    display: block;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .calculator-grid {
+    display: flex;
+    position: relative;
+    top: calc(50% - 300px);
+    left: calc(50% - 160px);
+    justify-content: center;
+    align-content: center;
+    /* min-height: 400px; */
+    width: 320px;
+    flex-wrap: wrap;
+    box-shadow: 0px 0px 16px 4px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;  }
+
+
+  .calculator-grid > button {
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid white;
+    outline: none;
+    background-color: rgba(255, 255, 255, .75);
+    width: 80px;
+    height: 80px;
+  }
+
+ 
+  
+  .calculator-grid > button:hover {
+    background-color: rgba(255, 255, 255, .9);
+  }
+
+  .calculator-grid > button.span-two {
+    width: 160px;
+  }
+
+  .output {
+    /* background-color: rgba(0, 0, 0, .1); */
+    display: flex;
+    min-height: 120px;
+    width: 500px;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+  
+  .output .previous-operand {
+    color: rgba(0, 0, 0, .4);
+    font-size: 1.5rem;
+  }
+  
+  .output .current-operand {
+    color: rgba(0, 0, 0, .6);
+    font-size: 2.5rem;
+  }
+  .calculator-grid > button.ac-dell-btn{
+    position: relative;
+    height: 60px;
+    font-size: 20px;
+  }
+  .calculator-grid > button.del-btn{
+    font-size: 14px;
+  }
+  .del-btn::before{
+    content: '';
+    position: absolute;
+    border: 2px solid tomato;
+    border-radius: 3px;
+    border-left: none;
+    top: calc(50% - 7px);
+    left: calc(50% - 5px);
+    width: 12px;
+    height: 16px;
+  }
+  .del-btn::after{
+    content: '';
+    position: absolute;
+    border: 2px solid tomato;
+    border-radius: 3px;
+    border-top: none;
+    border-right: none;
+    transform: rotate(45deg);
+    top: calc(50% - 5px);
+    left: calc(50% - 10px);
+    width: 12px;
+    height: 12px;
+  }
+  .fn-btn{
+    color: tomato;
+  }
+  .equal-btn{
+    position: relative;
+    color: white;
+  }
+  .equal-btn::before{
+    content: '';
+    position: absolute;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 99, 71, 1);
+    border-radius: 50%;
+  }
+  .equal-btn::after{
+    content: '=';
+    position: absolute;
+    color: white;
+    top: calc(50% - 20px);
+    left: calc(50% - 10px);
+    width: 20px;
+    height: 20px;
+    line-height: 1.2em;
+    /* background-color: rgba(255, 255, 255, 1); */
+    border-radius: 50%;
+  }
+
+  @media (max-width: 500px){
+    .calculator-grid {
+      width: 100%; 
+      top: 0px;
+      left: 0;
+    }
+    .output{
+      width: 100%;
+    }
+    .calculator-grid > button.span-two {
+      width: 50%;
+    }
+    .calculator-grid > button {
+      width: 25%;
+      height: 20vw;
+    }
+  }
+
+
+
+    /* .calculator-grid {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    min-height: 100vh;
+    grid-template-columns: repeat(4, 80px);
+    grid-template-rows: minmax(120px, auto) repeat(6, 80px);
+  } */
+    
+  /* .output {
+    grid-column: 1 / -1;
+    background-color: rgba(0, 0, 0, .75);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+  } */
+    
+  /*  
+   .span-two {
+     grid-column: span 2;
+   } */
+   /*   .calculator-grid > button {
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid white;
+    outline: none;
+    background-color: rgba(255, 255, 255, .75);
+  } */
+
+  /* @media (max-width: 330px){
+    .calculator-grid {
+      grid-template-columns: repeat(4, 50px);
+      grid-template-rows: minmax(120px, auto) repeat(6, 50px);  
+    }
+  } */
