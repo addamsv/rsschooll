@@ -1,5 +1,7 @@
 ![img](./README_FILES/1.jpg)
 
+[Приложение](https://addamsv.github.io/covid-dashboard/)
+
 [Задание](https://github.com/rolling-scopes-school/tasks/blob/master/tasks/covid-dashboard.md)
 
 ### Дедлайн 23.12.2020 23:59
