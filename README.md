@@ -2,7 +2,7 @@
 <p align="center">
   <b>Stack:</b> RWD layouts, CoreJS, Git<br>
   <b>Responsibility:</b> Team lead.  Settings of whole project; features:  map, keyboard, list of countries<br>
-  (Team project. 2 participants)<br>
+  (Team project. 2 participants. Elizaveta Panasiuk: https://github.com/ElizavetaPanasiuk)<br>
 </p>
 <p align="center">
   <a href="https://github.com/addamsv/rsschooll/tree/covid-dashboard">
