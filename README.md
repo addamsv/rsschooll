@@ -8,10 +8,10 @@
   <a href="https://addamsv.github.io/covid-dashboard/">
     <img src="./README_FILES/cvddsh.jpg" width="300px" height="200px">
   </a><br>
-  <a href="https://github.com/addamsv/covid-dashboard">
+  <a href="https://github.com/addamsv/rsschooll/covid-dashboard">
     <img src="./README_FILES/github.png" width="30px" height="30px">
   </a><br><br>
-  <a href="https://addamsv.github.io/covid-dashboard/" title="demo">
+  <a href="https://addamsv.github.io/rsschooll/covid-dashboard/" title="demo">
     <img src="./README_FILES/see_more.png" width="104px" height="43px"></a>
   </a>
   <br>
