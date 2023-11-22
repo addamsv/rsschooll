@@ -5,10 +5,10 @@
   (Team project. 2 participants)<br>
 </p>
 <p align="center">
-  <a href="https://addamsv.github.io/covid-dashboard/">
+  <a href="https://github.com/addamsv/rsschooll/tree/covid-dashboard">
     <img src="./README_FILES/cvddsh.jpg" width="300px" height="200px">
   </a><br>
-  <a href="https://github.com/addamsv/rsschooll/covid-dashboard">
+  <a href="https://github.com/addamsv/rsschooll/tree/covid-dashboard">
     <img src="./README_FILES/github.png" width="30px" height="30px">
   </a><br><br>
   <a href="https://addamsv.github.io/rsschooll/covid-dashboard/" title="demo">
