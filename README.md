@@ -12,7 +12,7 @@
     <img src="./README_FILES/github.png" width="30px" height="30px">
   </a><br><br>
   <a href="https://addamsv.github.io/rsschooll/covid-dashboard/" title="demo">
-    <img src="./README_FILES/see_more.png" width="104px" height="43px"></a>
+    <img src="./README_FILES/see_project_btn.png" width="104px" height="43px"></a>
   </a>
   <br>
 </p>
@@ -31,7 +31,7 @@
     <img src="./README_FILES/github.png" width="30px" height="30px">
   </a><br><br>
   <a href="https://addamsv.github.io/rsschooll/momentum/" title="demo">
-    <img src="./README_FILES/see_more.png" width="104px" height="43px"></a>
+    <img src="./README_FILES/see_project_btn.png" width="104px" height="43px"></a>
   </a>
   <br>
 </p>
@@ -51,7 +51,7 @@
     <img src="./README_FILES/github.png" width="30px" height="30px">
   </a><br><br>
   <a href="https://addamsv.github.io/rsschooll/gem-puzzle/" title="demo">
-    <img src="./README_FILES/see_more.png" width="104px" height="43px"></a>
+    <img src="./README_FILES/see_project_btn.png" width="104px" height="43px"></a>
   </a>
   <br>
 </p>
@@ -68,7 +68,7 @@
     <img src="./README_FILES/shltr3.png" width="100px" height="200px">
   </a><br><br>
   <a href="https://rolling-scopes-school.github.io/addamsv-JS2020Q3/shelter/pages/main/" title="demo">
-    <img src="./README_FILES/see_more.png" width="104px" height="43px"></a>
+    <img src="./README_FILES/see_project_btn.png" width="104px" height="43px"></a>
   </a>
   <br>
 </p>
@@ -87,7 +87,7 @@
     <img src="./README_FILES/github.png" width="30px" height="30px">
   </a><br><br>
   <a href="https://rolling-scopes-school.github.io/addamsv-JS2020Q3/rs-css/" title="demo">
-    <img src="./README_FILES/see_more.png" width="104px" height="43px"></a>
+    <img src="./README_FILES/see_project_btn.png" width="104px" height="43px"></a>
   </a>
   <br>
 </p>
@@ -108,7 +108,7 @@
     <img src="./README_FILES/github.png" width="30px" height="30px">
   </a><br><br>
   <a href="https://addamsv.github.io/rsschooll/calculator/" title="demo">
-    <img src="./README_FILES/see_more.png" width="104px" height="43px"></a>
+    <img src="./README_FILES/see_project_btn.png" width="104px" height="43px"></a>
   </a>
   <br>
 </p>
@@ -126,7 +126,7 @@
     <img src="./README_FILES/kb.png" width="300px" height="316px">
   </a><br><br>
   <a href="https://rolling-scopes-school.github.io/addamsv-JS2020Q3/virtual-keyboard" title="demo">
-    <img src="./README_FILES/see_more.png" width="104px" height="43px"></a>
+    <img src="./README_FILES/see_project_btn.png" width="104px" height="43px"></a>
   </a>
   <br>
 </p>
